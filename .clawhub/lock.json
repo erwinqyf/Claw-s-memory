@@ -20,6 +20,10 @@
     "weekly-report-generator": {
       "version": "1.0.0",
       "installedAt": 1773290280694
+    },
+    "feishu-doc-manager": {
+      "version": "1.0.0",
+      "installedAt": 1773298442204
     }
   }
 }
