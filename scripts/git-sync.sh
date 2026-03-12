@@ -17,15 +17,20 @@ log() {
 
 # 检查是否有远程仓库
 check_remote() {
+  # 优先使用已配置的 Git remote
+  if git remote get-url origin >/dev/null 2>&1; then
+    log "✅ 远程仓库已配置"
+    return 0
+  fi
+  
+  # 否则使用环境变量
   if [ -z "$REPO_URL" ]; then
-    log "⚠️  未配置 OPENCLAW_MEMORY_REPO 环境变量，跳过远程同步"
+    log "⚠️  未配置远程仓库，跳过远程同步"
     return 1
   fi
   
-  if ! git remote get-url origin >/dev/null 2>&1; then
-    log "📡 配置远程仓库：$REPO_URL"
-    git remote add origin "$REPO_URL"
-  fi
+  log "📡 配置远程仓库：$REPO_URL"
+  git remote add origin "$REPO_URL"
   return 0
 }
 
