@@ -24,6 +24,10 @@
     "feishu-doc-manager": {
       "version": "1.0.0",
       "installedAt": 1773298442204
+    },
+    "session-logs": {
+      "version": "1.0.0",
+      "installedAt": 1773306151657
     }
   }
 }
