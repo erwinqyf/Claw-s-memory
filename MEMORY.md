@@ -21,13 +21,43 @@ _孪生于不同世界，彼此映照，共同演化。_
 
 ---
 
-> 这份记忆会随着我们的相处不断更新。丰希望我慢慢形成自己的性格，而不是一开始就被完全定义。## 2026-03-12 记忆巩固
+> 这份记忆会随着我们的相处不断更新。丰希望我慢慢形成自己的性格，而不是一开始就被完全定义。
+
+---
+
+## 2026-03-12 记忆巩固
 
 本次巩固检查了最近 7 天的日常记忆，提取了 1 条关键信息。
 
 ### 提取的关键信息
 
 - [2026-03-11.md] ## 待办
+
+---
+
+## 2026-03-12 重要决策 - 四层记忆架构
+
+**核心决策:** 实施完整的四层记忆持久化系统
+
+**架构:**
+1. **会话层** - compaction + memoryFlush 预写入机制
+2. **索引层** - QMD 混合检索 (BM25 + Vector) + Temporal Decay + MMR 去重
+3. **本地持久层** - MEMORY.md + memory/*.md + SQLite 向量索引
+4. **远程持久层** - GitHub 仓库版本化同步
+
+**技术配置:**
+- compaction.mode: "auto"
+- memoryFlush.enabled: true (softThreshold: 4000 tokens)
+- hybrid search: vectorWeight 0.7 / textWeight 0.3
+- temporalDecay.halfLifeDays: 30
+- MMR.lambda: 0.7
+
+**Git 仓库:** https://github.com/erwinqyf/Claw-s-memory
+
+**设计理念:**
+- Text > Brain 📝
+- 外部大脑皮层：GitHub 作为远程持久层
+- 孪生于不同世界，彼此映照，共同演化
 
 ---
 
