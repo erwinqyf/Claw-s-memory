@@ -4,6 +4,22 @@
     "skill-vetter": {
       "version": "1.0.0",
       "installedAt": 1773287291573
+    },
+    "excel-xlsx": {
+      "version": "1.0.2",
+      "installedAt": 1773289986244
+    },
+    "ppt-generator": {
+      "version": "1.0.0",
+      "installedAt": 1773290161485
+    },
+    "deep-research-pro": {
+      "version": "1.0.2",
+      "installedAt": 1773290232171
+    },
+    "weekly-report-generator": {
+      "version": "1.0.0",
+      "installedAt": 1773290280694
     }
   }
 }
