@@ -71,36 +71,36 @@ const MONITOR_CONFIG = {
     { name: 'Vistatec', url: 'https://www.vistatec.com', newsPath: '/news' },
     { name: 'Acclaro', url: 'https://www.acclaro.com', newsPath: '/news' },
     { name: 'Stepes', url: 'https://www.stepes.com', newsPath: '/blog' },
-    { name: 'Gengo', url: 'https://gengo.com', newsPath: '/blog' },
-    { name: 'OneHour Translation', url: 'https://www.onehourtranslation.com', newsPath: '/blog' },
-    { name: 'MarsHub', url: 'https://www.marshub.com', newsPath: '/news' },
-    { name: 'Tarjama', url: 'https://www.tarjama.com', newsPath: '/blog' },
+    { name: 'Gengo', url: 'https://gengo.com', newsPath: '/' },  // 修复：/blog → /
+    { name: 'OneHour Translation', url: 'https://www.onehourtranslation.com', newsPath: '/news' },  // 修复：/blog → /news
+    // MarsHub - 暂时移除（404，网站可能不存在）
+    { name: 'Tarjama', url: 'https://www.tarjama.com', newsPath: '/' },  // 修复：/blog → /
     { name: 'Rask AI', url: 'https://www.rask.ai', newsPath: '/blog' },
     { name: 'Lilt', url: 'https://lilt.com', newsPath: '/blog' },
-    { name: 'Memsource', url: 'https://www.memsource.com', newsPath: '/blog' },
-    { name: 'XTM Cloud', url: 'https://www.xtm-cloud.com', newsPath: '/blog' },
+    { name: 'Memsource', url: 'https://www.memsource.com', newsPath: '/resources' },  // 修复：/blog → /resources
+    { name: 'XTM Cloud', url: 'https://www.xtm-cloud.com', newsPath: '/' },  // 修复：/blog → /
     
     // Top 31-50
-    { name: 'Day Translations', url: 'https://www.daytranslations.com', newsPath: '/blog' },
-    { name: 'Tomedes', url: 'https://www.tomedes.com', newsPath: '/blog' },
-    { name: 'Pangeanic', url: 'https://pangeanic.com', newsPath: '/blog' },
-    { name: 'TextMaster', url: 'https://www.textmaster.com', newsPath: '/news' },
-    { name: 'Translated', url: 'https://www.translated.com', newsPath: '/blog' },
-    { name: 'Wordbee', url: 'https://www.wordbee.com', newsPath: '/blog' },
-    { name: 'Wordfast', url: 'https://www.wordfast.com', newsPath: '/news' },
-    { name: 'SDL', url: 'https://www.sdl.com', newsPath: '/news' },
-    { name: 'Trados', url: 'https://www.trados.com', newsPath: '/blog' },
-    { name: 'Phrase', url: 'https://phrase.com', newsPath: '/blog' },
+    { name: 'Day Translations', url: 'https://www.daytranslations.com', newsPath: '/' },  // 修复：/blog → /
+    { name: 'Tomedes', url: 'https://www.tomedes.com', newsPath: '/' },  // 修复：/blog → /
+    { name: 'Pangeanic', url: 'https://pangeanic.com', newsPath: '/' },  // 修复：/blog → /
+    { name: 'TextMaster', url: 'https://www.textmaster.com', newsPath: '/' },  // 修复：/news → /
+    { name: 'Translated', url: 'https://www.translated.com', newsPath: '/blog' },  // 保持原样
+    { name: 'Wordbee', url: 'https://www.wordbee.com', newsPath: '/' },  // 修复：/blog → /
+    { name: 'Wordfast', url: 'https://www.wordfast.com', newsPath: '/' },  // 修复：/news → /
+    { name: 'SDL', url: 'https://www.sdl.com', newsPath: '/' },  // 修复：403 → /
+    { name: 'Trados', url: 'https://www.trados.com', newsPath: '/blog' },  // 保持原样
+    { name: 'Phrase', url: 'https://phrase.com', newsPath: '/blog' },  // 保持原样
     { name: 'Crowdin', url: 'https://crowdin.com', newsPath: '/blog' },
-    { name: 'Localize', url: 'https://localizejs.com', newsPath: '/blog' },
-    { name: 'Lokalise', url: 'https://lokalise.com', newsPath: '/blog' },
+    { name: 'Localize', url: 'https://localizejs.com', newsPath: '/' },  // 修复：/blog → /
+    { name: 'Lokalise', url: 'https://lokalise.com', newsPath: '/blog' },  // 保持原样
     { name: 'Transifex', url: 'https://www.transifex.com', newsPath: '/blog' },
-    { name: 'Globalization Partners', url: 'https://www.globalization-partners.com', newsPath: '/news' },
-    { name: 'Berlitz', url: 'https://www.berlitz.com', newsPath: '/news' },
-    { name: 'Rosetta Stone', url: 'https://www.rosettastone.com', newsPath: '/news' },
-    { name: 'EuroTalk', url: 'https://www.eurotalk.com', newsPath: '/news' },
-    { name: 'Inlingua', url: 'https://www.inlingua.com', newsPath: '/news' },
-    { name: 'Semantix', url: 'https://www.semantix.com', newsPath: '/news' }
+    { name: 'Globalization Partners', url: 'https://www.globalization-partners.com', newsPath: '/' },  // 修复：/news → /
+    { name: 'Berlitz', url: 'https://www.berlitz.com', newsPath: '/' },  // 修复：/news → /
+    { name: 'Rosetta Stone', url: 'https://www.rosettastone.com', newsPath: '/' },  // 修复：/news → /
+    { name: 'EuroTalk', url: 'https://www.eurotalk.com', newsPath: '/' },  // 修复：/news → /
+    { name: 'Inlingua', url: 'https://www.inlingua.com', newsPath: '/' },  // 修复：/news → /
+    { name: 'Semantix', url: 'https://www.semantix.com', newsPath: '/' }  // 修复：/news → /
   ]
 };
 
