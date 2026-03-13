@@ -105,7 +105,7 @@ const MONITOR_CONFIG = {
 };
 
 // HTTP GET 请求
-function httpRequest(url) {
+function httpRequest(url, followRedirect = true) {
   return new Promise((resolve, reject) => {
     https.get(url, {
       headers: {
@@ -114,6 +114,14 @@ function httpRequest(url) {
       },
       timeout: 10000
     }, (res) => {
+      // 处理重定向 (301, 302, 308)
+      if ([301, 302, 308].includes(res.statusCode) && followRedirect && res.headers.location) {
+        const redirectUrl = res.headers.location;
+        console.log(`    ↪ 重定向到：${redirectUrl}`);
+        httpRequest(redirectUrl, false).then(resolve).catch(reject);
+        return;
+      }
+      
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {

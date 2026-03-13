@@ -1,5 +1,5 @@
 {
-  "lastCheck": "2026-03-13T05:55:13.137Z",
+  "lastCheck": "2026-03-13T06:46:47.947Z",
   "articles": [
     {
       "title": "LLM translation use cases inside an enterprise translation platform",
@@ -200,6 +200,22 @@
       "source": "Transifex",
       "type": "company",
       "summary": "Removing the biggest bottleneck in software localization - Transifex 最新动态"
+    },
+    {
+      "title": "Global Business Strategy",
+      "url": "https://www.globalization-partners.com/blog/category/global-business-strategy/",
+      "date": "2026-03-13",
+      "source": "Globalization Partners",
+      "type": "company",
+      "summary": "Global Business Strategy - Globalization Partners 最新动态"
+    },
+    {
+      "title": "What is an Employer of Record (EOR)",
+      "url": "https://www.globalization-partners.com/blog/what-is-an-eor/",
+      "date": "2026-03-13",
+      "source": "Globalization Partners",
+      "type": "company",
+      "summary": "What is an Employer of Record (EOR) - Globalization Partners 最新动态"
     }
   ]
 }
