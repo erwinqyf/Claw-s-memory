@@ -28,6 +28,18 @@
     "session-logs": {
       "version": "1.0.0",
       "installedAt": 1773306151657
+    },
+    "github": {
+      "version": "1.0.0",
+      "installedAt": 1773372979742
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1773373081855
+    },
+    "agent-browser": {
+      "version": "0.2.0",
+      "installedAt": 1773373141041
     }
   }
 }
