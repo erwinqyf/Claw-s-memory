@@ -16,23 +16,69 @@
 | Slator | slator.com | 行业媒体 |
 | Multilingual | multilingual.com | 行业媒体 |
 
-### 公司（13 个 - Nimdzi Top100）
+### 公司（50 个 - Nimdzi Top 100 2025）
 
-| 公司 | 官网 |
-|------|------|
-| TransPerfect | transperfect.com |
-| RWS | rws.com |
-| LanguageLine Solutions | languageline.com |
-| Keywords Studios | keywordsstudios.com |
-| Iyuno | iyunugroup.com |
-| Appen | appen.com |
-| Translate Plus | translateplus.com |
-| Acolad Group | acolad.com |
-| Welocalize | welocalize.com |
-| Centific | centific.com |
-| EC Innovations | ecinnovations.com |
-| GienTech | gientech.com |
-| Sunyu Transphere | sunyu.com |
+#### Top 10
+| 排名 | 公司 | 官网 | 总部 |
+|------|------|------|------|
+| 1 | TransPerfect | transperfect.com | 美国 |
+| 2 | RWS | rws.com | 英国 |
+| 3 | Keywords Studios | keywordsstudios.com | 英国 |
+| 4 | Lionbridge | lionbridge.com | 美国 |
+| 5 | LanguageLine Solutions | languageline.com | 美国 |
+| 6 | Sorenson | sorensonvrs.com | 美国 |
+| 7 | Iyuno | iyunugroup.com | 美国/日本 |
+| 8 | Propio Language Group | propiolanguage.com | 美国 |
+| 9 | Acolad Group | acolad.com | 法国 |
+| 10 | Welocalize | welocalize.com | 美国 |
+
+#### Top 11-30
+| 公司 | 官网 | 备注 |
+|------|------|------|
+| DeepL | deepl.com | AI 翻译，2026 新入榜 #21 |
+| EC Innovations | ecinnovations.com | - |
+| GienTech | gientech.com | 巨创，中国 |
+| Sunyu Transphere | sunyu.com | 传神，中国 |
+| Appen | appen.com | 澳大利亚 |
+| Translate Plus | translateplus.com | 阿联酋 |
+| Centific | centific.com | - |
+| Trustpoint | trustpoint.one | 2026 新入榜 #27 |
+| Smartling | smartling.com | TMS 平台 |
+| Vistatec | vistatec.com | 爱尔兰 |
+| Acclaro | acclaro.com | - |
+| Stepes | stepes.com | - |
+| Gengo | gengo.com | 日本 |
+| OneHour Translation | onehourtranslation.com | 以色列 |
+| MarsHub | marshub.com | 2026 新入榜 #79 |
+| Tarjama | tarjama.com | 2026 新入榜 #95 |
+| Rask AI | rask.ai | AI 视频翻译 |
+| Lilt | lilt.com | AI 翻译平台 |
+| Memsource | memsource.com | TMS |
+| XTM Cloud | xtm-cloud.com | TMS |
+
+#### Top 31-50
+| 公司 | 官网 | 类型 |
+|------|------|------|
+| Day Translations | daytranslations.com | 翻译服务 |
+| Tomedes | tomedes.com | 翻译服务 |
+| Pangeanic | pangeanic.com | 翻译 + 本地化 |
+| TextMaster | textmaster.com | 翻译平台 |
+| Translated | translated.com | AI+ 人工翻译 |
+| Wordbee | wordbee.com | TMS |
+| Wordfast | wordfast.com | CAT 工具 |
+| SDL | sdl.com | 语言技术 |
+| Trados | trados.com | CAT 工具 |
+| Phrase | phrase.com | 本地化平台 |
+| Crowdin | crowdin.com | 本地化平台 |
+| Localize | localizejs.com | 网站本地化 |
+| Lokalise | lokalise.com | 本地化平台 |
+| Transifex | transifex.com | 本地化平台 |
+| Globalization Partners | globalization-partners.com | 全球 HR |
+| Berlitz | berlitz.com | 语言培训 |
+| Rosetta Stone | rosettastone.com | 语言学习 |
+| EuroTalk | eurotalk.com | 语言学习 |
+| Inlingua | inlingua.com | 语言培训 |
+| Semantix | semantix.com | 北欧领先 |
 
 ---
 

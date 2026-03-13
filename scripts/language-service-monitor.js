@@ -46,19 +46,61 @@ const MONITOR_CONFIG = {
     }
   ],
   companies: [
+    // Top 10 (Nimdzi 2025)
     { name: 'TransPerfect', url: 'https://www.transperfect.com', newsPath: '/news' },
     { name: 'RWS', url: 'https://www.rws.com', newsPath: '/news' },
-    { name: 'LanguageLine Solutions', url: 'https://www.languageline.com', newsPath: '/news' },
     { name: 'Keywords Studios', url: 'https://www.keywordsstudios.com', newsPath: '/news' },
+    { name: 'Lionbridge', url: 'https://www.lionbridge.com', newsPath: '/news' },
+    { name: 'LanguageLine Solutions', url: 'https://www.languageline.com', newsPath: '/news' },
+    { name: 'Sorenson', url: 'https://www.sorensonvrs.com', newsPath: '/news' },
     { name: 'Iyuno', url: 'https://iyunugroup.com', newsPath: '/news' },
-    { name: 'Appen', url: 'https://appen.com', newsPath: '/news' },
-    { name: 'Translate Plus', url: 'https://www.translateplus.com', newsPath: '/news' },
+    { name: 'Propio Language Group', url: 'https://www.propiolanguage.com', newsPath: '/news' },
     { name: 'Acolad Group', url: 'https://www.acolad.com', newsPath: '/news' },
     { name: 'Welocalize', url: 'https://www.welocalize.com', newsPath: '/news' },
-    { name: 'Centific', url: 'https://centific.com', newsPath: '/news' },
+    
+    // Top 11-30
+    { name: 'DeepL', url: 'https://www.deepl.com', newsPath: '/blog' },
     { name: 'EC Innovations', url: 'https://www.ecinnovations.com', newsPath: '/news' },
     { name: 'GienTech', url: 'https://www.gientech.com', newsPath: '/news' },
-    { name: 'Sunyu Transphere', url: 'https://www.sunyu.com', newsPath: '/news' }
+    { name: 'Sunyu Transphere', url: 'https://www.sunyu.com', newsPath: '/news' },
+    { name: 'Appen', url: 'https://appen.com', newsPath: '/news' },
+    { name: 'Translate Plus', url: 'https://www.translateplus.com', newsPath: '/news' },
+    { name: 'Centific', url: 'https://centific.com', newsPath: '/news' },
+    { name: 'Trustpoint', url: 'https://trustpoint.one', newsPath: '/news' },
+    { name: 'Smartling', url: 'https://www.smartling.com', newsPath: '/blog' },
+    { name: 'Vistatec', url: 'https://www.vistatec.com', newsPath: '/news' },
+    { name: 'Acclaro', url: 'https://www.acclaro.com', newsPath: '/news' },
+    { name: 'Stepes', url: 'https://www.stepes.com', newsPath: '/blog' },
+    { name: 'Gengo', url: 'https://gengo.com', newsPath: '/blog' },
+    { name: 'OneHour Translation', url: 'https://www.onehourtranslation.com', newsPath: '/blog' },
+    { name: 'MarsHub', url: 'https://www.marshub.com', newsPath: '/news' },
+    { name: 'Tarjama', url: 'https://www.tarjama.com', newsPath: '/blog' },
+    { name: 'Rask AI', url: 'https://www.rask.ai', newsPath: '/blog' },
+    { name: 'Lilt', url: 'https://lilt.com', newsPath: '/blog' },
+    { name: 'Memsource', url: 'https://www.memsource.com', newsPath: '/blog' },
+    { name: 'XTM Cloud', url: 'https://www.xtm-cloud.com', newsPath: '/blog' },
+    
+    // Top 31-50
+    { name: 'Day Translations', url: 'https://www.daytranslations.com', newsPath: '/blog' },
+    { name: 'Tomedes', url: 'https://www.tomedes.com', newsPath: '/blog' },
+    { name: 'Pangeanic', url: 'https://pangeanic.com', newsPath: '/blog' },
+    { name: 'TextMaster', url: 'https://www.textmaster.com', newsPath: '/news' },
+    { name: 'Translated', url: 'https://www.translated.com', newsPath: '/blog' },
+    { name: 'Wordbee', url: 'https://www.wordbee.com', newsPath: '/blog' },
+    { name: 'Wordfast', url: 'https://www.wordfast.com', newsPath: '/news' },
+    { name: 'SDL', url: 'https://www.sdl.com', newsPath: '/news' },
+    { name: 'Trados', url: 'https://www.trados.com', newsPath: '/blog' },
+    { name: 'Phrase', url: 'https://phrase.com', newsPath: '/blog' },
+    { name: 'Crowdin', url: 'https://crowdin.com', newsPath: '/blog' },
+    { name: 'Localize', url: 'https://localizejs.com', newsPath: '/blog' },
+    { name: 'Lokalise', url: 'https://lokalise.com', newsPath: '/blog' },
+    { name: 'Transifex', url: 'https://www.transifex.com', newsPath: '/blog' },
+    { name: 'Globalization Partners', url: 'https://www.globalization-partners.com', newsPath: '/news' },
+    { name: 'Berlitz', url: 'https://www.berlitz.com', newsPath: '/news' },
+    { name: 'Rosetta Stone', url: 'https://www.rosettastone.com', newsPath: '/news' },
+    { name: 'EuroTalk', url: 'https://www.eurotalk.com', newsPath: '/news' },
+    { name: 'Inlingua', url: 'https://www.inlingua.com', newsPath: '/news' },
+    { name: 'Semantix', url: 'https://www.semantix.com', newsPath: '/news' }
   ]
 };
 
