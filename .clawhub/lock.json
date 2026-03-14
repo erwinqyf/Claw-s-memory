@@ -40,6 +40,22 @@
     "agent-browser": {
       "version": "0.2.0",
       "installedAt": 1773373141041
+    },
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1773466955254
+    },
+    "proactive-agent": {
+      "version": "3.1.0",
+      "installedAt": 1773467080479
+    },
+    "self-improving": {
+      "version": "1.2.16",
+      "installedAt": 1773467103020
+    },
+    "doc-summarize-pro": {
+      "version": "2.3.0",
+      "installedAt": 1773470764195
     }
   }
 }

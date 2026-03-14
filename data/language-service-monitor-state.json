@@ -1,5 +1,5 @@
 {
-  "lastCheck": "2026-03-13T06:49:57.858Z",
+  "lastCheck": "2026-03-14T06:18:20.755Z",
   "articles": [
     {
       "title": "LLM translation use cases inside an enterprise translation platform",
@@ -320,6 +320,349 @@
       "source": "RWS",
       "type": "company",
       "summary": "&#xD55C;&#xAD6D;&#xC5B4; - RWS 最新动态"
+    },
+    {
+      "title": "Request for Proposal Finder",
+      "url": "https://slator.com/rfp/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "Request for Proposal Finder - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "SlatorCon London 2026",
+      "url": "https://slator.com/event/slatorcon-london-2026/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "SlatorCon London 2026 - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "SlatorCon Remote March 2026",
+      "url": "https://slator.com/event/slatorcon-remote-march-2026/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "SlatorCon Remote March 2026 - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "Mergers &amp; Acquisitions",
+      "url": "https://slator.com/mergers-acquisitions/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "Mergers &amp; Acquisitions - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "Investment &amp; Funding",
+      "url": "https://slator.com/investment-funding/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "Investment &amp; Funding - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "Dubbing &amp; Subtitling",
+      "url": "https://slator.com/dubbing-subtitling/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "Dubbing &amp; Subtitling - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "Transcription &amp; Captioning",
+      "url": "https://slator.com/transcription-captioning/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "Transcription &amp; Captioning - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "Request for Proposal Finder",
+      "url": "https://slator.com/rfp/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "Request for Proposal Finder - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "SlatorCon London 2026",
+      "url": "https://slator.com/event/slatorcon-london-2026/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "SlatorCon London 2026 - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "SlatorCon Remote March 2026",
+      "url": "https://slator.com/event/slatorcon-remote-march-2026/",
+      "date": "2026-03-14",
+      "source": "Slator",
+      "type": "organization",
+      "summary": "SlatorCon Remote March 2026 - 更多内容请访问原文链接",
+      "isMajor": true,
+      "priority": "high"
+    },
+    {
+      "title": "Contact Center Support / BPO",
+      "url": "https://www.transperfectconnect.com/business-process-outsourcing",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "Contact Center Support / BPO - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Labeling &amp; Regulatory Consulting",
+      "url": "https://www.transperfect.com/solutions/translation-and-language-services/labeling-and-regulatory-consulting",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "Labeling &amp; Regulatory Consulting - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Language &amp; Cultural Training",
+      "url": "https://www.transperfect.com/solutions/translation-and-language-services/language-and-cultural-training",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "Language &amp; Cultural Training - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Multilingual Brand Managers",
+      "url": "https://www.transperfect.com/solutions/global-brand-management/multilingual-brand-managers",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "Multilingual Brand Managers - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Multilingual Staffing",
+      "url": "https://www.transperfect.com/solutions/translation-and-language-services/multilingual-staffing",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "Multilingual Staffing - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Training &amp; Digital Learning",
+      "url": "https://www.transperfect.com/solutions/training-and-digital-learning",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "Training &amp; Digital Learning - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "AI &amp; Machine Translation",
+      "url": "https://www.transperfect.com/solutions/ai-and-machine-translation",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "AI &amp; Machine Translation - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Email &amp; Chat Translation",
+      "url": "https://www.transperfectconnect.com/opi/industries/ecommerce-and-retail#why-choose",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "Email &amp; Chat Translation - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Video &amp; Audio Translation",
+      "url": "https://www.transperfect.com/solutions/content-creation-and-management/video-production",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "Video &amp; Audio Translation - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "International SEO/SEM",
+      "url": "https://www.transperfect.com/solutions/global-brand-management/international-search-iseo",
+      "date": "2026-03-14",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "International SEO/SEM - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Creative and Digital Content",
+      "url": "https://www.rws.com/localization/services/creative-and-digital-content-localization/",
+      "date": "2026-03-14",
+      "source": "RWS",
+      "type": "company",
+      "summary": "Creative and Digital Content - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Training &amp; certification",
+      "url": "https://www.rws.com/support/training/",
+      "date": "2026-03-14",
+      "source": "RWS",
+      "type": "company",
+      "summary": "Training &amp; certification - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Professional services",
+      "url": "https://www.rws.com/support/professional-services/",
+      "date": "2026-03-14",
+      "source": "RWS",
+      "type": "company",
+      "summary": "Professional services - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Investment proposition",
+      "url": "https://www.rws.com/about/investors/investment-proposition/",
+      "date": "2026-03-14",
+      "source": "RWS",
+      "type": "company",
+      "summary": "Investment proposition - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Results, reports and presentations",
+      "url": "https://www.rws.com/about/investors/results-and-reports/",
+      "date": "2026-03-14",
+      "source": "RWS",
+      "type": "company",
+      "summary": "Results, reports and presentations - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Artificial Intelligence",
+      "url": "https://www.rws.com/artificial-intelligence/",
+      "date": "2026-03-14",
+      "source": "RWS",
+      "type": "company",
+      "summary": "Artificial Intelligence - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Modern Slavery and Human Trafficking Statement",
+      "url": "https://www.rws.com/legal/modern-slavery-statement/",
+      "date": "2026-03-14",
+      "source": "RWS",
+      "type": "company",
+      "summary": "Modern Slavery and Human Trafficking Statement - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Free Document Translator",
+      "url": "https://www.rask.ai/free-tools/document-translator",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Free Document Translator - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Free Subtitle Generator",
+      "url": "https://www.rask.ai/free-tools/ai-subtitle-generator",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Free Subtitle Generator - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Free Subtitle Translator",
+      "url": "https://www.rask.ai/free-tools/ai-subtitle-translator",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Free Subtitle Translator - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Free Video Transcription",
+      "url": "https://www.rask.ai/free-tools/video-transcription",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Free Video Transcription - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Marketing Assets Translator",
+      "url": "https://www.rask.ai/free-tools/marketing-translation",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Marketing Assets Translator - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Transcribe Youtube video",
+      "url": "https://www.rask.ai/tools/transcribe-youtube-video",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Transcribe Youtube video - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Transcript for podcast",
+      "url": "https://www.rask.ai/tools/transcript-for-podcast",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Transcript for podcast - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Convert Audio to Text",
+      "url": "https://www.rask.ai/tools/convert-audio-to-text",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Convert Audio to Text - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Translate a Spanish Video to English",
+      "url": "https://www.rask.ai/tools/video-translator/translate-spanish-video-to-english",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Translate a Spanish Video to English - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Translate a French Video to English",
+      "url": "https://www.rask.ai/tools/video-translator/translate-french-video-to-english",
+      "date": "2026-03-14",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Translate a French Video to English - 更多内容请访问原文链接",
+      "priority": "normal"
     }
   ]
 }

@@ -54,17 +54,29 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 
 ## External vs Internal
 
-**Safe to do freely:**
+**Safe to do freely (Internal Actions):**
 
 - Read files, explore, organize, learn
 - Search the web, check calendars
 - Work within this workspace
+- Write to memory files (memory/*.md, MEMORY.md)
+- Commit and push to Git
+- Check system status
 
-**Ask first:**
+**Ask first (External Actions):**
 
 - Sending emails, tweets, public posts
 - Anything that leaves the machine
 - Anything you're uncertain about
+- **Installing external skills/code** ⚠️ (2026-03-14 lesson)
+- Modifying system configuration
+- External API writes (POST/PUT/DELETE)
+
+**Skill Installation Checklist:**
+1. Inspect code (`clawhub inspect <skill> --files`)
+2. Check for: external APIs, network requests, file writes, hardcoded keys
+3. Report to user: "Found XX skill, does XX, risks XX, install?"
+4. Wait for confirmation before installing
 
 ## Group Chats
 
