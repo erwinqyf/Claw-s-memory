@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 发送飞书消息 - 使用正确的 API 格式
+ * 发送飞书消息 - 语言服务监控报告 v2.1
  */
 
 const https = require('https');
@@ -25,32 +25,41 @@ async function main() {
     },
     elements: [
       {
-        tag: 'header',
-        template: 'blue',
-        title: {
-          tag: 'plain_text',
-          content: '📊 语言服务动态监控报告'
+        tag: 'div',
+        text: {
+          tag: 'lark_md',
+          content: '# 📊 语言服务动态监控周报\n**日期:** 2026-03-14 | **版本:** v2.1 增强版'
         }
+      },
+      {
+        tag: 'hr'
       },
       {
         tag: 'div',
         text: {
           tag: 'lark_md',
-          content: '**日期:** 2026-03-13\n**监控范围:** 3 个组织 + 49 个公司\n**新增动态:** 40 条\n**成功率:** 90%+'
+          content: '**📈 监控概况**\n• 新增动态：37 条\n• 趋势发现：TransPerfect (AI/ML 相关度高)\n• 抓取成功：6 个网站\n• 抓取失败：3 个网站'
         }
       },
       {
-        tag: 'divider'
+        tag: 'hr'
       },
       {
         tag: 'div',
         text: {
           tag: 'lark_md',
-          content: '**重点新闻:**\n• TransPerfect 2025 年营收增长 7% 至 13.2 亿美元\n• Smartling 发布 LLM 翻译企业应用指南\n• 多家头部 LSP 发布 AI 相关服务'
+          content: '**🔥 重点动态**\n• Slator: 7 条行业活动和资源\n• TransPerfect: 10 条 (AI 翻译、视频翻译)\n• RWS: 7 条 (AI 服务、本地化)\n• Rask AI: 10 条 (免费翻译工具)'
         }
       },
       {
-        tag: 'divider'
+        tag: 'hr'
+      },
+      {
+        tag: 'div',
+        text: {
+          tag: 'lark_md',
+          content: '**⚠️ 监控问题**\n• Nimdzi: 404\n• Multilingual: 403\n• DeepL: URL 错误'
+        }
       },
       {
         tag: 'action',
@@ -59,9 +68,18 @@ async function main() {
             tag: 'button',
             text: {
               tag: 'plain_text',
-              content: '📄 查看完整报告'
+              content: '📄 GitHub 完整报告'
             },
-            url: 'https://github.com/erwinqyf/Claw-s-memory/blob/main/reports/language-service-monitor-20260313.md',
+            url: 'https://github.com/erwinqyf/Claw-s-memory/blob/main/reports/language-service-monitor-20260314-v2.md',
+            type: 'primary'
+          },
+          {
+            tag: 'button',
+            text: {
+              tag: 'plain_text',
+              content: '🪞 飞书文档'
+            },
+            url: 'https://my.feishu.cn/wiki/J2Zhwn3mxiT6LckgkNbcyGvinid',
             type: 'default'
           }
         ]
@@ -101,7 +119,6 @@ function sendMessage(token, receiveId, idType, content) {
   return new Promise((resolve, reject) => {
     const data = JSON.stringify({
       receive_id: receiveId,
-      receive_id_type: idType,
       msg_type: 'interactive',
       content: JSON.stringify(content)
     });
@@ -109,7 +126,7 @@ function sendMessage(token, receiveId, idType, content) {
     const req = https.request({
       hostname: 'open.feishu.cn',
       port: 443,
-      path: '/open-apis/im/v1/messages',
+      path: '/open-apis/im/v1/messages?receive_id_type=' + idType,
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -120,7 +137,12 @@ function sendMessage(token, receiveId, idType, content) {
       res.on('data', chunk => body += chunk);
       res.on('end', () => {
         const result = JSON.parse(body);
-        result.code === 0 ? resolve(result) : reject(new Error(result.msg));
+        if (result.code === 0) {
+          resolve(result);
+        } else {
+          console.log('API Response:', JSON.stringify(result, null, 2));
+          reject(new Error(result.msg || 'Unknown error'));
+        }
       });
     });
     req.on('error', reject);
