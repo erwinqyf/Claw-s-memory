@@ -24,12 +24,24 @@
 - [ ] 检查是否有未回复的重要对话
 - [ ] 检查文档协作请求
 
-### 4. 定时任务健康检查
-- [ ] 运行 `openclaw cron list` 检查任务状态
-- [ ] 查看是否有任务状态为 `error` 且 `Last` 执行时间异常
-- [ ] 检查 `openclaw cron status` 的 `nextWakeAtMs` 是否正常
-- [ ] 如发现任务失败，查看运行日志：`openclaw cron runs --id <任务 ID>`
-- [ ] 重要任务失败时通知丰
+### 4. 定时任务健康检查（Claw 主动汇总）
+
+**执行流程：**
+1. 运行 `openclaw cron list` 获取所有任务状态
+2. 筛选出状态异常的任务（`error` / `skipped` 连续多次）
+3. 对失败任务运行 `openclaw cron runs --id <任务 ID>` 查看详细日志
+4. **汇总整理后通知丰**（而不是让任务自己通知）
+
+**检查重点：**
+- 高优先级任务是否失败（priority: high）
+- 同一任务是否连续失败（consecutiveErrors > 1）
+- 任务是否应该执行但未执行（Last 时间异常）
+- 飞书投递失败的任务（deliveryStatus: unknown/error）
+
+**汇报策略：**
+- ✅ 一切正常 → `HEARTBEAT_OK`（不打扰）
+- ⚠️ 有任务失败 → 汇总失败原因 + 建议修复方案
+- 📊 任务完成但需确认 → 简要总结执行结果
 
 ### 5. 系统状态检查
 - [ ] 检查 openclaw 服务状态
