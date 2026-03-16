@@ -25,17 +25,35 @@ const CONFIG = {
   // 新闻源配置
   feeds: {
     political: [
-      { name: 'NYT World', url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', lang: 'en' }
+      { name: 'NYT World', url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', lang: 'en' },
+      { name: 'Reuters World', url: 'https://www.reutersagency.com/feed/', lang: 'en' },
+      { name: 'BBC World', url: 'http://feeds.bbci.co.uk/news/world/rss.xml', lang: 'en' },
+      { name: '联合早报', url: 'https://www.zaobao.com.sg/rss/news/china.xml', lang: 'zh' },
+      { name: '英国卫报', url: 'https://www.theguardian.com/world/rss', lang: 'en' },
+      { name: '经济学人', url: 'https://www.economist.com/world/rss', lang: 'en' },
+      { name: '泰晤士报', url: 'https://www.thetimes.co.uk/feed/rss/world', lang: 'en' },
+      { name: '塔斯社', url: 'https://tass.com/rss/v2.xml', lang: 'ru' }
     ],
     economy: [
-      { name: 'NYT Business', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml', lang: 'en' }
+      { name: 'NYT Business', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml', lang: 'en' },
+      { name: 'Reuters Business', url: 'https://www.reutersagency.com/feed/?best-topics=business-finance', lang: 'en' },
+      { name: 'Bloomberg', url: 'https://www.bloomberg.com/feed/podcast/etf.xml', lang: 'en' },
+      { name: '华尔街日报', url: 'https://feeds.a.dj.com/rss/RSSWorldNews.xml', lang: 'en' },
+      { name: '经济学人财经', url: 'https://www.economist.com/finance-and-economics/rss', lang: 'en' }
     ],
     culture: [
-      { name: 'NYT Arts', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml', lang: 'en' }
+      { name: 'NYT Arts', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml', lang: 'en' },
+      { name: 'BBC Culture', url: 'http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml', lang: 'en' },
+      { name: '卫报文化', url: 'https://www.theguardian.com/culture/rss', lang: 'en' },
+      { name: '知乎日报', url: 'https://daily.zhihu.com/rss', lang: 'zh' }
     ],
     technology: [
       { name: 'NYT Technology', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml', lang: 'en' },
-      { name: 'TechCrunch', url: 'https://techcrunch.com/feed/', lang: 'en' }
+      { name: 'TechCrunch', url: 'https://techcrunch.com/feed/', lang: 'en' },
+      { name: 'The Verge', url: 'https://www.theverge.com/rss/index.xml', lang: 'en' },
+      { name: 'Wired', url: 'https://www.wired.com/feed/rss', lang: 'en' },
+      { name: 'Hacker News', url: 'https://hnrss.org/frontpage', lang: 'en' },
+      { name: '36 氪', url: 'https://36kr.com/feed', lang: 'zh' }
     ]
   },
 
