@@ -1,0 +1,31 @@
+{
+  "lastRun": "2026-03-15T15:33:08.244Z",
+  "lastRunDate": "2026-03-15",
+  "categories": [
+    {
+      "category": "political",
+      "itemsCount": 5,
+      "totalAvailable": 55,
+      "errors": []
+    },
+    {
+      "category": "economy",
+      "itemsCount": 5,
+      "totalAvailable": 48,
+      "errors": []
+    },
+    {
+      "category": "culture",
+      "itemsCount": 5,
+      "totalAvailable": 61,
+      "errors": []
+    },
+    {
+      "category": "technology",
+      "itemsCount": 5,
+      "totalAvailable": 40,
+      "errors": []
+    }
+  ],
+  "totalItems": 20
+}
