@@ -11,6 +11,12 @@
  * 
  * 用法：node scripts/cron-health-check.js
  * 定时：每小时执行一次
+ * 
+ * 优化记录 (2026-03-18):
+ * - 简化报告格式，减少 token 消耗
+ * - 移除冗余 console.log 输出
+ * - 添加执行时间统计
+ * - 区分严重告警 vs 警告
  */
 
 const fs = require('fs');
@@ -31,8 +37,8 @@ const CONFIG = {
   TASK_OVERDUE_THRESHOLD_MS: 2 * 60 * 60 * 1000,
 };
 
-console.log('🏥 Cron 调度器健康检查');
-console.log('================================');
+const startTime = Date.now();
+console.log('🏥 Cron 健康检查');
 
 const alerts = [];
 const warnings = [];
@@ -55,158 +61,114 @@ function checkJsonSyntax() {
 
 // 2. 检查调度器状态
 function checkSchedulerStatus() {
-  console.log('\n⏰ 检查调度器状态...');
   try {
     const output = execSync('openclaw cron status', { encoding: 'utf-8' });
     const status = JSON.parse(output);
     
-    const now = Date.now();
-    const nextWakeAt = status.nextWakeAtMs;
-    const diff = now - nextWakeAt;
-    
-    console.log(`当前时间：${new Date(now).toISOString()}`);
-    console.log(`下次唤醒：${new Date(nextWakeAt).toISOString()}`);
-    console.log(`时间差：${Math.round(diff / 1000 / 60)} 分钟`);
+    const diff = Date.now() - status.nextWakeAtMs;
     
     if (diff > CONFIG.STALE_THRESHOLD_MS) {
-      const msg = `❌ 调度器停滞！已超过 ${Math.round(diff / 1000 / 60 / 60)} 小时未唤醒`;
-      console.log(msg);
+      const msg = `❌ 调度器停滞 ${Math.round(diff / 1000 / 60 / 60)}h`;
       alerts.push(msg);
       return false;
     } else if (diff > CONFIG.STALE_THRESHOLD_MS / 2) {
-      const msg = `⚠️ 调度器可能异常：超过 ${Math.round(diff / 1000 / 60)} 分钟未唤醒`;
-      console.log(msg);
-      warnings.push(msg);
-    } else {
-      console.log('✅ 调度器状态正常');
+      warnings.push(`⚠️ 调度器延迟 ${Math.round(diff / 1000 / 60)}m`);
     }
     
     return true;
   } catch (e) {
-    const msg = `❌ 无法获取调度器状态：${e.message}`;
-    console.log(msg);
-    alerts.push(msg);
+    alerts.push(`❌ 无法获取调度器状态`);
     return false;
   }
 }
 
 // 3. 检查任务错误
 function checkTaskErrors() {
-  console.log('\n📊 检查任务错误...');
   try {
     const output = execSync('openclaw cron list', { encoding: 'utf-8' });
-    const lines = output.split('\n').slice(2); // 跳过表头
+    const lines = output.split('\n').slice(2);
     
-    let errorCount = 0;
+    const errorTasks = [];
     for (const line of lines) {
       if (!line.trim()) continue;
-      
-      // 解析表格行
       const parts = line.split(/\s{2,}/).filter(Boolean);
       if (parts.length < 7) continue;
-      
       const [name, , , , , status] = parts;
-      
-      if (status === 'error') {
-        errorCount++;
-        const msg = `⚠️ 任务错误：${name.trim()}`;
-        console.log(msg);
-        warnings.push(msg);
-      }
+      if (status === 'error') errorTasks.push(name.trim());
     }
     
-    if (errorCount >= CONFIG.CONSECUTIVE_ERROR_THRESHOLD) {
-      const msg = `❌ 有 ${errorCount} 个任务连续错误，超过阈值 (${CONFIG.CONSECUTIVE_ERROR_THRESHOLD})`;
-      console.log(msg);
-      alerts.push(msg);
-    } else if (errorCount > 0) {
-      console.log(`⚠️ 共 ${errorCount} 个任务错误`);
-    } else {
-      console.log('✅ 所有任务状态正常');
+    if (errorTasks.length >= CONFIG.CONSECUTIVE_ERROR_THRESHOLD) {
+      alerts.push(`❌ ${errorTasks.length} 个任务错误`);
+    } else if (errorTasks.length > 0) {
+      warnings.push(`⚠️ ${errorTasks.length} 个任务错误`);
     }
     
-    return errorCount < CONFIG.CONSECUTIVE_ERROR_THRESHOLD;
+    return errorTasks.length < CONFIG.CONSECUTIVE_ERROR_THRESHOLD;
   } catch (e) {
-    const msg = `❌ 无法获取任务列表：${e.message}`;
-    console.log(msg);
-    alerts.push(msg);
+    alerts.push(`❌ 无法获取任务列表`);
     return false;
   }
 }
 
 // 4. 检查过期未执行的任务
 function checkOverdueTasks() {
-  console.log('\n📅 检查过期任务...');
   try {
-    const content = fs.readFileSync(JOBS_FILE, 'utf-8');
-    const data = JSON.parse(content);
+    const data = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf-8'));
     const now = Date.now();
     
-    let overdueCount = 0;
+    const overdueTasks = [];
     for (const job of data.jobs) {
-      if (!job.enabled) continue;
-      if (!job.state || !job.state.nextRunAtMs) continue;
-      
+      if (!job.enabled || !job.state?.nextRunAtMs) continue;
       const diff = now - job.state.nextRunAtMs;
       if (diff > CONFIG.TASK_OVERDUE_THRESHOLD_MS) {
-        overdueCount++;
-        const hours = Math.round(diff / 1000 / 60 / 60);
-        const msg = `⚠️ 任务过期未执行：${job.name} (${hours} 小时前应执行)`;
-        console.log(msg);
-        warnings.push(msg);
+        overdueTasks.push(`${job.name} (${Math.round(diff / 1000 / 60 / 60)}h)`);
       }
     }
     
-    if (overdueCount > 0) {
-      console.log(`⚠️ 共 ${overdueCount} 个任务过期未执行`);
-    } else {
-      console.log('✅ 所有任务按时执行');
+    if (overdueTasks.length > 0) {
+      warnings.push(`⚠️ ${overdueTasks.length} 个任务过期`);
     }
     
-    return overdueCount === 0;
+    return overdueTasks.length === 0;
   } catch (e) {
-    const msg = `❌ 无法检查过期任务：${e.message}`;
-    console.log(msg);
-    alerts.push(msg);
+    alerts.push(`❌ 无法检查过期任务`);
     return false;
   }
 }
 
 // 5. 发送告警
 function sendAlert() {
-  if (alerts.length === 0 && warnings.length === 0) {
-    console.log('\n✅ 健康检查通过，无需告警');
+  const hasAlerts = alerts.length > 0;
+  const hasWarnings = warnings.length > 0;
+  
+  if (!hasAlerts && !hasWarnings) {
+    console.log('✅ 健康检查通过');
     return;
   }
   
-  console.log('\n🚨 生成告警报告...');
-  
+  // 简洁报告格式（减少 token 消耗）
+  const timestamp = new Date().toISOString().split('T')[0];
+  const status = hasAlerts ? '❌ 严重' : '⚠️ 警告';
   const report = [
-    '## 🏥 Cron 调度器健康检查报告',
+    `# Cron 健康检查 ${timestamp}`,
     '',
-    `**检查时间：** ${new Date().toISOString()}`,
+    `**状态:** ${status}`,
     '',
-    alerts.length > 0 ? `### ❌ 严重告警 (${alerts.length})` : null,
-    ...alerts.map(a => `- ${a}`),
+    hasAlerts ? '## 告警' : '## 警告',
     '',
-    warnings.length > 0 ? `### ⚠️ 警告 (${warnings.length})` : null,
-    ...warnings.map(w => `- ${w}`),
+    ...(hasAlerts ? alerts : warnings).map(x => `- ${x}`),
     '',
-    '---',
-    '> 自动检查，发现异常请立即处理',
-  ].filter(Boolean).join('\n');
-  
-  console.log('\n' + report);
+    '> 详情：reports/cron-health-check-${timestamp}.md',
+  ].join('\n');
   
   // 保存到文件
-  const reportFile = path.join(WORKSPACE_DIR, 'reports', `cron-health-check-${new Date().toISOString().split('T')[0]}.md`);
+  const reportFile = path.join(WORKSPACE_DIR, 'reports', `cron-health-check-${timestamp}.md`);
   fs.writeFileSync(reportFile, report);
-  console.log(`\n📄 报告已保存：${reportFile}`);
   
-  // 如果有严重告警，应该通知丰（这里输出消息内容，由调用方决定如何发送）
-  if (alerts.length > 0) {
-    console.log('\n📢 需要立即通知丰！');
-    console.log('告警内容：', alerts.join('\n'));
+  console.log(`📄 报告：${reportFile}`);
+  
+  if (hasAlerts) {
+    console.log('📢 需立即通知丰');
   }
 }
 
@@ -220,6 +182,10 @@ function main() {
   results.push(checkOverdueTasks());
   
   sendAlert();
+  
+  // 执行时间统计
+  const duration = Date.now() - startTime;
+  console.log(`⏱️ 耗时：${duration}ms`);
   
   // 返回状态码（有严重告警时返回 1）
   const hasAlerts = alerts.length > 0;
