@@ -1,5 +1,5 @@
 {
-  "lastCheck": "2026-03-14T08:06:38.246Z",
+  "lastCheck": "2026-03-17T03:01:05.913Z",
   "articles": [
     {
       "title": "LLM translation use cases inside an enterprise translation platform",
@@ -663,6 +663,30 @@
       "type": "company",
       "summary": "Translate a French Video to English - 更多内容请访问原文链接",
       "priority": "normal"
+    },
+    {
+      "title": "EU AI Research Projects",
+      "url": "https://blog.pangeanic.com/involvement-in-research-and-development-european-projects",
+      "date": "2026-03-17",
+      "source": "Pangeanic",
+      "type": "company",
+      "summary": "EU AI Research Projects - Pangeanic 最新动态"
+    },
+    {
+      "title": "Innovation Seal by&nbsp;Ministry of Science &amp;&nbsp;Innovation",
+      "url": "https://blog.pangeanic.com/awarded-prestigious-innovative-sme-seal-by-spain-ministry-of-science-and-innovation",
+      "date": "2026-03-17",
+      "source": "Pangeanic",
+      "type": "company",
+      "summary": "Innovation Seal by&nbsp;Ministry of Science &amp;&nbsp;Innovation - Pangeanic 最新动态"
+    },
+    {
+      "title": "Gartner 2027 prediction",
+      "url": "https://www.gartner.com/en/newsroom/press-releases/2025-04-09-gartner-predicts-by-2027-organizations-will-use-small-task-specific-ai-models-three-times-more-than-general-purpose-large-language-models",
+      "date": "2026-03-17",
+      "source": "Pangeanic",
+      "type": "company",
+      "summary": "Gartner 2027 prediction - Pangeanic 最新动态"
     }
   ]
 }
