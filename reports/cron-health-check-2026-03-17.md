@@ -1,11 +1,9 @@
 # Cron 健康检查 2026-03-17
 
-**最后检查:** 3:42 AM (19:42 UTC)
+**状态:** ⚠️ 警告
 
-**状态:** ✅ 稳定（2 个误报）
+## 警告
 
-**错误任务（已知误报）:**
-1. **memory-consolidate-sunday-10am** - 飞书配置缺失，核心正常
-2. **weekly-report-monday-9am** - 飞书配置缺失，核心正常
+- ⚠️ 2 个任务错误
 
-**决策:** 无需通知 - 核心功能正常
+> 详情：reports/cron-health-check-${timestamp}.md
