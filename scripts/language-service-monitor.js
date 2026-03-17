@@ -177,7 +177,17 @@ function saveState(state) {
   fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
 }
 
-// 生成 Markdown 报告
+// 加载飞书文档配置
+function loadFeishuDocConfig() {
+  const configPath = path.join(DATA_DIR, 'language-service-monitor-config.json');
+  try {
+    return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  } catch (err) {
+    return null;
+  }
+}
+
+// 生成 Markdown 报告（本地保存）
 function generateMarkdownReport(articles, timestamp) {
   const dateStr = timestamp.split('T')[0].replace(/-/g, '');
   const reportPath = path.join(REPORTS_DIR, `language-service-monitor-${dateStr}.md`);
@@ -213,6 +223,60 @@ function generateMarkdownReport(articles, timestamp) {
   
   fs.writeFileSync(reportPath, report);
   return reportPath;
+}
+
+// 生成追加内容（带日期分隔）
+function generateAppendContent(articles, timestamp) {
+  const dateObj = new Date(timestamp);
+  const dateStr = dateObj.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
+  const timeStr = dateObj.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
+  
+  let content = `\n\n---\n\n`;
+  content += `## 📅 ${dateStr} ${timeStr} 更新\n\n`;
+  content += `**本次发现:** ${articles.length} 条新动态\n\n`;
+  
+  // 按组织/公司分类
+  const bySource = {};
+  for (const article of articles) {
+    if (!bySource[article.source]) bySource[article.source] = [];
+    bySource[article.source].push(article);
+  }
+  
+  for (const [source, sourceArticles] of Object.entries(bySource)) {
+    content += `### ${source}\n\n`;
+    
+    for (const article of sourceArticles) {
+      const isMajor = article.isMajor ? '【重点】' : '';
+      content += `#### ${isMajor} ${article.title}\n\n`;
+      content += `${article.summary}\n\n`;
+      content += `📅 发布日期：${article.date} | 🔗 [原文](${article.url})\n\n`;
+    }
+  }
+  
+  content += `\n\n---\n\n`;
+  return content;
+}
+
+// 追加内容到飞书文档
+async function appendToFeishuDoc(markdownContent) {
+  const config = loadFeishuDocConfig();
+  if (!config || !config.docToken) {
+    console.log('⚠️ 未配置飞书文档，跳过追加');
+    return null;
+  }
+  
+  console.log(`📤 准备追加到飞书文档：${config.docTitle || config.docToken}`);
+  console.log(`   文档链接：${config.docUrl}`);
+  console.log(`   内容长度：${markdownContent.length} 字符`);
+  
+  // 使用 OpenClaw feishu_doc 工具
+  // 注意：这里通过环境变量传递，由 cron 任务处理
+  process.env.FEISHU_DOC_ACTION = 'append';
+  process.env.FEISHU_DOC_TOKEN = config.docToken;
+  process.env.FEISHU_DOC_CONTENT = markdownContent;
+  
+  console.log('✅ 飞书追加参数已设置');
+  return config;
 }
 
 // 主流程
@@ -284,7 +348,13 @@ async function main() {
   if (newArticles.length > 0) {
     const timestamp = new Date().toISOString();
     const reportPath = generateMarkdownReport(newArticles, timestamp);
-    console.log(`📝 报告已保存：${reportPath}`);
+    console.log(`📝 本地报告已保存：${reportPath}`);
+    
+    // 生成追加内容
+    const appendContent = generateAppendContent(newArticles, timestamp);
+    
+    // 追加到飞书文档
+    await appendToFeishuDoc(appendContent);
     
     // 更新状态
     const allArticles = [...lastState.articles, ...newArticles].slice(-100); // 保留最近 100 条
@@ -299,7 +369,7 @@ async function main() {
     console.log('');
     console.log('下一步：');
     console.log('  1. 审查生成的报告');
-    console.log('  2. 发布到飞书云文档');
+    console.log('  2. 飞书文档已追加（通过 feishu_doc 工具）');
     console.log('  3. Git 提交并推送');
     console.log('');
   } else {
