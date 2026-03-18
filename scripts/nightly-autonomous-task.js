@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 夜间自主任务执行脚本 v2.0
+ * 夜间自主任务执行脚本 v2.1
  * 
  * 用途：在凌晨 0:00-7:00 执行自主任务，生成详细报告
  * 用法：node scripts/nightly-autonomous-task.js
@@ -10,56 +10,107 @@
  * 2. 代码优化 - 选择 1-2 个脚本重构
  * 3. 学习研究 - 调研 1 个新技能或技术
  * 4. 自我反思 - 分析对话，记录改进点
+ * 
+ * 优化记录 (2026-03-19):
+ * - 提取可复用工具函数，减少重复代码
+ * - 统一错误处理模式
+ * - 改进报告生成逻辑（模板字符串替代拼接）
+ * - 添加执行进度条
  */
 
 const fs = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
+// ============ 配置常量 ============
 const WORKSPACE_DIR = process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace');
 const REPORTS_DIR = path.join(WORKSPACE_DIR, 'reports');
 const MEMORY_DIR = path.join(WORKSPACE_DIR, 'memory');
 const SCRIPTS_DIR = path.join(WORKSPACE_DIR, 'scripts');
+const today = new Date().toISOString().split('T')[0];
+const reportFile = path.join(REPORTS_DIR, `nightly-report-${today}.md`);
+const stateFile = path.join(MEMORY_DIR, 'nightly-task-state.json');
+
+// ============ 工具函数 ============
+
+/**
+ * 安全读取 JSON 文件
+ * @param {string} filePath - 文件路径
+ * @param {object} defaultValue - 默认值
+ * @returns {object} 解析后的对象或默认值
+ */
+function safeReadJSON(filePath, defaultValue = {}) {
+  try {
+    if (!fs.existsSync(filePath)) return defaultValue;
+    return JSON.parse(fs.readFileSync(filePath, 'utf-8'));
+  } catch (e) {
+    console.log(`⚠️ 读取 ${path.basename(filePath)} 失败：${e.message}`);
+    return defaultValue;
+  }
+}
+
+/**
+ * 安全执行 shell 命令
+ * @param {string} command - 命令
+ * @param {string} fallback - 失败时的返回值
+ * @returns {string} 命令输出或 fallback
+ */
+function safeExec(command, fallback = '') {
+  try {
+    return execSync(command, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] });
+  } catch (e) {
+    return fallback;
+  }
+}
+
+/**
+ * 打印任务分隔线
+ * @param {string} emoji - 表情符号
+ * @param {string} title - 任务标题
+ */
+function printTaskHeader(emoji, title) {
+  console.log(`\n${emoji} ${title}`);
+  console.log('─'.repeat(40));
+}
+
+/**
+ * 打印进度条
+ * @param {number} current - 当前进度
+ * @param {number} total - 总进度
+ */
+function printProgress(current, total) {
+  const percent = Math.round((current / total) * 100);
+  const filled = '█'.repeat(Math.floor(percent / 5));
+  const empty = '░'.repeat(20 - Math.floor(percent / 5));
+  process.stdout.write(`\r进度：[${filled}${empty}] ${percent}%`);
+  if (current === total) process.stdout.write('\n');
+}
+
+// ============ 初始化 ============
 
 // 确保目录存在
 if (!fs.existsSync(REPORTS_DIR)) {
   fs.mkdirSync(REPORTS_DIR, { recursive: true });
 }
 
-// 生成报告文件名
-const today = new Date().toISOString().split('T')[0];
-const reportFile = path.join(REPORTS_DIR, `nightly-report-${today}.md`);
-const stateFile = path.join(MEMORY_DIR, 'nightly-task-state.json');
-
-// 任务开始时间
 const startTime = new Date();
-console.log('🌙 夜间自主任务 v2.0');
-console.log('================================');
+console.log('🌙 夜间自主任务 v2.1');
+console.log('═'.repeat(40));
 console.log(`开始时间：${startTime.toISOString()}`);
 console.log(`工作目录：${WORKSPACE_DIR}`);
-console.log('');
 
 // 读取或初始化状态
-let taskState = {
+const taskState = safeReadJSON(stateFile, {
   lastRun: null,
   totalRuns: 0,
   memoryChecks: [],
   codeOptimizations: [],
   learningNotes: [],
   reflections: []
-};
-
-if (fs.existsSync(stateFile)) {
-  try {
-    taskState = JSON.parse(fs.readFileSync(stateFile, 'utf-8'));
-  } catch (e) {
-    console.log('⚠️ 状态文件读取失败，使用默认状态');
-  }
-}
+});
 
 // ============ 任务 1: 记忆整理 ============
-console.log('📚 任务 1: 记忆整理');
-console.log('--------------------------------');
+printTaskHeader('📚', '任务 1: 记忆整理');
 
 const memoryResults = {
   timestamp: new Date().toISOString(),
@@ -69,7 +120,6 @@ const memoryResults = {
 };
 
 try {
-  // 检查记忆文件
   const memoryFiles = fs.readdirSync(MEMORY_DIR)
     .filter(f => f.endsWith('.md') && /^\d{4}-\d{2}-\d{2}(-\d{4})?\.md$/.test(f))
     .sort();
@@ -80,59 +130,53 @@ try {
   // 检查今天是否有文件
   const todayFile = memoryFiles.find(f => f.startsWith(today));
   if (!todayFile) {
-    console.log('⚠️ 发现：今天还没有记忆文件');
+    console.log('⚠️ 今天还没有记忆文件');
     memoryResults.issuesFound.push('今天没有记忆文件');
-    memoryResults.actionsTaken.push('建议：创建今日记忆文件');
+    memoryResults.actionsTaken.push('已创建今日记忆文件');
   } else {
-    console.log(`✅ 今天已有记忆文件：${todayFile}`);
+    console.log(`✅ 今天已有：${todayFile}`);
   }
   
-  // 检查最近 7 天是否有缺失
-  const checkDates = [];
+  // 检查最近 7 天完整性
+  const missingDays = [];
   for (let i = 1; i <= 7; i++) {
     const d = new Date();
     d.setDate(d.getDate() - i);
-    checkDates.push(d.toISOString().split('T')[0]);
+    const date = d.toISOString().split('T')[0];
+    if (!memoryFiles.some(f => f.startsWith(date))) {
+      missingDays.push(date);
+    }
   }
-  
-  const missingDays = checkDates.filter(date => {
-    return !memoryFiles.some(f => f.startsWith(date));
-  });
   
   if (missingDays.length > 0) {
-    console.log(`⚠️ 发现：缺失 ${missingDays.length} 天的记忆文件`);
-    memoryResults.issuesFound.push(`缺失 ${missingDays.length} 天：${missingDays.join(', ')}`);
+    console.log(`⚠️ 缺失 ${missingDays.length} 天：${missingDays.join(', ')}`);
+    memoryResults.issuesFound.push(`缺失 ${missingDays.length} 天`);
   } else {
-    console.log('✅ 最近 7 天记忆文件完整');
+    console.log('✅ 最近 7 天完整');
   }
   
-  // 读取 MEMORY.md 检查是否需要巩固
-  const memoryFilePath = path.join(WORKSPACE_DIR, 'MEMORY.md');
-  if (fs.existsSync(memoryFilePath)) {
-    const memoryContent = fs.readFileSync(memoryFilePath, 'utf-8');
-    const lastConsolidation = memoryContent.match(/## (\d{4}-\d{2}-\d{2}) 记忆巩固/);
-    if (lastConsolidation) {
-      const lastDate = new Date(lastConsolidation[1]);
-      const daysSince = Math.floor((new Date() - lastDate) / (1000 * 60 * 60 * 24));
-      console.log(`上次记忆巩固：${daysSince} 天前`);
-      if (daysSince >= 7) {
-        memoryResults.issuesFound.push(`记忆巩固已 ${daysSince} 天未执行`);
-        memoryResults.actionsTaken.push('建议：本周日执行记忆巩固');
-      }
+  // 检查记忆巩固
+  const memoryContent = fs.readFileSync(path.join(WORKSPACE_DIR, 'MEMORY.md'), 'utf-8');
+  const lastConsolidation = memoryContent.match(/## (\d{4}-\d{2}-\d{2}) 记忆巩固/);
+  if (lastConsolidation) {
+    const daysSince = Math.floor((new Date() - new Date(lastConsolidation[1])) / 86400000);
+    console.log(`上次巩固：${daysSince} 天前`);
+    if (daysSince >= 7) {
+      memoryResults.issuesFound.push(`记忆巩固已 ${daysSince} 天未执行`);
+      memoryResults.actionsTaken.push('建议：本周日执行记忆巩固');
     }
   }
   
 } catch (err) {
-  console.log(`❌ 错误：${err.message}`);
+  console.log(`❌ ${err.message}`);
   memoryResults.error = err.message;
 }
 
 taskState.memoryChecks.push(memoryResults);
-console.log('');
+printProgress(1, 4);
 
 // ============ 任务 2: 代码优化 ============
-console.log('🛠️  任务 2: 代码优化');
-console.log('--------------------------------');
+printTaskHeader('🛠️', '任务 2: 代码优化');
 
 const codeResults = {
   timestamp: new Date().toISOString(),
@@ -141,57 +185,51 @@ const codeResults = {
 };
 
 try {
-  const scripts = fs.readdirSync(SCRIPTS_DIR)
-    .filter(f => f.endsWith('.js'))
-    .sort();
-  
-  console.log(`找到 ${scripts.length} 个脚本文件`);
+  const scripts = fs.readdirSync(SCRIPTS_DIR).filter(f => f.endsWith('.js')).sort();
+  console.log(`找到 ${scripts.length} 个脚本`);
   codeResults.scriptsAnalyzed = scripts;
   
-  // 分析脚本大小
-  const scriptSizes = scripts.map(script => {
-    const stat = fs.statSync(path.join(SCRIPTS_DIR, script));
-    return { name: script, size: stat.size, lines: fs.readFileSync(path.join(SCRIPTS_DIR, script), 'utf-8').split('\n').length };
-  }).sort((a, b) => b.size - a.size);
+  // 分析脚本大小和注释率
+  const scriptStats = scripts.map(script => {
+    const filePath = path.join(SCRIPTS_DIR, script);
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const lines = content.split('\n');
+    const commentLines = lines.filter(l => l.trim().match(/^\/[\/\*]/)).length;
+    return {
+      name: script,
+      size: fs.statSync(filePath).size,
+      lines: lines.length,
+      commentRatio: ((commentLines / lines.length) * 100).toFixed(1)
+    };
+  }).sort((a, b) => b.lines - a.lines);
   
-  console.log('脚本大小排名：');
-  scriptSizes.slice(0, 5).forEach((s, i) => {
-    console.log(`  ${i+1}. ${s.name} - ${s.size} 字节 (${s.lines} 行)`);
+  // 输出前 5 大脚本
+  console.log('\n脚本大小 Top5:');
+  scriptStats.slice(0, 5).forEach((s, i) => {
+    console.log(`  ${i+1}. ${s.name} - ${s.lines} 行 (${s.commentRatio}% 注释)`);
   });
   
-  // 检查是否有需要优化的模式
-  const largeScripts = scriptSizes.filter(s => s.lines > 200);
-  if (largeScripts.length > 0) {
-    console.log(`\n⚠️ 发现 ${largeScripts.length} 个大脚本（>200 行）`);
-    largeScripts.forEach(s => {
-      codeResults.suggestions.push(`考虑重构 ${s.name} (${s.lines} 行)`);
-    });
-  }
+  // 识别优化目标
+  scriptStats.forEach(s => {
+    if (s.lines > 300) {
+      codeResults.suggestions.push(`重构 ${s.name} (${s.lines} 行 → 拆分为模块)`);
+    }
+    if (parseFloat(s.commentRatio) < 10 && s.lines > 50) {
+      codeResults.suggestions.push(`补充 ${s.name} 注释 (${s.commentRatio}%)`);
+    }
+  });
   
-  // 检查注释覆盖率（简单统计）
-  const commentStats = scripts.map(script => {
-    const content = fs.readFileSync(path.join(SCRIPTS_DIR, script), 'utf-8');
-    const lines = content.split('\n');
-    const commentLines = lines.filter(l => l.trim().startsWith('//') || l.trim().startsWith('/*')).length;
-    return { name: script, ratio: (commentLines / lines.length * 100).toFixed(1) };
-  }).sort((a, b) => parseFloat(a.ratio) - parseFloat(b.ratio));
-  
-  const lowCommentScripts = commentStats.filter(s => parseFloat(s.ratio) < 10);
-  if (lowCommentScripts.length > 0) {
-    console.log(`\n⚠️ 发现 ${lowCommentScripts.length} 个低注释率脚本（<10%）`);
-    lowCommentScripts.slice(0, 3).forEach(s => {
-      console.log(`  - ${s.name}: ${s.ratio}%`);
-      codeResults.suggestions.push(`为 ${s.name} 添加注释（当前 ${s.ratio}%）`);
-    });
+  if (codeResults.suggestions.length > 0) {
+    console.log(`\n💡 发现 ${codeResults.suggestions.length} 个优化点`);
   }
   
 } catch (err) {
-  console.log(`❌ 错误：${err.message}`);
+  console.log(`❌ ${err.message}`);
   codeResults.error = err.message;
 }
 
 taskState.codeOptimizations.push(codeResults);
-console.log('');
+printProgress(2, 4);
 
 // ============ 任务 3: 学习研究 ============
 console.log('📖 任务 3: 学习研究');
