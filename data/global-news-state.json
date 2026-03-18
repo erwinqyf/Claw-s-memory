@@ -1,14 +1,15 @@
 {
-  "lastRun": "2026-03-17T04:01:24.495Z",
-  "lastRunDate": "2026-03-17",
+  "lastRun": "2026-03-18T04:02:45.663Z",
+  "lastRunDate": "2026-03-18",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 200,
+      "totalAvailable": 203,
       "errors": [
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
+        "联合早报: HTTP 404: https://www.zaobao.com.sg/rss/news/china.xml",
         "经济学人: HTTP 403: https://www.economist.com/world/rss",
         "泰晤士报: HTTP 301: https://www.thetimes.co.uk/feed/rss/world"
       ]
