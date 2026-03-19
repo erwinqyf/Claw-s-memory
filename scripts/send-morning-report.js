@@ -103,7 +103,7 @@ function parseNightlyReport(filepath) {
   
   // 提取关键信息
   const dateMatch = content.match(/\*\*日期:\*\*\s*(\d{4}-\d{2}-\d{2})/);
-  const statusMatch = content.match(/#\s*夜间自主任务报告\s*\n\s*\n\s*\*\*执行状态:\*\*\s*([✅⚠️❌].*)/);
+  const statusMatch = content.match(/\*\*执行状态:\*\*\s*([✅⚠️❌][^\n]*)/);
   
   // 提取完成的任务
   const completedSection = content.match(/## ✅ 完成的任务([\s\S]*?)(?=##|$)/);
