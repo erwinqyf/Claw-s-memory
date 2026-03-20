@@ -1,0 +1,64 @@
+{
+  "_comment": "多 Agent 飞书配置模板 - 请替换占位符后使用",
+  "_instructions": "1. 创建 5 个飞书应用 2. 填写 AppID 和 AppSecret 3. 复制到 openclaw.json",
+  
+  "channels": {
+    "feishu": {
+      "enabled": true,
+      "accounts": [
+        {
+          "agentId": "alpha",
+          "agentName": "阿尔法",
+          "appId": "cli_ALPHA_APPID",
+          "appSecret": "ALPHA_APP_SECRET",
+          "isDefault": false,
+          "description": "全能主力 Agent - 夜间任务、周报复盘"
+        },
+        {
+          "agentId": "bravo",
+          "agentName": "布拉沃",
+          "appId": "cli_BRAVO_APPID",
+          "appSecret": "BRAVO_APP_SECRET",
+          "isDefault": false,
+          "description": "分析审查 Agent - 健康检查、行业监控"
+        },
+        {
+          "agentId": "charlie",
+          "agentName": "查理",
+          "appId": "cli_CHARLIE_APPID",
+          "appSecret": "CHARLIE_APP_SECRET",
+          "isDefault": false,
+          "description": "记忆管理 Agent - 记忆巩固、Heartbeat"
+        },
+        {
+          "agentId": "delta",
+          "agentName": "德尔塔",
+          "appId": "cli_DELTA_APPID",
+          "appSecret": "DELTA_APP_SECRET",
+          "isDefault": false,
+          "description": "精细执行 Agent - 晨间报告、新闻汇总"
+        },
+        {
+          "agentId": "echo",
+          "agentName": "回声",
+          "appId": "cli_ECHO_APPID",
+          "appSecret": "ECHO_APP_SECRET",
+          "isDefault": false,
+          "description": "情报收集 Agent - ClawHub 追踪、市场调研"
+        },
+        {
+          "agentId": "main",
+          "agentName": "大总管",
+          "appId": "cli_a922b10c2362dbd3",
+          "appSecret": "NAcktALvcq9jPbZmWsUcyhQOhMlwlPdQ",
+          "isDefault": true,
+          "description": "主 Agent - 调度员、默认 Bot"
+        }
+      ],
+      "connectionMode": "websocket",
+      "domain": "feishu",
+      "groupPolicy": "open",
+      "defaultGroupId": "chat_GROUP_ID"
+    }
+  }
+}
