@@ -1,38 +1,101 @@
 #!/usr/bin/env node
 /**
- * ClawHub Top 100 Skills Tracker
- * 每日获取 ClawHub 下载量前 100 名技能
- * 记录：名字、下载数、星星数、功能描述、分类
+ * ClawHub Top 100 Skills Tracker v2.0
+ * ====================================
+ * 每日获取 ClawHub 下载量前 100 名技能，支持趋势分析和自动 Git 提交
  * 
- * 用法：node scripts/clawhub-tracker.js
+ * 功能特性：
+ * - 自动分类技能（12 个类别）
+ * - 趋势分析（与昨日数据对比，计算排名变化）
+ * - 生成 Markdown 报告 + JSON 数据快照
+ * - 可选自动 Git 提交（--auto-commit 参数）
+ * - 指数退避重试机制（应对 API 限流）
+ * 
+ * 用法：
+ *   node scripts/clawhub-tracker.js              # 基本运行
+ *   node scripts/clawhub-tracker.js --auto-commit # 自动提交 Git
+ *   node scripts/clawhub-tracker.js --limit 50    # 只获取前 50 个
+ * 
+ * 输出：
+ *   - data/clawhub-top100-YYYY-MM-DD.json    (原始数据)
+ *   - data/clawhub-top100-latest.json        (最新快照)
+ *   - reports/clawhub-top100-YYYY-MM-DD.md   (Markdown 报告)
+ * 
+ * @author Claw (Digital Twin)
+ * @version 2.0.0
+ * @lastUpdated 2026-03-21
  */
 
 const fs = require('fs');
 const path = require('path');
+const { execSync } = require('child_process');
 
-const WORKSPACE_DIR = process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace');
-const DATA_DIR = path.join(WORKSPACE_DIR, 'data');
-const REPORTS_DIR = path.join(WORKSPACE_DIR, 'reports');
+// ==================== 配置常量 ====================
 
-// 确保目录存在
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
-if (!fs.existsSync(REPORTS_DIR)) fs.mkdirSync(REPORTS_DIR, { recursive: true });
+const CONFIG = {
+  WORKSPACE_DIR: process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'),
+  DATA_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'data'),
+  REPORTS_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'reports'),
+  API_BASE: 'https://clawhub.ai/api/v1',
+  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.0',
+  MAX_RETRIES: 3,
+  RETRY_DELAY_MS: 2000,
+  DEFAULT_LIMIT: 100
+};
 
-console.log('🔍 ClawHub Top 100 技能追踪器');
-console.log('================================');
-console.log(`工作目录：${WORKSPACE_DIR}`);
-console.log(`数据目录：${DATA_DIR}`);
-console.log(`报告目录：${REPORTS_DIR}`);
-console.log('');
+// ==================== 工具函数 ====================
 
-const https = require('https');
+/**
+ * 日志输出（带时间戳和 emoji）
+ */
+function log(message, emoji = 'ℹ️') {
+  const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
+  console.log(`${emoji} [${timestamp}] ${message}`);
+}
 
-// 简单的 HTTP GET 请求
-function httpRequest(url) {
+/**
+ * 确保目录存在
+ */
+function ensureDirectories() {
+  [CONFIG.DATA_DIR, CONFIG.REPORTS_DIR].forEach(dir => {
+    if (!fs.existsSync(dir)) {
+      fs.mkdirSync(dir, { recursive: true });
+      log(`创建目录：${dir}`, '📁');
+    }
+  });
+}
+
+/**
+ * 解析命令行参数
+ */
+function parseArgs() {
+  const args = process.argv.slice(2);
+  const options = {
+    autoCommit: false,
+    limit: CONFIG.DEFAULT_LIMIT
+  };
+  
+  for (let i = 0; i < args.length; i++) {
+    if (args[i] === '--auto-commit') options.autoCommit = true;
+    if (args[i] === '--limit' && args[i + 1]) {
+      options.limit = parseInt(args[i + 1], 10);
+      i++;
+    }
+  }
+  
+  return options;
+}
+
+/**
+ * HTTP GET 请求（带重试机制）
+ */
+async function httpRequest(url, retryCount = 0) {
+  const https = require('https');
+  
   return new Promise((resolve, reject) => {
     https.get(url, {
       headers: {
-        'User-Agent': 'OpenClaw-ClawHub-Tracker/1.0',
+        'User-Agent': CONFIG.USER_AGENT,
         'Accept': 'application/json'
       }
     }, (res) => {
@@ -41,84 +104,111 @@ function httpRequest(url) {
       res.on('end', () => {
         if (res.statusCode === 200) {
           resolve(JSON.parse(data));
-        } else if (res.statusCode === 429) {
-          const retryAfter = res.headers['retry-after'] || 60;
-          reject(new Error(`限流：请等待 ${retryAfter} 秒后重试`));
+        } else if (res.statusCode === 429 && retryCount < CONFIG.MAX_RETRIES) {
+          const retryAfter = parseInt(res.headers['retry-after'] || '60', 10);
+          const delay = Math.min(retryAfter * 1000, CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount));
+          log(`API 限流，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
+          setTimeout(() => httpRequest(url, retryCount + 1).then(resolve).catch(reject), delay);
         } else {
-          reject(new Error(`HTTP ${res.statusCode}: ${data}`));
+          reject(new Error(`HTTP ${res.statusCode}: ${data.substring(0, 100)}`));
         }
       });
-    }).on('error', reject);
+    }).on('error', (err) => {
+      if (retryCount < CONFIG.MAX_RETRIES) {
+        const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
+        log(`请求失败，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
+        setTimeout(() => httpRequest(url, retryCount + 1).then(resolve).catch(reject), delay);
+      } else {
+        reject(err);
+      }
+    });
   });
 }
 
-// 自动分类技能
+// ==================== 业务逻辑函数 ====================
+
+/**
+ * 自动分类技能（12 个类别）
+ * 基于技能 slug、描述、标签进行关键词匹配
+ */
 function autoCategorizeSkill(skill) {
   const slug = skill.slug.toLowerCase();
   const summary = (skill.summary || '').toLowerCase();
-  const tags = Object.keys(skill.tags || {}).join(' ').toLowerCase();
+  const text = `${slug} ${summary} ${Object.keys(skill.tags || {}).join(' ')}`;
   
-  // 浏览器自动化
-  if (slug.includes('browser') || slug.includes('playwright') || slug.includes('puppeteer') ||
-      summary.includes('浏览器') || summary.includes('browser') || summary.includes('网页')) {
-    return '浏览器自动化';
-  }
+  // 分类规则（按优先级排序）
+  const rules = [
+    { name: '浏览器自动化', keywords: ['browser', 'playwright', 'puppeteer', '浏览器', '网页'] },
+    { name: '搜索与研究', keywords: ['search', 'research', 'tavily', '搜索'] },
+    { name: '文档处理', keywords: ['doc', 'feishu', 'notion', '文档', '飞书'] },
+    { name: '数据处理', keywords: ['excel', 'csv', 'json', 'data', '表格', '数据'] },
+    { name: '系统工具', keywords: ['health', 'system', 'monitor', 'cron', '系统', '健康', '监控'] },
+    { name: '创意与演示', keywords: ['ppt', 'slide', 'presentation', '演示'] },
+    { name: 'AI 与 Agent', keywords: ['agent', 'ai', 'llm', '智能体'] },
+    { name: '版本控制', keywords: ['git', 'github', 'commit'] },
+    { name: '测试工具', keywords: ['test', 'spec', 'jest', '测试'] },
+    { name: '安全工具', keywords: ['security', 'audit', 'vetter', '安全', '审计'] },
+    { name: '通信与通知', keywords: ['email', 'sms', 'notify', 'message', '邮件', '通知'] },
+    { name: '其他', keywords: [] }
+  ];
   
-  // 搜索与研究
-  if (slug.includes('search') || slug.includes('research') || slug.includes('tavily') ||
-      summary.includes('搜索') || summary.includes('research') || summary.includes('search')) {
-    return '搜索与研究';
-  }
-  
-  // 文档处理
-  if (slug.includes('doc') || slug.includes('feishu') || slug.includes('notion') ||
-      summary.includes('文档') || summary.includes('doc') || summary.includes('飞书')) {
-    return '文档处理';
-  }
-  
-  // 数据处理
-  if (slug.includes('excel') || slug.includes('csv') || slug.includes('json') || slug.includes('data') ||
-      summary.includes('excel') || summary.includes('表格') || summary.includes('数据')) {
-    return '数据处理';
-  }
-  
-  // 系统工具
-  if (slug.includes('health') || slug.includes('system') || slug.includes('monitor') || slug.includes('cron') ||
-      summary.includes('系统') || summary.includes('健康') || summary.includes('监控')) {
-    return '系统工具';
-  }
-  
-  // 创意与演示
-  if (slug.includes('ppt') || slug.includes('slide') || slug.includes('presentation') ||
-      summary.includes('演示') || summary.includes('ppt') || summary.includes('slide')) {
-    return '创意与演示';
-  }
-  
-  // AI 与 Agent
-  if (slug.includes('agent') || slug.includes('ai') || slug.includes('llm') ||
-      summary.includes('agent') || summary.includes('ai') || summary.includes('智能体')) {
-    return 'AI 与 Agent';
-  }
-  
-  // 版本控制
-  if (slug.includes('git') || slug.includes('github') || slug.includes('commit') ||
-      summary.includes('git') || summary.includes('github')) {
-    return '版本控制';
-  }
-  
-  // 测试
-  if (slug.includes('test') || slug.includes('spec') || slug.includes('jest') ||
-      summary.includes('测试') || summary.includes('test')) {
-    return '测试工具';
-  }
-  
-  // 安全
-  if (slug.includes('security') || slug.includes('audit') || slug.includes('vetter') ||
-      summary.includes('安全') || summary.includes('security') || summary.includes('审计')) {
-    return '安全工具';
+  for (const rule of rules) {
+    if (rule.keywords.some(k => text.includes(k))) {
+      return rule.name;
+    }
   }
   
   return '其他';
+}
+
+/**
+ * 加载昨日数据用于趋势分析
+ */
+function loadYesterdayData() {
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const dateStr = yesterday.toISOString().split('T')[0];
+  const yesterdayPath = path.join(CONFIG.DATA_DIR, `clawhub-top100-${dateStr}.json`);
+  
+  if (fs.existsSync(yesterdayPath)) {
+    log(`加载昨日数据：${dateStr}`, '📅');
+    return JSON.parse(fs.readFileSync(yesterdayPath, 'utf-8'));
+  }
+  
+  log('无昨日数据，跳过趋势分析', '⚠️');
+  return null;
+}
+
+/**
+ * 计算排名变化
+ */
+function calculateRankChanges(todaySkills, yesterdaySkills) {
+  if (!yesterdaySkills) return todaySkills;
+  
+  const yesterdayMap = new Map(yesterdaySkills.map(s => [s.name, s.rank]));
+  
+  return todaySkills.map(skill => {
+    const yesterdayRank = yesterdayMap.get(skill.name);
+    const rankChange = yesterdayRank ? yesterdayRank - skill.rank : null;
+    
+    return {
+      ...skill,
+      yesterdayRank: yesterdayRank || null,
+      rankChange: rankChange,
+      trend: rankChange > 0 ? 'up' : rankChange < 0 ? 'down' : 'stable'
+    };
+  });
+}
+
+/**
+ * 识别显著变化（排名变化 >= 10 或新进榜）
+ */
+function findSignificantChanges(skills) {
+  const gainers = skills.filter(s => s.rankChange !== null && s.rankChange >= 10);
+  const losers = skills.filter(s => s.rankChange !== null && s.rankChange <= -10);
+  const newcomers = skills.filter(s => s.yesterdayRank === null && s.rank <= 20);
+  
+  return { gainers, losers, newcomers };
 }
 
 // 获取 Top 技能

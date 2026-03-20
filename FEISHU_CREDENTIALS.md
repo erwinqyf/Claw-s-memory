@@ -12,7 +12,7 @@
 | **Alpha** | 阿尔法 | `cli_a937f1cb25f8dccb` | `15nHl7Ks9F0mI2iRtTJNegndCcEi6BkQ` | 2026-03-20 23:15 | ✅ 已配置 |
 | **Bravo** | 布拉沃 | `cli_a937f06a57b89cc1` | `dLfFQrrsvDOJ4aAsbS0hHeaaYdb6fcTp` | 2026-03-20 21:37 | ✅ 已配置 |
 | **Charlie** | 查理 | `cli_a937e49525385cd5` | `lkkvUwPZ5lHgPWvnV0twYdrwL6Io812N` | 2026-03-20 23:15 | ✅ 已配置 |
-| **Delta** | 德尔塔 | `cli_` | | | ⬜ 待提供 |
+| **Delta** | 德尔塔 | `cli_a937d4394678dcb0` | `ORmihHUjnvqA6skBmTt7rconwS4w1puJ` | 2026-03-20 23:59 | ✅ 已配置 |
 | **Echo** | 回声 | `cli_a937e55714789cd1` | `Zb0WH4CAOp3EVrzRD33YVgKEJU38mzYJ` | 2026-03-20 23:15 | ✅ 已配置 |
 
 ---
