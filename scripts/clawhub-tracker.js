@@ -1,34 +1,17 @@
 #!/usr/bin/env node
 /**
- * ClawHub Top 100 Skills Tracker v2.0
+ * ClawHub Top 100 Skills Tracker v2.1
  * ====================================
- * 每日获取 ClawHub 下载量前 100 名技能，支持趋势分析和自动 Git 提交
- * 
- * 功能特性：
- * - 自动分类技能（12 个类别）
- * - 趋势分析（与昨日数据对比，计算排名变化）
- * - 生成 Markdown 报告 + JSON 数据快照
- * - 可选自动 Git 提交（--auto-commit 参数）
- * - 指数退避重试机制（应对 API 限流）
- * 
- * 用法：
- *   node scripts/clawhub-tracker.js              # 基本运行
- *   node scripts/clawhub-tracker.js --auto-commit # 自动提交 Git
- *   node scripts/clawhub-tracker.js --limit 50    # 只获取前 50 个
- * 
- * 输出：
- *   - data/clawhub-top100-YYYY-MM-DD.json    (原始数据)
- *   - data/clawhub-top100-latest.json        (最新快照)
- *   - reports/clawhub-top100-YYYY-MM-DD.md   (Markdown 报告)
+ * 每日获取 ClawHub 下载量前 100 名技能
  * 
  * @author Claw (Digital Twin)
- * @version 2.0.0
+ * @version 2.1.0
  * @lastUpdated 2026-03-21
  */
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const https = require('https');
 
 // ==================== 配置常量 ====================
 
@@ -36,26 +19,22 @@ const CONFIG = {
   WORKSPACE_DIR: process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'),
   DATA_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'data'),
   REPORTS_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'reports'),
-  API_BASE: 'https://clawhub.ai/api/v1',
-  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.0',
+  API_BASE: 'https://clawhub.ai',
+  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.1',
   MAX_RETRIES: 3,
   RETRY_DELAY_MS: 2000,
-  DEFAULT_LIMIT: 100
+  DEFAULT_LIMIT: 100,
+  // 搜索关键词列表，用于获取更广泛的技能覆盖
+  SEARCH_QUERIES: ['a', 'agent', 'tool', 'skill', 'ai', 'auto', 'data', 'web', 'file', 'system']
 };
 
 // ==================== 工具函数 ====================
 
-/**
- * 日志输出（带时间戳和 emoji）
- */
 function log(message, emoji = 'ℹ️') {
   const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
   console.log(`${emoji} [${timestamp}] ${message}`);
 }
 
-/**
- * 确保目录存在
- */
 function ensureDirectories() {
   [CONFIG.DATA_DIR, CONFIG.REPORTS_DIR].forEach(dir => {
     if (!fs.existsSync(dir)) {
@@ -65,33 +44,7 @@ function ensureDirectories() {
   });
 }
 
-/**
- * 解析命令行参数
- */
-function parseArgs() {
-  const args = process.argv.slice(2);
-  const options = {
-    autoCommit: false,
-    limit: CONFIG.DEFAULT_LIMIT
-  };
-  
-  for (let i = 0; i < args.length; i++) {
-    if (args[i] === '--auto-commit') options.autoCommit = true;
-    if (args[i] === '--limit' && args[i + 1]) {
-      options.limit = parseInt(args[i + 1], 10);
-      i++;
-    }
-  }
-  
-  return options;
-}
-
-/**
- * HTTP GET 请求（带重试机制）
- */
 async function httpRequest(url, retryCount = 0) {
-  const https = require('https');
-  
   return new Promise((resolve, reject) => {
     https.get(url, {
       headers: {
@@ -103,10 +56,13 @@ async function httpRequest(url, retryCount = 0) {
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         if (res.statusCode === 200) {
-          resolve(JSON.parse(data));
+          try {
+            resolve(JSON.parse(data));
+          } catch (e) {
+            reject(new Error(`JSON parse error: ${e.message}`));
+          }
         } else if (res.statusCode === 429 && retryCount < CONFIG.MAX_RETRIES) {
-          const retryAfter = parseInt(res.headers['retry-after'] || '60', 10);
-          const delay = Math.min(retryAfter * 1000, CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount));
+          const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
           log(`API 限流，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
           setTimeout(() => httpRequest(url, retryCount + 1).then(resolve).catch(reject), delay);
         } else {
@@ -129,14 +85,12 @@ async function httpRequest(url, retryCount = 0) {
 
 /**
  * 自动分类技能（12 个类别）
- * 基于技能 slug、描述、标签进行关键词匹配
  */
 function autoCategorizeSkill(skill) {
   const slug = skill.slug.toLowerCase();
   const summary = (skill.summary || '').toLowerCase();
-  const text = `${slug} ${summary} ${Object.keys(skill.tags || {}).join(' ')}`;
+  const text = `${slug} ${summary}`;
   
-  // 分类规则（按优先级排序）
   const rules = [
     { name: '浏览器自动化', keywords: ['browser', 'playwright', 'puppeteer', '浏览器', '网页'] },
     { name: '搜索与研究', keywords: ['search', 'research', 'tavily', '搜索'] },
@@ -162,84 +116,94 @@ function autoCategorizeSkill(skill) {
 }
 
 /**
- * 加载昨日数据用于趋势分析
+ * 搜索技能（使用多个查询词获取更广泛的结果）
  */
-function loadYesterdayData() {
-  const yesterday = new Date();
-  yesterday.setDate(yesterday.getDate() - 1);
-  const dateStr = yesterday.toISOString().split('T')[0];
-  const yesterdayPath = path.join(CONFIG.DATA_DIR, `clawhub-top100-${dateStr}.json`);
-  
-  if (fs.existsSync(yesterdayPath)) {
-    log(`加载昨日数据：${dateStr}`, '📅');
-    return JSON.parse(fs.readFileSync(yesterdayPath, 'utf-8'));
-  }
-  
-  log('无昨日数据，跳过趋势分析', '⚠️');
-  return null;
-}
-
-/**
- * 计算排名变化
- */
-function calculateRankChanges(todaySkills, yesterdaySkills) {
-  if (!yesterdaySkills) return todaySkills;
-  
-  const yesterdayMap = new Map(yesterdaySkills.map(s => [s.name, s.rank]));
-  
-  return todaySkills.map(skill => {
-    const yesterdayRank = yesterdayMap.get(skill.name);
-    const rankChange = yesterdayRank ? yesterdayRank - skill.rank : null;
-    
-    return {
-      ...skill,
-      yesterdayRank: yesterdayRank || null,
-      rankChange: rankChange,
-      trend: rankChange > 0 ? 'up' : rankChange < 0 ? 'down' : 'stable'
-    };
-  });
-}
-
-/**
- * 识别显著变化（排名变化 >= 10 或新进榜）
- */
-function findSignificantChanges(skills) {
-  const gainers = skills.filter(s => s.rankChange !== null && s.rankChange >= 10);
-  const losers = skills.filter(s => s.rankChange !== null && s.rankChange <= -10);
-  const newcomers = skills.filter(s => s.yesterdayRank === null && s.rank <= 20);
-  
-  return { gainers, losers, newcomers };
-}
-
-// 获取 Top 技能
-async function fetchTopSkills(limit = 100) {
-  console.log(`📥 获取 ClawHub 前 ${limit} 个技能...`);
-  
-  const url = `https://clawhub.ai/api/v1/skills?limit=${limit}&sort=downloads`;
+async function searchSkills(query, limit = 50) {
+  const url = `${CONFIG.API_BASE}/api/v1/search?q=${encodeURIComponent(query)}&limit=${limit}`;
   const data = await httpRequest(url);
+  return data.results || [];
+}
+
+/**
+ * 获取技能详细信息
+ */
+async function fetchSkillDetails(slug) {
+  const url = `${CONFIG.API_BASE}/api/v1/skills/${encodeURIComponent(slug)}`;
+  const data = await httpRequest(url);
+  return data.skill;
+}
+
+/**
+ * 获取 Top 技能（通过搜索聚合）
+ */
+async function fetchTopSkills(limit = 100) {
+  console.log(`📥 获取 ClawHub 技能（通过多关键词搜索）...`);
   
-  if (!data.items || !Array.isArray(data.items)) {
-    throw new Error('API 返回格式异常');
+  const allSkillsMap = new Map();
+  
+  // 使用多个搜索词获取更广泛的技能覆盖
+  for (const query of CONFIG.SEARCH_QUERIES) {
+    try {
+      log(`搜索关键词："${query}"`, '🔍');
+      const results = await searchSkills(query, 50);
+      for (const result of results) {
+        if (!allSkillsMap.has(result.slug)) {
+          allSkillsMap.set(result.slug, result);
+        }
+      }
+    } catch (err) {
+      log(`搜索 "${query}" 失败：${err.message}`, '⚠️');
+    }
   }
   
-  const skills = data.items.map((skill, index) => ({
-    rank: index + 1,
-    name: skill.slug,
-    displayName: skill.displayName || skill.slug,
-    downloads: skill.stats?.downloads || 0,
-    stars: skill.stats?.stars || 0,
-    installsAllTime: skill.stats?.installsAllTime || 0,
-    installsCurrent: skill.stats?.installsCurrent || 0,
-    description: skill.summary || '',
-    category: autoCategorizeSkill(skill),
-    author: 'unknown',  // API 未提供作者信息
-    version: skill.tags?.latest || skill.latestVersion?.version || 'unknown',
-    updatedAt: skill.updatedAt ? new Date(skill.updatedAt).toISOString().split('T')[0] : 'unknown',
-    createdAt: skill.createdAt ? new Date(skill.createdAt).toISOString().split('T')[0] : 'unknown'
+  console.log(`✅ 找到 ${allSkillsMap.size} 个唯一技能`);
+  
+  // 获取每个技能的详细信息（包含下载统计）
+  console.log(`📊 获取技能详细信息...`);
+  const skillsWithDetails = [];
+  const slugs = Array.from(allSkillsMap.keys());
+  
+  for (let i = 0; i < slugs.length; i++) {
+    const slug = slugs[i];
+    try {
+      const details = await fetchSkillDetails(slug);
+      if (details && details.stats) {
+        skillsWithDetails.push({
+          rank: 0,  // 将根据下载量排序后设置
+          name: details.slug,
+          displayName: details.displayName || details.slug,
+          downloads: details.stats.downloads || 0,
+          stars: details.stats.stars || 0,
+          installsAllTime: details.stats.installsAllTime || 0,
+          installsCurrent: details.stats.installsCurrent || 0,
+          description: details.summary || '',
+          category: autoCategorizeSkill(details),
+          author: details.owner?.handle || details.owner?.displayName || 'unknown',
+          version: details.tags?.latest || details.latestVersion?.version || 'unknown',
+          updatedAt: details.updatedAt ? new Date(details.updatedAt).toISOString().split('T')[0] : 'unknown',
+          createdAt: details.createdAt ? new Date(details.createdAt).toISOString().split('T')[0] : 'unknown'
+        });
+      }
+      // 避免过快请求
+      if ((i + 1) % 10 === 0) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+    } catch (err) {
+      log(`获取 ${slug} 详情失败：${err.message}`, '⚠️');
+    }
+  }
+  
+  // 按下载量排序
+  skillsWithDetails.sort((a, b) => b.downloads - a.downloads);
+  
+  // 设置排名并限制数量
+  const topSkills = skillsWithDetails.slice(0, limit).map((skill, index) => ({
+    ...skill,
+    rank: index + 1
   }));
   
-  console.log(`✅ 成功获取 ${skills.length} 个技能`);
-  return skills;
+  console.log(`✅ 成功获取 ${topSkills.length} 个技能（按下载量排序）`);
+  return topSkills;
 }
 
 // 分类技能
@@ -258,7 +222,7 @@ function categorizeSkills(skills) {
 // 生成 Markdown 表格报告
 function generateMarkdownReport(skills, categories) {
   const timestamp = new Date().toISOString().split('T')[0];
-  const reportPath = path.join(REPORTS_DIR, `clawhub-top100-${timestamp}.md`);
+  const reportPath = path.join(CONFIG.REPORTS_DIR, `clawhub-top100-${timestamp}.md`);
   
   let report = `# ClawHub Top 100 技能排行榜\n\n`;
   report += `**更新日期:** ${timestamp}\n\n`;
@@ -271,7 +235,8 @@ function generateMarkdownReport(skills, categories) {
   report += `|------|----------|-----------|--------|------|------|\n`;
   
   skills.slice(0, 20).forEach((skill, idx) => {
-    report += `| ${idx + 1} | ${skill.name} | ${skill.downloads.toLocaleString()} | ${skill.stars} | ${skill.category} | ${skill.description.substring(0, 30)}... |\n`;
+    const desc = skill.description.substring(0, 30).replace(/\|/g, ' ') + '...';
+    report += `| ${idx + 1} | ${skill.name} | ${skill.downloads.toLocaleString()} | ${skill.stars} | ${skill.category} | ${desc} |\n`;
   });
   
   report += `\n---\n\n`;
@@ -300,13 +265,13 @@ function generateMarkdownReport(skills, categories) {
 // 生成 JSON 数据文件
 function saveJsonData(skills) {
   const timestamp = new Date().toISOString().split('T')[0];
-  const jsonPath = path.join(DATA_DIR, `clawhub-top100-${timestamp}.json`);
+  const jsonPath = path.join(CONFIG.DATA_DIR, `clawhub-top100-${timestamp}.json`);
   
   fs.writeFileSync(jsonPath, JSON.stringify(skills, null, 2));
   console.log(`✅ 数据已保存：${jsonPath}`);
   
   // 更新最新数据快照
-  const latestPath = path.join(DATA_DIR, 'clawhub-top100-latest.json');
+  const latestPath = path.join(CONFIG.DATA_DIR, 'clawhub-top100-latest.json');
   fs.writeFileSync(latestPath, JSON.stringify(skills, null, 2));
   console.log(`✅ 最新快照已更新：${latestPath}`);
   
@@ -317,6 +282,8 @@ function saveJsonData(skills) {
 async function main() {
   try {
     console.log('🚀 开始获取 ClawHub 数据...\n');
+    
+    ensureDirectories();
     
     const skills = await fetchTopSkills(100);
     console.log(`✅ 获取 ${skills.length} 个技能\n`);
@@ -341,8 +308,15 @@ async function main() {
     console.log('  3. 推送到远程仓库');
     console.log('');
     
+    // 输出 Top 10 用于通知
+    console.log('🏆 Top 10 技能:');
+    skills.slice(0, 10).forEach((skill, idx) => {
+      console.log(`  ${idx + 1}. ${skill.name} - ${skill.downloads.toLocaleString()} 次下载`);
+    });
+    
   } catch (error) {
     console.error('❌ 错误:', error.message);
+    console.error(error.stack);
     process.exit(1);
   }
 }
