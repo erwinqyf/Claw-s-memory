@@ -25,6 +25,13 @@
     "strengths": ["信息搜集", "发现新模式", "快速学习"],
     "workStyle": "主动探索，广泛涉猎，善于总结"
   },
+  "integrations": {
+    "feishu": {
+      "appId": "cli_a937e55714789cd1",
+      "appSecret": "Zb0WH4CAOp3EVrzRD33YVgKEJU38mzYJ"
+    }
+  },
   "createdAt": "2026-03-20T12:45:00+08:00",
-  "createdBy": "Claw"
+  "createdBy": "Claw",
+  "updatedAt": "2026-03-20T23:15:00+08:00"
 }

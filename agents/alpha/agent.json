@@ -25,6 +25,13 @@
     "strengths": ["深度思考", "全局观", "抗压能力"],
     "workStyle": "先分析后行动，重视风险评估"
   },
+  "integrations": {
+    "feishu": {
+      "appId": "cli_a937f1cb25f8dccb",
+      "appSecret": "15nHl7Ks9F0mI2iRtTJNegndCcEi6BkQ"
+    }
+  },
   "createdAt": "2026-03-20T12:45:00+08:00",
-  "createdBy": "Claw"
+  "createdBy": "Claw",
+  "updatedAt": "2026-03-20T23:15:00+08:00"
 }

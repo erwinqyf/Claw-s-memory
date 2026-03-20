@@ -25,6 +25,13 @@
     "strengths": ["记忆力强", "结构化思维", "重视传承"],
     "workStyle": "系统化，条理化，持续维护"
   },
+  "integrations": {
+    "feishu": {
+      "appId": "cli_a937e49525385cd5",
+      "appSecret": "lkkvUwPZ5lHgPWvnV0twYdrwL6Io812N"
+    }
+  },
   "createdAt": "2026-03-20T12:45:00+08:00",
-  "createdBy": "Claw"
+  "createdBy": "Claw",
+  "updatedAt": "2026-03-20T23:15:00+08:00"
 }

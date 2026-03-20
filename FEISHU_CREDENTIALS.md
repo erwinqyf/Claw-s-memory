@@ -9,11 +9,11 @@
 
 | Agent | 应用名称 | AppID | AppSecret | 创建时间 | 状态 |
 |-------|---------|-------|-----------|---------|------|
-| **Alpha** | 阿尔法 | `cli_` | | | ⬜ 待创建 |
+| **Alpha** | 阿尔法 | `cli_a937f1cb25f8dccb` | `15nHl7Ks9F0mI2iRtTJNegndCcEi6BkQ` | 2026-03-20 23:15 | ✅ 已配置 |
 | **Bravo** | 布拉沃 | `cli_a937f06a57b89cc1` | `dLfFQrrsvDOJ4aAsbS0hHeaaYdb6fcTp` | 2026-03-20 21:37 | ✅ 已配置 |
-| **Charlie** | 查理 | `cli_` | | | ⬜ 待创建 |
-| **Delta** | 德尔塔 | `cli_` | | | ⬜ 待创建 |
-| **Echo** | 回声 | `cli_` | | | ⬜ 待创建 |
+| **Charlie** | 查理 | `cli_a937e49525385cd5` | `lkkvUwPZ5lHgPWvnV0twYdrwL6Io812N` | 2026-03-20 23:15 | ✅ 已配置 |
+| **Delta** | 德尔塔 | `cli_` | | | ⬜ 待提供 |
+| **Echo** | 回声 | `cli_a937e55714789cd1` | `Zb0WH4CAOp3EVrzRD33YVgKEJU38mzYJ` | 2026-03-20 23:15 | ✅ 已配置 |
 
 ---
 
@@ -25,11 +25,35 @@
 - **AppSecret:** `NAcktALvcq9jPbZmWsUcyhQOhMlwlPdQ`
 - **状态:** ✅ 运行中
 
+### Alpha (阿尔法)
+
+- **AppID:** `cli_a937f1cb25f8dccb`
+- **AppSecret:** `15nHl7Ks9F0mI2iRtTJNegndCcEi6BkQ`
+- **状态:** ✅ 已配置
+
 ### Bravo (布拉沃)
 
 - **AppID:** `cli_a937f06a57b89cc1`
 - **AppSecret:** `dLfFQrrsvDOJ4aAsbS0hHeaaYdb6fcTp`
-- **状态:** ✅ 已配置到 agent.json
+- **状态:** ✅ 已配置
+
+### Charlie (查理)
+
+- **AppID:** `cli_a937e49525385cd5`
+- **AppSecret:** `lkkvUwPZ5lHgPWvnV0twYdrwL6Io812N`
+- **状态:** ✅ 已配置
+
+### Echo (回声)
+
+- **AppID:** `cli_a937e55714789cd1`
+- **AppSecret:** `Zb0WH4CAOp3EVrzRD33YVgKEJU38mzYJ`
+- **状态:** ✅ 已配置
+
+### Delta (德尔塔)
+
+- **AppID:** 待提供
+- **AppSecret:** 待提供
+- **状态:** ⬜ 待配置
 
 ---
 

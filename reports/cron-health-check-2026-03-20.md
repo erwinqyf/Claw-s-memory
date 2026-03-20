@@ -4,7 +4,6 @@
 
 ## 警告
 
-- ⚠️ 调度器延迟 54m
 - ⚠️ 1 个任务错误
 
 > 详情：reports/cron-health-check-${timestamp}.md
