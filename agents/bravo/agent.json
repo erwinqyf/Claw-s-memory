@@ -25,6 +25,13 @@
     "strengths": ["分析能力", "细节敏感", "批判性思维"],
     "workStyle": "数据驱动，证据导向"
   },
+  "integrations": {
+    "feishu": {
+      "appId": "cli_a937f06a57b89cc1",
+      "appSecret": "dLfFQrrsvDOJ4aAsbS0hHeaaYdb6fcTp"
+    }
+  },
   "createdAt": "2026-03-20T12:45:00+08:00",
-  "createdBy": "Claw"
+  "createdBy": "Claw",
+  "updatedAt": "2026-03-20T21:37:00+08:00"
 }

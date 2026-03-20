@@ -10,7 +10,7 @@
 | Agent | 应用名称 | AppID | AppSecret | 创建时间 | 状态 |
 |-------|---------|-------|-----------|---------|------|
 | **Alpha** | 阿尔法 | `cli_` | | | ⬜ 待创建 |
-| **Bravo** | 布拉沃 | `cli_` | | | ⬜ 待创建 |
+| **Bravo** | 布拉沃 | `cli_a937f06a57b89cc1` | `dLfFQrrsvDOJ4aAsbS0hHeaaYdb6fcTp` | 2026-03-20 21:37 | ✅ 已配置 |
 | **Charlie** | 查理 | `cli_` | | | ⬜ 待创建 |
 | **Delta** | 德尔塔 | `cli_` | | | ⬜ 待创建 |
 | **Echo** | 回声 | `cli_` | | | ⬜ 待创建 |
@@ -24,6 +24,12 @@
 - **AppID:** `cli_a922b10c2362dbd3`
 - **AppSecret:** `NAcktALvcq9jPbZmWsUcyhQOhMlwlPdQ`
 - **状态:** ✅ 运行中
+
+### Bravo (布拉沃)
+
+- **AppID:** `cli_a937f06a57b89cc1`
+- **AppSecret:** `dLfFQrrsvDOJ4aAsbS0hHeaaYdb6fcTp`
+- **状态:** ✅ 已配置到 agent.json
 
 ---
 
