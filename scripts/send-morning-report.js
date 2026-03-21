@@ -1,15 +1,19 @@
 #!/usr/bin/env node
 /**
- * 发送晨间报告到飞书
- * 
+ * 发送晨间报告到飞书 v2.1
+ * ========================
  * 功能：读取最新的夜间任务报告，自动发送到飞书
  * 用法：node scripts/send-morning-report.js [date]
  * 
- * 优化记录 (2026-03-20):
- * - 动态读取夜间报告，不再硬编码内容
- * - 自动解析报告中的关键信息
- * - 支持指定日期参数（默认今天）
- * - 添加错误处理和重试机制
+ * 优化记录:
+ * - v2.1 (2026-03-22): 添加配置验证、重试机制、详细日志
+ * - v2.0 (2026-03-20): 动态读取夜间报告，不再硬编码内容
+ * 
+ * 改进点:
+ * - 启动时验证所有必需配置
+ * - HTTP 请求添加指数退避重试
+ * - 添加超时保护（15 秒）
+ * - 更详细的错误信息和恢复建议
  */
 
 const https = require('https');
@@ -26,11 +30,24 @@ const CONFIG = {
   TOKEN_PATH: '/open-apis/auth/v3/tenant_access_token/internal',
   MESSAGE_PATH: '/open-apis/im/v1/messages',
   WORKSPACE_DIR: process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'),
-  REPORTS_DIR: 'reports'
+  REPORTS_DIR: 'reports',
+  // 重试配置
+  MAX_RETRIES: 3,
+  RETRY_DELAY_MS: 1000,
+  REQUEST_TIMEOUT_MS: 15000
 };
 
-// HTTP 请求封装
-function request(path, method, body, token) {
+// 配置验证
+function validateConfig() {
+  const required = ['APP_ID', 'APP_SECRET', 'OPEN_ID'];
+  const missing = required.filter(key => !CONFIG[key] || CONFIG[key].length < 5);
+  if (missing.length > 0) {
+    throw new Error(`配置缺失：${missing.join(', ')}。请检查脚本配置部分。`);
+  }
+}
+
+// HTTP 请求封装（带重试机制）
+async function requestWithRetry(path, method, body, token, retryCount = 0) {
   return new Promise((resolve, reject) => {
     const options = {
       hostname: CONFIG.API_BASE,
@@ -48,21 +65,57 @@ function request(path, method, body, token) {
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         try {
-          resolve(JSON.parse(data));
+          const result = JSON.parse(data);
+          // 飞书 API 错误处理
+          if (result.code !== 0 && result.code !== undefined) {
+            reject(new Error(`飞书 API 错误 (${result.code}): ${result.msg}`));
+          } else {
+            resolve(result);
+          }
         } catch (e) {
-          reject(new Error(`Parse error: ${data}`));
+          reject(new Error(`JSON 解析错误：${e.message} | 响应：${data.substring(0, 200)}`));
         }
       });
     });
     
-    req.on('error', reject);
-    req.setTimeout(10000, () => {
-      req.destroy();
-      reject(new Error('请求超时'));
+    req.on('error', (err) => {
+      // 网络错误，尝试重试
+      if (retryCount < CONFIG.MAX_RETRIES) {
+        const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
+        console.log(`⏳ 请求失败，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES}) - ${err.message}`);
+        setTimeout(() => {
+          requestWithRetry(path, method, body, token, retryCount + 1)
+            .then(resolve)
+            .catch(reject);
+        }, delay);
+      } else {
+        reject(new Error(`请求失败（已重试${CONFIG.MAX_RETRIES}次）: ${err.message}`));
+      }
     });
+    
+    req.setTimeout(CONFIG.REQUEST_TIMEOUT_MS, () => {
+      req.destroy();
+      if (retryCount < CONFIG.MAX_RETRIES) {
+        const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
+        console.log(`⏳ 请求超时，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`);
+        setTimeout(() => {
+          requestWithRetry(path, method, body, token, retryCount + 1)
+            .then(resolve)
+            .catch(reject);
+        }, delay);
+      } else {
+        reject(new Error(`请求超时（已重试${CONFIG.MAX_RETRIES}次）`));
+      }
+    });
+    
     if (body) req.write(JSON.stringify(body));
     req.end();
   });
+}
+
+// 向后兼容的 request 函数
+function request(path, method, body, token) {
+  return requestWithRetry(path, method, body, token, 0);
 }
 
 // 获取飞书 Token
@@ -244,13 +297,32 @@ async function sendReport(reportDate = null) {
 
 // 主函数
 async function main() {
+  const startTime = Date.now();
   const args = process.argv.slice(2);
   const reportDate = args[0] || null;
   
+  console.log('🌅 晨间报告发送器 v2.1\n');
+  console.log(`⏰ 启动时间：${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}`);
+  console.log(`📅 目标日期：${reportDate || '最新报告'}\n`);
+  
   try {
+    // 配置验证
+    console.log('🔍 验证配置...');
+    validateConfig();
+    console.log('✅ 配置验证通过\n');
+    
+    // 发送报告
     await sendReport(reportDate);
+    
+    const duration = Date.now() - startTime;
+    console.log(`\n✅ 任务完成，耗时 ${duration}ms`);
   } catch (err) {
-    console.error('❌ 发送失败:', err.message);
+    console.error('\n❌ 发送失败:', err.message);
+    console.error('\n💡 建议检查:');
+    console.error('   1. 飞书 App ID/Secret 是否正确');
+    console.error('   2. 网络连接是否正常');
+    console.error('   3. 报告文件是否存在 (reports/nightly-report-*.md)');
+    console.error('   4. 查看完整错误日志 above\n');
     process.exit(1);
   }
 }

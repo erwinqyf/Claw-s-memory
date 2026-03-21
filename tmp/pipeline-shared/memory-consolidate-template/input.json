@@ -1,0 +1,19 @@
+{
+  "taskId": "memory-consolidate-{YYYYMMDD}",
+  "taskName": "记忆巩固",
+  "schedule": "每周日 10:00",
+  "priority": "high",
+  "steps": [
+    {"id": 1, "agent": "Echo", "name": "记忆整理", "timeout": 600},
+    {"id": 2, "agent": "Charlie", "name": "生成报告", "timeout": 180}
+  ],
+  "params": {
+    "dateRange": "过去 7 天",
+    "extractTypes": ["决策", "待办", "关键信息"],
+    "updateLongTerm": true
+  },
+  "output": {
+    "reportPath": "reports/memory-consolidate-{date}.md",
+    "updateMemoryMd": true
+  }
+}

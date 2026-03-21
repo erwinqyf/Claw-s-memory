@@ -1,0 +1,22 @@
+{
+  "taskId": "language-monitor-20260321",
+  "taskName": "语言服务行业监控（流水线测试）",
+  "createdAt": "2026-03-21T20:53:00+08:00",
+  "triggeredBy": "丰",
+  "steps": [
+    {"id": 1, "agent": "Bravo", "name": "信息收集", "status": "pending"},
+    {"id": 2, "agent": "Alpha", "name": "分析筛选", "status": "pending"},
+    {"id": 3, "agent": "Charlie", "name": "格式化", "status": "pending"},
+    {"id": 4, "agent": "Echo", "name": "记忆沉淀", "status": "pending"}
+  ],
+  "params": {
+    "monitorDate": "2026-03-21",
+    "monitorTime": "11:00",
+    "sources": ["ProZ.com", "Slator", "TAUS", "行业网站"],
+    "timeRange": "过去 48 小时"
+  },
+  "workflow": {
+    "dataFlow": "input.json → step1 → step2 → step3 → step4 → final-output.json",
+    "sharedFolder": "tmp/pipeline-shared/language-monitor-20260321/"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "taskId": "cron-check-{YYYYMMDD-HH}",
+  "taskName": "Cron 健康检查",
+  "schedule": "每小时",
+  "priority": "high",
+  "steps": [
+    {"id": 1, "agent": "Bravo", "name": "收集 cron 状态", "timeout": 120},
+    {"id": 2, "agent": "Alpha", "name": "分析异常", "timeout": 120},
+    {"id": 3, "agent": "Charlie", "name": "生成报告", "timeout": 120}
+  ],
+  "params": {
+    "alertThreshold": {"consecutiveErrors": 2, "priority": "high"},
+    "reportFormat": "summary",
+    "alertOnNormal": false
+  },
+  "output": {
+    "reportPath": "reports/cron-check-{timestamp}.md",
+    "alertChannel": "feishu"
+  }
+}

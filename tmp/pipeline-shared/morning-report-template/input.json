@@ -1,0 +1,19 @@
+{
+  "taskId": "morning-report-{YYYYMMDD}",
+  "taskName": "晨间报告发送",
+  "schedule": "每日 07:00",
+  "priority": "high",
+  "steps": [
+    {"id": 1, "agent": "Charlie", "name": "报告生成", "timeout": 180},
+    {"id": 2, "agent": "auto", "name": "飞书投递", "timeout": 30}
+  ],
+  "params": {
+    "includeMetrics": true,
+    "includeNightlyWork": true,
+    "sendTo": "chat:oc_544ef0ac66f15f18550668c007ee8566"
+  },
+  "output": {
+    "reportPath": "reports/morning-report-{date}.md",
+    "deliveryChannel": "feishu"
+  }
+}

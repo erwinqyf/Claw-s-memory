@@ -1,0 +1,21 @@
+{
+  "taskId": "language-monitor-{YYYYMMDD}",
+  "taskName": "语言服务行业监控",
+  "schedule": "每周二/四/六 11:00",
+  "priority": "medium",
+  "steps": [
+    {"id": 1, "agent": "Bravo", "name": "行业动态收集", "timeout": 240},
+    {"id": 2, "agent": "Alpha", "name": "趋势分析", "timeout": 180},
+    {"id": 3, "agent": "Charlie", "name": "格式化简报", "timeout": 120},
+    {"id": 4, "agent": "Echo", "name": "记忆归档", "timeout": 120}
+  ],
+  "params": {
+    "sources": ["ProZ.com", "Slator", "TAUS", "行业网站"],
+    "timeRange": "过去 48 小时",
+    "focusAreas": ["AI 翻译", "视频本地化", "行业并购"]
+  },
+  "output": {
+    "reportPath": "reports/language-monitor-{date}.md",
+    "deliveryChannel": "feishu"
+  }
+}
