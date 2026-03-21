@@ -219,15 +219,77 @@ function categorizeSkills(skills) {
   return categories;
 }
 
+/**
+ * 生成统计摘要
+ * @param {Array} skills - 技能列表
+ * @param {Object} categories - 分类对象
+ * @returns {Object} 统计摘要
+ */
+function generateSummary(skills, categories) {
+  const totalDownloads = skills.reduce((sum, s) => sum + s.downloads, 0);
+  const totalStars = skills.reduce((sum, s) => sum + s.stars, 0);
+  const avgDownloads = Math.round(totalDownloads / skills.length);
+  const avgStars = (totalStars / skills.length).toFixed(2);
+  
+  // 找出下载量最高的分类
+  const catStats = Object.entries(categories).map(([name, list]) => ({
+    name,
+    count: list.length,
+    totalDownloads: list.reduce((sum, s) => sum + s.downloads, 0)
+  })).sort((a, b) => b.totalDownloads - a.totalDownloads);
+  
+  // 找出最热门作者（按技能数量）
+  const authorStats = {};
+  skills.forEach(s => {
+    authorStats[s.author] = (authorStats[s.author] || 0) + 1;
+  });
+  const topAuthors = Object.entries(authorStats)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5)
+    .map(([name, count]) => ({ name, count }));
+  
+  return {
+    totalSkills: skills.length,
+    totalDownloads,
+    totalStars,
+    avgDownloads,
+    avgStars,
+    categoryCount: Object.keys(categories).length,
+    topCategory: catStats[0],
+    topAuthors
+  };
+}
+
 // 生成 Markdown 表格报告
 function generateMarkdownReport(skills, categories) {
   const timestamp = new Date().toISOString().split('T')[0];
   const reportPath = path.join(CONFIG.REPORTS_DIR, `clawhub-top100-${timestamp}.md`);
   
+  // 生成统计摘要
+  const summary = generateSummary(skills, categories);
+  
   let report = `# ClawHub Top 100 技能排行榜\n\n`;
   report += `**更新日期:** ${timestamp}\n\n`;
-  report += `**总计:** ${skills.length} 个技能 | **分类:** ${Object.keys(categories).length} 个\n\n`;
-  report += `---\n\n`;
+  
+  // 统计摘要
+  report += `## 📊 统计摘要\n\n`;
+  report += `| 指标 | 数值 |\n`;
+  report += `|------|------|\n`;
+  report += `| 技能总数 | ${summary.totalSkills} 个 |\n`;
+  report += `| 总下载量 | ${summary.totalDownloads.toLocaleString()} 次 |\n`;
+  report += `| 总星星数 | ${summary.totalStars.toLocaleString()} ⭐ |\n`;
+  report += `| 平均下载量 | ${summary.avgDownloads.toLocaleString()} 次/技能 |\n`;
+  report += `| 平均星星数 | ${summary.avgStars} ⭐/技能 |\n`;
+  report += `| 分类数量 | ${summary.categoryCount} 个 |\n`;
+  report += `| 最热门分类 | ${summary.topCategory.name} (${summary.topCategory.count}个技能) |\n\n`;
+  
+  report += `### 👑 Top 5 作者\n\n`;
+  report += `| 作者 | 技能数量 |\n`;
+  report += `|------|----------|\n`;
+  summary.topAuthors.forEach(a => {
+    report += `| ${a.name} | ${a.count} 个 |\n`;
+  });
+  report += `\n---\n\n`;
   
   // 总览表格
   report += `## 📊 Top 20 总览\n\n`;
@@ -297,6 +359,14 @@ async function main() {
     
     console.log('📝 生成报告...');
     generateMarkdownReport(skills, categories);
+    
+    // 输出统计摘要
+    const summary = generateSummary(skills, categories);
+    console.log('\n📈 统计摘要:');
+    console.log(`  总技能数：${summary.totalSkills} 个`);
+    console.log(`  总下载量：${summary.totalDownloads.toLocaleString()} 次`);
+    console.log(`  平均下载量：${summary.avgDownloads.toLocaleString()} 次/技能`);
+    console.log(`  最热门分类：${summary.topCategory.name}`);
     
     console.log('');
     console.log('================================');

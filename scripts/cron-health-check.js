@@ -136,20 +136,66 @@ function checkOverdueTasks() {
   }
 }
 
+// 5. 生成详细报告
+function generateDetailedReport() {
+  const timestamp = new Date().toISOString().split('T')[0];
+  const reportFile = path.join(WORKSPACE_DIR, 'reports', `cron-health-check-${timestamp}.md`);
+  
+  let report = `# Cron 健康检查报告\n\n`;
+  report += `**检查时间:** ${new Date().toISOString()}\n\n`;
+  
+  if (alerts.length === 0 && warnings.length === 0) {
+    report += `✅ **状态:** 全部正常\n\n`;
+  } else {
+    if (alerts.length > 0) {
+      report += `## ❌ 严重告警\n\n`;
+      alerts.forEach(a => report += `- ${a}\n`);
+      report += `\n`;
+    }
+    
+    if (warnings.length > 0) {
+      report += `## ⚠️ 警告\n\n`;
+      warnings.forEach(w => report += `- ${w}\n`);
+      report += `\n`;
+    }
+  }
+  
+  report += `---\n\n`;
+  report += `**建议操作:**\n\n`;
+  
+  if (alerts.length > 0) {
+    report += `1. 立即检查调度器状态：\`openclaw cron status\`\n`;
+    report += `2. 查看错误任务详情：\`openclaw cron list\`\n`;
+    report += `3. 必要时重启调度器：\`openclaw gateway restart\`\n`;
+  } else if (warnings.length > 0) {
+    report += `1. 观察任务执行情况\n`;
+    report += `2. 如警告持续，检查系统资源\n`;
+  } else {
+    report += `无需操作，系统运行正常。\n`;
+  }
+  
+  fs.writeFileSync(reportFile, report);
+  return reportFile;
+}
+
 // 5. 发送告警
 function sendAlert() {
   const hasAlerts = alerts.length > 0;
   const hasWarnings = warnings.length > 0;
   
+  // 生成详细报告
+  const reportFile = generateDetailedReport();
+  
   if (!hasAlerts && !hasWarnings) {
     console.log('✅ 健康检查通过');
+    console.log(`📄 报告：${reportFile}`);
     return;
   }
   
-  // 简洁报告格式（减少 token 消耗）
+  // 简洁摘要（用于通知）
   const timestamp = new Date().toISOString().split('T')[0];
   const status = hasAlerts ? '❌ 严重' : '⚠️ 警告';
-  const report = [
+  const summary = [
     `# Cron 健康检查 ${timestamp}`,
     '',
     `**状态:** ${status}`,
@@ -158,17 +204,14 @@ function sendAlert() {
     '',
     ...(hasAlerts ? alerts : warnings).map(x => `- ${x}`),
     '',
-    '> 详情：reports/cron-health-check-${timestamp}.md',
+    `> 详情：${reportFile}`,
   ].join('\n');
   
-  // 保存到文件
-  const reportFile = path.join(WORKSPACE_DIR, 'reports', `cron-health-check-${timestamp}.md`);
-  fs.writeFileSync(reportFile, report);
-  
-  console.log(`📄 报告：${reportFile}`);
+  console.log('\n' + summary);
+  console.log(`\n📄 详细报告：${reportFile}`);
   
   if (hasAlerts) {
-    console.log('📢 需立即通知丰');
+    console.log('\n📢 需立即通知丰');
   }
 }
 
