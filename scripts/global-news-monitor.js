@@ -458,6 +458,55 @@ async function main() {
   }
   
   console.log('\n✅ 完成');
+  
+  // 写入 Delta Agent 记忆日志
+  writeAgentMemory(today, totalItems, totalErrors);
+}
+
+/**
+ * 写入 Delta Agent 记忆日志
+ */
+function writeAgentMemory(date, totalItems, totalErrors) {
+  const agentMemoryDir = path.join(CONFIG.paths.workspace, 'agents', 'delta', 'memory');
+  const memoryPath = path.join(agentMemoryDir, `${date}.md`);
+  const now = new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' });
+  
+  // 确保目录存在
+  if (!fs.existsSync(agentMemoryDir)) {
+    fs.mkdirSync(agentMemoryDir, { recursive: true });
+  }
+  
+  let memoryContent = `# Delta (德尔塔) - 执行日志
+
+## ${date} 全球新闻汇总
+
+**执行时间:** ${now}
+**状态:** ✅ 成功
+**新闻总数:** ${totalItems} 条
+**错误数:** ${totalErrors} 个
+**报告:** reports/global-news-${date}.md
+**飞书通知:** 已发送
+
+### 执行详情
+
+- 抓取类别：政治、经济、文化、科技
+- 新闻源数量：${Object.values(CONFIG.feeds).reduce((sum, feeds) => sum + feeds.length, 0)} 个
+- 去重筛选：每类 Top ${CONFIG.itemsPerCategory} 条
+
+---
+> 孪生于不同世界，彼此映照，共同演化。🪞
+`;
+  
+  // 如果文件已存在，追加内容（保留原有内容）
+  if (fs.existsSync(memoryPath)) {
+    const existing = fs.readFileSync(memoryPath, 'utf-8');
+    if (!existing.includes(`## ${date} 全球新闻汇总`)) {
+      memoryContent = existing + '\n\n---\n\n' + memoryContent;
+    }
+  }
+  
+  fs.writeFileSync(memoryPath, memoryContent, 'utf-8');
+  console.log(`📝 Agent 记忆已写入：${memoryPath}`);
 }
 
 // 运行
