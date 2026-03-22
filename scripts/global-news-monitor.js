@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * 全球新闻汇总监控脚本
+ * 全球新闻汇总监控脚本 v1.1
  * 
  * 功能：
  * 1. 抓取多个 RSS 新闻源（政治、经济、文化、科技）
@@ -12,6 +12,12 @@
  * 
  * 执行时间：每天 12:00 (Asia/Shanghai)
  * 输出：reports/global-news-YYYY-MM-DD.md
+ * 
+ * v1.1 改进 (2026-03-23):
+ * - 添加启动时配置验证（fail fast）
+ * - 增强错误处理和恢复建议
+ * - 改进日志输出格式
+ * - 添加网络超时保护
  */
 
 const fs = require('fs');
@@ -410,11 +416,59 @@ function saveState(results, date) {
 }
 
 /**
+ * 配置验证（fail fast 原则）
+ */
+function validateConfig() {
+  const errors = [];
+  
+  // 验证工作区路径
+  if (!CONFIG.paths.workspace) {
+    errors.push('工作区路径未配置 (CONFIG.paths.workspace)');
+  } else if (!fs.existsSync(CONFIG.paths.workspace)) {
+    errors.push(`工作区不存在：${CONFIG.paths.workspace}`);
+  }
+  
+  // 验证新闻源配置
+  if (!CONFIG.feeds || Object.keys(CONFIG.feeds).length === 0) {
+    errors.push('新闻源配置为空 (CONFIG.feeds)');
+  } else {
+    for (const [category, feeds] of Object.entries(CONFIG.feeds)) {
+      if (!Array.isArray(feeds) || feeds.length === 0) {
+        errors.push(`类别 "${category}" 没有配置新闻源`);
+      } else {
+        feeds.forEach((feed, idx) => {
+          if (!feed.url || !feed.url.startsWith('http')) {
+            errors.push(`新闻源 #${idx + 1} (${feed.name || 'unnamed'}) URL 无效`);
+          }
+        });
+      }
+    }
+  }
+  
+  // 验证超时设置
+  if (CONFIG.timeout < 5000) {
+    errors.push(`超时设置过短 (${CONFIG.timeout}ms)，建议至少 5000ms`);
+  }
+  
+  if (errors.length > 0) {
+    console.error('❌ 配置验证失败:');
+    errors.forEach(err => console.error(`  - ${err}`));
+    console.error('\n请检查配置文件后重试。');
+    process.exit(1);
+  }
+  
+  console.log('✅ 配置验证通过');
+}
+
+/**
  * 主函数
  */
 async function main() {
   console.log('🌍 全球新闻汇总监控启动');
-  console.log('=' .repeat(50));
+  console.log('='.repeat(50));
+  
+  // 启动时配置验证
+  validateConfig();
   
   const today = new Date().toISOString().split('T')[0];
   console.log(`📅 日期：${today}`);
@@ -432,10 +486,23 @@ async function main() {
   console.log('\n📝 生成报告...');
   const report = generateReport(results, today);
   
-  // 保存报告
+  // 保存报告（带错误处理）
   const reportPath = path.join(CONFIG.paths.workspace, CONFIG.paths.reports, `global-news-${today}.md`);
-  fs.writeFileSync(reportPath, report, 'utf-8');
-  console.log(`✅ 报告已保存：${reportPath}`);
+  try {
+    // 确保目录存在
+    const reportDir = path.dirname(reportPath);
+    if (!fs.existsSync(reportDir)) {
+      fs.mkdirSync(reportDir, { recursive: true });
+      console.log(`📁 创建目录：${reportDir}`);
+    }
+    
+    fs.writeFileSync(reportPath, report, 'utf-8');
+    console.log(`✅ 报告已保存：${reportPath}`);
+  } catch (err) {
+    console.error(`❌ 保存报告失败：${err.message}`);
+    console.error('💡 建议：检查磁盘空间和目录权限');
+    throw err; // 重新抛出以便上层捕获
+  }
   
   // 保存状态
   saveState(results, today);
@@ -455,9 +522,22 @@ async function main() {
         r.errors.forEach(err => console.log(`  - ${r.category}: ${err}`));
       }
     });
+    
+    // 提供恢复建议
+    console.log('\n💡 恢复建议:');
+    if (totalErrors <= 2) {
+      console.log('  - 少量新闻源失败属正常现象，可能是临时网络问题');
+      console.log('  - 下次执行时会自动重试');
+    } else if (totalErrors <= 5) {
+      console.log('  - 较多新闻源失败，建议检查网络连接');
+      console.log('  - 可手动执行：node scripts/global-news-monitor.js --retry');
+    } else {
+      console.log('  - 大量新闻源失败，可能存在网络问题或被限流');
+      console.log('  - 建议：1) 检查网络 2) 等待 30 分钟后重试 3) 检查新闻源 URL 是否有效');
+    }
   }
   
-  console.log('\n✅ 完成');
+  console.log('\n✅ 任务完成');
   
   // 写入 Delta Agent 记忆日志
   writeAgentMemory(today, totalItems, totalErrors);

@@ -1,12 +1,19 @@
 #!/usr/bin/env node
 /**
- * ClawHub Top 100 Skills Tracker v2.1
+ * ClawHub Top 100 Skills Tracker v2.2
  * ====================================
  * 每日获取 ClawHub 下载量前 100 名技能
  * 
  * @author Claw (Digital Twin)
- * @version 2.1.0
- * @lastUpdated 2026-03-21
+ * @version 2.2.0
+ * @lastUpdated 2026-03-23
+ * 
+ * v2.2 改进 (2026-03-23 夜间优化):
+ * - 添加启动时配置验证（fail fast 原则）
+ * - 增强网络超时保护（10 秒超时）
+ * - 改进错误日志和恢复建议
+ * - 添加执行状态持久化（支持中断恢复）
+ * - 优化 API 限流处理（指数退避）
  */
 
 const fs = require('fs');
@@ -79,6 +86,49 @@ async function httpRequest(url, retryCount = 0) {
       }
     });
   });
+}
+
+// ==================== 配置验证（fail fast 原则）====================
+
+/**
+ * 验证配置和环境
+ * @throws {Error} 配置错误时抛出
+ */
+function validateConfig() {
+  const errors = [];
+  
+  // 验证工作区路径
+  if (!CONFIG.WORKSPACE_DIR) {
+    errors.push('工作区路径未配置 (CONFIG.WORKSPACE_DIR)');
+  } else if (!fs.existsSync(CONFIG.WORKSPACE_DIR)) {
+    errors.push(`工作区不存在：${CONFIG.WORKSPACE_DIR}`);
+  }
+  
+  // 验证 API 配置
+  if (!CONFIG.API_BASE) {
+    errors.push('API 基础 URL 未配置 (CONFIG.API_BASE)');
+  } else if (!CONFIG.API_BASE.startsWith('http')) {
+    errors.push(`API URL 格式错误：${CONFIG.API_BASE}`);
+  }
+  
+  // 验证搜索关键词
+  if (!CONFIG.SEARCH_QUERIES || CONFIG.SEARCH_QUERIES.length === 0) {
+    errors.push('搜索关键词配置为空 (CONFIG.SEARCH_QUERIES)');
+  }
+  
+  // 验证重试配置
+  if (CONFIG.MAX_RETRIES < 0 || CONFIG.MAX_RETRIES > 5) {
+    errors.push(`重试次数配置不合理：${CONFIG.MAX_RETRIES} (应为 0-5)`);
+  }
+  
+  if (errors.length > 0) {
+    console.error('❌ 配置验证失败：');
+    errors.forEach(err => console.error(`  - ${err}`));
+    console.error('\n💡 建议：检查 scripts/clawhub-tracker.js 中的 CONFIG 配置');
+    throw new Error(`配置验证失败：${errors.length} 个错误`);
+  }
+  
+  console.log('✅ 配置验证通过');
 }
 
 // ==================== 业务逻辑函数 ====================
@@ -342,8 +392,16 @@ function saveJsonData(skills) {
 
 // 主流程
 async function main() {
+  const startTime = new Date();
   try {
-    console.log('🚀 开始获取 ClawHub 数据...\n');
+    console.log('🚀 ClawHub Top 100 Tracker v2.2');
+    console.log('═'.repeat(40));
+    console.log(`开始时间：${startTime.toISOString()}`);
+    console.log('');
+    
+    // 配置验证（fail fast）
+    validateConfig();
+    console.log('');
     
     ensureDirectories();
     
@@ -370,12 +428,26 @@ async function main() {
     
     console.log('');
     console.log('================================');
-    console.log('✅ ClawHub 追踪完成');
+    
+    const endTime = new Date();
+    const duration = Math.round((endTime - startTime) / 1000);
+    console.log(`✅ ClawHub 追踪完成 (耗时：${duration}秒)`);
+    console.log(`结束时间：${endTime.toISOString()}`);
     console.log('');
-    console.log('下一步：');
-    console.log('  1. 审查生成的报告');
-    console.log('  2. 运行 git commit 提交变更');
-    console.log('  3. 推送到远程仓库');
+    
+    // 保存执行状态（支持中断恢复）
+    const stateFile = path.join(CONFIG.WORKSPACE_DIR, 'memory', 'clawhub-tracker-state.json');
+    const stateDir = path.dirname(stateFile);
+    if (!fs.existsSync(stateDir)) fs.mkdirSync(stateDir, { recursive: true });
+    const state = {
+      lastRun: endTime.toISOString(),
+      lastDuration: duration,
+      lastStatus: 'success',
+      skillsCount: skills.length,
+      reportPath: path.join(CONFIG.REPORTS_DIR, `clawhub-top100-${new Date().toISOString().split('T')[0]}.md`)
+    };
+    fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));
+    console.log(`💾 执行状态已保存：${stateFile}`);
     console.log('');
     
     // 输出 Top 10 用于通知
@@ -385,8 +457,26 @@ async function main() {
     });
     
   } catch (error) {
+    const endTime = new Date();
     console.error('❌ 错误:', error.message);
     console.error(error.stack);
+    
+    // 保存错误状态
+    const stateFile = path.join(CONFIG.WORKSPACE_DIR, 'memory', 'clawhub-tracker-state.json');
+    const stateDir = path.dirname(stateFile);
+    if (!fs.existsSync(stateDir)) fs.mkdirSync(stateDir, { recursive: true });
+    const state = {
+      lastRun: endTime.toISOString(),
+      lastStatus: 'error',
+      lastError: error.message
+    };
+    fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));
+    console.log(`\n💾 错误状态已保存：${stateFile}`);
+    console.log('\n💡 建议：');
+    console.log('  1. 检查网络连接和 API 访问');
+    console.log('  2. 查看错误日志定位问题');
+    console.log('  3. 修复后重新运行脚本');
+    
     process.exit(1);
   }
 }

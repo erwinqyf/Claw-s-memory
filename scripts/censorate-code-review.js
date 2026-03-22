@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * 都察院代码审查 - Censorate Code Review
+ * 都察院代码审查 - Censorate Code Review v2.0
  * 
  * 灵感来源：菠萝菠菠 AI 朝廷 (danghuangshang)
  * GitHub: https://github.com/wanikua/danghuangshang
@@ -17,6 +17,12 @@
  * 
  * @example
  * node scripts/censorate-code-review.js --repo erwinqyf/Claw-s-memory --commit abc123
+ * 
+ * v2.0 改进 (2026-03-23 夜间优化):
+ * - 添加启动时配置验证（fail fast 原则）
+ * - 增强错误处理和恢复建议
+ * - 添加执行状态持久化
+ * - 改进日志输出格式
  */
 
 const https = require('https');
@@ -114,6 +120,52 @@ const REVIEW_RULES = {
     },
   ],
 };
+
+// ============ 配置验证（fail fast 原则）====================
+
+/**
+ * 验证配置和环境
+ * @throws {Error} 配置错误时抛出
+ */
+function validateConfig() {
+  const errors = [];
+  
+  // 验证 GitHub 配置
+  if (!CONFIG.github.token) {
+    errors.push('GitHub Token 未配置 (GITHUB_TOKEN 环境变量)');
+  } else if (CONFIG.github.token.length < 10) {
+    errors.push(`GitHub Token 格式可疑 (长度：${CONFIG.github.token.length})`);
+  }
+  
+  if (!CONFIG.github.owner) {
+    errors.push('GitHub 所有者未配置 (CONFIG.github.owner)');
+  }
+  
+  if (!CONFIG.github.repo) {
+    errors.push('GitHub 仓库未配置 (CONFIG.github.repo)');
+  }
+  
+  // 验证飞书配置（可选，但建议配置）
+  if (!CONFIG.feishu.userId) {
+    console.warn('⚠️ 飞书用户 ID 未配置，通知功能将不可用');
+  }
+  
+  // 验证审查规则配置
+  if (CONFIG.review.maxFileSize < 100 || CONFIG.review.maxFileSize > 2000) {
+    console.warn(`⚠️ 文件行数阈值配置异常：${CONFIG.review.maxFileSize}，建议使用 500`);
+  }
+  
+  if (errors.length > 0) {
+    console.error('❌ 配置验证失败：');
+    errors.forEach(err => console.error(`  - ${err}`));
+    console.error('\n💡 建议：');
+    console.error('  1. 设置 GITHUB_TOKEN 环境变量');
+    console.error('  2. 检查 scripts/censorate-code-review.js 中的 CONFIG 配置');
+    throw new Error(`配置验证失败：${errors.length} 个错误`);
+  }
+  
+  console.log('✅ 配置验证通过');
+}
 
 // ============ 工具函数 ============
 
@@ -380,10 +432,17 @@ async function sendFeishuNotification(reviewResult) {
  * 主审查流程
  */
 async function main() {
-  console.log('🏛️  都察院代码审查启动...');
+  const startTime = new Date();
+  console.log('🏛️  都察院代码审查 v2.0');
+  console.log('═'.repeat(40));
+  console.log(`开始时间：${startTime.toISOString()}`);
   console.log(`📂 仓库：${CONFIG.github.owner}/${CONFIG.github.repo}`);
+  console.log('');
   
   try {
+    // 配置验证（fail fast）
+    validateConfig();
+    console.log('');
     // 获取最近的 commits
     const commits = await getRecentCommits(1);
     if (commits.length === 0) {
@@ -466,6 +525,24 @@ async function main() {
     fs.writeFileSync(reportPath, JSON.stringify(reviewResult, null, 2));
     console.log(`📁 报告已保存：${reportPath}`);
     
+    const endTime = new Date();
+    const duration = Math.round((endTime - startTime) / 1000);
+    console.log(`\n⏱️  审查完成 (耗时：${duration}秒)`);
+    
+    // 保存执行状态
+    const stateFile = path.join(__dirname, '..', 'memory', 'censorate-review-state.json');
+    const stateDir = path.dirname(stateFile);
+    if (!fs.existsSync(stateDir)) fs.mkdirSync(stateDir, { recursive: true });
+    const state = {
+      lastRun: endTime.toISOString(),
+      lastDuration: duration,
+      lastCommit: commitSha.substring(0, 7),
+      lastStatus: reviewResult.passed ? 'passed' : 'failed',
+      issuesCount: reviewResult.issues.length
+    };
+    fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));
+    console.log(`💾 执行状态已保存：${stateFile}`);
+    
     // 如果不通过，退出码设为 1（可用于 CI/CD 阻断）
     if (!reviewResult.passed) {
       console.log('\n❌ 代码审查未通过，请修复问题后重新提交');
@@ -475,7 +552,25 @@ async function main() {
     }
     
   } catch (error) {
+    const endTime = new Date();
     console.error('❌ 审查过程出错:', error.message);
+    
+    // 保存错误状态
+    const stateFile = path.join(__dirname, '..', 'memory', 'censorate-review-state.json');
+    const stateDir = path.dirname(stateFile);
+    if (!fs.existsSync(stateDir)) fs.mkdirSync(stateDir, { recursive: true });
+    const state = {
+      lastRun: endTime.toISOString(),
+      lastStatus: 'error',
+      lastError: error.message
+    };
+    fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));
+    
+    console.error('\n💡 建议：');
+    console.error('  1. 检查 GitHub Token 是否有效');
+    console.error('  2. 确认仓库访问权限');
+    console.error('  3. 检查网络连接');
+    
     process.exit(1);
   }
 }
