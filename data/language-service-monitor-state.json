@@ -1,5 +1,5 @@
 {
-  "lastCheck": "2026-03-19T03:01:16.992Z",
+  "lastCheck": "2026-03-24T03:01:29.719Z",
   "articles": [
     {
       "title": "LLM translation use cases inside an enterprise translation platform",
@@ -711,6 +711,14 @@
       "source": "Smartling",
       "type": "company",
       "summary": "Discover key factors for evaluating a multilingual content management system and best practices for multilingual websites in our comprehensive guide. - Smartling 最新动态"
+    },
+    {
+      "title": "i18n Meaning VS L10n, G11N, and T9N: What do they Mean?",
+      "url": "https://www.transifex.com/blog/2022/i18n-meaning-vs-l10n-g11n-and-t9n",
+      "date": "2026-03-24",
+      "source": "Transifex",
+      "type": "company",
+      "summary": "i18n Meaning VS L10n, G11N, and T9N: What do they Mean? - Transifex 最新动态"
     }
   ]
 }
