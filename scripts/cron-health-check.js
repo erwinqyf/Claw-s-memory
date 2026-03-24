@@ -14,6 +14,7 @@
  * 定时：每小时执行一次
  * 
  * 优化记录:
+ * - v2.1 (2026-03-25): 添加任务执行超时检查、修复重试机制阻塞方式
  * - v2.0 (2026-03-22): 添加配置验证、重试机制、详细日志、健康任务摘要
  * - v1.0 (2026-03-18): 初始版本
  * 
@@ -22,6 +23,8 @@
  * - execSync 调用添加错误捕获和重试
  * - 添加健康任务数量统计
  * - 更详细的错误信息和恢复建议
+ * - 检测任务执行超时（如 global-news-monitor 超时问题）
+ * - 重试机制改用简单阻塞循环（避免 Atomics.wait 兼容性问题）
  */
 
 const fs = require('fs');
@@ -40,6 +43,8 @@ const CONFIG = {
   CONSECUTIVE_ERROR_THRESHOLD: 3,
   // 任务超时阈值（毫秒）- 2 小时
   TASK_OVERDUE_THRESHOLD_MS: 2 * 60 * 60 * 1000,
+  // 任务执行超时阈值（毫秒）- 60 分钟（与 OpenClaw 默认超时对齐）
+  TASK_EXEC_TIMEOUT_MS: 60 * 60 * 1000,
   // 重试配置
   MAX_RETRIES: 2,
   RETRY_DELAY_MS: 500,
@@ -79,9 +84,11 @@ function execWithRetry(command, options = {}, retryCount = 0) {
   } catch (e) {
     if (retryCount < CONFIG.MAX_RETRIES) {
       console.log(`⚠️ 命令失败，${CONFIG.RETRY_DELAY_MS}ms 后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES}): ${command}`);
-      const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-      // 同步等待
-      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, CONFIG.RETRY_DELAY_MS);
+      // 同步等待 - 使用简单的阻塞循环（Node.js 单线程环境安全）
+      const start = Date.now();
+      while (Date.now() - start < CONFIG.RETRY_DELAY_MS) {
+        // busy wait
+      }
       return execWithRetry(command, options, retryCount + 1);
     }
     throw e;
@@ -234,6 +241,45 @@ function checkOverdueTasks() {
   }
 }
 
+// 5. 检查任务执行超时（新增 v2.1）
+function checkTaskTimeouts() {
+  console.log('\n⏱️ 检查任务执行超时...');
+  try {
+    const data = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf-8'));
+    const timeoutTasks = [];
+    
+    for (const job of data.jobs) {
+      if (!job.enabled) continue;
+      
+      // 检查最近一次执行是否超时
+      if (job.state?.lastRunStatus === 'error' && 
+          job.state?.lastError?.includes('timed out')) {
+        const duration = job.state?.lastDurationMs ? 
+          `${Math.round(job.state.lastDurationMs / 1000 / 60)}分钟` : '未知时长';
+        timeoutTasks.push(`${job.name} (${duration})`);
+      }
+    }
+    
+    if (timeoutTasks.length > 0) {
+      const msg = `⚠️ ${timeoutTasks.length} 个任务执行超时：${timeoutTasks.join(', ')}`;
+      warnings.push(msg);
+      console.log(msg);
+      console.log('💡 建议：检查任务逻辑、增加超时时间、或优化性能');
+    } else {
+      const msg = `✅ 无任务执行超时`;
+      healthyTasks.push(msg);
+      console.log(msg);
+    }
+    
+    return timeoutTasks.length === 0;
+  } catch (e) {
+    const msg = `❌ 无法检查任务超时：${e.message}`;
+    alerts.push(msg);
+    console.log(msg);
+    return false;
+  }
+}
+
 // 生成详细报告
 function generateDetailedReport() {
   const timestamp = new Date().toISOString().split('T')[0];
@@ -356,8 +402,8 @@ function sendAlert() {
 
 // 主函数
 function main() {
-  console.log('🏥 Cron 健康检查 v2.0');
-  console.log('=' .repeat(40));
+  console.log('🏥 Cron 健康检查 v2.1');
+  console.log('='.repeat(40));
   
   // 1. 配置验证
   try {
@@ -376,6 +422,7 @@ function main() {
   results.push(checkSchedulerStatus());
   results.push(checkTaskErrors());
   results.push(checkOverdueTasks());
+  results.push(checkTaskTimeouts()); // v2.1 新增
   
   // 3. 发送报告
   sendAlert();
