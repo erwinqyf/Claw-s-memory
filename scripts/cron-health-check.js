@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Cron 调度器健康检查脚本 v2.0
+ * Cron 调度器健康检查脚本 v2.2
  * ============================
  * 
  * 用途：监控 OpenClaw 定时任务调度器状态，发现异常立即告警
@@ -9,11 +9,15 @@
  * 2. 是否有任务连续错误 > 3 次
  * 3. jobs.json 语法是否正确
  * 4. 是否有任务应该执行但未执行
+ * 5. 任务执行超时检测
+ * 6. 磁盘空间检查
+ * 7. 任务统计摘要
  * 
  * 用法：node scripts/cron-health-check.js
  * 定时：每小时执行一次
  * 
  * 优化记录:
+ * - v2.2 (2026-03-26): 添加磁盘空间检查、任务统计摘要、修复版本号不一致
  * - v2.1 (2026-03-25): 添加任务执行超时检查、修复重试机制阻塞方式
  * - v2.0 (2026-03-22): 添加配置验证、重试机制、详细日志、健康任务摘要
  * - v1.0 (2026-03-18): 初始版本
@@ -25,6 +29,8 @@
  * - 更详细的错误信息和恢复建议
  * - 检测任务执行超时（如 global-news-monitor 超时问题）
  * - 重试机制改用简单阻塞循环（避免 Atomics.wait 兼容性问题）
+ * - 添加磁盘空间监控（阈值 90%）
+ * - 添加任务统计（总数/启用/禁用）
  */
 
 const fs = require('fs');
@@ -280,6 +286,62 @@ function checkTaskTimeouts() {
   }
 }
 
+// 6. 检查磁盘空间（新增 v2.2）
+function checkDiskSpace() {
+  console.log('\n💾 检查磁盘空间...');
+  try {
+    const output = execSync('df -h /home | tail -1', { encoding: 'utf-8' });
+    const parts = output.trim().split(/\s+/);
+    const usagePercent = parseInt(parts[4]);
+    const used = parts[2];
+    const total = parts[1];
+    
+    if (usagePercent >= 90) {
+      const msg = `❌ 磁盘空间紧张：${usagePercent}% (已用 ${used}/${total})`;
+      alerts.push(msg);
+      console.log(msg);
+      return false;
+    } else if (usagePercent >= 80) {
+      const msg = `⚠️ 磁盘使用率较高：${usagePercent}% (已用 ${used}/${total})`;
+      warnings.push(msg);
+      console.log(msg);
+    } else {
+      const msg = `✅ 磁盘空间充足：${usagePercent}% (已用 ${used}/${total})`;
+      healthyTasks.push(msg);
+      console.log(msg);
+    }
+    
+    return usagePercent < 90;
+  } catch (e) {
+    const msg = `❌ 无法检查磁盘空间：${e.message}`;
+    alerts.push(msg);
+    console.log(msg);
+    return false;
+  }
+}
+
+// 7. 任务统计摘要（新增 v2.2）
+function getTaskStats() {
+  console.log('\n📊 任务统计...');
+  try {
+    const data = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf-8'));
+    const total = data.jobs.length;
+    const enabled = data.jobs.filter(j => j.enabled).length;
+    const disabled = total - enabled;
+    
+    const msg = `📋 任务总数：${total} | 启用：${enabled} | 禁用：${disabled}`;
+    healthyTasks.push(msg);
+    console.log(msg);
+    
+    return { total, enabled, disabled };
+  } catch (e) {
+    const msg = `❌ 无法获取任务统计：${e.message}`;
+    warnings.push(msg);
+    console.log(msg);
+    return null;
+  }
+}
+
 // 生成详细报告
 function generateDetailedReport() {
   const timestamp = new Date().toISOString().split('T')[0];
@@ -288,7 +350,7 @@ function generateDetailedReport() {
   
   let report = `# Cron 健康检查报告\n\n`;
   report += `**检查时间:** ${new Date().toISOString()}\n`;
-  report += `**检查版本:** v2.0\n\n`;
+  report += `**检查版本:** v2.2\n\n`;
   
   // 状态摘要
   const totalChecks = alerts.length + warnings.length + healthyTasks.length;
@@ -423,6 +485,8 @@ function main() {
   results.push(checkTaskErrors());
   results.push(checkOverdueTasks());
   results.push(checkTaskTimeouts()); // v2.1 新增
+  results.push(checkDiskSpace()); // v2.2 新增
+  getTaskStats(); // v2.2 新增（仅统计，不影响结果）
   
   // 3. 发送报告
   sendAlert();
