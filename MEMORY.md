@@ -345,3 +345,38 @@ openclaw cron edit <job-id> --to ou_adcbc44a6fb7460391e585338f9e1e35 --channel f
 
 ---
 
+## 2026-03-26 技术问题 - 飞书 sessions_send 会话不存在
+
+**问题描述：** 多个定时任务使用 `sessions_send` 发送飞书通知失败
+**错误信息：** Session not found: `agent:main:feishu:group:oc_544ef0ac66f15f18550668c007ee8566`
+
+**与之前问题的区别：**
+- 2026-03-25 修复的是 cron `delivery.to` 配置（缺少 `chat:` 前缀）
+- 2026-03-26 发现的是 `sessions_send` 目标会话不存在
+
+**根因分析：**
+- `sessions_send` 需要目标 session 已存在（通过 sessions_list 可查询）
+- 飞书群聊会话不会自动创建，需要 Bot 先加入群聊
+- 当前 Bot 未加入任何群聊：`openclaw directory groups list --channel feishu` 返回 "No groups found"
+
+**受影响任务：**
+- morning-report-7am (晨间报告)
+- nightly-autonomous-midnight (夜间任务报告)
+- clawhub-tracker-daily-6am (ClawHub 追踪)
+- weekly-report-monday-9am (周报复盘)
+- global-news-daily-12pm (全球新闻汇总)
+
+**解决方案：**
+1. 丰需要在飞书创建群聊「孪生团队协作中心」
+2. 邀请 Bot 加入群聊
+3. 获取正确的群聊 ID
+4. 更新 cron 配置中的 `delivery.to` 或 `sessions_send` 目标
+
+**教训：**
+- `sessions_send` 和 cron `delivery` 是两种不同的通知机制
+- `sessions_send` 需要预先存在的 session
+- cron `delivery` 需要正确的 `chat:` 前缀格式
+- 飞书 Bot 必须先加入群聊才能发送消息
+
+---
+
