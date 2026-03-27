@@ -1,6 +1,6 @@
 # Cron 健康检查报告
 
-**检查时间:** 2026-03-27T21:05:01.799Z
+**检查时间:** 2026-03-27T22:08:24.596Z
 **检查版本:** v2.2
 
 ## 📊 摘要
@@ -12,11 +12,11 @@
 
 ## ⚠️ 警告
 
-- ⚠️ 2 个任务错误：clawhub-tracker-daily-6am, nightly-autonomous-midnight
+- ⚠️ 2 个任务错误：nightly-autonomous-midnight, clawhub-tracker-daily-6am
 
 ## ✅ 健康状态
 
-- ✅ 调度器正常 (上次唤醒：0m 前)
+- ✅ 调度器正常 (上次唤醒：4m 前)
 - ✅ 无过期任务
 - ✅ 无任务执行超时
 - ✅ 磁盘空间充足：20% (已用 7.2G/40G)
