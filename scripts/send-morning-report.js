@@ -147,32 +147,51 @@ function buildMessage(report) {
   return message;
 }
 
-// 通过 sessions_send 发送消息
-function sendViaSessionsSend(message) {
-  console.log(`📤 尝试通过 sessions_send 发送到：${CONFIG.SESSION_TARGET}`);
-  
-  // 转义消息中的特殊字符
-  const escapedMessage = message.replace(/'/g, "'\"'\"'");
+// 通过 openclaw message send 发送消息
+function sendViaMessageSend(message) {
+  const target = `chat:${CONFIG.FEISHU_GROUP_ID}`;
+  console.log(`📤 尝试通过 openclaw message send 发送到：${target}`);
   
   try {
-    const cmd = `openclaw sessions send --session-key "${CONFIG.SESSION_TARGET}" --message '${escapedMessage}'`;
-    const output = execSync(cmd, { 
+    // 使用 --dry-run 先测试
+    const testCmd = `openclaw message send --channel feishu --target "${target}" --message '${message.replace(/'/g, "'\"'\"'")}' --dry-run`;
+    console.log('🔍 测试发送 (dry-run)...');
+    execSync(testCmd, { 
+      encoding: 'utf-8',
+      timeout: 10000,
+      stdio: ['pipe', 'pipe', 'pipe']
+    });
+    console.log('✅ Dry-run 通过，配置正确\n');
+    
+    // 实际发送
+    const sendCmd = `openclaw message send --channel feishu --target "${target}" --message '${message.replace(/'/g, "'\"'\"'")}' --json`;
+    const output = execSync(sendCmd, { 
       encoding: 'utf-8',
       timeout: 30000,
       stdio: ['pipe', 'pipe', 'pipe']
     });
-    console.log('✅ sessions_send 执行成功');
-    console.log(output);
-    return { success: true, method: 'sessions_send' };
+    console.log('✅ 消息发送成功');
+    
+    // 解析 JSON 输出获取 message_id
+    try {
+      const result = JSON.parse(output);
+      if (result.data && result.data.message_id) {
+        console.log(`Message ID: ${result.data.message_id}`);
+      }
+    } catch (e) {
+      // 忽略 JSON 解析错误
+    }
+    
+    return { success: true, method: 'message_send' };
   } catch (err) {
     const errorMsg = err.stderr || err.stdout || err.message;
-    if (errorMsg.includes('Session not found') || errorMsg.includes('not found')) {
-      console.log('❌ sessions_send 失败：目标会话不存在');
+    if (errorMsg.includes('not found') || errorMsg.includes('invalid') || errorMsg.includes('400')) {
+      console.log('❌ 发送失败：目标群聊不存在或 Bot 未加入');
       console.log('💡 可能原因：Bot 未加入飞书群聊');
     } else {
-      console.log('❌ sessions_send 失败:', errorMsg.substring(0, 200));
+      console.log('❌ 发送失败:', errorMsg.substring(0, 200));
     }
-    return { success: false, method: 'sessions_send', error: errorMsg };
+    return { success: false, method: 'message_send', error: errorMsg };
   }
 }
 
@@ -214,17 +233,8 @@ async function main() {
     console.log(message.substring(0, 500) + (message.length > 500 ? '\n...' : ''));
     console.log('');
     
-    // 检查会话
-    console.log('🔍 检查目标会话...');
-    const sessionExists = checkSessionExists(CONFIG.SESSION_TARGET);
-    if (!sessionExists) {
-      console.log('⚠️ 目标会话可能不存在，将尝试发送但可能失败\n');
-    } else {
-      console.log('✅ 目标会话存在\n');
-    }
-    
     // 尝试发送
-    const result = sendViaSessionsSend(message);
+    const result = sendViaMessageSend(message);
     
     if (!result.success) {
       console.log('\n⚠️ 发送失败，启用备用方案...\n');
