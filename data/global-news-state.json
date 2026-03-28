@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-03-27T04:00:37.077Z",
-  "lastRunDate": "2026-03-27",
+  "lastRun": "2026-03-28T04:03:18.572Z",
+  "lastRunDate": "2026-03-28",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 203,
+      "totalAvailable": 204,
       "errors": [
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
@@ -17,10 +17,10 @@
     {
       "category": "economy",
       "itemsCount": 5,
-      "totalAvailable": 69,
+      "totalAvailable": 68,
       "errors": [
         "Reuters Business: HTTP 301: https://www.reutersagency.com/feed/?best-topics=business-finance",
-        "Bloomberg: HTTP 404: https://www.bloomberg.com/feed/podcast/etf.xml",
+        "Bloomberg: HTTP 403: https://www.bloomberg.com/feed/podcast/etf.xml",
         "经济学人财经: HTTP 403: https://www.economist.com/finance-and-economics/rss"
       ]
     },
@@ -37,7 +37,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 124,
+      "totalAvailable": 122,
       "errors": [
         "Hacker News: Cannot read properties of undefined (reading 'length')"
       ]
