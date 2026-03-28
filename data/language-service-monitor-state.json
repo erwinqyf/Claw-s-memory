@@ -1,5 +1,5 @@
 {
-  "lastCheck": "2026-03-24T03:01:29.719Z",
+  "lastCheck": "2026-03-28T03:04:30.948Z",
   "articles": [
     {
       "title": "LLM translation use cases inside an enterprise translation platform",
@@ -719,6 +719,30 @@
       "source": "Transifex",
       "type": "company",
       "summary": "i18n Meaning VS L10n, G11N, and T9N: What do they Mean? - Transifex 最新动态"
+    },
+    {
+      "title": "Localization strategy",
+      "url": "https://phrase.com/blog/?query-1-category_name%5B0%5D=localization-strategy",
+      "date": "2026-03-28",
+      "source": "Phrase",
+      "type": "company",
+      "summary": "Localization strategy - Phrase 最新动态"
+    },
+    {
+      "title": "Software localization",
+      "url": "https://phrase.com/blog/?query-1-category_name%5B0%5D=software-localization",
+      "date": "2026-03-28",
+      "source": "Phrase",
+      "type": "company",
+      "summary": "Software localization - Phrase 最新动态"
+    },
+    {
+      "title": "Translation management",
+      "url": "https://phrase.com/blog/?query-1-category_name%5B0%5D=translation-management",
+      "date": "2026-03-28",
+      "source": "Phrase",
+      "type": "company",
+      "summary": "Translation management - Phrase 最新动态"
     }
   ]
 }
