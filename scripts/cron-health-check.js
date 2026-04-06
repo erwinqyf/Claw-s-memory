@@ -157,41 +157,42 @@ function checkSchedulerStatus() {
 function checkTaskErrors() {
   console.log('\n📋 检查任务错误...');
   try {
-    const output = execWithRetry('openclaw cron list');
-    const lines = output.split('\n').slice(2);
+    // 使用 JSON 输出避免文本解析问题
+    const output = execWithRetry('openclaw cron list --json');
+    const data = JSON.parse(output);
     
     const errorTasks = [];
     const warningTasks = [];
     
-    for (const line of lines) {
-      if (!line.trim()) continue;
-      // 更健壮的解析：支持可变空格和制表符
-      const parts = line.split(/[\s\t]+/).filter(Boolean);
-      if (parts.length < 6) continue;
+    for (const job of data.jobs || []) {
+      if (!job.enabled) continue;
       
-      // 解析格式：NAME | SCHEDULE | STATUS | LAST RUN | NEXT RUN | ...
-      const taskName = parts[0]?.trim();
-      const status = parts[2]?.toLowerCase();
+      const consecutiveErrors = job.state?.consecutiveErrors || 0;
+      const lastStatus = job.state?.lastStatus;
+      const lastDeliveryStatus = job.state?.lastDeliveryStatus;
       
-      if (!taskName) continue;
+      // 检测连续错误（执行失败）
+      if (consecutiveErrors >= CONFIG.CONSECUTIVE_ERROR_THRESHOLD) {
+        errorTasks.push(`${job.name} (连续${consecutiveErrors}次失败)`);
+      } else if (consecutiveErrors > 0) {
+        warningTasks.push(`${job.name} (连续${consecutiveErrors}次失败)`);
+      }
       
-      if (status === 'error') {
-        errorTasks.push(taskName);
-      } else if (status === 'warning' || status === 'warn') {
-        warningTasks.push(taskName);
+      // 检测投递失败（任务成功但通知失败）
+      if (lastDeliveryStatus === 'unknown' || lastDeliveryStatus === 'error') {
+        if (consecutiveErrors === 0) {
+          // 仅投递失败，任务本身成功
+          warningTasks.push(`${job.name} (投递失败)`);
+        }
       }
     }
     
-    if (errorTasks.length >= CONFIG.CONSECUTIVE_ERROR_THRESHOLD) {
+    if (errorTasks.length > 0) {
       const msg = `❌ ${errorTasks.length} 个任务连续错误：${errorTasks.join(', ')}`;
       alerts.push(msg);
       console.log(msg);
-    } else if (errorTasks.length > 0) {
-      const msg = `⚠️ ${errorTasks.length} 个任务错误：${errorTasks.join(', ')}`;
-      warnings.push(msg);
-      console.log(msg);
     } else if (warningTasks.length > 0) {
-      const msg = `⚠️ ${warningTasks.length} 个任务警告：${warningTasks.join(', ')}`;
+      const msg = `⚠️ ${warningTasks.length} 个任务异常：${warningTasks.join(', ')}`;
       warnings.push(msg);
       console.log(msg);
     } else {
@@ -200,7 +201,7 @@ function checkTaskErrors() {
       console.log(msg);
     }
     
-    return errorTasks.length < CONFIG.CONSECUTIVE_ERROR_THRESHOLD;
+    return errorTasks.length === 0;
   } catch (e) {
     const msg = `❌ 无法获取任务列表：${e.message}`;
     alerts.push(msg);
