@@ -230,7 +230,6 @@ function main() {
   console.log('✅ 记忆巩固完成');
   console.log(`📊 处理 ${logs.length} 个文件，提取 ${insights.length} 条信息`);
   console.log('');
-}
   console.log('  3. 推送到远程仓库');
   console.log('');
 }
