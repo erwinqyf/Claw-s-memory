@@ -336,13 +336,15 @@ function getTaskStats() {
     const enabled = jobs.filter(j => j.enabled !== false).length;
     const disabled = total - enabled;
     
-    // 检查是否有任务配置了 wakeMode 但没有 heartbeat（2026-03-13 教训）
-    const wakeModeTasks = jobs.filter(j => j.enabled && j.wakeMode && !jobs.some(j2 => j2.name?.includes('heartbeat')));
+    // 检查是否有任务配置了 wakeMode="next-heartbeat" 但没有 heartbeat（2026-03-13 教训）
+    // 注意：wakeMode="now" 不依赖 heartbeat，只有 "next-heartbeat" 才需要
+    const hasHeartbeat = jobs.some(j => j.name?.toLowerCase().includes('heartbeat') && j.enabled !== false);
+    const wakeModeTasks = jobs.filter(j => j.enabled && j.wakeMode === 'next-heartbeat' && !hasHeartbeat);
     if (wakeModeTasks.length > 0) {
-      const msg = `⚠️ ${wakeModeTasks.length} 个任务配置 wakeMode 但无 heartbeat：${wakeModeTasks.map(j => j.name).join(', ')}`;
+      const msg = `⚠️ ${wakeModeTasks.length} 个任务配置 wakeMode="next-heartbeat" 但无 heartbeat：${wakeModeTasks.map(j => j.name).join(', ')}`;
       warnings.push(msg);
       console.log(msg);
-      console.log('💡 教训 (2026-03-13): wakeMode 依赖 heartbeat 唤醒，否则任务永远无法执行');
+      console.log('💡 教训 (2026-03-13): wakeMode="next-heartbeat" 依赖 heartbeat 唤醒，否则任务永远无法执行');
     }
     
     const msg = `📋 任务总数：${total} | 启用：${enabled} | 禁用：${disabled}`;
