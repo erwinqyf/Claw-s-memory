@@ -31,6 +31,7 @@
  * - 重试机制改用简单阻塞循环（避免 Atomics.wait 兼容性问题）
  * - 添加磁盘空间监控（阈值 90%）
  * - 添加任务统计（总数/启用/禁用）
+ * - 统一版本号显示（v2.3 修复版本不一致问题）
  */
 
 const fs = require('fs');
@@ -164,14 +165,19 @@ function checkTaskErrors() {
     
     for (const line of lines) {
       if (!line.trim()) continue;
-      const parts = line.split(/\s{2,}/).filter(Boolean);
-      if (parts.length < 7) continue;
-      const [name, , , , , status] = parts;
-      const taskName = name.trim();
+      // 更健壮的解析：支持可变空格和制表符
+      const parts = line.split(/[\s\t]+/).filter(Boolean);
+      if (parts.length < 6) continue;
+      
+      // 解析格式：NAME | SCHEDULE | STATUS | LAST RUN | NEXT RUN | ...
+      const taskName = parts[0]?.trim();
+      const status = parts[2]?.toLowerCase();
+      
+      if (!taskName) continue;
       
       if (status === 'error') {
         errorTasks.push(taskName);
-      } else if (status === 'warning') {
+      } else if (status === 'warning' || status === 'warn') {
         warningTasks.push(taskName);
       }
     }
@@ -325,15 +331,25 @@ function getTaskStats() {
   console.log('\n📊 任务统计...');
   try {
     const data = JSON.parse(fs.readFileSync(JOBS_FILE, 'utf-8'));
-    const total = data.jobs.length;
-    const enabled = data.jobs.filter(j => j.enabled).length;
+    const jobs = data.jobs || [];
+    const total = jobs.length;
+    const enabled = jobs.filter(j => j.enabled !== false).length;
     const disabled = total - enabled;
+    
+    // 检查是否有任务配置了 wakeMode 但没有 heartbeat（2026-03-13 教训）
+    const wakeModeTasks = jobs.filter(j => j.enabled && j.wakeMode && !jobs.some(j2 => j2.name?.includes('heartbeat')));
+    if (wakeModeTasks.length > 0) {
+      const msg = `⚠️ ${wakeModeTasks.length} 个任务配置 wakeMode 但无 heartbeat：${wakeModeTasks.map(j => j.name).join(', ')}`;
+      warnings.push(msg);
+      console.log(msg);
+      console.log('💡 教训 (2026-03-13): wakeMode 依赖 heartbeat 唤醒，否则任务永远无法执行');
+    }
     
     const msg = `📋 任务总数：${total} | 启用：${enabled} | 禁用：${disabled}`;
     healthyTasks.push(msg);
     console.log(msg);
     
-    return { total, enabled, disabled };
+    return { total, enabled, disabled, wakeModeTasks };
   } catch (e) {
     const msg = `❌ 无法获取任务统计：${e.message}`;
     warnings.push(msg);
@@ -350,7 +366,7 @@ function generateDetailedReport() {
   
   let report = `# Cron 健康检查报告\n\n`;
   report += `**检查时间:** ${new Date().toISOString()}\n`;
-  report += `**检查版本:** v2.2\n\n`;
+  report += `**检查版本:** v2.3\n\n`;
   
   // 状态摘要
   const totalChecks = alerts.length + warnings.length + healthyTasks.length;
@@ -464,7 +480,7 @@ function sendAlert() {
 
 // 主函数
 function main() {
-  console.log('🏥 Cron 健康检查 v2.1');
+  console.log('🏥 Cron 健康检查 v2.3');
   console.log('='.repeat(40));
   
   // 1. 配置验证
