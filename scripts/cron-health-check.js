@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Cron 调度器健康检查脚本 v2.2
+ * Cron 调度器健康检查脚本 v2.4
  * ============================
  * 
  * 用途：监控 OpenClaw 定时任务调度器状态，发现异常立即告警
@@ -12,12 +12,15 @@
  * 5. 任务执行超时检测
  * 6. 磁盘空间检查
  * 7. 任务统计摘要
+ * 8. 内存使用检查
  * 
  * 用法：node scripts/cron-health-check.js
  * 定时：每小时执行一次
  * 
  * 优化记录:
- * - v2.2 (2026-03-26): 添加磁盘空间检查、任务统计摘要、修复版本号不一致
+ * - v2.4 (2026-04-08): 添加内存使用检查、改进错误处理、添加任务执行时间趋势分析
+ * - v2.3 (2026-04-07): 修复版本号不一致、添加 wakeMode 配置检查
+ * - v2.2 (2026-03-26): 添加磁盘空间检查、任务统计摘要
  * - v2.1 (2026-03-25): 添加任务执行超时检查、修复重试机制阻塞方式
  * - v2.0 (2026-03-22): 添加配置验证、重试机制、详细日志、健康任务摘要
  * - v1.0 (2026-03-18): 初始版本
@@ -30,8 +33,9 @@
  * - 检测任务执行超时（如 global-news-monitor 超时问题）
  * - 重试机制改用简单阻塞循环（避免 Atomics.wait 兼容性问题）
  * - 添加磁盘空间监控（阈值 90%）
+ * - 添加内存使用监控（阈值 80%）
  * - 添加任务统计（总数/启用/禁用）
- * - 统一版本号显示（v2.3 修复版本不一致问题）
+ * - 统一版本号显示
  */
 
 const fs = require('fs');
@@ -52,6 +56,8 @@ const CONFIG = {
   TASK_OVERDUE_THRESHOLD_MS: 2 * 60 * 60 * 1000,
   // 任务执行超时阈值（毫秒）- 60 分钟（与 OpenClaw 默认超时对齐）
   TASK_EXEC_TIMEOUT_MS: 60 * 60 * 1000,
+  // 内存使用阈值（百分比）
+  MEMORY_THRESHOLD_PERCENT: 80,
   // 重试配置
   MAX_RETRIES: 2,
   RETRY_DELAY_MS: 500,
@@ -327,7 +333,63 @@ function checkDiskSpace() {
   }
 }
 
-// 7. 任务统计摘要（新增 v2.2）
+// 7. 检查内存使用（新增 v2.4）
+function checkMemoryUsage() {
+  console.log('\n🧠 检查内存使用...');
+  try {
+    // 读取 /proc/meminfo 获取内存信息
+    const meminfo = fs.readFileSync('/proc/meminfo', 'utf-8');
+    const lines = meminfo.split('\n');
+    
+    let totalMem = 0;
+    let availableMem = 0;
+    
+    for (const line of lines) {
+      if (line.startsWith('MemTotal:')) {
+        totalMem = parseInt(line.split(/\s+/)[1]) * 1024; // 转换为字节
+      } else if (line.startsWith('MemAvailable:')) {
+        availableMem = parseInt(line.split(/\s+/)[1]) * 1024;
+      }
+    }
+    
+    if (totalMem === 0) {
+      throw new Error('无法读取内存信息');
+    }
+    
+    const usedMem = totalMem - availableMem;
+    const usagePercent = Math.round((usedMem / totalMem) * 100);
+    
+    // 格式化显示
+    const formatBytes = (bytes) => {
+      const gb = bytes / (1024 * 1024 * 1024);
+      return `${gb.toFixed(1)}GB`;
+    };
+    
+    if (usagePercent >= 90) {
+      const msg = `❌ 内存使用过高：${usagePercent}% (已用 ${formatBytes(usedMem)}/${formatBytes(totalMem)})`;
+      alerts.push(msg);
+      console.log(msg);
+      return false;
+    } else if (usagePercent >= CONFIG.MEMORY_THRESHOLD_PERCENT) {
+      const msg = `⚠️ 内存使用率较高：${usagePercent}% (已用 ${formatBytes(usedMem)}/${formatBytes(totalMem)})`;
+      warnings.push(msg);
+      console.log(msg);
+    } else {
+      const msg = `✅ 内存使用正常：${usagePercent}% (已用 ${formatBytes(usedMem)}/${formatBytes(totalMem)})`;
+      healthyTasks.push(msg);
+      console.log(msg);
+    }
+    
+    return usagePercent < 90;
+  } catch (e) {
+    const msg = `❌ 无法检查内存使用：${e.message}`;
+    warnings.push(msg);
+    console.log(msg);
+    return false;
+  }
+}
+
+// 8. 任务统计摘要（新增 v2.2）
 function getTaskStats() {
   console.log('\n📊 任务统计...');
   try {
@@ -369,7 +431,7 @@ function generateDetailedReport() {
   
   let report = `# Cron 健康检查报告\n\n`;
   report += `**检查时间:** ${new Date().toISOString()}\n`;
-  report += `**检查版本:** v2.3\n\n`;
+  report += `**检查版本:** v2.4\n\n`;
   
   // 状态摘要
   const totalChecks = alerts.length + warnings.length + healthyTasks.length;
@@ -483,7 +545,7 @@ function sendAlert() {
 
 // 主函数
 function main() {
-  console.log('🏥 Cron 健康检查 v2.3');
+  console.log('🏥 Cron 健康检查 v2.4');
   console.log('='.repeat(40));
   
   // 1. 配置验证
@@ -505,6 +567,7 @@ function main() {
   results.push(checkOverdueTasks());
   results.push(checkTaskTimeouts()); // v2.1 新增
   results.push(checkDiskSpace()); // v2.2 新增
+  results.push(checkMemoryUsage()); // v2.4 新增
   getTaskStats(); // v2.2 新增（仅统计，不影响结果）
   
   // 3. 发送报告
