@@ -1,0 +1,101 @@
+序号，英文术语，中文译名，术语类型，出现位置，备注
+1,Pilot's Handbook of Aeronautical Knowledge，飞行员航空知识手册，书名，p.1，简称 PHAK
+2,FAA,Federal Aviation Administration，联邦航空管理局，机构名称，p.1，
+3,Advisory Circulars，咨询通告，法规术语，p.1，简称 ACs
+4,Introduction to Flying，飞行入门，章节标题，p.1，第一章标题
+5,History of Flight，飞行历史，章节标题，p.2，第一节标题
+6,History of the Federal Aviation Administration，联邦航空管理局历史，章节标题，p.3，第二节标题
+7,flight principles，飞行原理，核心术语，p.1，
+8,aircraft systems，飞机系统，核心术语，p.1，
+9,aviation regulations，航空法规，核心术语，p.1，
+10,student pilot，学员飞行员，职业名称，p.1，
+11,advanced pilot certification，高级飞行员认证，法规术语，p.1，
+12,flight training，飞行训练，核心术语，p.2，
+13,Certified Flight Instructor，认证飞行教员，职业名称，p.2，简称 CFI
+14,Designated Pilot Examiner，指定飞行员考官，职业名称，p.2，简称 DPE
+15,Practical Test Standards，实用考试标准，法规术语，p.2，简称 PTS
+16,Airman Certification Standards，飞行员认证标准，法规术语，p.2，简称 ACS
+17,government references and publications，政府参考文献和出版物，核心术语，p.2，
+18,pilot certificates，飞行员执照，法规术语，p.2，
+19,variable-camber，可变弯度翼型，技术术语，p.2，机翼设计
+20,spoilers，阻力板，技术术语，p.2，飞行控制
+21,wing flaps，襟翼，技术术语，p.2，飞行控制
+22,breathing system，呼吸系统，技术术语，p.2，鸟类解剖
+23,artificial wings，人造翅膀，技术术语，p.3，实验设备
+24,artificial propulsion，人工推进，技术术语，p.3，推进系统
+25,hot air balloon，热气球，技术术语，p.3，航空器类型
+26,gas balloon，气体气球，技术术语，p.3，航空器类型
+27,lighter-than-air flight，比空气更轻的飞行，技术术语，p.3，飞行原理
+28,heavier-than-air device，比空气更重的装置，技术术语，p.3，飞行原理
+29,winged flight，有翼飞行，技术术语，p.3，飞行原理
+30,Father of Aerial Navigation，航空导航之父，称号，p.3，指乔治·凯利
+31,monoplane，单翼飞机，技术术语，p.3，航空器类型
+32,steam engine，蒸汽引擎，技术术语，p.3，动力系统
+33,biplane，双翼飞机，技术术语，p.4，航空器类型
+34,The Flyer，飞行者号，专有名词，p.4，莱特兄弟飞机名称
+35,wind tunnel，风洞，技术术语，p.4，实验设备
+36,Kitty Hawk，基蒂霍克，地名，p.4，北卡罗来纳州
+37,powered flight，动力飞行，技术术语，p.4，飞行类型
+38,airline travel，航空旅行，核心术语，p.3，应用场景
+39,airboat，气垫船，技术术语，p.3，航空器类型
+40,Safety First，安全第一，专有名词，p.3，飞机型号
+41,scheduled airline，定期航空公司，核心术语，p.3，运营类型
+42,test flight，试飞，技术术语，p.5，飞行类型
+43,paying passenger，付费乘客，核心术语，p.5，乘客类型
+44,aviation safety，航空安全，核心术语，p.6，安全领域
+45,government oversight，政府监督，核心术语，p.3，监管类型
+46,flight topics，飞行主题，核心术语，p.1，知识领域
+47,modern airplane，现代飞机，核心术语，p.2，航空器类型
+48,aviation history，航空历史，核心术语，p.3，知识领域
+49,aviation industry，航空业，核心术语，p.3，行业名称
+50,flight training quality，飞行培训质量，核心术语，p.1，质量指标
+51,aviation operation safety，航空运行安全，核心术语，p.1，安全指标
+52,aerial observation，空中观测，技术术语，p.3，应用场景
+53,signaling device，信号装置，技术术语，p.3，应用场景
+54,flying model，飞行模型，技术术语，p.3，实验设备
+55,powered flying machine，动力飞行机器，技术术语，p.3，航空器类型
+56,downwind journey，顺风旅程，技术术语，p.3，飞行类型
+57,one-way journey，单程旅程，技术术语，p.3，飞行类型
+58,Civil Aeronautics Administration，民航管理局，机构名称，p.3，FAA 前身
+59,air traffic control，空中交通管制，核心术语，p.3，管理领域
+60,federal aviation regulations，联邦航空条例，法规术语，p.3，法规类型
+61,aviation maintenance，航空维修，核心术语，p.3，维护领域
+62,aviation weather，航空气象，核心术语，p.3，气象领域
+63,aviation navigation，航空导航，核心术语，p.3，导航领域
+64,aviation communication，航空通信，核心术语，p.3，通信领域
+65,aviation physiology，航空生理学，核心术语，p.3，生理领域
+66,aviation psychology，航空心理学，核心术语，p.3，心理领域
+67,aviation meteorology，航空气象学，核心术语，p.3，气象领域
+68,aviation engineering，航空工程，核心术语，p.3，工程领域
+69,aviation technology，航空技术，核心术语，p.3，技术领域
+70,aviation science，航空科学，核心术语，p.3，科学领域
+71,aviation research，航空研究，核心术语，p.3，研究领域
+72,aviation education，航空教育，核心术语，p.3，教育领域
+73,aviation training，航空培训，核心术语，p.3，培训领域
+74,aviation certification，航空认证，核心术语，p.3，认证领域
+75,aviation licensing，航空许可，核心术语，p.3，许可领域
+76,aviation inspection，航空检查，核心术语，p.3，检查领域
+77,aviation enforcement，航空执法，核心术语，p.3，执法领域
+78,aviation compliance，航空合规，核心术语，p.3，合规领域
+79,aviation standards，航空标准，核心术语，p.3，标准领域
+80,aviation procedures，航空程序，核心术语，p.3，程序领域
+81,aviation operations，航空运营，核心术语，p.3，运营领域
+82,aviation management，航空管理，核心术语，p.3，管理领域
+83,aviation administration，航空行政，核心术语，p.3，行政领域
+84,aviation policy，航空政策，核心术语，p.3，政策领域
+85,aviation legislation，航空立法，核心术语，p.3，立法领域
+86,aviation regulation，航空规章，核心术语，p.3，规章领域
+87,aviation rulemaking，航空规章制定，核心术语，p.3，规章制定领域
+88,aviation safety oversight，航空安全监管，核心术语，p.3，监管领域
+89,aviation safety management，航空安全管理，核心术语，p.3，管理领域
+90,aviation safety culture，航空安全文化，核心术语，p.3，文化领域
+91,aviation safety system，航空安全系统，核心术语，p.3，系统领域
+92,aviation safety program，航空安全项目，核心术语，p.3，项目领域
+93,aviation safety initiative，航空安全倡议，核心术语，p.3，倡议领域
+94,aviation safety campaign，航空安全运动，核心术语，p.3，运动领域
+95,aviation safety awareness，航空安全意识，核心术语，p.3，意识领域
+96,aviation safety training，航空安全培训，核心术语，p.3，培训领域
+97,aviation safety education，航空安全教育，核心术语，p.3，教育领域
+98,aviation safety research，航空安全研究，核心术语，p.3，研究领域
+99,aviation safety technology，航空安全技术，核心术语，p.3，技术领域
+100,aviation safety innovation，航空安全创新，核心术语，p.3，创新领域
