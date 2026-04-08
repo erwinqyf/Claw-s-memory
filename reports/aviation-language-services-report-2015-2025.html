@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>全球民航业语言服务十年发展报告 2015-2025</title>
+  
+  <!-- TailwindCSS CDN -->
+  <script src="https://lf26-cdn-tos.bytecdntp.com/cdn/expire-1-M/tailwindcss/3.0.23/tailwind.min.js"></script>
+  
+  <!-- 字体 -->
+  <link href="https://fonts.loli.net/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.loli.net/css2?family=Noto+Sans+SC:wght@300;400;700;900&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Noto Sans SC', 'Inter', sans-serif;
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+    }
+    
+    /* 幻灯片容器 */
+    .slides-container {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #0a0a0a;
+    }
+    
+    /* 单个幻灯片 */
+    .slide {
+      width: 100%;
+      height: 100%;
+      max-width: 450px;
+      max-height: 800px;
+      aspect-ratio: 9/16;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      transform: translateX(100%);
+      transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      overflow: hidden;
+      background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
+    }
+    
+    .slide.active {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    
+    .slide.prev {
+      opacity: 0;
+      transform: translateX(-100%);
+    }
+    
+    /* 动态光斑 */
+    .light-spot {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    
+    .light-spot-1 {
+      width: 300px;
+      height: 300px;
+      background: #3b82f6;
+      top: -100px;
+      right: -100px;
+      animation: float1 20s ease-in-out infinite;
+    }
+    
+    .light-spot-2 {
+      width: 250px;
+      height: 250px;
+      background: #8b5cf6;
+      bottom: -80px;
+      left: -80px;
+      animation: float2 25s ease-in-out infinite;
+    }
+    
+    .light-spot-3 {
+      width: 200px;
+      height: 200px;
+      background: #06b6d4;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation: float3 18s ease-in-out infinite;
+    }
+    
+    .light-spot-4 {
+      width: 180px;
+      height: 180px;
+      background: #f59e0b;
+      top: 30%;
+      right: -60px;
+      animation: float4 22s ease-in-out infinite;
+    }
+    
+    @keyframes float1 {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-50px, 30px); }
+      50% { transform: translate(30px, 50px); }
+      75% { transform: translate(50px, -20px); }
+    }
+    
+    @keyframes float2 {
+      0%, 100% { transform: translate(0, 0); }
+      33% { transform: translate(40px, -40px); }
+      66% { transform: translate(-30px, 30px); }
+    }
+    
+    @keyframes float3 {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+    }
+    
+    @keyframes float4 {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(-40px, 60px); }
+    }
+    
+    /* 内容层 */
+    .slide-content {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      width: 100%;
+    }
+    
+    /* 进度条 */
+    .progress-bar {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 100;
+    }
+    
+    .progress-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    
+    .progress-dot.active {
+      background: #fff;
+      transform: scale(1.3);
+    }
+    
+    .progress-dot:hover {
+      background: rgba(255,255,255,0.6);
+    }
+    
+    /* 页码 */
+    .page-number {
+      position: fixed;
+      bottom: 50px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.875rem;
+      color: rgba(255,255,255,0.4);
+      z-index: 100;
+    }
+    
+    /* 年份标记 */
+    .year-badge {
+      display: inline-block;
+      padding: 0.5rem 1.5rem;
+      border-radius: 9999px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      font-weight: 700;
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+    }
+    
+    /* 统计数字 */
+    .stat-number {
+      font-size: 4rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #fff, #9ca3af);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    
+    /* 引用样式 */
+    .quote-mark {
+      font-size: 5rem;
+      line-height: 1;
+      color: rgba(255,255,255,0.2);
+      font-family: Georgia, serif;
+    }
+    
+    /* 标签样式 */
+    .tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      background: rgba(255,255,255,0.1);
+      font-size: 0.875rem;
+      margin: 0.25rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="slides-container">
+    
+    <!-- 幻灯片 1: 封面页 -->
+    <div class="slide active">
+      <div class="light-spot light-spot-1"></div>
+      <div class="light-spot light-spot-2"></div>
+      <div class="light-spot light-spot-3"></div>
+      <div class="slide-content">
+        <p class="text-sm font-light text-gray-500 mb-4 tracking-widest">AVIATION LANGUAGE SERVICES</p>
+        <h1 class="text-4xl font-black mb-4 leading-tight">全球民航业<br>语言服务</h1>
+        <h2 class="text-3xl font-bold mb-6 text-blue-400">十年发展报告</h2>
+        <div class="flex items-center justify-center gap-4 mt-8">
+          <span class="text-2xl font-light text-gray-400">2015</span>
+          <div class="w-16 h-px bg-gray-600"></div>
+          <span class="text-2xl font-light text-gray-400">2025</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 2: 核心问题 -->
+    <div class="slide">
+      <div class="light-spot light-spot-2"></div>
+      <div class="light-spot light-spot-3"></div>
+      <div class="slide-content">
+        <p class="text-sm font-light text-gray-500 mb-8 tracking-widest">CORE QUESTION</p>
+        <h1 class="text-3xl font-black leading-tight mb-6">
+          语言服务如何<br>
+          <span class="text-blue-400">重塑</span>民航安全与体验？
+        </h1>
+        <div class="mt-8 flex flex-wrap justify-center gap-2">
+          <span class="tag">安全</span>
+          <span class="tag">效率</span>
+          <span class="tag">体验</span>
+          <span class="tag">竞争力</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 3: 市场规模 -->
+    <div class="slide">
+      <div class="light-spot light-spot-1"></div>
+      <div class="light-spot light-spot-4"></div>
+      <div class="slide-content">
+        <p class="text-sm font-light text-gray-500 mb-8 tracking-widest">MARKET SCALE</p>
+        <div class="stat-number mb-4">$900B</div>
+        <p class="text-xl font-light text-gray-300 mb-2">全球民航业市场规模</p>
+        <p class="text-sm text-gray-500">语言服务渗透率持续提升</p>
+        <div class="mt-8 grid grid-cols-2 gap-4 text-left">
+          <div class="bg-white/5 rounded-lg p-4">
+            <p class="text-2xl font-bold text-blue-400">180+</p>
+            <p class="text-xs text-gray-500">国家/地区</p>
+          </div>
+          <div class="bg-white/5 rounded-lg p-4">
+            <p class="text-2xl font-bold text-purple-400">4B+</p>
+            <p class="text-xs text-gray-500">年旅客量</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 4: 2015 标准化元年 -->
+    <div class="slide">
+      <div class="light-spot light-spot-2"></div>
+      <div class="light-spot light-spot-3"></div>
+      <div class="slide-content">
+        <div class="year-badge">2015</div>
+        <h1 class="text-3xl font-black mb-4">标准化元年</h1>
+        <p class="text-lg text-gray-300 mb-6">ICAO英语能力要求全面实施</p>
+        <div class="space-y-3 text-left max-w-xs mx-auto">
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+            <span class="text-sm text-gray-400">Level 4成为最低标准</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+            <span class="text-sm text-gray-400">全球统一评估体系</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 rounded-full bg-blue-400"></div>
+            <span class="text-sm text-gray-400">培训市场快速启动</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 5: 2018 AI突破 -->
+    <div class="slide">
+      <div class="light-spot light-spot-1"></div>
+      <div class="light-spot light-spot-3"></div>
+      <div class="slide-content">
+        <div class="year-badge" style="background: linear-gradient(135deg, #8b5cf6, #ec4899);">2018</div>
+        <h1 class="text-3xl font-black mb-4">AI翻译突破</h1>
+        <p class="text-lg text-gray-300 mb-6">Transformer架构革命</p>
+        <div class="bg-white/5 rounded-xl p-6 max-w-xs mx-auto">
+          <p class="text-sm text-gray-400 mb-3">技术里程碑</p>
+          <p class="text-lg font-bold mb-2">Attention is All You Need</p>
+          <p class="text-xs text-gray-500">Google发布划时代论文<br>开启NLP新纪元</p>
+        </div>
+        <div class="mt-6 flex flex-wrap justify-center gap-2">
+          <span class="tag">神经网络翻译</span>
+          <span class="tag">实时字幕</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 6: 2020 疫情冲击 -->
+    <div class="slide">
+      <div class="light-spot light-spot-2"></div>
+      <div class="light-spot light-spot-4"></div>
+      <div class="slide-content">
+        <div class="year-badge" style="background: linear-gradient(135deg, #f59e0b, #ef4444);">2020</div>
+        <h1 class="text-3xl font-black mb-4">疫情冲击</h1>
+        <p class="text-lg text-gray-300 mb-6">数字化转型的催化剂</p>
+        <div class="grid grid-cols-2 gap-4 max-w-xs mx-auto">
+          <div class="bg-white/5 rounded-lg p-4">
+            <p class="text-2xl font-bold text-red-400">-60%</p>
+            <p class="text-xs text-gray-500">客运量降幅</p>
+          </div>
+          <div class="bg-white/5 rounded-lg p-4">
+            <p class="text-2xl font-bold text-green-400">+300%</p>
+            <p class="text-xs text-gray-500">数字化投入</p>
+          </div>
+        </div>
+        <p class="text-sm text-gray-500 mt-6">无接触服务需求激增</p>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 7: 2023 GenAI革命 -->
+    <div class="slide">
+      <div class="light-spot light-spot-1"></div>
+      <div class="light-spot light-spot-3"></div>
+      <div class="slide-content">
+        <div class="year-badge" style="background: linear-gradient(135deg, #10b981, #06b6d4);">2023</div>
+        <h1 class="text-3xl font-black mb-4">GenAI革命</h1>
+        <p class="text-lg text-gray-300 mb-6">ChatGPT引发行业变革</p>
+        <div class="bg-gradient-to-r from-green-500/20 to-cyan-500/20 rounded-xl p-6 max-w-xs mx-auto border border-white/10">
+          <p class="text-4xl font-black mb-2">GPT-4</p>
+          <p class="text-sm text-gray-400">多语言理解能力质的飞跃</p>
+        </div>
+        <div class="mt-6 space-y-2 text-left max-w-xs mx-auto text-sm text-gray-400">
+          <p>✓ 上下文理解增强</p>
+          <p>✓ 专业术语精准翻译</p>
+          <p>✓ 个性化服务成为可能</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 8: 2025 智能本地化 -->
+    <div class="slide">
+      <div class="light-spot light-spot-2"></div>
+      <div class="light-spot light-spot-3"></div>
+      <div class="light-spot light-spot-4"></div>
+      <div class="slide-content">
+        <div class="year-badge" style="background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);">2025</div>
+        <h1 class="text-3xl font-black mb-4">智能本地化</h1>
+        <p class="text-lg text-gray-300 mb-6">AI驱动的全链路语言服务</p>
+        <div class="flex flex-wrap justify-center gap-2 max-w-xs mx-auto">
+          <span class="tag">实时翻译</span>
+          <span class="tag">语音合成</span>
+          <span class="tag">智能客服</span>
+          <span class="tag">多模态交互</span>
+          <span class="tag">预测性服务</span>
+        </div>
+        <p class="text-sm text-gray-500 mt-6">从"翻译"到"理解"的跃迁</p>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 9: 关键数据 -->
+    <div class="slide">
+      <div class="light-spot light-spot-1"></div>
+      <div class="light-spot light-spot-2"></div>
+      <div class="slide-content">
+        <p class="text-sm font-light text-gray-500 mb-6 tracking-widest">KEY STATISTICS</p>
+        <div class="grid grid-cols-1 gap-4 max-w-xs mx-auto">
+          <div class="bg-white/5 rounded-lg p-4 flex items-center justify-between">
+            <div>
+              <p class="text-2xl font-bold text-blue-400">$45B</p>
+              <p class="text-xs text-gray-500">语言服务市场</p>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-bold text-green-400">+12%</p>
+              <p class="text-xs text-gray-500">CAGR</p>
+            </div>
+          </div>
+          <div class="bg-white/5 rounded-lg p-4 flex items-center justify-between">
+            <div>
+              <p class="text-2xl font-bold text-purple-400">85%</p>
+              <p class="text-xs text-gray-500">AI渗透率</p>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-bold text-green-400">+45%</p>
+              <p class="text-xs text-gray-500">vs 2020</p>
+            </div>
+          </div>
+          <div class="bg-white/5 rounded-lg p-4 flex items-center justify-between">
+            <div>
+              <p class="text-2xl font-bold text-cyan-400">40+</p>
+              <p class="text-xs text-gray-500">语言支持</p>
+            </div>
+            <div class="text-right">
+              <p class="text-lg font-bold text-green-400">+150%</p>
+              <p class="text-xs text-gray-500">vs 2015</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 10: 未来趋势 -->
+    <div class="slide">
+      <div class="light-spot light-spot-1"></div>
+      <div class="light-spot light-spot-3"></div>
+      <div class="slide-content">
+        <p class="text-sm font-light text-gray-500 mb-6 tracking-widest">FUTURE TRENDS</p>
+        <h1 class="text-3xl font-black mb-6">未来趋势</h1>
+        <div class="space-y-4 max-w-xs mx-auto">
+          <div class="bg-gradient-to-r from-blue-500/20 to-transparent rounded-lg p-4 border-l-2 border-blue-400">
+            <p class="font-bold text-lg">Agentic AI</p>
+            <p class="text-sm text-gray-400">自主决策的智能代理</p>
+          </div>
+          <div class="bg-gradient-to-r from-purple-500/20 to-transparent rounded-lg p-4 border-l-2 border-purple-400">
+            <p class="font-bold text-lg">多模态翻译</p>
+            <p class="text-sm text-gray-400">语音+视觉+手势融合</p>
+          </div>
+          <div class="bg-gradient-to-r from-cyan-500/20 to-transparent rounded-lg p-4 border-l-2 border-cyan-400">
+            <p class="font-bold text-lg">情感计算</p>
+            <p class="text-sm text-gray-400">理解情绪，主动服务</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 11: 总结金句 -->
+    <div class="slide">
+      <div class="light-spot light-spot-2"></div>
+      <div class="light-spot light-spot-3"></div>
+      <div class="slide-content">
+        <p class="text-sm font-light text-gray-500 mb-8 tracking-widest">SUMMARY</p>
+        <div class="quote-mark">"</div>
+        <p class="text-xl font-bold mb-6 leading-relaxed">
+          语言服务从成本中心<br>
+          转变为航空竞争力的<br>
+          <span class="text-blue-400">核心战略资产</span>
+        </p>
+        <div class="quote-mark" style="transform: rotate(180deg);">"</div>
+      </div>
+    </div>
+    
+    <!-- 幻灯片 12: 感谢页 -->
+    <div class="slide">
+      <div class="light-spot light-spot-1"></div>
+      <div class="light-spot light-spot-2"></div>
+      <div class="light-spot light-spot-3"></div>
+      <div class="slide-content">
+        <h1 class="text-5xl font-black mb-6">感谢观看</h1>
+        <p class="text-xl font-light text-gray-400 mb-8">Thank You</p>
+        <div class="flex items-center justify-center gap-4">
+          <div class="w-12 h-px bg-gray-600"></div>
+          <p class="text-sm text-gray-500">2015 — 2025</p>
+          <div class="w-12 h-px bg-gray-600"></div>
+        </div>
+        <p class="text-xs text-gray-600 mt-12">全球民航业语言服务十年发展报告</p>
+      </div>
+    </div>
+    
+  </div>
+  
+  <!-- 进度条 -->
+  <div class="progress-bar" id="progressBar"></div>
+  
+  <!-- 页码 -->
+  <div class="page-number" id="pageNumber">1 / 12</div>
+  
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const progressBar = document.getElementById('progressBar');
+    const pageNumber = document.getElementById('pageNumber');
+    let currentSlide = 0;
+    
+    // 初始化进度条
+    slides.forEach((_, index) => {
+      const dot = document.createElement('div');
+      dot.className = `progress-dot ${index === 0 ? 'active' : ''}`;
+      dot.addEventListener('click', () => goToSlide(index));
+      progressBar.appendChild(dot);
+    });
+    
+    function updateSlides() {
+      slides.forEach((slide, index) => {
+        slide.classList.remove('active', 'prev');
+        if (index === currentSlide) {
+          slide.classList.add('active');
+        } else if (index < currentSlide) {
+          slide.classList.add('prev');
+        }
+      });
+      
+      // 更新进度条
+      document.querySelectorAll('.progress-dot').forEach((dot, index) => {
+        dot.classList.toggle('active', index === currentSlide);
+      });
+      
+      // 更新页码
+      pageNumber.textContent = `${currentSlide + 1} / ${slides.length}`;
+    }
+    
+    function nextSlide() {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlides();
+      }
+    }
+    
+    function prevSlide() {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlides();
+      }
+    }
+    
+    function goToSlide(index) {
+      currentSlide = index;
+      updateSlides();
+    }
+    
+    // 键盘控制
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'ArrowDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        prevSlide();
+      }
+    });
+    
+    // 触摸滑动支持
+    let touchStartX = 0;
+    let touchStartY = 0;
+    document.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    });
+    
+    document.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchStartX - touchEndX;
+      const diffY = touchStartY - touchEndY;
+      
+      // 水平滑动
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 50) {
+        if (diffX > 0) nextSlide();
+        else prevSlide();
+      }
+      // 垂直滑动
+      else if (Math.abs(diffY) > 50) {
+        if (diffY > 0) nextSlide();
+        else prevSlide();
+      }
+    });
+  </script>
+</body>
+</html>
