@@ -1,48 +1,73 @@
 #!/usr/bin/env node
 /**
- * 语言服务行业监控追踪器
- * 监控全网语言服务行业相关方的新闻动态
+ * 语言服务行业监控追踪器 v2.0
+ * ===========================
+ * 
+ * 用途：监控全网语言服务行业相关方的新闻动态
  * 
  * 监控对象:
  * - 组织：Nimdzi, Slator, Multilingual
  * - 公司：TransPerfect, RWS, LanguageLine 等 (Nimdzi Top100)
  * 
- * 执行周期：每周二、四、六 12:00 AM (北京时间)
+ * 执行周期：每周二、四、六 11:00 (北京时间)
  * 交付形式：飞书云文档
+ * 
+ * 优化记录:
+ * - v2.0 (2026-04-09): 重构代码结构、添加详细注释、改进错误处理、添加重试机制
+ * - v1.0 (2026-03-17): 初始版本
  */
 
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
+// ============================================================================
+// 配置与常量
+// ============================================================================
+
 const WORKSPACE_DIR = process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace');
 const DATA_DIR = path.join(WORKSPACE_DIR, 'data');
 const REPORTS_DIR = path.join(WORKSPACE_DIR, 'reports');
 
-// 确保目录存在
-if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
-if (!fs.existsSync(REPORTS_DIR)) fs.mkdirSync(REPORTS_DIR, { recursive: true });
+// 运行时配置
+const CONFIG = {
+  // HTTP 请求超时（毫秒）
+  HTTP_TIMEOUT_MS: 10000,
+  // 每个站点最大重试次数
+  MAX_RETRIES: 2,
+  // 重试间隔（毫秒）
+  RETRY_DELAY_MS: 1000,
+  // 每篇文章摘要最大长度
+  MAX_SUMMARY_LENGTH: 500,
+  // 状态文件保留的最大文章数
+  MAX_STORED_ARTICLES: 100,
+  // User-Agent 字符串
+  USER_AGENT: 'Mozilla/5.0 (compatible; LanguageServiceMonitor/2.0)',
+};
 
-// 监控配置
+// 监控目标配置
 const MONITOR_CONFIG = {
   organizations: [
     {
       name: 'Nimdzi',
       url: 'https://www.nimdzi.com',
-      rssOrNews: '/insights/', // 假设在 /insights/ 页面
-      type: 'organization'
+      rssOrNews: '/insights/',
+      type: 'organization',
+      isMajor: true  // 标记为重点监控源
     },
     {
       name: 'Slator',
       url: 'https://slator.com',
       rssOrNews: '/news/',
-      type: 'organization'
+      type: 'organization',
+      isMajor: true
     },
     {
       name: 'Multilingual',
       url: 'https://multilingual.com',
       rssOrNews: '/blog/',
-      type: 'organization'
+      type: 'organization',
+      isMajor: false
     }
   ],
   companies: [
@@ -71,316 +96,113 @@ const MONITOR_CONFIG = {
     { name: 'Vistatec', url: 'https://www.vistatec.com', newsPath: '/news' },
     { name: 'Acclaro', url: 'https://www.acclaro.com', newsPath: '/news' },
     { name: 'Stepes', url: 'https://www.stepes.com', newsPath: '/blog' },
-    { name: 'Gengo', url: 'https://gengo.com', newsPath: '/' },  // 修复：/blog → /
-    { name: 'OneHour Translation', url: 'https://www.onehourtranslation.com', newsPath: '/news' },  // 修复：/blog → /news
-    // MarsHub - 暂时移除（404，网站可能不存在）
-    { name: 'Tarjama', url: 'https://www.tarjama.com', newsPath: '/' },  // 修复：/blog → /
+    { name: 'Gengo', url: 'https://gengo.com', newsPath: '/' },
+    { name: 'OneHour Translation', url: 'https://www.onehourtranslation.com', newsPath: '/news' },
+    { name: 'Tarjama', url: 'https://www.tarjama.com', newsPath: '/' },
     { name: 'Rask AI', url: 'https://www.rask.ai', newsPath: '/blog' },
     { name: 'Lilt', url: 'https://lilt.com', newsPath: '/blog' },
-    { name: 'Memsource', url: 'https://www.memsource.com', newsPath: '/resources' },  // 修复：/blog → /resources
-    { name: 'XTM Cloud', url: 'https://www.xtm-cloud.com', newsPath: '/' },  // 修复：/blog → /
+    { name: 'Memsource', url: 'https://www.memsource.com', newsPath: '/resources' },
+    { name: 'XTM Cloud', url: 'https://www.xtm-cloud.com', newsPath: '/' },
     
     // Top 31-50
-    { name: 'Day Translations', url: 'https://www.daytranslations.com', newsPath: '/' },  // 修复：/blog → /
-    { name: 'Tomedes', url: 'https://www.tomedes.com', newsPath: '/' },  // 修复：/blog → /
-    { name: 'Pangeanic', url: 'https://pangeanic.com', newsPath: '/' },  // 修复：/blog → /
-    { name: 'TextMaster', url: 'https://www.textmaster.com', newsPath: '/' },  // 修复：/news → /
-    { name: 'Translated', url: 'https://www.translated.com', newsPath: '/blog' },  // 保持原样
-    { name: 'Wordbee', url: 'https://www.wordbee.com', newsPath: '/' },  // 修复：/blog → /
-    { name: 'Wordfast', url: 'https://www.wordfast.com', newsPath: '/' },  // 修复：/news → /
-    { name: 'SDL', url: 'https://www.sdl.com', newsPath: '/' },  // 修复：403 → /
-    { name: 'Trados', url: 'https://www.trados.com', newsPath: '/blog' },  // 保持原样
-    { name: 'Phrase', url: 'https://phrase.com', newsPath: '/blog' },  // 保持原样
+    { name: 'Day Translations', url: 'https://www.daytranslations.com', newsPath: '/' },
+    { name: 'Tomedes', url: 'https://www.tomedes.com', newsPath: '/' },
+    { name: 'Pangeanic', url: 'https://pangeanic.com', newsPath: '/' },
+    { name: 'TextMaster', url: 'https://www.textmaster.com', newsPath: '/' },
+    { name: 'Translated', url: 'https://www.translated.com', newsPath: '/blog' },
+    { name: 'Wordbee', url: 'https://www.wordbee.com', newsPath: '/' },
+    { name: 'Wordfast', url: 'https://www.wordfast.com', newsPath: '/' },
+    { name: 'SDL', url: 'https://www.sdl.com', newsPath: '/' },
+    { name: 'Trados', url: 'https://www.trados.com', newsPath: '/blog' },
+    { name: 'Phrase', url: 'https://phrase.com', newsPath: '/blog' },
     { name: 'Crowdin', url: 'https://crowdin.com', newsPath: '/blog' },
-    { name: 'Localize', url: 'https://localizejs.com', newsPath: '/' },  // 修复：/blog → /
-    { name: 'Lokalise', url: 'https://lokalise.com', newsPath: '/blog' },  // 保持原样
+    { name: 'Localize', url: 'https://localizejs.com', newsPath: '/' },
+    { name: 'Lokalise', url: 'https://lokalise.com', newsPath: '/blog' },
     { name: 'Transifex', url: 'https://www.transifex.com', newsPath: '/blog' },
-    { name: 'Globalization Partners', url: 'https://www.globalization-partners.com', newsPath: '/' },  // 修复：/news → /
-    { name: 'Berlitz', url: 'https://www.berlitz.com', newsPath: '/' },  // 修复：/news → /
-    { name: 'Rosetta Stone', url: 'https://www.rosettastone.com', newsPath: '/' },  // 修复：/news → /
-    { name: 'EuroTalk', url: 'https://www.eurotalk.com', newsPath: '/' },  // 修复：/news → /
-    { name: 'Inlingua', url: 'https://www.inlingua.com', newsPath: '/' },  // 修复：/news → /
-    { name: 'Semantix', url: 'https://www.semantix.com', newsPath: '/' }  // 修复：/news → /
+    { name: 'Globalization Partners', url: 'https://www.globalization-partners.com', newsPath: '/' },
+    { name: 'Berlitz', url: 'https://www.berlitz.com', newsPath: '/' },
+    { name: 'Rosetta Stone', url: 'https://www.rosettastone.com', newsPath: '/' },
+    { name: 'EuroTalk', url: 'https://www.eurotalk.com', newsPath: '/' },
+    { name: 'Inlingua', url: 'https://www.inlingua.com', newsPath: '/' },
+    { name: 'Semantix', url: 'https://www.semantix.com', newsPath: '/' }
   ]
 };
 
-// HTTP GET 请求
-function httpRequest(url, followRedirect = true) {
-  return new Promise((resolve, reject) => {
-    https.get(url, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; LanguageServiceMonitor/1.0)',
-        'Accept': 'text/html,application/xhtml+xml'
-      },
-      timeout: 10000
-    }, (res) => {
-      // 处理重定向 (301, 302, 308)
-      if ([301, 302, 308].includes(res.statusCode) && followRedirect && res.headers.location) {
-        const redirectUrl = res.headers.location;
-        console.log(`    ↪ 重定向到：${redirectUrl}`);
-        httpRequest(redirectUrl, false).then(resolve).catch(reject);
-        return;
-      }
-      
-      let data = '';
-      res.on('data', chunk => data += chunk);
-      res.on('end', () => {
-        if (res.statusCode === 200) {
-          resolve(data);
-        } else {
-          reject(new Error(`HTTP ${res.statusCode}: ${url}`));
+// ============================================================================
+// 工具函数
+// ============================================================================
+
+/**
+ * 初始化目录结构
+ * 确保数据目录和报告目录存在
+ */
+function initializeDirectories() {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    console.log(`📁 创建数据目录: ${DATA_DIR}`);
+  }
+  if (!fs.existsSync(REPORTS_DIR)) {
+    fs.mkdirSync(REPORTS_DIR, { recursive: true });
+    console.log(`📁 创建报告目录: ${REPORTS_DIR}`);
+  }
+}
+
+/**
+ * 延迟函数 - 用于重试间隔
+ * @param {number} ms - 延迟毫秒数
+ * @returns {Promise<void>}
+ */
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/**
+ * 带重试的 HTTP GET 请求
+ * 
+ * @param {string} url - 请求 URL
+ * @param {boolean} followRedirect - 是否跟随重定向
+ * @param {number} retryCount - 当前重试次数
+ * @returns {Promise<string>} - 返回 HTML 内容
+ * @throws {Error} - 请求失败时抛出错误
+ */
+async function httpRequest(url, followRedirect = true, retryCount = 0) {
+  try {
+    return await new Promise((resolve, reject) => {
+      https.get(url, {
+        headers: {
+          'User-Agent': CONFIG.USER_AGENT,
+          'Accept': 'text/html,application/xhtml+xml'
+        },
+        timeout: CONFIG.HTTP_TIMEOUT_MS
+      }, (res) => {
+        // 处理重定向 (301, 302, 308)
+        if ([301, 302, 308].includes(res.statusCode) && followRedirect && res.headers.location) {
+          const redirectUrl = res.headers.location;
+          console.log(`    ↪ 重定向到：${redirectUrl}`);
+          httpRequest(redirectUrl, false).then(resolve).catch(reject);
+          return;
         }
-      });
-    }).on('error', reject);
-  });
-}
-
-// 从 HTML 中提取新闻链接（简化版，实际需要更复杂的解析）
-function extractNewsFromHTML(html, baseUrl) {
-  const news = [];
-  
-  // 简单的正则匹配（实际应该用 cheerio 或 jsdom）
-  const linkRegex = /<a[^>]+href="([^"]+)"[^>]*>([^<]+)<\/a>/gi;
-  let match;
-  
-  while ((match = linkRegex.exec(html)) !== null) {
-    const url = match[1];
-    const text = match[2].trim();
-    
-    // 过滤出可能是新闻的链接
-    if (text.length > 20 && text.length < 200 && 
-        (url.includes('/news') || url.includes('/blog') || url.includes('/press'))) {
-      news.push({
-        title: text.replace(/<[^>]*>/g, ''),
-        url: url.startsWith('http') ? url : new URL(url, baseUrl).href,
-        date: new Date().toISOString().split('T')[0] // 实际应该从页面提取
-      });
-    }
-  }
-  
-  return news.slice(0, 10); // 最多返回 10 条
-}
-
-// 加载上次抓取的数据
-function loadLastCheck() {
-  const statePath = path.join(DATA_DIR, 'language-service-monitor-state.json');
-  try {
-    return JSON.parse(fs.readFileSync(statePath, 'utf-8'));
-  } catch (err) {
-    return { lastCheck: null, articles: [] };
-  }
-}
-
-// 保存抓取状态
-function saveState(state) {
-  const statePath = path.join(DATA_DIR, 'language-service-monitor-state.json');
-  fs.writeFileSync(statePath, JSON.stringify(state, null, 2));
-}
-
-// 加载飞书文档配置
-function loadFeishuDocConfig() {
-  const configPath = path.join(DATA_DIR, 'language-service-monitor-config.json');
-  try {
-    return JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-  } catch (err) {
-    return null;
-  }
-}
-
-// 生成 Markdown 报告（本地保存）
-function generateMarkdownReport(articles, timestamp) {
-  const dateStr = timestamp.split('T')[0].replace(/-/g, '');
-  const reportPath = path.join(REPORTS_DIR, `language-service-monitor-${dateStr}.md`);
-  
-  let report = `# 语言服务动态监控周报_${dateStr}\n\n`;
-  report += `**生成时间:** ${timestamp}\n\n`;
-  report += `**监控范围:** ${MONITOR_CONFIG.organizations.length} 个组织 + ${MONITOR_CONFIG.companies.length} 个公司\n\n`;
-  report += `---\n\n`;
-  
-  // 按组织/公司分类
-  const bySource = {};
-  for (const article of articles) {
-    if (!bySource[article.source]) bySource[article.source] = [];
-    bySource[article.source].push(article);
-  }
-  
-  for (const [source, sourceArticles] of Object.entries(bySource)) {
-    report += `## ${source}\n\n`;
-    
-    for (const article of sourceArticles) {
-      const isMajor = article.isMajor ? '【重点】' : '';
-      report += `### ${isMajor} ${article.title}\n\n`;
-      report += `${article.summary}\n\n`;
-      report += `📅 发布日期：${article.date} | 🔗 [原文](${article.url})\n\n`;
-      report += `---\n\n`;
-    }
-  }
-  
-  if (articles.length === 0) {
-    report += `## 暂无更新\n\n`;
-    report += `本次检查未发现新的新闻动态。\n\n`;
-  }
-  
-  fs.writeFileSync(reportPath, report);
-  return reportPath;
-}
-
-// 生成追加内容（带日期分隔）
-function generateAppendContent(articles, timestamp) {
-  const dateObj = new Date(timestamp);
-  const dateStr = dateObj.toLocaleDateString('zh-CN', { year: 'numeric', month: 'long', day: 'numeric', weekday: 'long' });
-  const timeStr = dateObj.toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
-  
-  let content = `\n\n---\n\n`;
-  content += `## 📅 ${dateStr} ${timeStr} 更新\n\n`;
-  content += `**本次发现:** ${articles.length} 条新动态\n\n`;
-  
-  // 按组织/公司分类
-  const bySource = {};
-  for (const article of articles) {
-    if (!bySource[article.source]) bySource[article.source] = [];
-    bySource[article.source].push(article);
-  }
-  
-  for (const [source, sourceArticles] of Object.entries(bySource)) {
-    content += `### ${source}\n\n`;
-    
-    for (const article of sourceArticles) {
-      const isMajor = article.isMajor ? '【重点】' : '';
-      content += `#### ${isMajor} ${article.title}\n\n`;
-      content += `${article.summary}\n\n`;
-      content += `📅 发布日期：${article.date} | 🔗 [原文](${article.url})\n\n`;
-    }
-  }
-  
-  content += `\n\n---\n\n`;
-  return content;
-}
-
-// 追加内容到飞书文档
-async function appendToFeishuDoc(markdownContent) {
-  const config = loadFeishuDocConfig();
-  if (!config || !config.docToken) {
-    console.log('⚠️ 未配置飞书文档，跳过追加');
-    return null;
-  }
-  
-  console.log(`📤 准备追加到飞书文档：${config.docTitle || config.docToken}`);
-  console.log(`   文档链接：${config.docUrl}`);
-  console.log(`   内容长度：${markdownContent.length} 字符`);
-  
-  // 使用 OpenClaw feishu_doc 工具
-  // 注意：这里通过环境变量传递，由 cron 任务处理
-  process.env.FEISHU_DOC_ACTION = 'append';
-  process.env.FEISHU_DOC_TOKEN = config.docToken;
-  process.env.FEISHU_DOC_CONTENT = markdownContent;
-  
-  console.log('✅ 飞书追加参数已设置');
-  return config;
-}
-
-// 主流程
-async function main() {
-  console.log('🔍 语言服务行业监控追踪器');
-  console.log('================================');
-  console.log(`执行时间：${new Date().toISOString()}`);
-  console.log('');
-  
-  const lastState = loadLastCheck();
-  const newArticles = [];
-  
-  // 抓取组织网站
-  console.log('📰 抓取组织网站...');
-  for (const org of MONITOR_CONFIG.organizations) {
-    try {
-      console.log(`  - ${org.name} (${org.url})`);
-      const html = await httpRequest(org.url + org.rssOrNews);
-      const news = extractNewsFromHTML(html, org.url);
-      
-      // 过滤出新文章
-      const newNews = news.filter(n => 
-        !lastState.articles.find(a => a.url === n.url)
-      );
-      
-      for (const article of newNews) {
-        newArticles.push({
-          ...article,
-          source: org.name,
-          type: 'organization',
-          summary: `${article.title} - 来自 ${org.name}`,
-          isMajor: org.name === 'Nimdzi' || org.name === 'Slator' // 标记为重点
+        
+        let data = '';
+        res.on('data', chunk => data += chunk);
+        res.on('end', () => {
+          if (res.statusCode === 200) {
+            resolve(data);
+          } else {
+            reject(new Error(`HTTP ${res.statusCode}: ${url}`));
+          }
         });
-      }
-    } catch (err) {
-      console.error(`  ❌ ${org.name} 抓取失败：${err.message}`);
-    }
-  }
-  
-  // 抓取公司新闻
-  console.log('\n🏢 抓取公司新闻...');
-  for (const company of MONITOR_CONFIG.companies) {
-    try {
-      console.log(`  - ${company.name}`);
-      const newsUrl = company.url + (company.newsPath || '/news');
-      const html = await httpRequest(newsUrl);
-      const news = extractNewsFromHTML(html, company.url);
-      
-      const newNews = news.filter(n => 
-        !lastState.articles.find(a => a.url === n.url)
-      );
-      
-      for (const article of newNews) {
-        newArticles.push({
-          ...article,
-          source: company.name,
-          type: 'company',
-          summary: `${article.title} - ${company.name} 最新动态`
-        });
-      }
-    } catch (err) {
-      console.error(`  ❌ ${company.name} 抓取失败：${err.message}`);
-    }
-  }
-  
-  console.log(`\n✅ 发现 ${newArticles.length} 条新动态`);
-  
-  // 生成报告
-  if (newArticles.length > 0) {
-    const timestamp = new Date().toISOString();
-    const reportPath = generateMarkdownReport(newArticles, timestamp);
-    console.log(`📝 本地报告已保存：${reportPath}`);
-    
-    // 生成追加内容
-    const appendContent = generateAppendContent(newArticles, timestamp);
-    
-    // 追加到飞书文档
-    await appendToFeishuDoc(appendContent);
-    
-    // 更新状态
-    const allArticles = [...lastState.articles, ...newArticles].slice(-100); // 保留最近 100 条
-    saveState({
-      lastCheck: timestamp,
-      articles: allArticles
+      }).on('error', reject);
     });
-    
-    console.log('');
-    console.log('================================');
-    console.log('✅ 监控完成，发现新动态');
-    console.log('');
-    console.log('下一步：');
-    console.log('  1. 审查生成的报告');
-    console.log('  2. 飞书文档已追加（通过 feishu_doc 工具）');
-    console.log('  3. Git 提交并推送');
-    console.log('');
-  } else {
-    console.log('');
-    console.log('================================');
-    console.log('✅ 监控完成，无新动态');
-    console.log('');
+  } catch (err) {
+    // 重试逻辑
+    if (retryCount < CONFIG.MAX_RETRIES) {
+      console.log(`    ⚠️ 请求失败，${CONFIG.RETRY_DELAY_MS}ms 后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`);
+      await delay(CONFIG.RETRY_DELAY_MS);
+      return httpRequest(url, followRedirect, retryCount + 1);
+    }
+    throw err;
   }
 }
 
-main().catch(err => {
-  console.error('❌ 错误:', err.message);
-  process.exit(1);
-});
+/**
