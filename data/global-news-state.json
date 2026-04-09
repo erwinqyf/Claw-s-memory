@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-04-08T04:03:10.365Z",
-  "lastRunDate": "2026-04-08",
+  "lastRun": "2026-04-09T04:01:28.567Z",
+  "lastRunDate": "2026-04-09",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 202,
+      "totalAvailable": 204,
       "errors": [
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
@@ -37,7 +37,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 122,
+      "totalAvailable": 120,
       "errors": [
         "Hacker News: Cannot read properties of undefined (reading 'length')"
       ]
