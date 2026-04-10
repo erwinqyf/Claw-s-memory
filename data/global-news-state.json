@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-04-09T04:01:28.567Z",
-  "lastRunDate": "2026-04-09",
+  "lastRun": "2026-04-10T04:00:42.823Z",
+  "lastRunDate": "2026-04-10",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 204,
+      "totalAvailable": 200,
       "errors": [
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
@@ -17,7 +17,7 @@
     {
       "category": "economy",
       "itemsCount": 5,
-      "totalAvailable": 70,
+      "totalAvailable": 69,
       "errors": [
         "Reuters Business: HTTP 301: https://www.reutersagency.com/feed/?best-topics=business-finance",
         "Bloomberg: HTTP 403: https://www.bloomberg.com/feed/podcast/etf.xml",
