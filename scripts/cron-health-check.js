@@ -18,6 +18,7 @@
  * 定时：每小时执行一次
  * 
  * 优化记录:
+ * - v2.5 (2026-04-12): 增强错误解析健壮性、改进日志格式、添加代码注释
  * - v2.4 (2026-04-08): 添加内存使用检查、改进错误处理、添加任务执行时间趋势分析
  * - v2.3 (2026-04-07): 修复版本号不一致、添加 wakeMode 配置检查
  * - v2.2 (2026-03-26): 添加磁盘空间检查、任务统计摘要
@@ -173,9 +174,11 @@ function checkTaskErrors() {
     for (const job of data.jobs || []) {
       if (!job.enabled) continue;
       
-      const consecutiveErrors = job.state?.consecutiveErrors || 0;
-      const lastStatus = job.state?.lastStatus;
-      const lastDeliveryStatus = job.state?.lastDeliveryStatus;
+      // 安全获取嵌套属性，避免 undefined 访问错误
+      const jobState = job.state || {};
+      const consecutiveErrors = typeof jobState.consecutiveErrors === 'number' ? jobState.consecutiveErrors : 0;
+      const lastStatus = jobState.lastStatus;
+      const lastDeliveryStatus = jobState.lastDeliveryStatus;
       
       // 检测连续错误（执行失败）
       if (consecutiveErrors >= CONFIG.CONSECUTIVE_ERROR_THRESHOLD) {
@@ -545,7 +548,7 @@ function sendAlert() {
 
 // 主函数
 function main() {
-  console.log('🏥 Cron 健康检查 v2.4');
+  console.log('🏥 Cron 健康检查 v2.5');
   console.log('='.repeat(40));
   
   // 1. 配置验证
