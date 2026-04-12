@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * OpenClaw Memory Consolidation Script v2.0
+ * OpenClaw Memory Consolidation Script v2.1
  * 
  * 定期 consolidating 日常记忆，提取长期模式到 MEMORY.md
  * 
@@ -13,6 +13,7 @@
  * 用法：node scripts/consolidate-memory.js
  * 
  * 更新记录：
+ * - v2.1 (2026-04-13): 修复 Git 提交目录问题，添加错误处理，优化日志输出
  * - v2.0 (2026-03-29): 添加 Git 集成、改进提取逻辑、添加去重机制
  * - v1.0: 基础版本
  */
@@ -27,7 +28,7 @@ const MEMORY_DIR = path.join(WORKSPACE_DIR, 'memory');
 const MEMORY_FILE = path.join(WORKSPACE_DIR, 'MEMORY.md');
 const GIT_ENABLED = true; // 是否启用 Git 自动提交
 
-console.log('🪞 OpenClaw 记忆巩固脚本 v2.0');
+console.log('🪞 OpenClaw 记忆巩固脚本 v2.1');
 console.log('================================');
 console.log(`工作目录：${WORKSPACE_DIR}`);
 console.log(`记忆目录：${MEMORY_DIR}`);
@@ -173,8 +174,22 @@ function gitCommit(message) {
     return false;
   }
   
+  // 切换到工作目录执行 Git 命令
+  const gitOpts = { 
+    encoding: 'utf-8', 
+    stdio: ['pipe', 'pipe', 'ignore'],
+    cwd: WORKSPACE_DIR
+  };
+  
   console.log('🔧 检查 Git 状态...');
-  const status = safeExec('git status --porcelain');
+  let status;
+  try {
+    status = execSync('git status --porcelain', gitOpts).trim();
+  } catch (e) {
+    console.log('⚠️ 无法检查 Git 状态');
+    return false;
+  }
+  
   if (!status) {
     console.log('✅ Git 工作区干净，无需提交');
     return false;
@@ -184,18 +199,26 @@ function gitCommit(message) {
   status.split('\n').forEach(line => console.log(`   ${line}`));
   
   console.log('💾 Git add...');
-  safeExec('git add MEMORY.md', false);
+  try {
+    execSync('git add MEMORY.md', gitOpts);
+  } catch (e) {
+    console.log('⚠️ Git add 失败');
+  }
   
   console.log('💾 Git commit...');
-  const commitResult = safeExec(`git commit -m "${message}"`, false);
-  if (commitResult) {
+  try {
+    execSync(`git commit -m "${message}"`, gitOpts);
     console.log('✅ 提交成功');
+  } catch (e) {
+    console.log('⚠️ Git commit 失败（可能无变更）');
   }
   
   console.log('🚀 Git push...');
-  const pushResult = safeExec('git push', false);
-  if (pushResult) {
+  try {
+    execSync('git push', gitOpts);
     console.log('✅ 推送成功');
+  } catch (e) {
+    console.log('⚠️ Git push 失败');
   }
   
   return true;
@@ -228,9 +251,7 @@ function main() {
   console.log('');
   console.log('================================');
   console.log('✅ 记忆巩固完成');
-  console.log(`📊 处理 ${logs.length} 个文件，提取 ${insights.length} 条信息`);
-  console.log('');
-  console.log('  3. 推送到远程仓库');
+  console.log(`📊 处理 ${logs.length} 个文件，提取 ${insights.length} 条关键信息`);
   console.log('');
 }
 

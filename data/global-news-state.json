@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-04-11T04:03:48.291Z",
-  "lastRunDate": "2026-04-11",
+  "lastRun": "2026-04-12T04:00:56.383Z",
+  "lastRunDate": "2026-04-12",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 202,
+      "totalAvailable": 170,
       "errors": [
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
@@ -27,7 +27,7 @@
     {
       "category": "culture",
       "itemsCount": 5,
-      "totalAvailable": 60,
+      "totalAvailable": 61,
       "errors": [
         "BBC Culture: HTTP 302: http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
         "卫报文化: HTTP 302: https://www.theguardian.com/culture/rss",
