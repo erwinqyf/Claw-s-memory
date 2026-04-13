@@ -2,7 +2,7 @@
 /**
  * ClawHub Top 100 Skills Tracker - Fast Version
  * ==============================================
- * 优化版本：直接从搜索获取的数据中提取信息，减少API调用
+ * 优化的每日获取脚本，减少API调用次数
  */
 
 const fs = require('fs');
@@ -14,11 +14,16 @@ const CONFIG = {
   DATA_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'data'),
   REPORTS_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'reports'),
   API_BASE: 'https://clawhub.ai',
-  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.2',
+  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.3',
   MAX_RETRIES: 3,
-  RETRY_DELAY_MS: 2000,
-  SEARCH_QUERIES: ['a', 'agent', 'tool', 'skill', 'ai', 'auto', 'data', 'web', 'file', 'system', 'github', 'browser', 'doc']
+  RETRY_DELAY_MS: 1000,
+  REQUEST_DELAY_MS: 100,
+  DEFAULT_LIMIT: 100
 };
+
+// 确保路径使用绝对路径，避免工作目录问题
+CONFIG.DATA_DIR = path.resolve(CONFIG.WORKSPACE_DIR, 'data');
+CONFIG.REPORTS_DIR = path.resolve(CONFIG.WORKSPACE_DIR, 'reports');
 
 function log(message, emoji = 'ℹ️') {
   const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
@@ -36,69 +41,72 @@ function ensureDirectories() {
 
 async function httpRequest(url, retryCount = 0) {
   return new Promise((resolve, reject) => {
-    const req = https.get(url, {
+    const timeout = setTimeout(() => {
+      reject(new Error(`Request timeout after 15000ms: ${url}`));
+    }, 15000);
+
+    https.get(url, {
       headers: {
         'User-Agent': CONFIG.USER_AGENT,
         'Accept': 'application/json'
-      },
-      timeout: 15000
+      }
     }, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
-        if (res.statusCode === 200) {
+        clearTimeout(timeout);
+        
+        // 健壮性：检查响应状态码
+        if (res.statusCode >= 200 && res.statusCode < 300) {
           try {
-            resolve(JSON.parse(data));
+            const parsed = JSON.parse(data);
+            resolve(parsed);
           } catch (e) {
-            reject(new Error(`JSON parse error: ${e.message}`));
+            log(`JSON parse error for ${url}: ${e.message}`, '⚠️');
+            reject(new Error(`JSON parse error: ${e.message}, data: ${data.substring(0, 200)}`));
           }
         } else if (res.statusCode === 429 && retryCount < CONFIG.MAX_RETRIES) {
           const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
-          log(`API 限流，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
+          log(`API rate limited (429), retrying in ${delay/1000}s (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
+          setTimeout(() => httpRequest(url, retryCount + 1).then(resolve).catch(reject), delay);
+        } else if (res.statusCode >= 500 && retryCount < CONFIG.MAX_RETRIES) {
+          // 服务器错误也重试
+          const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
+          log(`Server error (${res.statusCode}), retrying in ${delay/1000}s (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
           setTimeout(() => httpRequest(url, retryCount + 1).then(resolve).catch(reject), delay);
         } else {
-          reject(new Error(`HTTP ${res.statusCode}: ${data.substring(0, 100)}`));
+          log(`HTTP error ${res.statusCode} for ${url}: ${data.substring(0, 200)}`, '❌');
+          reject(new Error(`HTTP ${res.statusCode}: ${data.substring(0, 200)}`));
         }
       });
-    });
-    
-    req.on('error', (err) => {
+    }).on('error', (err) => {
+      clearTimeout(timeout);
+      log(`Network error for ${url}: ${err.message}`, '❌');
       if (retryCount < CONFIG.MAX_RETRIES) {
         const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
-        log(`请求失败，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
+        log(`Retrying in ${delay/1000}s (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
         setTimeout(() => httpRequest(url, retryCount + 1).then(resolve).catch(reject), delay);
       } else {
-        reject(err);
-      }
-    });
-    
-    req.on('timeout', () => {
-      req.destroy();
-      if (retryCount < CONFIG.MAX_RETRIES) {
-        const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
-        log(`请求超时，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
-        setTimeout(() => httpRequest(url, retryCount + 1).then(resolve).catch(reject), delay);
-      } else {
-        reject(new Error('Request timeout'));
+        reject(new Error(`Failed after ${CONFIG.MAX_RETRIES} retries: ${err.message}`));
       }
     });
   });
 }
 
 function autoCategorizeSkill(skill) {
-  const slug = (skill.slug || skill.name || '').toLowerCase();
-  const summary = (skill.summary || skill.description || '').toLowerCase();
+  const slug = skill.slug?.toLowerCase() || '';
+  const summary = (skill.summary || '').toLowerCase();
   const text = `${slug} ${summary}`;
   
   const rules = [
-    { name: '浏览器自动化', keywords: ['browser', 'playwright', 'puppeteer', '浏览器', '网页', 'web'] },
-    { name: '搜索与研究', keywords: ['search', 'research', 'tavily', '搜索', 'deep-research'] },
-    { name: '文档处理', keywords: ['doc', 'feishu', 'notion', '文档', '飞书', 'pdf'] },
-    { name: '数据处理', keywords: ['excel', 'csv', 'json', 'data', '表格', '数据', 'xlsx'] },
-    { name: '系统工具', keywords: ['health', 'system', 'monitor', 'cron', '系统', '健康', '监控', 'tmux'] },
-    { name: '创意与演示', keywords: ['ppt', 'slide', 'presentation', '演示', 'generator'] },
-    { name: 'AI 与 Agent', keywords: ['agent', 'ai', 'llm', '智能体', 'proactive', 'self-improving'] },
-    { name: '版本控制', keywords: ['git', 'github', 'commit', 'pr', 'issue'] },
+    { name: '浏览器自动化', keywords: ['browser', 'playwright', 'puppeteer', '浏览器', '网页'] },
+    { name: '搜索与研究', keywords: ['search', 'research', 'tavily', '搜索'] },
+    { name: '文档处理', keywords: ['doc', 'feishu', 'notion', '文档', '飞书'] },
+    { name: '数据处理', keywords: ['excel', 'csv', 'json', 'data', '表格', '数据'] },
+    { name: '系统工具', keywords: ['health', 'system', 'monitor', 'cron', '系统', '健康', '监控'] },
+    { name: '创意与演示', keywords: ['ppt', 'slide', 'presentation', '演示'] },
+    { name: 'AI 与 Agent', keywords: ['agent', 'ai', 'llm', '智能体'] },
+    { name: '版本控制', keywords: ['git', 'github', 'commit'] },
     { name: '测试工具', keywords: ['test', 'spec', 'jest', '测试'] },
     { name: '安全工具', keywords: ['security', 'audit', 'vetter', '安全', '审计'] },
     { name: '通信与通知', keywords: ['email', 'sms', 'notify', 'message', '邮件', '通知'] },
@@ -113,27 +121,34 @@ function autoCategorizeSkill(skill) {
   return '其他';
 }
 
-async function searchSkills(query, limit = 100) {
+async function searchSkills(query, limit = 50) {
   const url = `${CONFIG.API_BASE}/api/v1/search?q=${encodeURIComponent(query)}&limit=${limit}`;
   const data = await httpRequest(url);
   return data.results || [];
 }
 
+async function fetchSkillDetails(slug) {
+  const url = `${CONFIG.API_BASE}/api/v1/skills/${encodeURIComponent(slug)}`;
+  const data = await httpRequest(url);
+  return data.skill;
+}
+
 async function fetchTopSkills(limit = 100) {
-  console.log(`📥 获取 ClawHub 技能（通过多关键词搜索）...`);
+  console.log(`📥 获取 ClawHub 技能...`);
   
+  // 使用多个搜索词获取更广泛的技能覆盖
+  const searchQueries = ['a', 'agent', 'tool', 'skill', 'ai', 'auto', 'data', 'web', 'file', 'system'];
   const allSkillsMap = new Map();
   
-  for (const query of CONFIG.SEARCH_QUERIES) {
+  for (const query of searchQueries) {
     try {
-      log(`搜索关键词："${query}"`, '🔍');
-      const results = await searchSkills(query, 100);
+      log(`搜索："${query}"`, '🔍');
+      const results = await searchSkills(query, 50);
       for (const result of results) {
         if (!allSkillsMap.has(result.slug)) {
           allSkillsMap.set(result.slug, result);
         }
       }
-      await new Promise(resolve => setTimeout(resolve, 300));
     } catch (err) {
       log(`搜索 "${query}" 失败：${err.message}`, '⚠️');
     }
@@ -141,25 +156,54 @@ async function fetchTopSkills(limit = 100) {
   
   console.log(`✅ 找到 ${allSkillsMap.size} 个唯一技能`);
   
-  // 从搜索结果直接提取数据（避免额外的API调用）
+  // 获取每个技能的详细信息（包含下载统计）
+  console.log(`📊 获取技能详细信息...`);
   const skillsWithDetails = [];
-  for (const [slug, result] of allSkillsMap) {
-    const stats = result.stats || {};
-    skillsWithDetails.push({
-      rank: 0,
-      name: result.slug,
-      displayName: result.displayName || result.slug,
-      downloads: stats.downloads || stats.installsAllTime || 0,
-      stars: stats.stars || 0,
-      installsAllTime: stats.installsAllTime || 0,
-      installsCurrent: stats.installsCurrent || 0,
-      description: result.summary || '',
-      category: autoCategorizeSkill(result),
-      author: result.owner?.handle || result.owner?.displayName || 'unknown',
-      version: result.tags?.latest || result.latestVersion?.version || 'unknown',
-      updatedAt: result.updatedAt ? new Date(result.updatedAt).toISOString().split('T')[0] : 'unknown',
-      createdAt: result.createdAt ? new Date(result.createdAt).toISOString().split('T')[0] : 'unknown'
-    });
+  const slugs = Array.from(allSkillsMap.keys());
+  
+  // 使用 Promise.all 并行请求，但限制并发数
+  const CONCURRENCY = 10;
+  for (let i = 0; i < slugs.length; i += CONCURRENCY) {
+    const batch = slugs.slice(i, i + CONCURRENCY);
+    const batchResults = await Promise.allSettled(
+      batch.map(async (slug) => {
+        try {
+          const details = await fetchSkillDetails(slug);
+          if (details && details.stats) {
+            return {
+              rank: 0,
+              name: details.slug,
+              displayName: details.displayName || details.slug,
+              downloads: details.stats.downloads || 0,
+              stars: details.stats.stars || 0,
+              installsAllTime: details.stats.installsAllTime || 0,
+              installsCurrent: details.stats.installsCurrent || 0,
+              description: details.summary || '',
+              category: autoCategorizeSkill(details),
+              author: details.owner?.handle || details.owner?.displayName || 'unknown',
+              version: details.tags?.latest || details.latestVersion?.version || 'unknown',
+              updatedAt: details.updatedAt ? new Date(details.updatedAt).toISOString().split('T')[0] : 'unknown',
+              createdAt: details.createdAt ? new Date(details.createdAt).toISOString().split('T')[0] : 'unknown'
+            };
+          }
+          return null;
+        } catch (err) {
+          log(`获取 ${slug} 详情失败：${err.message}`, '⚠️');
+          return null;
+        }
+      })
+    );
+    
+    for (const result of batchResults) {
+      if (result.status === 'fulfilled' && result.value) {
+        skillsWithDetails.push(result.value);
+      }
+    }
+    
+    // 显示进度
+    if ((i + CONCURRENCY) % 50 === 0 || i + CONCURRENCY >= slugs.length) {
+      log(`进度: ${Math.min(i + CONCURRENCY, slugs.length)}/${slugs.length}`, '📊');
+    }
   }
   
   // 按下载量排序
@@ -294,7 +338,8 @@ function saveJsonData(skills) {
 async function main() {
   const startTime = new Date();
   try {
-    console.log('🚀 ClawHub Top 100 Tracker v2.2 (Fast)');
+    console.log('🚀 ClawHub Top 100 Tracker v2.3 (Fast)');
+    console.log('📦 更新: 路径修复、错误处理增强、日志优化');
     console.log('═'.repeat(40));
     console.log(`开始时间：${startTime.toISOString()}`);
     console.log('');
