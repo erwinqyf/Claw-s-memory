@@ -1,6 +1,6 @@
 {
-  "lastRun": "2026-04-13T04:00:56.136Z",
-  "lastRunDate": "2026-04-13",
+  "lastRun": "2026-04-14T06:17:22.652Z",
+  "lastRunDate": "2026-04-14",
   "categories": [
     {
       "category": "political",
@@ -17,7 +17,7 @@
     {
       "category": "economy",
       "itemsCount": 5,
-      "totalAvailable": 69,
+      "totalAvailable": 70,
       "errors": [
         "Reuters Business: HTTP 301: https://www.reutersagency.com/feed/?best-topics=business-finance",
         "Bloomberg: HTTP 403: https://www.bloomberg.com/feed/podcast/etf.xml",
@@ -27,7 +27,7 @@
     {
       "category": "culture",
       "itemsCount": 5,
-      "totalAvailable": 62,
+      "totalAvailable": 61,
       "errors": [
         "BBC Culture: HTTP 302: http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
         "卫报文化: HTTP 302: https://www.theguardian.com/culture/rss",
