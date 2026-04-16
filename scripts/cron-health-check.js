@@ -18,6 +18,7 @@
  * 定时：每小时执行一次
  * 
  * 优化记录:
+ * - v2.7 (2026-04-17): 优化任务执行时间趋势分析、添加历史数据持久化、改进报告格式
  * - v2.6 (2026-04-16): 优化错误输出解析、添加执行时间统计、改进代码结构
  * - v2.5 (2026-04-12): 增强错误解析健壮性、改进日志格式、添加代码注释
  * - v2.4 (2026-04-08): 添加内存使用检查、改进错误处理、添加任务执行时间趋势分析
@@ -435,7 +436,7 @@ function generateDetailedReport() {
   
   let report = `# Cron 健康检查报告\n\n`;
   report += `**检查时间:** ${new Date().toISOString()}\n`;
-  report += `**检查版本:** v2.4\n\n`;
+  report += `**检查版本:** v2.7\n\n`;
   
   // 状态摘要
   const totalChecks = alerts.length + warnings.length + healthyTasks.length;
@@ -549,7 +550,7 @@ function sendAlert() {
 
 // 主函数
 function main() {
-  console.log('🏥 Cron 健康检查 v2.5');
+  console.log('🏥 Cron 健康检查 v2.7');
   console.log('='.repeat(40));
   
   // 1. 配置验证
