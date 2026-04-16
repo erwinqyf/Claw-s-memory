@@ -28,11 +28,14 @@ const CONFIG = {
   REPORTS_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'reports'),
   API_BASE: 'https://clawhub.ai',
   USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.1',
-  MAX_RETRIES: 3,
-  RETRY_DELAY_MS: 2000,
+  MAX_RETRIES: 2,
+  RETRY_DELAY_MS: 1000,
   DEFAULT_LIMIT: 100,
+  REQUEST_TIMEOUT_MS: 8000,
   // 搜索关键词列表，用于获取更广泛的技能覆盖
-  SEARCH_QUERIES: ['a', 'agent', 'tool', 'skill', 'ai', 'auto', 'data', 'web', 'file', 'system']
+  SEARCH_QUERIES: ['a', 'agent', 'tool', 'skill', 'ai', 'auto', 'data', 'web', 'file', 'system'],
+  // 限制处理的技能数量（用于加速）
+  MAX_SKILLS_TO_PROCESS: 150
 };
 
 // ==================== 工具函数 ====================
@@ -53,11 +56,12 @@ function ensureDirectories() {
 
 async function httpRequest(url, retryCount = 0) {
   return new Promise((resolve, reject) => {
-    https.get(url, {
+    const req = https.get(url, {
       headers: {
         'User-Agent': CONFIG.USER_AGENT,
         'Accept': 'application/json'
-      }
+      },
+      timeout: CONFIG.REQUEST_TIMEOUT_MS
     }, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
@@ -76,7 +80,20 @@ async function httpRequest(url, retryCount = 0) {
           reject(new Error(`HTTP ${res.statusCode}: ${data.substring(0, 100)}`));
         }
       });
-    }).on('error', (err) => {
+    });
+    
+    req.on('timeout', () => {
+      req.destroy();
+      if (retryCount < CONFIG.MAX_RETRIES) {
+        const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
+        log(`请求超时，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
+        setTimeout(() => httpRequest(url, retryCount + 1).then(resolve).catch(reject), delay);
+      } else {
+        reject(new Error(`Request timeout after ${CONFIG.REQUEST_TIMEOUT_MS}ms`));
+      }
+    });
+    
+    req.on('error', (err) => {
       if (retryCount < CONFIG.MAX_RETRIES) {
         const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
         log(`请求失败，${delay/1000}秒后重试 (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
@@ -211,7 +228,9 @@ async function fetchTopSkills(limit = 100) {
   // 获取每个技能的详细信息（包含下载统计）
   console.log(`📊 获取技能详细信息...`);
   const skillsWithDetails = [];
-  const slugs = Array.from(allSkillsMap.keys());
+  const slugs = Array.from(allSkillsMap.keys()).slice(0, CONFIG.MAX_SKILLS_TO_PROCESS);
+  
+  console.log(`📝 将处理前 ${slugs.length} 个技能（限制：${CONFIG.MAX_SKILLS_TO_PROCESS}）`);
   
   for (let i = 0; i < slugs.length; i++) {
     const slug = slugs[i];
@@ -234,14 +253,16 @@ async function fetchTopSkills(limit = 100) {
           createdAt: details.createdAt ? new Date(details.createdAt).toISOString().split('T')[0] : 'unknown'
         });
       }
-      // 避免过快请求
-      if ((i + 1) % 10 === 0) {
-        await new Promise(resolve => setTimeout(resolve, 500));
+      // 减少延迟以加速
+      if ((i + 1) % 20 === 0) {
+        process.stdout.write(`\r  进度: ${i + 1}/${slugs.length} (${Math.round((i+1)/slugs.length*100)}%)`);
+        await new Promise(resolve => setTimeout(resolve, 200));
       }
     } catch (err) {
-      log(`获取 ${slug} 详情失败：${err.message}`, '⚠️');
+      // 静默失败，继续处理下一个
     }
   }
+  console.log(''); // 换行
   
   // 按下载量排序
   skillsWithDetails.sort((a, b) => b.downloads - a.downloads);
