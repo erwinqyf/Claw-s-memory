@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * OpenClaw Memory Consolidation Script v2.1
+ * OpenClaw Memory Consolidation Script v2.2
  * 
  * 定期 consolidating 日常记忆，提取长期模式到 MEMORY.md
  * 
@@ -9,14 +9,19 @@
  * 2. 智能提取关键信息（决策、偏好、教训、待办）
  * 3. 去重并追加到 MEMORY.md
  * 4. 自动 Git 提交变更
+ * 5. 执行时间统计
  * 
  * 用法：node scripts/consolidate-memory.js
  * 
  * 更新记录：
+ * - v2.2 (2026-04-18): 添加执行时间统计、优化错误处理、改进日志格式
  * - v2.1 (2026-04-13): 修复 Git 提交目录问题，添加错误处理，优化日志输出
  * - v2.0 (2026-03-29): 添加 Git 集成、改进提取逻辑、添加去重机制
  * - v1.0: 基础版本
  */
+
+const SCRIPT_VERSION = '2.2';
+const SCRIPT_START_TIME = Date.now();
 
 const fs = require('fs');
 const path = require('path');
@@ -28,13 +33,28 @@ const MEMORY_DIR = path.join(WORKSPACE_DIR, 'memory');
 const MEMORY_FILE = path.join(WORKSPACE_DIR, 'MEMORY.md');
 const GIT_ENABLED = true; // 是否启用 Git 自动提交
 
-console.log('🪞 OpenClaw 记忆巩固脚本 v2.1');
+console.log(`🪞 OpenClaw 记忆巩固脚本 v${SCRIPT_VERSION}`);
 console.log('================================');
 console.log(`工作目录：${WORKSPACE_DIR}`);
 console.log(`记忆目录：${MEMORY_DIR}`);
 console.log(`记忆文件：${MEMORY_FILE}`);
 console.log(`Git 集成：${GIT_ENABLED ? '✅ 启用' : '❌ 禁用'}`);
 console.log('');
+
+// ============ 辅助函数 ============
+
+/**
+ * 格式化执行时间
+ * @param {number} ms - 毫秒数
+ * @returns {string} 格式化后的时间
+ */
+function formatDuration(ms) {
+  if (ms < 1000) return `${ms}ms`;
+  if (ms < 60000) return `${(ms / 1000).toFixed(1)}s`;
+  const mins = Math.floor(ms / 60000);
+  const secs = ((ms % 60000) / 1000).toFixed(1);
+  return `${mins}m ${secs}s`;
+}
 
 // ============ 工具函数 ============
 
@@ -45,9 +65,19 @@ console.log('');
  * @returns {string} 命令输出
  */
 function safeExec(command, silent = true) {
+  const start = Date.now();
   try {
-    return execSync(command, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const result = execSync(command, { encoding: 'utf-8', stdio: ['pipe', 'pipe', 'ignore'] }).trim();
+    const duration = Date.now() - start;
+    if (duration > 1000) {
+      console.log(`   ⏱️ 命令耗时: ${formatDuration(duration)}`);
+    }
+    return result;
   } catch (e) {
+    const duration = Date.now() - start;
+    if (!silent) {
+      console.log(`   ⚠️ 命令失败 (${formatDuration(duration)}): ${command}`);
+    }
     return silent ? '' : null;
   }
 }
@@ -73,6 +103,7 @@ function readMemoryFile() {
  */
 function readDailyLogs() {
   const logs = [];
+  const start = Date.now();
   
   if (!fs.existsSync(MEMORY_DIR)) {
     console.log('⚠️ 记忆目录不存在');
@@ -84,12 +115,19 @@ function readDailyLogs() {
     .sort()
     .reverse(); // 最新的在前
   
+  let readErrors = 0;
   for (const file of files.slice(0, 7)) { // 最近 7 天
-    const content = fs.readFileSync(path.join(MEMORY_DIR, file), 'utf-8');
-    logs.push({ file, content });
+    try {
+      const content = fs.readFileSync(path.join(MEMORY_DIR, file), 'utf-8');
+      logs.push({ file, content });
+    } catch (err) {
+      readErrors++;
+      console.log(`   ⚠️ 读取失败: ${file} - ${err.message}`);
+    }
   }
   
-  console.log(`📖 读取 ${logs.length} 个记忆文件`);
+  const duration = Date.now() - start;
+  console.log(`📖 读取 ${logs.length} 个记忆文件${readErrors > 0 ? ` (${readErrors} 个失败)` : ''} - ${formatDuration(duration)}`);
   return logs;
 }
 
@@ -231,15 +269,19 @@ function main() {
   const logs = readDailyLogs();
   
   console.log('🔍 提取关键信息...');
+  const insightsStart = Date.now();
   const insights = extractInsights(logs);
+  console.log(`   ⏱️ 提取耗时: ${formatDuration(Date.now() - insightsStart)}`);
   
   console.log('📝 生成巩固报告...');
   const report = generateConsolidationReport(insights);
   
   // 追加到 MEMORY.md
   console.log('💾 更新 MEMORY.md...');
+  const writeStart = Date.now();
   const currentMemory = readMemoryFile();
   fs.writeFileSync(MEMORY_FILE, currentMemory + report);
+  console.log(`   ⏱️ 写入耗时: ${formatDuration(Date.now() - writeStart)}`);
   
   // Git 提交
   console.log('');
@@ -248,10 +290,12 @@ function main() {
     gitCommit(commitMsg);
   }
   
+  const totalDuration = Date.now() - SCRIPT_START_TIME;
   console.log('');
   console.log('================================');
   console.log('✅ 记忆巩固完成');
   console.log(`📊 处理 ${logs.length} 个文件，提取 ${insights.length} 条关键信息`);
+  console.log(`⏱️ 总耗时: ${formatDuration(totalDuration)}`);
   console.log('');
 }
 
