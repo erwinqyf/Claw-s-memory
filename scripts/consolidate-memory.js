@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * OpenClaw Memory Consolidation Script v2.2
+ * OpenClaw Memory Consolidation Script v2.3
  * 
  * 定期 consolidating 日常记忆，提取长期模式到 MEMORY.md
  * 
@@ -9,18 +9,20 @@
  * 2. 智能提取关键信息（决策、偏好、教训、待办）
  * 3. 去重并追加到 MEMORY.md
  * 4. 自动 Git 提交变更
- * 5. 执行时间统计
+ * 5. 执行时间统计与趋势分析
+ * 6. 健康检查摘要
  * 
  * 用法：node scripts/consolidate-memory.js
  * 
  * 更新记录：
+ * - v2.3 (2026-04-20): 添加执行时间趋势分析、改进健康检查摘要、优化日志输出格式
  * - v2.2 (2026-04-18): 添加执行时间统计、优化错误处理、改进日志格式
  * - v2.1 (2026-04-13): 修复 Git 提交目录问题，添加错误处理，优化日志输出
  * - v2.0 (2026-03-29): 添加 Git 集成、改进提取逻辑、添加去重机制
  * - v1.0: 基础版本
  */
 
-const SCRIPT_VERSION = '2.2';
+const SCRIPT_VERSION = '2.3';
 const SCRIPT_START_TIME = Date.now();
 
 const fs = require('fs');
@@ -31,13 +33,18 @@ const { execSync } = require('child_process');
 const WORKSPACE_DIR = process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace');
 const MEMORY_DIR = path.join(WORKSPACE_DIR, 'memory');
 const MEMORY_FILE = path.join(WORKSPACE_DIR, 'MEMORY.md');
+const STATE_FILE = path.join(MEMORY_DIR, 'consolidate-state.json');
 const GIT_ENABLED = true; // 是否启用 Git 自动提交
+
+// 执行时间趋势分析配置
+const TREND_WINDOW_SIZE = 10; // 保留最近10次执行记录
 
 console.log(`🪞 OpenClaw 记忆巩固脚本 v${SCRIPT_VERSION}`);
 console.log('================================');
 console.log(`工作目录：${WORKSPACE_DIR}`);
 console.log(`记忆目录：${MEMORY_DIR}`);
 console.log(`记忆文件：${MEMORY_FILE}`);
+console.log(`状态文件：${STATE_FILE}`);
 console.log(`Git 集成：${GIT_ENABLED ? '✅ 启用' : '❌ 禁用'}`);
 console.log('');
 
@@ -54,6 +61,66 @@ function formatDuration(ms) {
   const mins = Math.floor(ms / 60000);
   const secs = ((ms % 60000) / 1000).toFixed(1);
   return `${mins}m ${secs}s`;
+}
+
+/**
+ * 读取状态文件
+ * @returns {Object} 状态数据
+ */
+function readStateFile() {
+  try {
+    if (fs.existsSync(STATE_FILE)) {
+      return JSON.parse(fs.readFileSync(STATE_FILE, 'utf-8'));
+    }
+  } catch (err) {
+    console.log(`   ⚠️ 状态文件读取失败: ${err.message}`);
+  }
+  return { runs: [], version: SCRIPT_VERSION };
+}
+
+/**
+ * 保存状态文件
+ * @param {Object} state - 状态数据
+ */
+function saveStateFile(state) {
+  try {
+    fs.writeFileSync(STATE_FILE, JSON.stringify(state, null, 2));
+  } catch (err) {
+    console.log(`   ⚠️ 状态文件保存失败: ${err.message}`);
+  }
+}
+
+/**
+ * 分析执行时间趋势
+ * @param {Array} runs - 历史执行记录
+ * @param {number} currentDuration - 当前执行时间
+ * @returns {Object} 趋势分析结果
+ */
+function analyzeTrend(runs, currentDuration) {
+  if (runs.length < 3) {
+    return { trend: 'insufficient_data', message: '数据不足，需要至少3次执行记录' };
+  }
+  
+  const recent = runs.slice(-TREND_WINDOW_SIZE);
+  const avg = recent.reduce((a, b) => a + b.duration, 0) / recent.length;
+  const min = Math.min(...recent.map(r => r.duration));
+  const max = Math.max(...recent.map(r => r.duration));
+  
+  // 计算与平均值的偏差
+  const deviation = ((currentDuration - avg) / avg) * 100;
+  
+  let trend = 'stable';
+  let message = `执行时间稳定 (平均: ${formatDuration(avg)})`;
+  
+  if (deviation > 20) {
+    trend = 'slower';
+    message = `⚠️ 执行时间增加 ${deviation.toFixed(1)}% (平均: ${formatDuration(avg)})`;
+  } else if (deviation < -20) {
+    trend = 'faster';
+    message = `✨ 执行时间减少 ${Math.abs(deviation).toFixed(1)}% (平均: ${formatDuration(avg)})`;
+  }
+  
+  return { trend, message, avg, min, max, deviation, count: recent.length };
 }
 
 // ============ 工具函数 ============
@@ -265,13 +332,17 @@ function gitCommit(message) {
 // ============ 主流程 ============
 
 function main() {
+  // 读取历史状态
+  const state = readStateFile();
+  
   console.log('📖 读取日常记忆...');
   const logs = readDailyLogs();
   
   console.log('🔍 提取关键信息...');
   const insightsStart = Date.now();
   const insights = extractInsights(logs);
-  console.log(`   ⏱️ 提取耗时: ${formatDuration(Date.now() - insightsStart)}`);
+  const extractDuration = Date.now() - insightsStart;
+  console.log(`   ⏱️ 提取耗时: ${formatDuration(extractDuration)}`);
   
   console.log('📝 生成巩固报告...');
   const report = generateConsolidationReport(insights);
@@ -281,21 +352,46 @@ function main() {
   const writeStart = Date.now();
   const currentMemory = readMemoryFile();
   fs.writeFileSync(MEMORY_FILE, currentMemory + report);
-  console.log(`   ⏱️ 写入耗时: ${formatDuration(Date.now() - writeStart)}`);
+  const writeDuration = Date.now() - writeStart;
+  console.log(`   ⏱️ 写入耗时: ${formatDuration(writeDuration)}`);
   
   // Git 提交
   console.log('');
+  let gitDuration = 0;
   if (GIT_ENABLED) {
+    const gitStart = Date.now();
     const commitMsg = `🪞 ${new Date().toISOString().split('T')[0]} 记忆巩固 - 提取 ${insights.length} 条关键信息`;
     gitCommit(commitMsg);
+    gitDuration = Date.now() - gitStart;
   }
   
+  // 计算总耗时并保存状态
   const totalDuration = Date.now() - SCRIPT_START_TIME;
+  const runRecord = {
+    timestamp: new Date().toISOString(),
+    duration: totalDuration,
+    filesProcessed: logs.length,
+    insightsExtracted: insights.length,
+    version: SCRIPT_VERSION
+  };
+  
+  state.runs = [...(state.runs || []), runRecord].slice(-TREND_WINDOW_SIZE);
+  state.version = SCRIPT_VERSION;
+  state.lastRun = runRecord;
+  saveStateFile(state);
+  
+  // 执行时间趋势分析
+  const trend = analyzeTrend(state.runs.slice(0, -1), totalDuration);
+  
   console.log('');
   console.log('================================');
   console.log('✅ 记忆巩固完成');
   console.log(`📊 处理 ${logs.length} 个文件，提取 ${insights.length} 条关键信息`);
   console.log(`⏱️ 总耗时: ${formatDuration(totalDuration)}`);
+  console.log(`📈 趋势分析: ${trend.message}`);
+  if (state.runs.length > 1) {
+    console.log(`📉 历史记录: ${state.runs.length} 次执行 (最快: ${formatDuration(trend.min)}, 最慢: ${formatDuration(trend.max)})`);
+  }
   console.log('');
 }
 

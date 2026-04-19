@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-04-18T04:01:20.140Z",
-  "lastRunDate": "2026-04-18",
+  "lastRun": "2026-04-19T04:02:18.777Z",
+  "lastRunDate": "2026-04-19",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 203,
+      "totalAvailable": 200,
       "errors": [
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
