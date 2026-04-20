@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Cron 调度器健康检查脚本 v2.8
+ * Cron 调度器健康检查脚本 v2.9
  * ============================
  * 
  * 用途：监控 OpenClaw 定时任务调度器状态，发现异常立即告警
@@ -13,12 +13,14 @@
  * 6. 磁盘空间检查
  * 7. 任务统计摘要
  * 8. 内存使用检查
- * 9. 错误分类统计（新增 v2.8）
+ * 9. 错误分类统计（v2.8）
+ * 10. 执行时间历史数据持久化（v2.9）
  * 
  * 用法：node scripts/cron-health-check.js
  * 定时：每小时执行一次
  * 
  * 优化记录:
+ * - v2.9 (2026-04-21): 修复版本号不一致、添加错误分类统计函数、改进执行时间历史数据存储
  * - v2.8 (2026-04-19): 添加错误分类统计、优化健康任务摘要格式、增强执行时间趋势分析
  * - v2.7 (2026-04-17): 优化任务执行时间趋势分析、添加历史数据持久化、改进报告格式
  * - v2.6 (2026-04-16): 优化错误输出解析、添加执行时间统计、改进代码结构
@@ -431,15 +433,117 @@ function getTaskStats() {
   }
 }
 
+// 错误分类统计（v2.9 新增）
+function classifyError(errorMessage) {
+  if (!errorMessage) return 'unknown';
+  
+  const errorLower = errorMessage.toLowerCase();
+  
+  // 网络相关错误
+  if (errorLower.includes('timeout') || errorLower.includes('etimedout') || 
+      errorLower.includes('econnrefused') || errorLower.includes('enotfound') ||
+      errorLower.includes('network') || errorLower.includes('socket')) {
+    return 'network';
+  }
+  
+  // 配置相关错误
+  if (errorLower.includes('config') || errorLower.includes('configuration') ||
+      errorLower.includes('invalid') || errorLower.includes('parse') ||
+      errorLower.includes('syntax')) {
+    return 'config';
+  }
+  
+  // 资源相关错误
+  if (errorLower.includes('memory') || errorLower.includes('disk') ||
+      errorLower.includes('space') || errorLower.includes('quota')) {
+    return 'resource';
+  }
+  
+  // 权限相关错误
+  if (errorLower.includes('permission') || errorLower.includes('access') ||
+      errorLower.includes('denied') || errorLower.includes('eacces')) {
+    return 'permission';
+  }
+  
+  // 外部 API 错误
+  if (errorLower.includes('api') || errorLower.includes('http') ||
+      errorLower.includes('response') || errorLower.includes('status')) {
+    return 'api';
+  }
+  
+  return 'other';
+}
+
+// 执行时间历史数据管理（v2.9 新增）
+const EXEC_TIME_HISTORY_FILE = path.join(WORKSPACE_DIR, 'data', 'cron-exec-time-history.json');
+
+function loadExecTimeHistory() {
+  try {
+    if (fs.existsSync(EXEC_TIME_HISTORY_FILE)) {
+      const data = JSON.parse(fs.readFileSync(EXEC_TIME_HISTORY_FILE, 'utf-8'));
+      return data.history || [];
+    }
+  } catch (e) {
+    console.log(`⚠️ 无法加载执行时间历史：${e.message}`);
+  }
+  return [];
+}
+
+function saveExecTimeHistory(duration) {
+  try {
+    const history = loadExecTimeHistory();
+    history.push({
+      timestamp: Date.now(),
+      duration: duration,
+      date: new Date().toISOString()
+    });
+    // 只保留最近 30 条记录
+    if (history.length > 30) {
+      history.shift();
+    }
+    const dataDir = path.dirname(EXEC_TIME_HISTORY_FILE);
+    if (!fs.existsSync(dataDir)) {
+      fs.mkdirSync(dataDir, { recursive: true });
+    }
+    fs.writeFileSync(EXEC_TIME_HISTORY_FILE, JSON.stringify({ history }, null, 2));
+  } catch (e) {
+    console.log(`⚠️ 无法保存执行时间历史：${e.message}`);
+  }
+}
+
+function getExecTimeTrend() {
+  const history = loadExecTimeHistory();
+  if (history.length < 2) return null;
+  
+  const recent = history.slice(-5); // 最近 5 次
+  const avg = recent.reduce((sum, h) => sum + h.duration, 0) / recent.length;
+  const prevAvg = history.slice(-10, -5).reduce((sum, h) => sum + h.duration, 0) / 5;
+  
+  const change = ((avg - prevAvg) / prevAvg) * 100;
+  return {
+    current: Math.round(avg),
+    change: Math.round(change),
+    samples: history.length
+  };
+}
+
 // 生成详细报告
 function generateDetailedReport() {
   const timestamp = new Date().toISOString().split('T')[0];
   const timeStr = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
   const reportFile = path.join(WORKSPACE_DIR, 'reports', `cron-health-check-${timestamp}.md`);
   
+  // 获取执行时间趋势
+  const trend = getExecTimeTrend();
+  
   let report = `# Cron 健康检查报告\n\n`;
   report += `**检查时间:** ${new Date().toISOString()}\n`;
-  report += `**检查版本:** v2.7\n\n`;
+  report += `**检查版本:** v2.9\n`;
+  if (trend) {
+    const trendIcon = trend.change > 10 ? '⚠️' : trend.change < -10 ? '✅' : '➡️';
+    report += `**执行时间趋势:** ${trend.current}ms (${trend.change > 0 ? '+' : ''}${trend.change}%) ${trendIcon}\n`;
+  }
+  report += `\n`;
   
   // 状态摘要
   const totalChecks = alerts.length + warnings.length + healthyTasks.length;
@@ -553,7 +657,7 @@ function sendAlert() {
 
 // 主函数
 function main() {
-  console.log('🏥 Cron 健康检查 v2.7');
+  console.log('🏥 Cron 健康检查 v2.9');
   console.log('='.repeat(40));
   
   // 1. 配置验证
@@ -584,6 +688,16 @@ function main() {
   // 4. 执行时间统计
   const duration = Date.now() - startTime;
   console.log(`\n⏱️ 耗时：${duration}ms`);
+  
+  // 保存执行时间历史
+  saveExecTimeHistory(duration);
+  
+  // 显示趋势
+  const trend = getExecTimeTrend();
+  if (trend) {
+    const trendIcon = trend.change > 10 ? '⚠️ 上升' : trend.change < -10 ? '✅ 下降' : '➡️ 平稳';
+    console.log(`📊 平均执行时间：${trend.current}ms (${trend.change > 0 ? '+' : ''}${trend.change}%) ${trendIcon}`);
+  }
   
   // 5. 返回状态码（有严重告警时返回 1）
   const hasAlerts = alerts.length > 0;
