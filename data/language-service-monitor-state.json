@@ -1,79 +1,77 @@
 {
-  "lastRun": "2026-04-18T03:00:00.000Z",
-  "lastRunFormatted": "2026-04-18 11:00 Asia/Shanghai",
+  "lastRun": "2026-04-21T03:00:00.000Z",
+  "lastRunFormatted": "2026-04-21 11:00 Asia/Shanghai",
   "newArticlesFound": 10,
   "articles": [
     {
-      "title": "Nimdzi 100 2026报告发布：行业规模达734亿美元",
+      "title": "DeepL发布实时语音翻译功能DeepL Voice-to-Voice",
+      "source": "DeepL",
+      "date": "2026-04-16",
+      "url": "https://www.deepl.com/en/press-release/deepl-unveils-real-time-spoken-translation-breaking-the-next-language-barrier-with-voice-to-voice",
+      "summary": "DeepL发布实时语音翻译产品套件，支持40+语言的语音对语音实时翻译"
+    },
+    {
+      "title": "Nimdzi 100 2026报告发布",
       "source": "Nimdzi",
       "date": "2026-04",
       "url": "https://www.nimdzi.com/nimdzi-100-2026/",
-      "summary": "2025年行业规模726亿美元，预计2026年734亿美元，2030年将达761亿美元（保守）或969亿美元（乐观）"
+      "summary": "行业规模预计达734亿美元，2030年将达761-969亿美元"
     },
     {
-      "title": "RWS发布Language Weaver Pro企业级AI翻译解决方案",
+      "title": "RWS推出Language Weaver Pro企业级AI翻译解决方案",
       "source": "RWS",
       "date": "2026-03-25",
       "url": "https://www.rws.com/about/news/2026/language-weaver-pro/",
-      "summary": "基于Cohere技术，1000亿参数模型，旨在理解文化、语境和合规，而非仅翻译文字"
-    },
-    {
-      "title": "Smartling入选Fast Company 2026全球最具创新力公司",
-      "source": "Smartling",
-      "date": "2026-03",
-      "url": "https://www.smartling.com/company-news/smartling-named-fast-companys-most-innovative-companies-of-2026",
-      "summary": "AI翻译业务增长218%，客户成本降低60%，交付时间提升6倍"
+      "summary": "1000亿参数模型，业界最大专用翻译模型"
     },
     {
       "title": "RWS获得AI翻译工作量预测美国专利",
       "source": "RWS",
       "date": "2026-04",
       "url": "https://www.rws.com/about/news/2026/rws-secures-patent-for-ai-that-predicts-translation-effort/",
-      "summary": "专利帮助企业预测创作时的翻译成本、工作量和重用率"
-    },
-    {
-      "title": "DeepL推出实时语音翻译功能",
-      "source": "DeepL",
-      "date": "2026-04-16",
-      "url": "https://www.deepl.com/en/press-release/deepl-unveils-real-time-spoken-translation-breaking-the-next-language-barrier-with-voice-to-voice",
-      "summary": "发布实时语音翻译功能，新增冰岛语及80多种新语言支持，欧盟所有官方语言现已全覆盖"
-    },
-    {
-      "title": "Smartling AI平台助力IBM将本地化时间缩短一半",
-      "source": "Smartling",
-      "date": "2026-04-14",
-      "url": "https://www.smartling.com/company-news/smartling-ai-translation-enables-ibm-to-cut-localization-time-in-half",
-      "summary": "IBM在170多个国家实现营销内容本地化，平均上市时间缩短50%以上，翻译质量提升40%"
-    },
-    {
-      "title": "Slator发布四月语言行业数据与新闻简报",
-      "source": "Slator",
-      "date": "2026-04",
-      "url": "https://slator.com/language-industry-data-and-news-briefing-april-2026/",
-      "summary": "涵盖收购、招聘、融资、财务业绩和社交媒体热点，发布2026年Slator指数覆盖300多家公司"
+      "summary": "可在内容创作阶段预测翻译成本和工作量"
     },
     {
       "title": "TransPerfect 2025年收入增长7%达13.2亿美元",
       "source": "TransPerfect",
-      "date": "2026-01",
-      "url": "https://www.prnewswire.com/news-releases/transperfect-billed-revenues-increase-7-in-2025-to-1-32-billion-302704496.html",
-      "summary": "账单收入增长7%达13.2亿美元，GlobalLink技术获G2 Winter 2026报告13个类别认可"
+      "date": "2026-03-05",
+      "url": "https://www.transperfect.com/about/press/transperfect-billed-revenues-increase",
+      "summary": "连续33年增长，非翻译业务首次超过50%"
     },
     {
-      "title": "Smartling推出MCP服务器连接开发与本地化",
+      "title": "Slator四月语言行业数据与新闻简报",
+      "source": "Slator",
+      "date": "2026-04",
+      "url": "https://slator.com/language-industry-data-and-news-briefing-april-2026/",
+      "summary": "涵盖收购、招聘、融资、财务业绩和社交媒体热点"
+    },
+    {
+      "title": "Smartling AI平台助力IBM本地化时间缩短一半",
+      "source": "Smartling",
+      "date": "2026-04-14",
+      "url": "https://www.smartling.com/resources/case-study/ibm",
+      "summary": "IBM在170多个国家实现营销内容本地化，上市时间缩短50%"
+    },
+    {
+      "title": "Smartling推出MCP服务器",
       "source": "Smartling",
       "date": "2026-04",
       "url": "https://www.smartling.com/blog/mcp-servers-bridging-the-gap-between-development-and-localization",
-      "summary": "推出Model Context Protocol服务器，使AI工具能够与翻译系统连接"
+      "summary": "AI工具可直接与翻译系统连接"
     },
     {
       "title": "RWS发布TrainAI多语言LLM合成数据生成研究报告",
       "source": "RWS",
       "date": "2026-04",
       "url": "https://www.rws.com/about/news/2026/trainai-llm-benchmarking-report/",
-      "summary": "领先的LLM正在缩小全球语言差距，但模型代际间性能变化可能不可预测"
+      "summary": "比较8个领先LLM的性能表现"
+    },
+    {
+      "title": "CETRA入选2026 Slator指数",
+      "source": "CETRA",
+      "date": "2026-04",
+      "url": "https://www.cetra.com/blog/2026-slator-index/",
+      "summary": "连续第六年入选，排名第117位"
     }
-  ],
-  "docUrl": "https://my.feishu.cn/docx/UbpVdvZTtoyqYSxkQT6cbWlonzh",
-  "docToken": "UbpVdvZTtoyqYSxkQT6cbWlonzh"
+  ]
 }
