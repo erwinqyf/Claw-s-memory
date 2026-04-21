@@ -1,7 +1,10 @@
 {
   "lastRun": "2026-04-21T03:00:00.000Z",
   "lastRunFormatted": "2026-04-21 11:00 Asia/Shanghai",
+  "lastPublished": "2026-04-21T03:15:00.000Z",
   "newArticlesFound": 10,
+  "reportPath": "reports/language-service-monitor-20260421.md",
+  "gitCommit": "ace0219",
   "articles": [
     {
       "title": "DeepL发布实时语音翻译功能DeepL Voice-to-Voice",
