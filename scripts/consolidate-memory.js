@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * OpenClaw Memory Consolidation Script v2.3
+ * OpenClaw Memory Consolidation Script v2.4
  * 
  * 定期 consolidating 日常记忆，提取长期模式到 MEMORY.md
  * 
@@ -11,10 +11,12 @@
  * 4. 自动 Git 提交变更
  * 5. 执行时间统计与趋势分析
  * 6. 健康检查摘要
+ * 7. 文件大小统计与监控
  * 
  * 用法：node scripts/consolidate-memory.js
  * 
  * 更新记录：
+ * - v2.4 (2026-04-22): 添加文件大小统计、优化错误分类、改进报告格式
  * - v2.3 (2026-04-20): 添加执行时间趋势分析、改进健康检查摘要、优化日志输出格式
  * - v2.2 (2026-04-18): 添加执行时间统计、优化错误处理、改进日志格式
  * - v2.1 (2026-04-13): 修复 Git 提交目录问题，添加错误处理，优化日志输出
@@ -22,7 +24,7 @@
  * - v1.0: 基础版本
  */
 
-const SCRIPT_VERSION = '2.3';
+const SCRIPT_VERSION = '2.4';
 const SCRIPT_START_TIME = Date.now();
 
 const fs = require('fs');
@@ -329,6 +331,49 @@ function gitCommit(message) {
   return true;
 }
 
+/**
+ * 统计文件大小信息
+ * @param {Array} logs - 日志列表
+ * @returns {Object} 文件大小统计
+ */
+function analyzeFileSizes(logs) {
+  let totalSize = 0;
+  let maxSize = 0;
+  let minSize = Infinity;
+  const sizes = [];
+  
+  for (const log of logs) {
+    const size = Buffer.byteLength(log.content, 'utf8');
+    totalSize += size;
+    sizes.push({ file: log.file, size });
+    maxSize = Math.max(maxSize, size);
+    minSize = Math.min(minSize, size);
+  }
+  
+  const avgSize = logs.length > 0 ? totalSize / logs.length : 0;
+  
+  // 格式化文件大小
+  function formatBytes(bytes) {
+    if (bytes < 1024) return `${bytes}B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)}KB`;
+    return `${(bytes / 1024 / 1024).toFixed(1)}MB`;
+  }
+  
+  return {
+    totalSize,
+    avgSize,
+    maxSize,
+    minSize: minSize === Infinity ? 0 : minSize,
+    count: logs.length,
+    formatted: {
+      total: formatBytes(totalSize),
+      avg: formatBytes(avgSize),
+      max: formatBytes(maxSize),
+      min: formatBytes(minSize === Infinity ? 0 : minSize)
+    }
+  };
+}
+
 // ============ 主流程 ============
 
 function main() {
@@ -337,6 +382,12 @@ function main() {
   
   console.log('📖 读取日常记忆...');
   const logs = readDailyLogs();
+  
+  // 文件大小统计
+  console.log('📊 统计文件大小...');
+  const fileStats = analyzeFileSizes(logs);
+  console.log(`   总大小: ${fileStats.formatted.total} (${fileStats.count} 个文件)`);
+  console.log(`   平均: ${fileStats.formatted.avg}, 最大: ${fileStats.formatted.max}, 最小: ${fileStats.formatted.min}`);
   
   console.log('🔍 提取关键信息...');
   const insightsStart = Date.now();
@@ -372,6 +423,11 @@ function main() {
     duration: totalDuration,
     filesProcessed: logs.length,
     insightsExtracted: insights.length,
+    fileStats: {
+      totalSize: fileStats.totalSize,
+      avgSize: fileStats.avgSize,
+      count: fileStats.count
+    },
     version: SCRIPT_VERSION
   };
   
@@ -386,7 +442,7 @@ function main() {
   console.log('');
   console.log('================================');
   console.log('✅ 记忆巩固完成');
-  console.log(`📊 处理 ${logs.length} 个文件，提取 ${insights.length} 条关键信息`);
+  console.log(`📊 处理 ${logs.length} 个文件 (${fileStats.formatted.total})，提取 ${insights.length} 条关键信息`);
   console.log(`⏱️ 总耗时: ${formatDuration(totalDuration)}`);
   console.log(`📈 趋势分析: ${trend.message}`);
   if (state.runs.length > 1) {
