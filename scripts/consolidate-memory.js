@@ -24,7 +24,7 @@
  * - v1.0: 基础版本
  */
 
-const SCRIPT_VERSION = '2.4';
+const SCRIPT_VERSION = '2.5';
 const SCRIPT_START_TIME = Date.now();
 
 const fs = require('fs');
