@@ -1,6 +1,6 @@
 {
-  "lastRun": "2026-04-22T04:01:05.939Z",
-  "lastRunDate": "2026-04-22",
+  "lastRun": "2026-04-23T04:01:38.666Z",
+  "lastRunDate": "2026-04-23",
   "categories": [
     {
       "category": "political",
@@ -37,7 +37,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 123,
+      "totalAvailable": 119,
       "errors": [
         "Hacker News: Cannot read properties of undefined (reading 'length')"
       ]
