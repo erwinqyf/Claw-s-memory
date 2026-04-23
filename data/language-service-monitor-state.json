@@ -1,10 +1,5 @@
 {
-  "lastRun": "2026-04-21T03:00:00.000Z",
-  "lastRunFormatted": "2026-04-21 11:00 Asia/Shanghai",
-  "lastPublished": "2026-04-21T03:15:00.000Z",
-  "newArticlesFound": 10,
-  "reportPath": "reports/language-service-monitor-20260421.md",
-  "gitCommit": "ace0219",
+  "lastCheck": "2026-04-23T03:02:12.355Z",
   "articles": [
     {
       "title": "DeepL发布实时语音翻译功能DeepL Voice-to-Voice",
@@ -75,6 +70,366 @@
       "date": "2026-04",
       "url": "https://www.cetra.com/blog/2026-slator-index/",
       "summary": "连续第六年入选，排名第117位"
+    },
+    {
+      "title": "Contact Center Support / BPO",
+      "url": "https://www.transperfectconnect.com/business-process-outsourcing",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "Labeling &amp; Regulatory Consulting",
+      "url": "https://www.transperfect.com/solutions/translation-and-language-services/labeling-and-regulatory-consulting",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "Language &amp; Cultural Training",
+      "url": "https://www.transperfect.com/solutions/translation-and-language-services/language-and-cultural-training",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "Multilingual Brand Managers",
+      "url": "https://www.transperfect.com/solutions/global-brand-management/multilingual-brand-managers",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "Multilingual Staffing",
+      "url": "https://www.transperfect.com/solutions/translation-and-language-services/multilingual-staffing",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "Training &amp; Digital Learning",
+      "url": "https://www.transperfect.com/solutions/training-and-digital-learning",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "AI &amp; Machine Translation",
+      "url": "https://www.transperfect.com/solutions/ai-and-machine-translation",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "Email &amp; Chat Translation",
+      "url": "https://www.transperfectconnect.com/opi/industries/ecommerce-and-retail#why-choose",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "Video &amp; Audio Translation",
+      "url": "https://www.transperfect.com/solutions/content-creation-and-management/video-production",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "International SEO/SEM",
+      "url": "https://www.transperfect.com/solutions/global-brand-management/international-search-iseo",
+      "date": "2026-04-23",
+      "source": "TransPerfect",
+      "type": "company",
+      "summary": "antibot * :not( antibot-message) { display: none important; } /* @see https://github",
+      "priority": "normal"
+    },
+    {
+      "title": "Creative and Digital Content",
+      "url": "https://www.rws.com/localization/services/creative-and-digital-content-localization/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "&#x7B80;&#x4F53;&#x4E2D;&#x6587;",
+      "url": "https://www.rws.com/cn/about/news/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "Chinese language homepage",
+      "url": "https://www.rws.com/tw/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "&#x65E5;&#x672C;&#x8A9E;",
+      "url": "https://www.rws.com/jp/about/news/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "&#xD55C;&#xAD6D;&#xC5B4;",
+      "url": "https://www.rws.com/kr/about/news/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "Training &amp; certification",
+      "url": "https://www.rws.com/support/training/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "Professional services",
+      "url": "https://www.rws.com/support/professional-services/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "Investment proposition",
+      "url": "https://www.rws.com/about/investors/investment-proposition/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "Results, reports and presentations",
+      "url": "https://www.rws.com/about/investors/results-and-reports/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "Artificial Intelligence",
+      "url": "https://www.rws.com/artificial-intelligence/",
+      "date": "2026-04-23",
+      "source": "RWS",
+      "type": "company",
+      "summary": "RWS News - RWS (function (w, d, s, l, i) { w[l] = w[l] || []; w[l] push({ 'gtm start': new Date()",
+      "priority": "normal"
+    },
+    {
+      "title": "8 Strategies for Culture Marketing &amp; Why It Matters",
+      "url": "https://www.smartling.com/blog/culture-marketing",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "8 Strategies for Culture Marketing &amp; Why It Matters - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "What is culture marketing? Learn how global brands align campaigns with local culture and discover 8 strategies to avoid missteps and build authentic connections.",
+      "url": "https://www.smartling.com/blog/culture-marketing",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "What is culture marketing? Learn how global brands align campaigns with local culture and discover 8 strategies to avoid missteps and build authentic connections. - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Transcreation vs. Translation and 6 Key Differences",
+      "url": "https://www.smartling.com/blog/six-ways-transcreation-differs-from-translation",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "Transcreation vs. Translation and 6 Key Differences - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "What’s the difference between transcreation and translation? Smartling breaks down 6 key differences, from pricing to process to use cases, so you know exactly when to use each.",
+      "url": "https://www.smartling.com/blog/six-ways-transcreation-differs-from-translation",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "What’s the difference between transcreation and translation? Smartling breaks down 6 key differences, from pricing to process to use cases, so you know exactly when to use each. - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "AI Localization: How It Works &amp; Best Practices in 2026",
+      "url": "https://www.smartling.com/blog/ai-localization",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "AI Localization: How It Works &amp; Best Practices in 2026 - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "What is AI localization? Learn how AI automates content adaptation for global markets, the key technologies behind it, and best practices to scale multilingual content without sacrificing quality.",
+      "url": "https://www.smartling.com/blog/ai-localization",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "What is AI localization? Learn how AI automates content adaptation for global markets, the key technologies behind it, and best practices to scale multilingual content without sacrificing quality. - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Professional Services",
+      "url": "https://www.smartling.com/blog/tag/professional-services",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "Professional Services - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Global Delivery Network",
+      "url": "https://www.smartling.com/blog/tag/global-delivery-network",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "Global Delivery Network - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Government and non-profit",
+      "url": "https://www.smartling.com/blog/tag/government-and-non-profit",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "Government and non-profit - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Websites and Web Applications",
+      "url": "https://www.smartling.com/blog/tag/websites-and-web-applications",
+      "date": "2026-04-23",
+      "source": "Smartling",
+      "type": "company",
+      "summary": "Websites and Web Applications - 更多内容请访问原文链接",
+      "priority": "normal"
+    },
+    {
+      "title": "Auto speech-to-text transcription",
+      "url": "https://www.rask.ai/tools/transcription",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
+    },
+    {
+      "title": "Translations in 135 languages",
+      "url": "https://www.rask.ai/tools/video-translator",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
+    },
+    {
+      "title": "Voice Cloning in 32 languages",
+      "url": "https://www.rask.ai/voicecloning",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
+    },
+    {
+      "title": "Multi-speaker Translation",
+      "url": "https://www.rask.ai/multispeakers",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
+    },
+    {
+      "title": "Multi-language Translation",
+      "url": "https://www.rask.ai/tools/video-translator",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
+    },
+    {
+      "title": "Translation dictionary",
+      "url": "https://help.rask.ai/hc/how-to-use-translation-dictionary",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
+    },
+    {
+      "title": "Translation prompting",
+      "url": "https://help.rask.ai/hc/introducing-prompting",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
+    },
+    {
+      "title": "Advanced video editing",
+      "url": "https://www.rask.ai/transcription-and-translation-control",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
+    },
+    {
+      "title": "SRT download &amp; upload",
+      "url": "https://www.rask.ai/tools/add-subtitles/add-srt-to-mp4",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
+    },
+    {
+      "title": "Automated captions/subtitles",
+      "url": "https://www.rask.ai/tools/add-subtitles",
+      "date": "2026-04-23",
+      "source": "Rask AI",
+      "type": "company",
+      "summary": "Our blog - Rask function(o,c){var n=c documentElement,t= w-mod-;n",
+      "priority": "normal"
     }
   ]
 }
