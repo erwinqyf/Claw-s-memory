@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * 全球新闻汇总监控脚本 v1.1
+ * 全球新闻汇总监控脚本 v1.2
  * 
  * 功能：
  * 1. 抓取多个 RSS 新闻源（政治、经济、文化、科技）
@@ -9,9 +9,15 @@
  * 3. 筛选 Top 5 新闻（每类）
  * 4. 生成 Markdown 报告
  * 5. 保存状态（避免重复抓取）
+ * 6. 自动上传到 GitHub
  * 
  * 执行时间：每天 12:00 (Asia/Shanghai)
  * 输出：reports/global-news-YYYY-MM-DD.md
+ * 
+ * v1.2 改进 (2026-04-23):
+ * - 添加自动 GitHub 上传功能
+ * - 执行完成后自动提交并推送报告
+ * - 添加 Git 状态检测和错误处理
  * 
  * v1.1 改进 (2026-03-23):
  * - 添加启动时配置验证（fail fast）
@@ -539,14 +545,90 @@ async function main() {
   
   console.log('\n✅ 任务完成');
   
+  // 上传到 GitHub
+  const gitResult = await uploadToGitHub(today, reportPath);
+  
   // 写入 Delta Agent 记忆日志
-  writeAgentMemory(today, totalItems, totalErrors);
+  writeAgentMemory(today, totalItems, totalErrors, gitResult);
+}
+
+/**
+ * 执行 Git 命令
+ */
+function execGit(args, cwd) {
+  return new Promise((resolve, reject) => {
+    const { spawn } = require('child_process');
+    const proc = spawn('git', args, {
+      cwd: cwd || CONFIG.paths.workspace,
+      stdio: ['ignore', 'pipe', 'pipe']
+    });
+    
+    let stdout = '';
+    let stderr = '';
+    
+    proc.stdout.on('data', data => stdout += data);
+    proc.stderr.on('data', data => stderr += data);
+    
+    proc.on('close', code => {
+      if (code === 0) {
+        resolve(stdout.trim());
+      } else {
+        reject(new Error(`Git ${args.join(' ')} failed: ${stderr.trim() || stdout.trim()}`));
+      }
+    });
+  });
+}
+
+/**
+ * 上传报告到 GitHub
+ */
+async function uploadToGitHub(date, reportPath) {
+  console.log('\n📤 开始上传报告到 GitHub...');
+  
+  try {
+    // 检查是否是 Git 仓库
+    await execGit(['status']);
+    console.log('  ✅ Git 仓库检测通过');
+    
+    // 添加报告文件
+    const relativePath = path.relative(CONFIG.paths.workspace, reportPath);
+    await execGit(['add', relativePath]);
+    console.log(`  ✅ 添加文件：${relativePath}`);
+    
+    // 添加状态文件
+    const statePath = path.join(CONFIG.paths.data, 'global-news-state.json');
+    if (fs.existsSync(path.join(CONFIG.paths.workspace, statePath))) {
+      await execGit(['add', statePath]);
+      console.log('  ✅ 添加状态文件');
+    }
+    
+    // 检查是否有变更
+    const status = await execGit(['status', '--porcelain']);
+    if (!status) {
+      console.log('  ℹ️ 没有变更需要提交');
+      return { success: true, committed: false, message: 'No changes' };
+    }
+    
+    // 提交
+    const commitMessage = `📰 全球新闻汇总 ${date}\n\n- 生成日期: ${date}\n- 来源: Delta Agent\n- 自动提交`;
+    await execGit(['commit', '-m', commitMessage]);
+    console.log('  ✅ Git 提交成功');
+    
+    // 推送到远程
+    await execGit(['push', 'origin', 'main']);
+    console.log('  ✅ GitHub 推送成功');
+    
+    return { success: true, committed: true, message: 'Uploaded to GitHub' };
+  } catch (err) {
+    console.error(`  ❌ GitHub 上传失败: ${err.message}`);
+    return { success: false, committed: false, message: err.message };
+  }
 }
 
 /**
  * 写入 Delta Agent 记忆日志
  */
-function writeAgentMemory(date, totalItems, totalErrors) {
+function writeAgentMemory(date, totalItems, totalErrors, gitResult) {
   const agentMemoryDir = path.join(CONFIG.paths.workspace, 'agents', 'delta', 'memory');
   const memoryPath = path.join(agentMemoryDir, `${date}.md`);
   const now = new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' });
@@ -555,6 +637,10 @@ function writeAgentMemory(date, totalItems, totalErrors) {
   if (!fs.existsSync(agentMemoryDir)) {
     fs.mkdirSync(agentMemoryDir, { recursive: true });
   }
+  
+  const gitStatus = gitResult?.success 
+    ? (gitResult?.committed ? '✅ 已上传 GitHub' : 'ℹ️ 无变更')
+    : `❌ 上传失败 (${gitResult?.message || 'unknown'})`;
   
   let memoryContent = `# Delta (德尔塔) - 执行日志
 
@@ -566,6 +652,7 @@ function writeAgentMemory(date, totalItems, totalErrors) {
 **错误数:** ${totalErrors} 个
 **报告:** reports/global-news-${date}.md
 **飞书通知:** 已发送
+**GitHub:** ${gitStatus}
 
 ### 执行详情
 
@@ -590,7 +677,16 @@ function writeAgentMemory(date, totalItems, totalErrors) {
 }
 
 // 运行
-main().catch(err => {
-  console.error('❌ 脚本执行失败:', err.message);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().then(() => {
+    console.log('\n' + '='.repeat(50));
+    console.log('📦 执行完成');
+    console.log('='.repeat(50));
+    process.exit(0);
+  }).catch(err => {
+    console.error('❌ 脚本执行失败:', err.message);
+    process.exit(1);
+  });
+}
+
+module.exports = { main, fetchCategory, generateReport };
