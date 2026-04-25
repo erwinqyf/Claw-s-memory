@@ -433,7 +433,19 @@ function getTaskStats() {
   }
 }
 
-// 错误分类统计（v2.9 新增）
+/**
+ * 错误分类统计（v2.9 新增）
+ * 
+ * 将错误消息分类为预定义类别，便于统计分析和告警
+ * 
+ * @param {string} errorMessage - 错误消息文本
+ * @returns {string} 错误类别: 'network' | 'config' | 'timeout' | 'permission' | 'resource' | 'unknown'
+ * 
+ * @example
+ * classifyError('Connection timeout after 30000ms') // => 'network'
+ * classifyError('Invalid configuration: missing API key') // => 'config'
+ * classifyError('Task execution timed out') // => 'timeout'
+ */
 function classifyError(errorMessage) {
   if (!errorMessage) return 'unknown';
   
@@ -442,7 +454,8 @@ function classifyError(errorMessage) {
   // 网络相关错误
   if (errorLower.includes('timeout') || errorLower.includes('etimedout') || 
       errorLower.includes('econnrefused') || errorLower.includes('enotfound') ||
-      errorLower.includes('network') || errorLower.includes('socket')) {
+      errorLower.includes('network') || errorLower.includes('socket') ||
+      errorLower.includes('dns') || errorLower.includes('unreachable')) {
     return 'network';
   }
   
@@ -455,20 +468,28 @@ function classifyError(errorMessage) {
   
   // 资源相关错误
   if (errorLower.includes('memory') || errorLower.includes('disk') ||
-      errorLower.includes('space') || errorLower.includes('quota')) {
+      errorLower.includes('space') || errorLower.includes('quota') ||
+      errorLower.includes('enospc') || errorLower.includes('emfile')) {
     return 'resource';
   }
   
   // 权限相关错误
   if (errorLower.includes('permission') || errorLower.includes('access') ||
-      errorLower.includes('denied') || errorLower.includes('eacces')) {
+      errorLower.includes('denied') || errorLower.includes('eacces') ||
+      errorLower.includes('eperm') || errorLower.includes('forbidden')) {
     return 'permission';
   }
   
   // 外部 API 错误
   if (errorLower.includes('api') || errorLower.includes('http') ||
-      errorLower.includes('response') || errorLower.includes('status')) {
+      errorLower.includes('response') || errorLower.includes('status') ||
+      errorLower.includes('fetch') || errorLower.includes('request')) {
     return 'api';
+  }
+  
+  // 超时错误（专门类别）
+  if (errorLower.includes('timed out') || errorLower.includes('deadline exceeded')) {
+    return 'timeout';
   }
   
   return 'other';
