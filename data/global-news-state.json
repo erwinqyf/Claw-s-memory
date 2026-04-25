@@ -1,16 +1,16 @@
 {
-  "lastRun": "2026-04-24T04:00:52.112Z",
-  "lastRunDate": "2026-04-24",
+  "lastRun": "2026-04-25T04:00:59.568Z",
+  "lastRunDate": "2026-04-25",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 199,
+      "totalAvailable": 202,
       "errors": [
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
         "联合早报: HTTP 404: https://www.zaobao.com.sg/rss/news/china.xml",
-        "经济学人: HTTP 403: https://www.economist.com/world/rss",
+        "经济学人: HTTP 404: https://www.economist.com/world/rss",
         "泰晤士报: HTTP 301: https://www.thetimes.co.uk/feed/rss/world"
       ]
     },
@@ -27,7 +27,7 @@
     {
       "category": "culture",
       "itemsCount": 5,
-      "totalAvailable": 60,
+      "totalAvailable": 61,
       "errors": [
         "BBC Culture: HTTP 302: http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
         "卫报文化: HTTP 302: https://www.theguardian.com/culture/rss",
@@ -37,7 +37,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 121,
+      "totalAvailable": 123,
       "errors": [
         "Hacker News: Cannot read properties of undefined (reading 'length')"
       ]
