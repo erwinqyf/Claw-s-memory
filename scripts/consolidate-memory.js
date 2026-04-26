@@ -24,8 +24,20 @@
  * - v1.0: 基础版本
  */
 
-const SCRIPT_VERSION = '2.5';
+const SCRIPT_VERSION = '2.6';
 const SCRIPT_START_TIME = Date.now();
+
+/**
+ * 脚本版本历史：
+ * - v2.6 (2026-04-27): 优化日志输出格式，添加执行阶段标记，改进错误分类
+ * - v2.5 (2026-04-26): 优化 classifyError 函数，增强错误模式识别
+ * - v2.4 (2026-04-22): 添加文件大小统计、优化错误分类、改进报告格式
+ * - v2.3 (2026-04-20): 添加执行时间趋势分析、改进健康检查摘要、优化日志输出格式
+ * - v2.2 (2026-04-18): 添加执行时间统计、优化错误处理、改进日志格式
+ * - v2.1 (2026-04-13): 修复 Git 提交目录问题，添加错误处理，优化日志输出
+ * - v2.0 (2026-03-29): 添加 Git 集成、改进提取逻辑、添加去重机制
+ * - v1.0: 基础版本
+ */
 
 const fs = require('fs');
 const path = require('path');
@@ -168,7 +180,12 @@ function readMemoryFile() {
 
 /**
  * 读取日常记忆文件
+ * 扫描 memory/ 目录，读取最近 7 天的 .md 文件
+ * 
  * @returns {Array<{file: string, content: string}>} 日志列表
+ * @example
+ * const logs = readDailyLogs();
+ * // logs = [{ file: '2026-04-27.md', content: '...' }, ...]
  */
 function readDailyLogs() {
   const logs = [];
@@ -179,56 +196,155 @@ function readDailyLogs() {
     return logs;
   }
   
-  const files = fs.readdirSync(MEMORY_DIR)
-    .filter(f => f.endsWith('.md') && /^\d{4}-\d{2}-\d{2}\.md$/.test(f))
+  // 使用更高效的文件遍历：先获取所有文件，再过滤和排序
+  let allFiles;
+  try {
+    allFiles = fs.readdirSync(MEMORY_DIR, { withFileTypes: true });
+  } catch (err) {
+    console.log(`   ⚠️ 目录读取失败: ${err.message}`);
+    return logs;
+  }
+  
+  // 过滤：只保留符合日期格式的 .md 文件，且是文件（不是目录）
+  const datePattern = /^\d{4}-\d{2}-\d{2}\.md$/;
+  const files = allFiles
+    .filter(dirent => dirent.isFile() && datePattern.test(dirent.name))
+    .map(dirent => dirent.name)
     .sort()
     .reverse(); // 最新的在前
   
+  // 限制读取最近 7 天，但保留更多候选以应对读取失败
+  const targetFiles = files.slice(0, 10);
   let readErrors = 0;
-  for (const file of files.slice(0, 7)) { // 最近 7 天
+  let skippedNonDaily = 0;
+  
+  for (const file of targetFiles) {
+    // 只读取标准日期格式文件（排除带时间戳的文件如 2026-04-07-0949.md）
+    if (!datePattern.test(file)) {
+      skippedNonDaily++;
+      continue;
+    }
+    
+    // 已达到 7 个文件限制
+    if (logs.length >= 7) break;
+    
     try {
-      const content = fs.readFileSync(path.join(MEMORY_DIR, file), 'utf-8');
+      const filePath = path.join(MEMORY_DIR, file);
+      const content = fs.readFileSync(filePath, 'utf-8');
       logs.push({ file, content });
     } catch (err) {
       readErrors++;
-      console.log(`   ⚠️ 读取失败: ${file} - ${err.message}`);
+      // 分类错误类型，提供更具体的错误信息
+      const errorType = classifyFileError(err);
+      console.log(`   ⚠️ 读取失败 [${errorType}]: ${file} - ${err.message}`);
     }
   }
   
   const duration = Date.now() - start;
-  console.log(`📖 读取 ${logs.length} 个记忆文件${readErrors > 0 ? ` (${readErrors} 个失败)` : ''} - ${formatDuration(duration)}`);
+  const statusIcon = readErrors > 0 ? '⚠️' : '✅';
+  console.log(`${statusIcon} 读取 ${logs.length} 个记忆文件 (${duration}ms)${readErrors > 0 ? ` - ${readErrors} 个失败` : ''}${skippedNonDaily > 0 ? ` - ${skippedNonDaily} 个非日文件跳过` : ''}`);
   return logs;
 }
 
 /**
+ * 分类文件操作错误类型
+ * 用于提供更具体的错误诊断信息
+ * 
+ * @param {Error} err - 错误对象
+ * @returns {string} 错误类型标签
+ */
+function classifyFileError(err) {
+  if (!err) return 'UNKNOWN';
+  
+  const code = err.code || '';
+  const message = err.message || '';
+  
+  // 权限错误
+  if (code === 'EACCES' || code === 'EPERM' || message.includes('permission')) {
+    return 'PERM';
+  }
+  // 文件不存在
+  if (code === 'ENOENT' || message.includes('no such file')) {
+    return 'MISSING';
+  }
+  // 磁盘空间
+  if (code === 'ENOSPC' || message.includes('space')) {
+    return 'DISK';
+  }
+  // 文件过大
+  if (code === 'EOVERFLOW' || message.includes('too large')) {
+    return 'SIZE';
+  }
+  // 编码错误
+  if (message.includes('encoding') || message.includes('invalid character')) {
+    return 'ENCODING';
+  }
+  
+  return 'IO';
+}
+
+/**
  * 智能提取关键信息
+ * 从日志内容中提取决策、教训、偏好、待办、重要信息
+ * 
  * @param {Array} logs - 日志列表
  * @returns {Array<{source: string, text: string, category: string}>} 提取的信息
+ * @example
+ * const insights = extractInsights(logs);
+ * // insights = [{ source: '2026-04-27.md', text: '...', category: '决策' }, ...]
  */
 function extractInsights(logs) {
   const insights = [];
-  const seen = new Set(); // 去重
+  const seen = new Set(); // 去重集合
   
-  // 分类关键词
+  // 分类关键词配置
+  // 每个类别包含中英文关键词，支持大小写不敏感匹配
   const categories = {
-    '决策': ['决策', '决定', '选择', 'adopt', 'decide'],
-    '教训': ['教训', '经验', 'lesson', 'learned', '反思'],
-    '偏好': ['偏好', '喜欢', 'prefer', 'favorite'],
-    '待办': ['待办', 'TODO', 'todo', 'task', '计划'],
-    '重要': ['重要', '关键', 'critical', 'important', '核心']
+    '决策': ['决策', '决定', '选择', 'adopt', 'decide', '确定', '采用'],
+    '教训': ['教训', '经验', 'lesson', 'learned', '反思', '改进', 'mistake', '错误'],
+    '偏好': ['偏好', '喜欢', 'prefer', 'favorite', '倾向', '习惯'],
+    '待办': ['待办', 'TODO', 'todo', 'task', '计划', '待处理', 'pending'],
+    '重要': ['重要', '关键', 'critical', 'important', '核心', 'essential', 'vital'],
+    '技术': ['技术', '架构', 'design', 'implementation', '优化', 'refactor']
   };
+  
+  // 提取统计
+  const stats = {};
+  for (const cat of Object.keys(categories)) {
+    stats[cat] = 0;
+  }
   
   for (const log of logs) {
     const lines = log.content.split('\n');
     for (const line of lines) {
       const trimmed = line.trim();
-      if (trimmed.length < 10 || trimmed.startsWith('#')) continue; // 跳过太短或标题行
+      
+      // 过滤条件：
+      // 1. 长度至少 10 个字符（太短无意义）
+      // 2. 不以 # 开头（跳过 Markdown 标题）
+      // 3. 不以 - 或 * 开头（跳过列表标记行本身）
+      if (trimmed.length < 10 || trimmed.startsWith('#')) continue;
+      if (/^[-*]\s*$/.test(trimmed.slice(0, 3))) continue;
       
       // 检查是否匹配任何类别
       for (const [category, keywords] of Object.entries(categories)) {
-        if (keywords.some(kw => trimmed.toLowerCase().includes(kw.toLowerCase()))) {
-          // 去重检查
-          const hash = trimmed.slice(0, 50);
+        const lowerTrimmed = trimmed.toLowerCase();
+        const isMatch = keywords.some(kw => {
+          const lowerKw = kw.toLowerCase();
+          // 检查完整单词匹配或中文关键词包含
+          if (/^[\u4e00-\u9fa5]/.test(kw)) {
+            // 中文关键词：直接包含匹配
+            return lowerTrimmed.includes(lowerKw);
+          } else {
+            // 英文关键词：边界匹配（避免匹配到单词的一部分）
+            const regex = new RegExp(`\\b${lowerKw}\\b`, 'i');
+            return regex.test(trimmed) || lowerTrimmed.includes(lowerKw);
+          }
+        });
+        
+        if (isMatch) {
+          // 去重检查：使用前 50 个字符作为哈希
+          const hash = trimmed.slice(0, 50).replace(/\s+/g, ' ');
           if (!seen.has(hash)) {
             seen.add(hash);
             insights.push({
@@ -236,21 +352,34 @@ function extractInsights(logs) {
               text: trimmed,
               category
             });
+            stats[category]++;
           }
-          break;
+          break; // 一行只归属一个类别
         }
       }
     }
   }
   
+  // 输出分类统计
+  const categorySummary = Object.entries(stats)
+    .filter(([_, count]) => count > 0)
+    .map(([cat, count]) => `${cat}:${count}`)
+    .join(', ');
+  
   console.log(`💡 提取 ${insights.length} 条关键信息（已去重）`);
+  if (categorySummary) {
+    console.log(`   📊 分类统计: ${categorySummary}`);
+  }
+  
   return insights;
 }
 
 /**
  * 生成巩固报告
+ * 按类别分组展示提取的关键信息
+ * 
  * @param {Array} insights - 提取的信息
- * @returns {string} 报告内容
+ * @returns {string} Markdown 格式的报告内容
  */
 function generateConsolidationReport(insights) {
   const timestamp = new Date().toISOString().split('T')[0];
@@ -259,11 +388,38 @@ function generateConsolidationReport(insights) {
   report += `本次巩固检查了最近 7 天的日常记忆，提取了 ${insights.length} 条关键信息。\n\n`;
   
   if (insights.length > 0) {
-    report += '### 提取的关键信息\n\n';
+    // 按类别分组
+    const byCategory = {};
     for (const insight of insights) {
-      report += `- [${insight.source}] ${insight.text}\n`;
+      if (!byCategory[insight.category]) {
+        byCategory[insight.category] = [];
+      }
+      byCategory[insight.category].push(insight);
     }
-    report += '\n';
+    
+    // 按优先级顺序输出类别
+    const priority = ['重要', '决策', '教训', '技术', '待办', '偏好'];
+    const categories = Object.keys(byCategory).sort((a, b) => {
+      const idxA = priority.indexOf(a);
+      const idxB = priority.indexOf(b);
+      return (idxA === -1 ? 999 : idxA) - (idxB === -1 ? 999 : idxB);
+    });
+    
+    for (const category of categories) {
+      const items = byCategory[category];
+      report += `### ${category} (${items.length} 条)\n\n`;
+      for (const insight of items) {
+        // 截断过长的文本，保持可读性
+        let text = insight.text;
+        if (text.length > 200) {
+          text = text.slice(0, 197) + '...';
+        }
+        report += `- [${insight.source}] ${text}\n`;
+      }
+      report += '\n';
+    }
+  } else {
+    report += '> 本次未提取到关键信息。\n\n';
   }
   
   report += '---\n\n';

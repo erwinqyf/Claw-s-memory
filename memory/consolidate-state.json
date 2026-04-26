@@ -1,0 +1,29 @@
+{
+  "runs": [
+    {
+      "timestamp": "2026-04-26T02:01:45.872Z",
+      "duration": 1358,
+      "filesProcessed": 7,
+      "insightsExtracted": 32,
+      "fileStats": {
+        "totalSize": 24806,
+        "avgSize": 3543.714285714286,
+        "count": 7
+      },
+      "version": "2.5"
+    }
+  ],
+  "version": "2.5",
+  "lastRun": {
+    "timestamp": "2026-04-26T02:01:45.872Z",
+    "duration": 1358,
+    "filesProcessed": 7,
+    "insightsExtracted": 32,
+    "fileStats": {
+      "totalSize": 24806,
+      "avgSize": 3543.714285714286,
+      "count": 7
+    },
+    "version": "2.5"
+  }
+}
