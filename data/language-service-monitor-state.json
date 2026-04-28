@@ -1,31 +1,38 @@
 {
-  "lastRun": "2026-04-25T03:00:00.000Z",
-  "lastRunFormatted": "2026-04-25 11:00 Asia/Shanghai",
-  "lastPublished": "2026-04-25T03:15:00.000Z",
-  "newArticlesFound": 18,
-  "reportPath": "reports/language-service-monitor-20260425.md",
-  "gitCommit": "bf93407",
+  "lastRun": "2026-04-28T03:00:00.000Z",
+  "lastRunFormatted": "2026-04-28 11:00 Asia/Shanghai",
+  "lastPublished": "2026-04-28T03:15:00.000Z",
+  "newArticlesFound": 12,
+  "reportPath": "reports/language-service-monitor-20260428.md",
+  "gitCommit": "",
   "articles": [
     {
-      "title": "DeepL发布实时语音翻译功能DeepL Voice-to-Voice",
+      "title": "【重点】DeepL发布实时语音翻译产品DeepL Voice-to-Voice",
       "source": "DeepL",
       "date": "2026-04-16",
       "url": "https://www.deepl.com/en/press-release/deepl-unveils-real-time-spoken-translation-breaking-the-next-language-barrier-with-voice-to-voice",
-      "summary": "DeepL发布实时语音翻译产品套件，支持40+语言的语音对语音实时翻译"
+      "summary": "语言AI领导者DeepL推出实时语音翻译产品套件，支持40+语言的语音对语音实时翻译"
     },
     {
-      "title": "RWS获得AI翻译工作量预测美国专利",
+      "title": "【重点】RWS推出Language Weaver Pro企业级AI翻译解决方案",
       "source": "RWS",
+      "date": "2026-03-25",
+      "url": "https://www.rws.com/about/news/2026/language-weaver-pro/",
+      "summary": "与Cohere合作构建的1000亿参数模型，业界最大专用翻译模型"
+    },
+    {
+      "title": "【重点】Nimdzi发布2026 Nimdzi 100排名",
+      "source": "Nimdzi",
       "date": "2026-04",
-      "url": "https://www.rws.com/about/news/2026/rws-secures-patent-for-ai-that-predicts-translation-effort/",
-      "summary": "可在内容创作阶段预测翻译成本和工作量"
+      "url": "https://www.nimdzi.com/nimdzi-100-2026/",
+      "summary": "2026年度语言服务提供商百强排名，前51-100名企业增长11.3%"
     },
     {
-      "title": "RWS发布TrainAI多语言LLM合成数据生成研究报告",
-      "source": "RWS",
-      "date": "2026-04-13",
-      "url": "https://finance.yahoo.com/sectors/technology/articles/ais-language-gap-closing-performance-080100970.html",
-      "summary": "比较8个领先LLM的性能表现，发现模型版本间性能变化难以预测"
+      "title": "Lilt四月产品发布 - 新增67种语言支持",
+      "source": "Lilt",
+      "date": "2026-04",
+      "url": "https://lilt.com/blog/april-2026-monthly-product-release",
+      "summary": "新增67种语言，推出LILT Assist自主AI代理，即时翻译速度提升7.5倍"
     },
     {
       "title": "Smartling AI平台助力IBM本地化时间缩短一半",
@@ -42,32 +49,11 @@
       "summary": "在商业服务类别中排名第3"
     },
     {
-      "title": "Smartling荣获G2 2026最佳软件奖CMS第2名",
-      "source": "Smartling",
-      "date": "2026-04",
-      "url": "https://www.smartling.com/company-news/smartling-named-g2s-2026-best-software-for-content-management",
-      "summary": "AI翻译平台获得认可"
-    },
-    {
       "title": "Smartling推出MCP服务器",
       "source": "Smartling",
       "date": "2026-04",
       "url": "https://www.smartling.com/blog/mcp-servers-bridging-the-gap-between-development-and-localization",
       "summary": "AI工具可直接与翻译系统连接"
-    },
-    {
-      "title": "Lilt四月发布 - 新增67种语言支持",
-      "source": "Lilt",
-      "date": "2026-04",
-      "url": "https://lilt.com/blog/april-2026-monthly-product-release",
-      "summary": "Lilt新增67种语言，包括低资源语言，推出LILT Assist自主AI代理，即时翻译速度提升7.5倍"
-    },
-    {
-      "title": "RWS推出Language Weaver Pro企业级AI翻译解决方案",
-      "source": "RWS",
-      "date": "2026-04",
-      "url": "https://www.rws.com/about/news/2026/language-weaver-pro/",
-      "summary": "1000亿参数模型，业界最大专用翻译模型"
     },
     {
       "title": "TransPerfect 2025财年收入增长7%达13.2亿美元",
@@ -77,32 +63,11 @@
       "summary": "连续第33年实现增长"
     },
     {
-      "title": "TransPerfect GlobalLink获G2 Winter 2026 13项认可",
-      "source": "TransPerfect",
-      "date": "2026-01-06",
-      "url": "https://www.transperfect.com/about/press/transperfects-globallink-technology-honored-13-categories-g2s-winter-2026-report",
-      "summary": "GlobalLink技术被评为企业翻译管理和网站翻译工具领导者"
-    },
-    {
       "title": "Crowdin发布2026 AI翻译企业调查报告",
       "source": "Crowdin",
       "date": "2026-04",
       "url": "https://crowdin.com/blog/ai-translation-enterprise-survey-2026",
-      "summary": "95%的企业现在使用AI翻译，更注重平台而非单一模型"
-    },
-    {
-      "title": "Crowdin发布2026年翻译最佳LLM指南",
-      "source": "Crowdin",
-      "date": "2026-03-26",
-      "url": "https://crowdin.com/blog/new-at-crowdin-march-2026",
-      "summary": "基于数据比较各大型语言模型在翻译任务中的表现"
-    },
-    {
-      "title": "Acolad加强全球金融通信专业翻译服务",
-      "source": "Acolad",
-      "date": "2026-03-29",
-      "url": "https://finance.yahoo.com/economy/policy/articles/acolad-strengthens-global-financial-communication-064500434.html",
-      "summary": "专业金融翻译服务"
+      "summary": "95%的企业现在使用AI翻译"
     },
     {
       "title": "Acolad荣获CyberVadis金牌认证",
@@ -112,25 +77,18 @@
       "summary": "安全AI治理能力获得认可"
     },
     {
-      "title": "Nimdzi 2026语言行业调查启动",
-      "source": "Nimdzi",
-      "date": "2026-02-05",
-      "url": "https://multilingual.com/nimdzi-insights-2026-language-industry-survey-include-ltps-mid-players/",
-      "summary": "首次将语言技术提供商和中端市场参与者纳入调查"
+      "title": "Lionbridge宣布所有权战略转型至KKR",
+      "source": "Lionbridge",
+      "date": "2026-04",
+      "url": "https://www.news-leader.com/press-release/story/30526/lionbridge-announces-strategic-ownership-transition-to-kkr/",
+      "summary": "期待利用KKR的专业知识、资源和全球足迹"
     },
     {
-      "title": "Slator四月语言行业数据与新闻简报",
+      "title": "Slator四月行业数据与新闻简报",
       "source": "Slator",
       "date": "2026-04",
       "url": "https://slator.com/language-industry-data-and-news-briefing-april-2026/",
       "summary": "涵盖收购、招聘、融资、财务业绩和社交媒体热点"
-    },
-    {
-      "title": "Multilingual Magazine四月刊：影响行业的人物",
-      "source": "Multilingual",
-      "date": "2026-04",
-      "url": "https://multilingual.com/magazine/april-2026/influencing-the-industry/",
-      "summary": "聚焦语言行业中定义影响力的多元化专业人士"
     }
   ]
 }
