@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 /**
- * 全球新闻汇总监控脚本 v1.2
- * 
+ * 全球新闻汇总监控脚本 v1.5
+ *
  * 功能：
  * 1. 抓取多个 RSS 新闻源（政治、经济、文化、科技）
  * 2. 解析并去重（标题相似度检测）
@@ -10,15 +10,31 @@
  * 4. 生成 Markdown 报告
  * 5. 保存状态（避免重复抓取）
  * 6. 自动上传到 GitHub
- * 
+ *
  * 执行时间：每天 12:00 (Asia/Shanghai)
  * 输出：reports/global-news-YYYY-MM-DD.md
- * 
+ *
+ * v1.5 改进 (2026-04-30):
+ * - 增强错误处理：添加网络错误分类和重试策略
+ * - 改进日志输出：统一格式，添加结构化日志函数
+ * - 优化 RSS 解析：更好的空值处理和异常捕获
+ * - 添加执行计时：每个阶段记录耗时
+ *
+ * v1.4 改进 (2026-04-29):
+ * - 新闻源多元化重构：覆盖不同地区、立场、语言
+ * - 移除 NYT 付费源
+ * - 新增：亚太、中东、印度等地区的媒体
+ * - 每个类别 8-10 个来源，避免单一信源主导
+ *
+ * v1.3 改进 (2026-04-29):
+ * - 移除 NYT 付费新闻源（全部替换为免费源）
+ * - 新增：半岛电视台、CNBC、NPR Arts、Ars Technica
+ *
  * v1.2 改进 (2026-04-23):
  * - 添加自动 GitHub 上传功能
  * - 执行完成后自动提交并推送报告
  * - 添加 Git 状态检测和错误处理
- * 
+ *
  * v1.1 改进 (2026-03-23):
  * - 添加启动时配置验证（fail fast）
  * - 增强错误处理和恢复建议
@@ -30,42 +46,109 @@ const fs = require('fs');
 const path = require('path');
 const https = require('https');
 const http = require('http');
+const { performance } = require('perf_hooks');
+
+// ==================== 日志工具 ====================
+
+/**
+ * 结构化日志输出
+ */
+const Logger = {
+  info: (msg) => console.log(`[${getTimestamp()}] ℹ️  ${msg}`),
+  success: (msg) => console.log(`[${getTimestamp()}] ✅ ${msg}`),
+  warn: (msg) => console.log(`[${getTimestamp()}] ⚠️  ${msg}`),
+  error: (msg) => console.error(`[${getTimestamp()}] ❌ ${msg}`),
+  debug: (msg) => process.env.DEBUG && console.log(`[${getTimestamp()}] 🔍 ${msg}`),
+  stage: (name) => console.log(`\n${'='.repeat(50)}\n📍 ${name}\n${'='.repeat(50)}`),
+  metric: (name, value) => console.log(`[${getTimestamp()}] 📊 ${name}: ${value}`)
+};
+
+function getTimestamp() {
+  return new Date().toLocaleString('zh-CN', {
+    timeZone: 'Asia/Shanghai',
+    hour12: false,
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit'
+  });
+}
 
 // ==================== 配置区 ====================
 
 const CONFIG = {
-  // 新闻源配置
+  // 新闻源配置 - 多元化设计：覆盖不同地区、立场、语言
   feeds: {
     political: [
-      { name: 'NYT World', url: 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml', lang: 'en' },
-      { name: 'Reuters World', url: 'https://www.reutersagency.com/feed/', lang: 'en' },
-      { name: 'BBC World', url: 'http://feeds.bbci.co.uk/news/world/rss.xml', lang: 'en' },
-      { name: '联合早报', url: 'https://www.zaobao.com.sg/rss/news/china.xml', lang: 'zh' },
-      { name: '英国卫报', url: 'https://www.theguardian.com/world/rss', lang: 'en' },
-      { name: '经济学人', url: 'https://www.economist.com/world/rss', lang: 'en' },
-      { name: '泰晤士报', url: 'https://www.thetimes.co.uk/feed/rss/world', lang: 'en' },
-      { name: '塔斯社', url: 'https://tass.com/rss/v2.xml', lang: 'ru' }
+      // 欧洲
+      { name: 'BBC World', url: 'http://feeds.bbci.co.uk/news/world/rss.xml', lang: 'en', region: 'UK' },
+      { name: 'Reuters World', url: 'https://www.reutersagency.com/feed/', lang: 'en', region: 'UK' },
+      { name: '英国卫报', url: 'https://www.theguardian.com/world/rss', lang: 'en', region: 'UK' },
+      { name: '泰晤士报', url: 'https://www.thetimes.co.uk/feed/rss/world', lang: 'en', region: 'UK' },
+      { name: '经济学人', url: 'https://www.economist.com/world/rss', lang: 'en', region: 'UK' },
+      { name: 'France 24', url: 'https://www.france24.com/en/rss', lang: 'en', region: 'EU' },
+      { name: 'Deutsche Welle', url: 'https://rss.dw.com/rdf/rss-en-all', lang: 'en', region: 'EU' },
+
+      // 北美
+      { name: 'AP News', url: 'https://rsshub.app/apnews/topics/ap-top-news', lang: 'en', region: 'US' },
+      { name: 'Politico', url: 'https://rss.politico.com/politics-news.xml', lang: 'en', region: 'US' },
+
+      // 亚太
+      { name: '联合早报', url: 'https://www.zaobao.com.sg/rss/news/china.xml', lang: 'zh', region: 'SG' },
+      { name: '南华早报', url: 'https://www.scmp.com/rss/91/feed', lang: 'en', region: 'HK' },
+      { name: '日本时报', url: 'https://www.japantimes.co.jp/feed/', lang: 'en', region: 'JP' },
+      { name: '韩民族日报', url: 'https://english.hani.co.kr/rss/', lang: 'en', region: 'KR' },
+
+      // 中东/其他
+      { name: '半岛电视台', url: 'https://www.aljazeera.com/xml/rss/all.xml', lang: 'en', region: 'QA' },
+      { name: '塔斯社', url: 'https://tass.com/rss/v2.xml', lang: 'en', region: 'RU' },
+      { name: '中东观察', url: 'https://www.middleeastmonitor.com/feed/', lang: 'en', region: 'ME' }
     ],
     economy: [
-      { name: 'NYT Business', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Business.xml', lang: 'en' },
-      { name: 'Reuters Business', url: 'https://www.reutersagency.com/feed/?best-topics=business-finance', lang: 'en' },
-      { name: 'Bloomberg', url: 'https://www.bloomberg.com/feed/podcast/etf.xml', lang: 'en' },
-      { name: '华尔街日报', url: 'https://feeds.a.dj.com/rss/RSSWorldNews.xml', lang: 'en' },
-      { name: '经济学人财经', url: 'https://www.economist.com/finance-and-economics/rss', lang: 'en' }
+      // 英美主流
+      { name: 'Reuters Business', url: 'https://www.reutersagency.com/feed/?best-topics=business-finance', lang: 'en', region: 'UK' },
+      { name: 'CNBC', url: 'https://www.cnbc.com/id/100003114/device/rss/rss.html', lang: 'en', region: 'US' },
+      { name: '华尔街日报', url: 'https://feeds.a.dj.com/rss/RSSWorldNews.xml', lang: 'en', region: 'US' },
+      { name: '经济学人财经', url: 'https://www.economist.com/finance-and-economics/rss', lang: 'en', region: 'UK' },
+
+      // 欧洲/亚洲
+      { name: 'Financial Times', url: 'https://www.ft.com/?format=rss', lang: 'en', region: 'UK' },
+      { name: 'Bloomberg', url: 'https://www.bloomberg.com/feed/podcast/etf.xml', lang: 'en', region: 'US' },
+      { name: '日经亚洲', url: 'https://asia.nikkei.com/rss/markets/feed', lang: 'en', region: 'JP' },
+      { name: '财新网', url: 'https://rsshub.app/caixin/finance', lang: 'zh', region: 'CN' },
+      { name: 'Business Standard', url: 'https://www.business-standard.com/rss/economy-101.rss', lang: 'en', region: 'IN' }
     ],
     culture: [
-      { name: 'NYT Arts', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml', lang: 'en' },
-      { name: 'BBC Culture', url: 'http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml', lang: 'en' },
-      { name: '卫报文化', url: 'https://www.theguardian.com/culture/rss', lang: 'en' },
-      { name: '知乎日报', url: 'https://daily.zhihu.com/rss', lang: 'zh' }
+      // 英语媒体
+      { name: 'BBC Culture', url: 'http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml', lang: 'en', region: 'UK' },
+      { name: '卫报文化', url: 'https://www.theguardian.com/culture/rss', lang: 'en', region: 'UK' },
+      { name: 'NPR Arts', url: 'https://feeds.npr.org/1008/rss.xml', lang: 'en', region: 'US' },
+      { name: 'Vulture', url: 'https://www.vulture.com/rss/', lang: 'en', region: 'US' },
+
+      // 中文媒体
+      { name: '知乎日报', url: 'https://daily.zhihu.com/rss', lang: 'zh', region: 'CN' },
+      { name: '端传媒', url: 'https://rsshub.app/initium/latest', lang: 'zh', region: 'HK' },
+
+      // 其他语言/地区
+      { name: 'Japan Times Culture', url: 'https://www.japantimes.co.jp/culture/feed/', lang: 'en', region: 'JP' },
+      { name: 'Korea Times Culture', url: 'https://www.koreatimes.co.kr/www/rss/culture.xml', lang: 'en', region: 'KR' }
     ],
     technology: [
-      { name: 'NYT Technology', url: 'https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml', lang: 'en' },
-      { name: 'TechCrunch', url: 'https://techcrunch.com/feed/', lang: 'en' },
-      { name: 'The Verge', url: 'https://www.theverge.com/rss/index.xml', lang: 'en' },
-      { name: 'Wired', url: 'https://www.wired.com/feed/rss', lang: 'en' },
-      { name: 'Hacker News', url: 'https://hnrss.org/frontpage', lang: 'en' },
-      { name: '36 氪', url: 'https://36kr.com/feed', lang: 'zh' }
+      // 美国科技媒体
+      { name: 'TechCrunch', url: 'https://techcrunch.com/feed/', lang: 'en', region: 'US' },
+      { name: 'The Verge', url: 'https://www.theverge.com/rss/index.xml', lang: 'en', region: 'US' },
+      { name: 'Wired', url: 'https://www.wired.com/feed/rss', lang: 'en', region: 'US' },
+      { name: 'Ars Technica', url: 'https://arstechnica.com/feed/', lang: 'en', region: 'US' },
+      { name: 'Hacker News', url: 'https://hnrss.org/frontpage', lang: 'en', region: 'US' },
+
+      // 中国科技媒体
+      { name: '36 氪', url: 'https://36kr.com/feed', lang: 'zh', region: 'CN' },
+      { name: '少数派', url: 'https://rsshub.app/sspai/index', lang: 'zh', region: 'CN' },
+
+      // 其他
+      { name: 'Tech in Asia', url: 'https://www.techinasia.com/feed/', lang: 'en', region: 'SG' },
+      { name: 'Rest of World', url: 'https://restofworld.org/feed/', lang: 'en', region: 'US' }
     ]
   },
 
@@ -77,6 +160,12 @@ const CONFIG = {
 
   // 重试次数
   maxRetries: 3,
+
+  // 重试延迟基数（毫秒）
+  retryDelayBase: 2000,
+
+  // 相似度阈值
+  similarityThreshold: 0.85,
 
   // 路径配置
   paths: {
@@ -90,50 +179,81 @@ const CONFIG = {
 
 /**
  * 简单的 XML 解析器（解析 RSS）
+ * v1.5 改进：更好的异常处理和空值保护
  */
-function parseRSS(xml) {
+function parseRSS(xml, feedName = 'unknown') {
   const items = [];
-  
-  // 提取所有 <item> 标签
-  const itemRegex = /<item>([\s\S]*?)<\/item>/g;
-  let match;
-  
-  while ((match = itemRegex.exec(xml)) !== null) {
-    const itemXml = match[1];
-    
-    // 提取字段
-    let title = extractTag(itemXml, 'title');
-    const link = extractTag(itemXml, 'link');
-    const description = extractTag(itemXml, 'description');
-    const pubDate = extractTag(itemXml, 'pubDate');
-    const creator = extractTag(itemXml, 'dc:creator');
-    
-    // 如果标题为空，尝试从描述提取
-    if (!title && description) {
-      title = description.split('.')[0].slice(0, 100);
-    }
-    
-    // 跳过标题或链接为空的条目
-    if (!title || !link) {
-      return;
-    }
-    
-    const decodedTitle = decodeHTML(title).trim();
-    
-    // 跳过标题太短的条目（可能是解析错误）
-    if (decodedTitle.length < 5) {
-      return;
-    }
-    
-    items.push({
-      title: decodedTitle,
-      link: decodeHTML(link),
-      description: description ? decodeHTML(description) : '',
-      pubDate: pubDate ? new Date(pubDate) : new Date(),
-      creator: creator || ''
-    });
+
+  // 输入验证
+  if (!xml || typeof xml !== 'string') {
+    Logger.warn(`[${feedName}] RSS 内容为空或无效`);
+    return items;
   }
-  
+
+  // 提取所有 <item> 标签
+  const itemRegex = /<item>([\s\S]*?)<\/item>/gi;
+  let match;
+  let parseErrors = 0;
+
+  while ((match = itemRegex.exec(xml)) !== null) {
+    try {
+      const itemXml = match[1];
+
+      // 提取字段
+      let title = extractTag(itemXml, 'title');
+      const link = extractTag(itemXml, 'link');
+      const description = extractTag(itemXml, 'description');
+      const pubDate = extractTag(itemXml, 'pubDate');
+      const creator = extractTag(itemXml, 'dc:creator');
+
+      // 如果标题为空，尝试从描述提取
+      if (!title && description) {
+        title = description.split('.')[0].slice(0, 100);
+      }
+
+      // 跳过标题或链接为空的条目
+      if (!title || !link) {
+        continue;
+      }
+
+      const decodedTitle = decodeHTML(title).trim();
+
+      // 跳过标题太短的条目（可能是解析错误）
+      if (decodedTitle.length < 5) {
+        continue;
+      }
+
+      // 解析日期
+      let parsedDate = new Date();
+      if (pubDate) {
+        try {
+          parsedDate = new Date(pubDate);
+          // 验证日期有效性
+          if (isNaN(parsedDate.getTime())) {
+            parsedDate = new Date();
+          }
+        } catch (dateErr) {
+          // 使用当前日期
+        }
+      }
+
+      items.push({
+        title: decodedTitle,
+        link: decodeHTML(link),
+        description: description ? decodeHTML(description) : '',
+        pubDate: parsedDate,
+        creator: creator || ''
+      });
+    } catch (itemErr) {
+      parseErrors++;
+      // 继续解析下一个条目
+    }
+  }
+
+  if (parseErrors > 0) {
+    Logger.debug(`[${feedName}] 解析时跳过 ${parseErrors} 个错误条目`);
+  }
+
   return items;
 }
 
@@ -159,60 +279,109 @@ function decodeHTML(html) {
     '&apos;': "'",
     '&nbsp;': ' '
   };
-  
+
   let decoded = html;
   for (const [entity, char] of Object.entries(entities)) {
     decoded = decoded.replace(new RegExp(entity, 'g'), char);
   }
-  
+
   // 移除 HTML 标签
   decoded = decoded.replace(/<[^>]*>/g, '');
-  
+
   return decoded.trim();
 }
 
 /**
+ * 错误分类器
+ */
+function classifyError(error, url) {
+  const message = error.message || '';
+
+  if (message.includes('timeout') || message.includes('ETIMEDOUT')) {
+    return { type: 'TIMEOUT', retryable: true, severity: 'medium' };
+  }
+  if (message.includes('ECONNREFUSED') || message.includes('ENOTFOUND')) {
+    return { type: 'CONNECTION', retryable: true, severity: 'high' };
+  }
+  if (message.includes('EAI_AGAIN') || message.includes('DNS')) {
+    return { type: 'DNS', retryable: true, severity: 'medium' };
+  }
+  if (message.includes('HTTP 429') || message.includes('rate limit')) {
+    return { type: 'RATE_LIMIT', retryable: true, severity: 'high', delay: 5000 };
+  }
+  if (message.includes('HTTP 5')) {
+    return { type: 'SERVER_ERROR', retryable: true, severity: 'medium' };
+  }
+  if (message.includes('HTTP 4')) {
+    return { type: 'CLIENT_ERROR', retryable: false, severity: 'high' };
+  }
+
+  return { type: 'UNKNOWN', retryable: true, severity: 'low' };
+}
+
+/**
  * HTTP GET 请求（支持重试）
+ * v1.5 改进：增强错误分类和指数退避
  */
 async function fetchURL(url, retries = 0) {
+  const startTime = performance.now();
+
   return new Promise((resolve, reject) => {
     const protocol = url.startsWith('https') ? https : http;
-    
+
     const options = {
       timeout: CONFIG.timeout,
       headers: {
-        'User-Agent': 'Mozilla/5.0 (compatible; GlobalNewsMonitor/1.0; +https://github.com/erwinqyf/Claw-s-memory)'
+        'User-Agent': 'Mozilla/5.0 (compatible; GlobalNewsMonitor/1.5; +https://github.com/erwinqyf/Claw-s-memory)'
       }
     };
-    
+
     const req = protocol.get(url, options, (res) => {
+      const duration = Math.round(performance.now() - startTime);
+
       if (res.statusCode === 200) {
         let data = '';
         res.on('data', chunk => data += chunk);
-        res.on('end', () => resolve(data));
-      } else if (res.statusCode >= 500 && retries < CONFIG.maxRetries) {
-        // 服务器错误，重试
+        res.on('end', () => {
+          Logger.debug(`[${duration}ms] ${url}`);
+          resolve(data);
+        });
+      } else if (res.statusCode === 429 && retries < CONFIG.maxRetries) {
+        // 限流错误，使用更长延迟
+        const delay = 5000 * (retries + 1);
+        Logger.warn(`HTTP 429 (Rate Limit)，${delay}ms 后重试 (${retries + 1}/${CONFIG.maxRetries})`);
         setTimeout(() => {
           fetchURL(url, retries + 1).then(resolve).catch(reject);
-        }, 2000 * (retries + 1));
+        }, delay);
+      } else if (res.statusCode >= 500 && retries < CONFIG.maxRetries) {
+        // 服务器错误，指数退避重试
+        const delay = CONFIG.retryDelayBase * Math.pow(2, retries);
+        Logger.debug(`HTTP ${res.statusCode}，${delay}ms 后重试 (${retries + 1}/${CONFIG.maxRetries})`);
+        setTimeout(() => {
+          fetchURL(url, retries + 1).then(resolve).catch(reject);
+        }, delay);
       } else {
         reject(new Error(`HTTP ${res.statusCode}: ${url}`));
       }
     });
-    
+
     req.on('error', (err) => {
-      if (retries < CONFIG.maxRetries) {
+      const errorInfo = classifyError(err, url);
+
+      if (errorInfo.retryable && retries < CONFIG.maxRetries) {
+        const delay = (errorInfo.delay || CONFIG.retryDelayBase) * Math.pow(2, retries);
+        Logger.debug(`${errorInfo.type} 错误，${delay}ms 后重试 (${retries + 1}/${CONFIG.maxRetries})`);
         setTimeout(() => {
           fetchURL(url, retries + 1).then(resolve).catch(reject);
-        }, 2000 * (retries + 1));
+        }, delay);
       } else {
-        reject(err);
+        reject(new Error(`${errorInfo.type}: ${err.message}`));
       }
     });
-    
+
     req.on('timeout', () => {
       req.destroy();
-      reject(new Error(`Request timeout: ${url}`));
+      reject(new Error(`TIMEOUT: Request timeout after ${CONFIG.timeout}ms: ${url}`));
     });
   });
 }
@@ -224,12 +393,12 @@ function stringSimilarity(str1, str2) {
   // 处理 null/undefined
   str1 = str1 || '';
   str2 = str2 || '';
-  
+
   const longer = str1.length > str2.length ? str1 : str2;
   const shorter = str1.length > str2.length ? str2 : str1;
-  
+
   if (!longer || longer.length === 0) return 1.0;
-  
+
   const editDistance = levenshteinDistance(longer, shorter);
   return (longer.length - editDistance) / longer.length;
 }
@@ -241,17 +410,17 @@ function levenshteinDistance(str1, str2) {
   // 处理 null/undefined
   str1 = str1 || '';
   str2 = str2 || '';
-  
+
   const matrix = [];
-  
+
   for (let i = 0; i <= str2.length; i++) {
     matrix[i] = [i];
   }
-  
+
   for (let j = 0; j <= str1.length; j++) {
     matrix[0][j] = j;
   }
-  
+
   for (let i = 1; i <= str2.length; i++) {
     for (let j = 1; j <= str1.length; j++) {
       if (str2.charAt(i - 1) === str1.charAt(j - 1)) {
@@ -265,7 +434,7 @@ function levenshteinDistance(str1, str2) {
       }
     }
   }
-  
+
   return matrix[str2.length][str1.length];
 }
 
@@ -274,18 +443,18 @@ function levenshteinDistance(str1, str2) {
  */
 function deduplicateItems(items, threshold = 0.85) {
   const unique = [];
-  
+
   for (const item of items) {
     const isDuplicate = unique.some(existing => {
       const similarity = stringSimilarity(item.title.toLowerCase(), existing.title.toLowerCase());
       return similarity >= threshold;
     });
-    
+
     if (!isDuplicate) {
       unique.push(item);
     }
   }
-  
+
   return unique;
 }
 
@@ -293,32 +462,43 @@ function deduplicateItems(items, threshold = 0.85) {
 
 /**
  * 抓取单个新闻源
+ * v1.5 改进：添加计时和详细错误信息
  */
 async function fetchFeed(feed) {
+  const startTime = performance.now();
+
   try {
-    console.log(`  📡 抓取：${feed.name} (${feed.url})`);
+    Logger.info(`📡 抓取：${feed.name} (${feed.region})`);
     const xml = await fetchURL(feed.url);
-    const items = parseRSS(xml);
-    console.log(`    ✅ 获取 ${items.length} 条新闻`);
-    return { feed, items, error: null };
+    const items = parseRSS(xml, feed.name);
+    const duration = Math.round(performance.now() - startTime);
+    Logger.success(`${feed.name}：${items.length} 条新闻 (${duration}ms)`);
+    return { feed, items, error: null, duration };
   } catch (error) {
-    console.log(`    ❌ 失败：${error.message}`);
-    return { feed, items: [], error: error.message };
+    const duration = Math.round(performance.now() - startTime);
+    const errorInfo = classifyError(error);
+    Logger.error(`${feed.name}：${errorInfo.type} (${duration}ms)`);
+    return { feed, items: [], error: error.message, errorType: errorInfo.type, duration };
   }
 }
 
 /**
  * 抓取单个类别的所有新闻源
+ * v1.5 改进：添加执行统计和错误聚合
  */
 async function fetchCategory(categoryName, feeds) {
-  console.log(`\n📰 抓取类别：${categoryName}`);
-  
+  Logger.stage(`📰 抓取类别：${categoryName.toUpperCase()}`);
+  const categoryStart = performance.now();
+
   const results = await Promise.all(feeds.map(fetchFeed));
-  
+
   // 合并所有新闻
   let allItems = [];
   const errors = [];
-  
+  const errorTypes = {};
+  let totalDuration = 0;
+  let successCount = 0;
+
   for (const result of results) {
     allItems = allItems.concat(result.items.map(item => ({
       ...item,
@@ -326,28 +506,43 @@ async function fetchCategory(categoryName, feeds) {
       lang: result.feed.lang,
       category: categoryName
     })));
-    
+
     if (result.error) {
       errors.push(`${result.feed.name}: ${result.error}`);
+      const errorType = result.errorType || 'UNKNOWN';
+      errorTypes[errorType] = (errorTypes[errorType] || 0) + 1;
+    } else {
+      successCount++;
     }
+
+    totalDuration += result.duration || 0;
   }
-  
+
   // 去重
   const uniqueItems = deduplicateItems(allItems);
-  
+
   // 按时间排序（最新的在前）
   uniqueItems.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
-  
+
   // 取 Top N
   const topItems = uniqueItems.slice(0, CONFIG.itemsPerCategory);
-  
-  console.log(`  📊 去重后：${uniqueItems.length} 条 → 选取 Top ${topItems.length} 条`);
-  
+
+  const categoryDuration = Math.round(performance.now() - categoryStart);
+  Logger.metric(`${categoryName} 统计`, `${successCount}/${feeds.length} 成功, ${uniqueItems.length} 条去重, ${categoryDuration}ms`);
+
   return {
     category: categoryName,
     items: topItems,
     totalAvailable: uniqueItems.length,
-    errors
+    errors,
+    errorTypes,
+    stats: {
+      totalFeeds: feeds.length,
+      successFeeds: successCount,
+      failedFeeds: feeds.length - successCount,
+      avgDuration: Math.round(totalDuration / feeds.length),
+      categoryDuration
+    }
   };
 }
 
@@ -361,41 +556,41 @@ function generateReport(results, date) {
     culture: '🎭 文化',
     technology: '💻 科技'
   };
-  
+
   let markdown = `# 全球新闻汇总 ${date}\n\n`;
   markdown += `**生成时间:** ${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })} (Asia/Shanghai)\n`;
   markdown += `**新闻时段:** 过去 24 小时\n\n`;
   markdown += `---\n\n`;
-  
+
   for (const result of results) {
     const categoryName = categoryNames[result.category] || result.category;
     markdown += `## ${categoryName}\n\n`;
-    
+
     if (result.items.length === 0) {
       markdown += `*暂无新闻*\n\n`;
       continue;
     }
-    
+
     result.items.forEach((item, index) => {
-      const timeStr = item.pubDate.toLocaleString('zh-CN', { 
+      const timeStr = item.pubDate.toLocaleString('zh-CN', {
         timeZone: 'Asia/Shanghai',
         month: '2-digit',
         day: '2-digit',
         hour: '2-digit',
         minute: '2-digit'
       });
-      
+
       markdown += `${index + 1}. **${item.title}**\n`;
       markdown += `   - 来源：${item.source}\n`;
       markdown += `   - 时间：${timeStr}\n`;
       markdown += `   - [阅读全文](${item.link})\n\n`;
     });
-    
+
     markdown += `---\n\n`;
   }
-  
-  markdown += `> 来源：NYT, BBC, TechCrunch, 联合早报 | 生成：Claw | 孪生于不同世界，彼此映照，共同演化。🪞\n`;
-  
+
+  markdown += `> 来源：BBC, Reuters, The Guardian, 联合早报, 半岛电视台, TechCrunch, 财新网, 日经亚洲 | 生成：Claw | 孪生于不同世界，彼此映照，共同演化。🪞\n`;
+
   return markdown;
 }
 
@@ -404,7 +599,7 @@ function generateReport(results, date) {
  */
 function saveState(results, date) {
   const statePath = path.join(CONFIG.paths.workspace, CONFIG.paths.data, 'global-news-state.json');
-  
+
   const state = {
     lastRun: new Date().toISOString(),
     lastRunDate: date,
@@ -416,7 +611,7 @@ function saveState(results, date) {
     })),
     totalItems: results.reduce((sum, r) => sum + r.items.length, 0)
   };
-  
+
   fs.writeFileSync(statePath, JSON.stringify(state, null, 2), 'utf-8');
   console.log(`\n💾 状态已保存：${statePath}`);
 }
@@ -426,14 +621,14 @@ function saveState(results, date) {
  */
 function validateConfig() {
   const errors = [];
-  
+
   // 验证工作区路径
   if (!CONFIG.paths.workspace) {
     errors.push('工作区路径未配置 (CONFIG.paths.workspace)');
   } else if (!fs.existsSync(CONFIG.paths.workspace)) {
     errors.push(`工作区不存在：${CONFIG.paths.workspace}`);
   }
-  
+
   // 验证新闻源配置
   if (!CONFIG.feeds || Object.keys(CONFIG.feeds).length === 0) {
     errors.push('新闻源配置为空 (CONFIG.feeds)');
@@ -450,48 +645,54 @@ function validateConfig() {
       }
     }
   }
-  
+
   // 验证超时设置
   if (CONFIG.timeout < 5000) {
     errors.push(`超时设置过短 (${CONFIG.timeout}ms)，建议至少 5000ms`);
   }
-  
+
   if (errors.length > 0) {
     console.error('❌ 配置验证失败:');
     errors.forEach(err => console.error(`  - ${err}`));
     console.error('\n请检查配置文件后重试。');
     process.exit(1);
   }
-  
+
   console.log('✅ 配置验证通过');
 }
 
 /**
  * 主函数
+ * v1.5 改进：添加执行计时和结构化摘要
  */
 async function main() {
-  console.log('🌍 全球新闻汇总监控启动');
-  console.log('='.repeat(50));
-  
+  const scriptStart = performance.now();
+
+  Logger.stage('🌍 全球新闻汇总监控启动');
+
   // 启动时配置验证
   validateConfig();
-  
+
   const today = new Date().toISOString().split('T')[0];
-  console.log(`📅 日期：${today}`);
-  console.log(`⏰ 时间：${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}`);
-  
+  Logger.info(`日期：${today}`);
+  Logger.info(`时间：${new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' })}`);
+
   // 抓取所有类别
   const results = [];
-  
+  const categoryStartTimes = {};
+
   for (const [categoryName, feeds] of Object.entries(CONFIG.feeds)) {
+    categoryStartTimes[categoryName] = performance.now();
     const result = await fetchCategory(categoryName, feeds);
     results.push(result);
   }
-  
+
   // 生成报告
-  console.log('\n📝 生成报告...');
+  Logger.stage('📝 生成报告');
+  const reportStart = performance.now();
   const report = generateReport(results, today);
-  
+  Logger.metric('报告生成耗时', `${Math.round(performance.now() - reportStart)}ms`);
+
   // 保存报告（带错误处理）
   const reportPath = path.join(CONFIG.paths.workspace, CONFIG.paths.reports, `global-news-${today}.md`);
   try {
@@ -499,57 +700,82 @@ async function main() {
     const reportDir = path.dirname(reportPath);
     if (!fs.existsSync(reportDir)) {
       fs.mkdirSync(reportDir, { recursive: true });
-      console.log(`📁 创建目录：${reportDir}`);
+      Logger.success(`创建目录：${reportDir}`);
     }
-    
+
     fs.writeFileSync(reportPath, report, 'utf-8');
-    console.log(`✅ 报告已保存：${reportPath}`);
+    Logger.success(`报告已保存：${reportPath}`);
   } catch (err) {
-    console.error(`❌ 保存报告失败：${err.message}`);
-    console.error('💡 建议：检查磁盘空间和目录权限');
-    throw err; // 重新抛出以便上层捕获
+    Logger.error(`保存报告失败：${err.message}`);
+    Logger.warn('建议：检查磁盘空间和目录权限');
+    throw err;
   }
-  
+
   // 保存状态
   saveState(results, today);
-  
+
   // 打印摘要
-  console.log('\n📊 摘要:');
-  console.log('-'.repeat(50));
+  Logger.stage('📊 执行摘要');
+
   const totalItems = results.reduce((sum, r) => sum + r.items.length, 0);
   const totalErrors = results.reduce((sum, r) => sum + r.errors.length, 0);
-  console.log(`总新闻数：${totalItems} 条`);
-  console.log(`错误数：${totalErrors}`);
-  
+  const totalFeeds = results.reduce((sum, r) => sum + r.stats.totalFeeds, 0);
+  const successFeeds = results.reduce((sum, r) => sum + r.stats.successFeeds, 0);
+  const totalDuration = Math.round(performance.now() - scriptStart);
+
+  console.log(`\n┌${'─'.repeat(48)}┐`);
+  console.log(`│ 📰 新闻统计                                    │`);
+  console.log(`├${'─'.repeat(48)}┤`);
+  console.log(`│ 总新闻数：${String(totalItems).padStart(34)} 条 │`);
+  console.log(`│ 新闻源：${String(successFeeds).padStart(36)}/${totalFeeds} │`);
+  console.log(`│ 失败数：${String(totalErrors).padStart(37)} 个 │`);
+  console.log(`│ 总耗时：${String(totalDuration).padStart(35)} ms │`);
+  console.log(`└${'─'.repeat(48)}┘`);
+
+  // 按类别显示
+  console.log('\n📂 按类别统计:');
+  results.forEach(r => {
+    const status = r.errors.length === 0 ? '✅' : (r.errors.length <= 2 ? '⚠️ ' : '❌');
+    console.log(`  ${status} ${r.category.padEnd(12)}: ${String(r.items.length).padStart(2)} 条 (${r.stats.successFeeds}/${r.stats.totalFeeds} 源, ${r.stats.categoryDuration}ms)`);
+  });
+
+  // 错误分类统计
   if (totalErrors > 0) {
-    console.log('\n⚠️ 错误详情:');
+    const allErrorTypes = {};
     results.forEach(r => {
-      if (r.errors.length > 0) {
-        r.errors.forEach(err => console.log(`  - ${r.category}: ${err}`));
-      }
+      Object.entries(r.errorTypes || {}).forEach(([type, count]) => {
+        allErrorTypes[type] = (allErrorTypes[type] || 0) + count;
+      });
     });
-    
+
+    console.log('\n⚠️ 错误分类:');
+    Object.entries(allErrorTypes)
+      .sort((a, b) => b[1] - a[1])
+      .forEach(([type, count]) => {
+        console.log(`  - ${type}: ${count} 次`);
+      });
+
     // 提供恢复建议
     console.log('\n💡 恢复建议:');
     if (totalErrors <= 2) {
-      console.log('  - 少量新闻源失败属正常现象，可能是临时网络问题');
-      console.log('  - 下次执行时会自动重试');
+      console.log('  • 少量新闻源失败属正常现象，可能是临时网络问题');
+      console.log('  • 下次执行时会自动重试');
     } else if (totalErrors <= 5) {
-      console.log('  - 较多新闻源失败，建议检查网络连接');
-      console.log('  - 可手动执行：node scripts/global-news-monitor.js --retry');
+      console.log('  • 较多新闻源失败，建议检查网络连接');
+      console.log('  • 可手动执行：node scripts/global-news-monitor.js');
     } else {
-      console.log('  - 大量新闻源失败，可能存在网络问题或被限流');
-      console.log('  - 建议：1) 检查网络 2) 等待 30 分钟后重试 3) 检查新闻源 URL 是否有效');
+      console.log('  • 大量新闻源失败，可能存在网络问题或被限流');
+      console.log('  • 建议：1) 检查网络 2) 等待 30 分钟后重试 3) 检查新闻源 URL 是否有效');
     }
   }
-  
-  console.log('\n✅ 任务完成');
-  
+
+  Logger.success('任务完成');
+
   // 上传到 GitHub
   const gitResult = await uploadToGitHub(today, reportPath);
-  
+
   // 写入 Delta Agent 记忆日志
-  writeAgentMemory(today, totalItems, totalErrors, gitResult);
+  writeAgentMemory(today, totalItems, totalErrors, gitResult, totalDuration);
 }
 
 /**
@@ -562,13 +788,13 @@ function execGit(args, cwd) {
       cwd: cwd || CONFIG.paths.workspace,
       stdio: ['ignore', 'pipe', 'pipe']
     });
-    
+
     let stdout = '';
     let stderr = '';
-    
+
     proc.stdout.on('data', data => stdout += data);
     proc.stderr.on('data', data => stderr += data);
-    
+
     proc.on('close', code => {
       if (code === 0) {
         resolve(stdout.trim());
@@ -584,40 +810,40 @@ function execGit(args, cwd) {
  */
 async function uploadToGitHub(date, reportPath) {
   console.log('\n📤 开始上传报告到 GitHub...');
-  
+
   try {
     // 检查是否是 Git 仓库
     await execGit(['status']);
     console.log('  ✅ Git 仓库检测通过');
-    
+
     // 添加报告文件
     const relativePath = path.relative(CONFIG.paths.workspace, reportPath);
     await execGit(['add', relativePath]);
     console.log(`  ✅ 添加文件：${relativePath}`);
-    
+
     // 添加状态文件
     const statePath = path.join(CONFIG.paths.data, 'global-news-state.json');
     if (fs.existsSync(path.join(CONFIG.paths.workspace, statePath))) {
       await execGit(['add', statePath]);
       console.log('  ✅ 添加状态文件');
     }
-    
+
     // 检查是否有变更
     const status = await execGit(['status', '--porcelain']);
     if (!status) {
       console.log('  ℹ️ 没有变更需要提交');
       return { success: true, committed: false, message: 'No changes' };
     }
-    
+
     // 提交
     const commitMessage = `📰 全球新闻汇总 ${date}\n\n- 生成日期: ${date}\n- 来源: Delta Agent\n- 自动提交`;
     await execGit(['commit', '-m', commitMessage]);
     console.log('  ✅ Git 提交成功');
-    
+
     // 推送到远程
     await execGit(['push', 'origin', 'main']);
     console.log('  ✅ GitHub 推送成功');
-    
+
     return { success: true, committed: true, message: 'Uploaded to GitHub' };
   } catch (err) {
     console.error(`  ❌ GitHub 上传失败: ${err.message}`);
@@ -627,26 +853,28 @@ async function uploadToGitHub(date, reportPath) {
 
 /**
  * 写入 Delta Agent 记忆日志
+ * v1.5 改进：添加执行时长和错误分类
  */
-function writeAgentMemory(date, totalItems, totalErrors, gitResult) {
+function writeAgentMemory(date, totalItems, totalErrors, gitResult, totalDuration) {
   const agentMemoryDir = path.join(CONFIG.paths.workspace, 'agents', 'delta', 'memory');
   const memoryPath = path.join(agentMemoryDir, `${date}.md`);
   const now = new Date().toLocaleString('zh-CN', { timeZone: 'Asia/Shanghai' });
-  
+
   // 确保目录存在
   if (!fs.existsSync(agentMemoryDir)) {
     fs.mkdirSync(agentMemoryDir, { recursive: true });
   }
-  
-  const gitStatus = gitResult?.success 
+
+  const gitStatus = gitResult?.success
     ? (gitResult?.committed ? '✅ 已上传 GitHub' : 'ℹ️ 无变更')
     : `❌ 上传失败 (${gitResult?.message || 'unknown'})`;
-  
+
   let memoryContent = `# Delta (德尔塔) - 执行日志
 
 ## ${date} 全球新闻汇总
 
 **执行时间:** ${now}
+**执行时长:** ${totalDuration}ms
 **状态:** ✅ 成功
 **新闻总数:** ${totalItems} 条
 **错误数:** ${totalErrors} 个
@@ -663,7 +891,7 @@ function writeAgentMemory(date, totalItems, totalErrors, gitResult) {
 ---
 > 孪生于不同世界，彼此映照，共同演化。🪞
 `;
-  
+
   // 如果文件已存在，追加内容（保留原有内容）
   if (fs.existsSync(memoryPath)) {
     const existing = fs.readFileSync(memoryPath, 'utf-8');
@@ -671,9 +899,9 @@ function writeAgentMemory(date, totalItems, totalErrors, gitResult) {
       memoryContent = existing + '\n\n---\n\n' + memoryContent;
     }
   }
-  
+
   fs.writeFileSync(memoryPath, memoryContent, 'utf-8');
-  console.log(`📝 Agent 记忆已写入：${memoryPath}`);
+  Logger.success(`Agent 记忆已写入：${memoryPath}`);
 }
 
 // 运行
