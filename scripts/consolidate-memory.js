@@ -24,11 +24,12 @@
  * - v1.0: 基础版本
  */
 
-const SCRIPT_VERSION = '2.6';
+const SCRIPT_VERSION = '2.7';
 const SCRIPT_START_TIME = Date.now();
 
 /**
  * 脚本版本历史：
+ * - v2.7 (2026-05-01): 增强错误处理与优雅降级、改进信息提取去重、添加内存监控
  * - v2.6 (2026-04-27): 优化日志输出格式，添加执行阶段标记，改进错误分类
  * - v2.5 (2026-04-26): 优化 classifyError 函数，增强错误模式识别
  * - v2.4 (2026-04-22): 添加文件大小统计、优化错误分类、改进报告格式
@@ -75,6 +76,30 @@ function formatDuration(ms) {
   const mins = Math.floor(ms / 60000);
   const secs = ((ms % 60000) / 1000).toFixed(1);
   return `${mins}m ${secs}s`;
+}
+
+/**
+ * 获取当前内存使用情况
+ * @returns {Object} 内存使用统计
+ */
+function getMemoryUsage() {
+  const usage = process.memoryUsage();
+  return {
+    rss: Math.round(usage.rss / 1024 / 1024 * 100) / 100, // MB
+    heapUsed: Math.round(usage.heapUsed / 1024 / 1024 * 100) / 100, // MB
+    heapTotal: Math.round(usage.heapTotal / 1024 / 1024 * 100) / 100, // MB
+    external: Math.round(usage.external / 1024 / 1024 * 100) / 100 // MB
+  };
+}
+
+/**
+ * 检查内存使用是否健康
+ * @param {Object} mem - 内存使用统计
+ * @returns {boolean} 是否健康
+ */
+function isMemoryHealthy(mem) {
+  // 如果堆内存使用超过 512MB，认为不健康
+  return mem.heapUsed < 512;
 }
 
 /**
@@ -181,6 +206,7 @@ function readMemoryFile() {
 /**
  * 读取日常记忆文件
  * 扫描 memory/ 目录，读取最近 7 天的 .md 文件
+ * 支持优雅降级：单文件失败不中断整体流程
  * 
  * @returns {Array<{file: string, content: string}>} 日志列表
  * @example
@@ -190,10 +216,17 @@ function readMemoryFile() {
 function readDailyLogs() {
   const logs = [];
   const start = Date.now();
+  const errors = []; // 收集错误信息
   
   if (!fs.existsSync(MEMORY_DIR)) {
     console.log('⚠️ 记忆目录不存在');
     return logs;
+  }
+  
+  // 检查内存状态
+  const memBefore = getMemoryUsage();
+  if (!isMemoryHealthy(memBefore)) {
+    console.log(`⚠️ 内存使用较高: ${memBefore.heapUsed}MB，可能影响性能`);
   }
   
   // 使用更高效的文件遍历：先获取所有文件，再过滤和排序
@@ -201,7 +234,8 @@ function readDailyLogs() {
   try {
     allFiles = fs.readdirSync(MEMORY_DIR, { withFileTypes: true });
   } catch (err) {
-    console.log(`   ⚠️ 目录读取失败: ${err.message}`);
+    const errorType = classifyFileError(err);
+    console.log(`   ⚠️ 目录读取失败 [${errorType}]: ${err.message}`);
     return logs;
   }
   
@@ -217,6 +251,8 @@ function readDailyLogs() {
   const targetFiles = files.slice(0, 10);
   let readErrors = 0;
   let skippedNonDaily = 0;
+  let skippedLargeFiles = 0;
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB 文件大小限制
   
   for (const file of targetFiles) {
     // 只读取标准日期格式文件（排除带时间戳的文件如 2026-04-07-0949.md）
@@ -228,21 +264,55 @@ function readDailyLogs() {
     // 已达到 7 个文件限制
     if (logs.length >= 7) break;
     
+    const filePath = path.join(MEMORY_DIR, file);
+    
     try {
-      const filePath = path.join(MEMORY_DIR, file);
+      // 预检查文件大小
+      const stats = fs.statSync(filePath);
+      if (stats.size > MAX_FILE_SIZE) {
+        skippedLargeFiles++;
+        errors.push({ file, reason: 'FILE_TOO_LARGE', size: stats.size });
+        continue; // 跳过超大文件，继续处理其他
+      }
+      
       const content = fs.readFileSync(filePath, 'utf-8');
-      logs.push({ file, content });
+      logs.push({ file, content, size: stats.size });
     } catch (err) {
       readErrors++;
       // 分类错误类型，提供更具体的错误信息
       const errorType = classifyFileError(err);
+      errors.push({ file, reason: errorType, message: err.message });
       console.log(`   ⚠️ 读取失败 [${errorType}]: ${file} - ${err.message}`);
+      // 优雅降级：继续处理其他文件
+      continue;
     }
   }
   
   const duration = Date.now() - start;
+  const memAfter = getMemoryUsage();
+  const memDelta = Math.round((memAfter.heapUsed - memBefore.heapUsed) * 100) / 100;
+  
+  // 输出摘要
   const statusIcon = readErrors > 0 ? '⚠️' : '✅';
-  console.log(`${statusIcon} 读取 ${logs.length} 个记忆文件 (${duration}ms)${readErrors > 0 ? ` - ${readErrors} 个失败` : ''}${skippedNonDaily > 0 ? ` - ${skippedNonDaily} 个非日文件跳过` : ''}`);
+  let summary = `${statusIcon} 读取 ${logs.length} 个记忆文件 (${duration}ms)`;
+  if (readErrors > 0) summary += ` - ${readErrors} 个失败`;
+  if (skippedNonDaily > 0) summary += ` - ${skippedNonDaily} 个非日文件跳过`;
+  if (skippedLargeFiles > 0) summary += ` - ${skippedLargeFiles} 个超大文件跳过`;
+  if (memDelta > 0) summary += ` - 内存+${memDelta}MB`;
+  console.log(summary);
+  
+  // 如果有错误，输出错误摘要
+  if (errors.length > 0) {
+    const errorTypes = errors.reduce((acc, e) => {
+      acc[e.reason] = (acc[e.reason] || 0) + 1;
+      return acc;
+    }, {});
+    const errorSummary = Object.entries(errorTypes)
+      .map(([type, count]) => `${type}:${count}`)
+      .join(', ');
+    console.log(`   📊 错误分类: ${errorSummary}`);
+  }
+  
   return logs;
 }
 
@@ -286,32 +356,73 @@ function classifyFileError(err) {
 /**
  * 智能提取关键信息
  * 从日志内容中提取决策、教训、偏好、待办、重要信息
+ * 使用改进的去重算法和评分机制
  * 
  * @param {Array} logs - 日志列表
- * @returns {Array<{source: string, text: string, category: string}>} 提取的信息
+ * @returns {Array<{source: string, text: string, category: string, score: number}>} 提取的信息
  * @example
  * const insights = extractInsights(logs);
- * // insights = [{ source: '2026-04-27.md', text: '...', category: '决策' }, ...]
+ * // insights = [{ source: '2026-04-27.md', text: '...', category: '决策', score: 0.85 }, ...]
  */
 function extractInsights(logs) {
   const insights = [];
-  const seen = new Set(); // 去重集合
+  const seen = new Set(); // 去重集合 - 使用标准化后的文本
+  const semanticSeen = new Map(); // 语义去重 - 检测相似内容
   
   // 分类关键词配置
   // 每个类别包含中英文关键词，支持大小写不敏感匹配
   const categories = {
-    '决策': ['决策', '决定', '选择', 'adopt', 'decide', '确定', '采用'],
-    '教训': ['教训', '经验', 'lesson', 'learned', '反思', '改进', 'mistake', '错误'],
-    '偏好': ['偏好', '喜欢', 'prefer', 'favorite', '倾向', '习惯'],
-    '待办': ['待办', 'TODO', 'todo', 'task', '计划', '待处理', 'pending'],
-    '重要': ['重要', '关键', 'critical', 'important', '核心', 'essential', 'vital'],
-    '技术': ['技术', '架构', 'design', 'implementation', '优化', 'refactor']
+    '决策': ['决策', '决定', '选择', 'adopt', 'decide', '确定', '采用', '方案'],
+    '教训': ['教训', '经验', 'lesson', 'learned', '反思', '改进', 'mistake', '错误', '问题'],
+    '偏好': ['偏好', '喜欢', 'prefer', 'favorite', '倾向', '习惯', '风格'],
+    '待办': ['待办', 'TODO', 'todo', 'task', '计划', '待处理', 'pending', '待办事项'],
+    '重要': ['重要', '关键', 'critical', 'important', '核心', 'essential', 'vital', 'major'],
+    '技术': ['技术', '架构', 'design', 'implementation', '优化', 'refactor', '系统']
   };
   
   // 提取统计
   const stats = {};
   for (const cat of Object.keys(categories)) {
     stats[cat] = 0;
+  }
+  
+  // 计算信息重要性评分
+  function calculateScore(text, category) {
+    let score = 0.5; // 基础分
+    
+    // 长度因子：适中长度（30-150字符）得分更高
+    const len = text.length;
+    if (len >= 30 && len <= 150) score += 0.2;
+    else if (len >= 20 && len < 30) score += 0.1;
+    else if (len > 150 && len <= 300) score += 0.1;
+    
+    // 类别权重
+    const weights = { '重要': 0.15, '决策': 0.1, '教训': 0.1, '技术': 0.05, '待办': 0.05, '偏好': 0 };
+    score += weights[category] || 0;
+    
+    // 质量信号
+    if (text.includes('：') || text.includes(':')) score += 0.05; // 有结构化内容
+    if (/\d{4}-\d{2}-\d{2}/.test(text)) score += 0.05; // 包含日期
+    if (text.includes('✅') || text.includes('❌') || text.includes('⚠️')) score += 0.05; // 有状态标记
+    
+    return Math.min(score, 1.0); // 上限 1.0
+  }
+  
+  // 标准化文本用于去重
+  function normalize(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\u4e00-\u9fa5a-z0-9]/g, '') // 只保留中文、英文、数字
+      .slice(0, 80); // 限制长度
+  }
+  
+  // 计算文本相似度（简单的 Jaccard 系数）
+  function similarity(text1, text2) {
+    const set1 = new Set(text1.split('').slice(0, 50));
+    const set2 = new Set(text2.split('').slice(0, 50));
+    const intersection = new Set([...set1].filter(x => set2.has(x)));
+    const union = new Set([...set1, ...set2]);
+    return intersection.size / union.size;
   }
   
   for (const log of logs) {
@@ -343,22 +454,51 @@ function extractInsights(logs) {
         });
         
         if (isMatch) {
-          // 去重检查：使用前 50 个字符作为哈希
-          const hash = trimmed.slice(0, 50).replace(/\s+/g, ' ');
-          if (!seen.has(hash)) {
-            seen.add(hash);
-            insights.push({
-              source: log.file,
-              text: trimmed,
-              category
-            });
-            stats[category]++;
+          // 标准化去重检查
+          const normalized = normalize(trimmed);
+          if (seen.has(normalized)) {
+            continue; // 完全重复
           }
+          
+          // 语义去重：检查相似度
+          let isSimilar = false;
+          for (const [existingNorm, existingText] of semanticSeen) {
+            if (similarity(normalized, existingNorm) > 0.7) {
+              isSimilar = true;
+              // 如果新文本质量更高，替换旧的
+              const newScore = calculateScore(trimmed, category);
+              const existingInsight = insights.find(i => normalize(i.text) === existingNorm);
+              if (existingInsight && newScore > existingInsight.score) {
+                existingInsight.text = trimmed;
+                existingInsight.source = log.file;
+                existingInsight.score = newScore;
+              }
+              break;
+            }
+          }
+          
+          if (isSimilar) continue;
+          
+          // 添加到集合
+          seen.add(normalized);
+          semanticSeen.set(normalized, trimmed);
+          
+          const score = calculateScore(trimmed, category);
+          insights.push({
+            source: log.file,
+            text: trimmed,
+            category,
+            score
+          });
+          stats[category]++;
           break; // 一行只归属一个类别
         }
       }
     }
   }
+  
+  // 按评分排序
+  insights.sort((a, b) => b.score - a.score);
   
   // 输出分类统计
   const categorySummary = Object.entries(stats)
@@ -366,7 +506,11 @@ function extractInsights(logs) {
     .map(([cat, count]) => `${cat}:${count}`)
     .join(', ');
   
-  console.log(`💡 提取 ${insights.length} 条关键信息（已去重）`);
+  const avgScore = insights.length > 0 
+    ? (insights.reduce((sum, i) => sum + i.score, 0) / insights.length).toFixed(2)
+    : 0;
+  
+  console.log(`💡 提取 ${insights.length} 条关键信息（已去重，平均评分: ${avgScore}）`);
   if (categorySummary) {
     console.log(`   📊 分类统计: ${categorySummary}`);
   }
@@ -407,6 +551,8 @@ function generateConsolidationReport(insights) {
     
     for (const category of categories) {
       const items = byCategory[category];
+      // 按评分排序，高评分在前
+      items.sort((a, b) => b.score - a.score);
       report += `### ${category} (${items.length} 条)\n\n`;
       for (const insight of items) {
         // 截断过长的文本，保持可读性
@@ -414,7 +560,9 @@ function generateConsolidationReport(insights) {
         if (text.length > 200) {
           text = text.slice(0, 197) + '...';
         }
-        report += `- [${insight.source}] ${text}\n`;
+        // 高评分项目添加星标
+        const star = insight.score >= 0.8 ? '⭐ ' : '';
+        report += `- ${star}[${insight.source}] ${text}\n`;
       }
       report += '\n';
     }
@@ -595,6 +743,10 @@ function main() {
   // 执行时间趋势分析
   const trend = analyzeTrend(state.runs.slice(0, -1), totalDuration);
   
+  // 内存使用监控
+  const finalMem = getMemoryUsage();
+  const peakMem = Math.max(finalMem.heapUsed, fileStats.totalSize / 1024 / 1024 * 2); // 估算峰值
+  
   console.log('');
   console.log('================================');
   console.log('✅ 记忆巩固完成');
@@ -603,6 +755,10 @@ function main() {
   console.log(`📈 趋势分析: ${trend.message}`);
   if (state.runs.length > 1) {
     console.log(`📉 历史记录: ${state.runs.length} 次执行 (最快: ${formatDuration(trend.min)}, 最慢: ${formatDuration(trend.max)})`);
+  }
+  console.log(`🧠 内存使用: ${finalMem.heapUsed}MB (峰值约 ${Math.round(peakMem)}MB)`);
+  if (!isMemoryHealthy(finalMem)) {
+    console.log(`⚠️ 内存使用较高，建议检查是否有内存泄漏`);
   }
   console.log('');
 }
