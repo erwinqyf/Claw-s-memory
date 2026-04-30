@@ -1,9 +1,9 @@
 {
-  "lastRun": "2026-04-28T03:00:00.000Z",
-  "lastRunFormatted": "2026-04-28 11:00 Asia/Shanghai",
-  "lastPublished": "2026-04-28T03:15:00.000Z",
-  "newArticlesFound": 12,
-  "reportPath": "reports/language-service-monitor-20260428.md",
+  "lastRun": "2026-04-30T03:00:00.000Z",
+  "lastRunFormatted": "2026-04-30 11:00 Asia/Shanghai",
+  "lastPublished": "2026-04-30T03:15:00.000Z",
+  "newArticlesFound": 1,
+  "reportPath": "reports/language-service-monitor-20260430.md",
   "gitCommit": "",
   "articles": [
     {
@@ -89,6 +89,13 @@
       "date": "2026-04",
       "url": "https://slator.com/language-industry-data-and-news-briefing-april-2026/",
       "summary": "涵盖收购、招聘、融资、财务业绩和社交媒体热点"
+    },
+    {
+      "title": "【重点】Smartcat发布AI驱动的L&D课程创作与翻译工作流",
+      "source": "Smartcat",
+      "date": "2026-04-28",
+      "url": "https://www.smartcat.com/news/smartcat-unveils-new-lnd-ai-workflows-ltl-2026",
+      "summary": "多智能体系统支持企业L&D团队以比传统工作流快10倍的速度创建、翻译和更新全球学习内容"
     }
   ]
 }
