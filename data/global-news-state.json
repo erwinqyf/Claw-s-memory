@@ -1,45 +1,57 @@
 {
-  "lastRun": "2026-04-29T04:00:32.893Z",
-  "lastRunDate": "2026-04-29",
+  "lastRun": "2026-04-30T04:02:35.763Z",
+  "lastRunDate": "2026-04-30",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 203,
+      "totalAvailable": 271,
       "errors": [
-        "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
-        "联合早报: HTTP 404: https://www.zaobao.com.sg/rss/news/china.xml",
+        "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
+        "泰晤士报: HTTP 301: https://www.thetimes.co.uk/feed/rss/world",
         "经济学人: HTTP 403: https://www.economist.com/world/rss",
-        "泰晤士报: HTTP 301: https://www.thetimes.co.uk/feed/rss/world"
+        "AP News: HTTP 403: https://rsshub.app/apnews/topics/ap-top-news",
+        "联合早报: HTTP 404: https://www.zaobao.com.sg/rss/news/china.xml",
+        "南华早报: HTTP 301: https://www.scmp.com/rss/91/feed",
+        "韩民族日报: HTTP 403: https://english.hani.co.kr/rss/"
       ]
     },
     {
       "category": "economy",
       "itemsCount": 5,
-      "totalAvailable": 68,
+      "totalAvailable": 50,
       "errors": [
         "Reuters Business: HTTP 301: https://www.reutersagency.com/feed/?best-topics=business-finance",
+        "经济学人财经: HTTP 403: https://www.economist.com/finance-and-economics/rss",
+        "Financial Times: HTTP 301: https://www.ft.com/?format=rss",
         "Bloomberg: HTTP 403: https://www.bloomberg.com/feed/podcast/etf.xml",
-        "经济学人财经: HTTP 403: https://www.economist.com/finance-and-economics/rss"
+        "日经亚洲: HTTP 404: https://asia.nikkei.com/rss/markets/feed",
+        "财新网: HTTP 403: https://rsshub.app/caixin/finance",
+        "Business Standard: HTTP 403: https://www.business-standard.com/rss/economy-101.rss"
       ]
     },
     {
       "category": "culture",
       "itemsCount": 5,
-      "totalAvailable": 63,
+      "totalAvailable": 10,
       "errors": [
         "BBC Culture: HTTP 302: http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
         "卫报文化: HTTP 302: https://www.theguardian.com/culture/rss",
-        "知乎日报: HTTP 404: https://daily.zhihu.com/rss"
+        "Vulture: HTTP 404: https://www.vulture.com/rss/",
+        "知乎日报: HTTP 404: https://daily.zhihu.com/rss",
+        "端传媒: HTTP 403: https://rsshub.app/initium/latest",
+        "Korea Times Culture: HTTP 404: https://www.koreatimes.co.kr/www/rss/culture.xml"
       ]
     },
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 142,
+      "totalAvailable": 120,
       "errors": [
-        "Hacker News: Cannot read properties of undefined (reading 'length')"
+        "少数派: HTTP 403: https://rsshub.app/sspai/index",
+        "Tech in Asia: HTTP 301: https://www.techinasia.com/feed/",
+        "Rest of World: HTTP 301: https://restofworld.org/feed/"
       ]
     }
   ],
