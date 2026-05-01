@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Cron 调度器健康检查脚本 v2.9
+ * Cron 调度器健康检查脚本 v3.0
  * ============================
  * 
  * 用途：监控 OpenClaw 定时任务调度器状态，发现异常立即告警
@@ -15,11 +15,15 @@
  * 8. 内存使用检查
  * 9. 错误分类统计（v2.8）
  * 10. 执行时间历史数据持久化（v2.9）
+ * 11. 智能告警抑制（v3.0）
+ * 12. 健康评分系统（v3.0）
+ * 13. 可操作建议生成（v3.0）
  * 
  * 用法：node scripts/cron-health-check.js
  * 定时：每小时执行一次
  * 
  * 优化记录:
+ * - v3.0 (2026-05-02): 添加智能告警抑制、健康评分系统、可操作建议生成、改进趋势图表
  * - v2.9 (2026-04-21): 修复版本号不一致、添加错误分类统计函数、改进执行时间历史数据存储
  * - v2.8 (2026-04-19): 添加错误分类统计、优化健康任务摘要格式、增强执行时间趋势分析
  * - v2.7 (2026-04-17): 优化任务执行时间趋势分析、添加历史数据持久化、改进报告格式
@@ -44,6 +48,9 @@
  * - 添加任务统计（总数/启用/禁用）
  * - 统一版本号显示
  * - 错误分类统计（网络/配置/超时/其他）
+ * - 智能告警抑制（避免重复通知已知问题）
+ * - 健康评分系统（0-100 分）
+ * - 可操作建议自动生成
  */
 
 const fs = require('fs');
@@ -75,6 +82,107 @@ const startTime = Date.now();
 const alerts = [];
 const warnings = [];
 const healthyTasks = [];
+
+// 告警抑制状态文件
+const ALERT_STATE_FILE = path.join(WORKSPACE_DIR, 'data', 'cron-alert-state.json');
+
+/**
+ * 智能告警抑制系统（v3.0 新增）
+ * 
+ * 避免重复通知已知问题，减少噪音
+ * 抑制规则：
+ * 1. 相同告警 4 小时内不重复通知
+ * 2. 已知问题（如飞书投递失败）首次通知后标记为已知
+ * 3. 问题恢复后自动清除抑制状态
+ */
+const AlertSuppressor = {
+  loadState() {
+    try {
+      if (fs.existsSync(ALERT_STATE_FILE)) {
+        return JSON.parse(fs.readFileSync(ALERT_STATE_FILE, 'utf-8'));
+      }
+    } catch (e) {
+      console.log(`⚠️ 无法加载告警状态：${e.message}`);
+    }
+    return { suppressed: {}, knownIssues: {}, lastNotify: {} };
+  },
+
+  saveState(state) {
+    try {
+      const dataDir = path.dirname(ALERT_STATE_FILE);
+      if (!fs.existsSync(dataDir)) {
+        fs.mkdirSync(dataDir, { recursive: true });
+      }
+      fs.writeFileSync(ALERT_STATE_FILE, JSON.stringify(state, null, 2));
+    } catch (e) {
+      console.log(`⚠️ 无法保存告警状态：${e.message}`);
+    }
+  },
+
+  /**
+   * 检查是否应该抑制告警
+   * @param {string} alertKey - 告警唯一标识
+   * @param {number} suppressHours - 抑制时长（小时）
+   * @returns {boolean} true = 抑制，false = 允许通知
+   */
+  shouldSuppress(alertKey, suppressHours = 4) {
+    const state = this.loadState();
+    const now = Date.now();
+    const lastNotify = state.lastNotify[alertKey];
+    
+    if (lastNotify && (now - lastNotify) < suppressHours * 60 * 60 * 1000) {
+      return true; // 在抑制期内
+    }
+    
+    // 更新最后通知时间
+    state.lastNotify[alertKey] = now;
+    this.saveState(state);
+    return false;
+  },
+
+  /**
+   * 标记已知问题
+   * @param {string} issueKey - 问题标识
+   * @param {string} description - 问题描述
+   */
+  markKnownIssue(issueKey, description) {
+    const state = this.loadState();
+    state.knownIssues[issueKey] = {
+      description,
+      markedAt: Date.now()
+    };
+    this.saveState(state);
+  },
+
+  /**
+   * 检查是否为已知问题
+   * @param {string} issueKey - 问题标识
+   * @returns {object|null} 已知问题信息或 null
+   */
+  isKnownIssue(issueKey) {
+    const state = this.loadState();
+    return state.knownIssues[issueKey] || null;
+  },
+
+  /**
+   * 清除已恢复问题的抑制状态
+   * @param {Array<string>} currentAlerts - 当前存在的告警列表
+   */
+  clearRecovered(currentAlerts) {
+    const state = this.loadState();
+    const currentKeys = new Set(currentAlerts);
+    
+    // 清除已恢复问题的抑制状态
+    for (const key of Object.keys(state.lastNotify)) {
+      if (!currentKeys.has(key)) {
+        delete state.lastNotify[key];
+        console.log(`✅ 问题已恢复，清除抑制状态：${key}`);
+      }
+    }
+    
+    this.saveState(state);
+  }
+};
 
 // 配置验证
 function validateConfig() {
@@ -548,31 +656,244 @@ function getExecTimeTrend() {
   };
 }
 
-// 生成详细报告
+/**
+ * 健康评分系统（v3.0 新增）
+ * 
+ * 基于检查结果计算 0-100 分的健康评分
+ * 评分维度：调度器状态、任务状态、资源使用、配置健康
+ * 
+ * @returns {object} 评分详情
+ */
+function calculateHealthScore() {
+  let score = 100;
+  const deductions = [];
+  
+  // 调度器状态（30 分）
+  const schedulerAlert = alerts.find(a => a.includes('调度器停滞'));
+  const schedulerWarning = warnings.find(w => w.includes('调度器延迟'));
+  if (schedulerAlert) {
+    score -= 30;
+    deductions.push({ category: '调度器', points: 30, reason: '调度器停滞' });
+  } else if (schedulerWarning) {
+    score -= 15;
+    deductions.push({ category: '调度器', points: 15, reason: '调度器延迟' });
+  }
+  
+  // 任务状态（40 分）
+  const taskErrors = alerts.filter(a => a.includes('连续错误')).length;
+  const taskWarnings = warnings.filter(w => w.includes('任务')).length;
+  if (taskErrors > 0) {
+    const deduction = Math.min(40, taskErrors * 10);
+    score -= deduction;
+    deductions.push({ category: '任务状态', points: deduction, reason: `${taskErrors} 个任务连续错误` });
+  } else if (taskWarnings > 0) {
+    const deduction = Math.min(20, taskWarnings * 5);
+    score -= deduction;
+    deductions.push({ category: '任务状态', points: deduction, reason: `${taskWarnings} 个任务警告` });
+  }
+  
+  // 资源使用（20 分）
+  const diskAlert = alerts.find(a => a.includes('磁盘'));
+  const diskWarning = warnings.find(w => w.includes('磁盘'));
+  const memAlert = alerts.find(a => a.includes('内存'));
+  const memWarning = warnings.find(w => w.includes('内存'));
+  
+  if (diskAlert || memAlert) {
+    score -= 20;
+    deductions.push({ category: '资源使用', points: 20, reason: '资源严重不足' });
+  } else if (diskWarning || memWarning) {
+    score -= 10;
+    deductions.push({ category: '资源使用', points: 10, reason: '资源使用率较高' });
+  }
+  
+  // 配置健康（10 分）
+  const jsonError = alerts.find(a => a.includes('JSON'));
+  const wakeModeWarning = warnings.find(w => w.includes('wakeMode'));
+  if (jsonError) {
+    score -= 10;
+    deductions.push({ category: '配置', points: 10, reason: 'JSON 语法错误' });
+  } else if (wakeModeWarning) {
+    score -= 5;
+    deductions.push({ category: '配置', points: 5, reason: 'wakeMode 配置问题' });
+  }
+  
+  // 确保分数在 0-100 范围内
+  score = Math.max(0, Math.min(100, score));
+  
+  // 健康等级
+  let grade;
+  if (score >= 90) grade = 'A';
+  else if (score >= 80) grade = 'B';
+  else if (score >= 70) grade = 'C';
+  else if (score >= 60) grade = 'D';
+  else grade = 'F';
+  
+  return { score, grade, deductions };
+}
+
+/**
+ * 生成可操作建议（v3.0 新增）
+ * 
+ * 基于当前问题自动生成具体的操作建议
+ * @returns {Array<string>} 建议列表
+ */
+function generateActionableRecommendations() {
+  const recommendations = [];
+  
+  // 调度器问题
+  if (alerts.some(a => a.includes('调度器停滞'))) {
+    recommendations.push('🔴 **立即重启调度器**：`openclaw gateway restart`');
+    recommendations.push('   检查日志：`journalctl -u openclaw -n 100`');
+  } else if (warnings.some(w => w.includes('调度器延迟'))) {
+    recommendations.push('🟡 **观察调度器状态**：`openclaw cron status`');
+    recommendations.push('   如持续延迟，考虑重启');
+  }
+  
+  // 任务错误
+  const errorTasks = alerts.filter(a => a.includes('连续错误'));
+  if (errorTasks.length > 0) {
+    recommendations.push(`🔴 **检查失败任务**：${errorTasks.length} 个任务连续失败`);
+    recommendations.push('   查看详情：`openclaw cron list`');
+    recommendations.push('   查看日志：`openclaw cron runs <job-id>`');
+  }
+  
+  // 资源问题
+  if (alerts.some(a => a.includes('磁盘'))) {
+    recommendations.push('🔴 **紧急清理磁盘**：`df -h` 查看使用情况');
+    recommendations.push('   清理日志：`find /var/log -name "*.log" -mtime +7 -delete`');
+  } else if (warnings.some(w => w.includes('磁盘'))) {
+    recommendations.push('🟡 **监控磁盘使用**：考虑清理旧日志');
+  }
+  
+  if (alerts.some(a => a.includes('内存'))) {
+    recommendations.push('🔴 **检查内存泄漏**：`top` 查看内存使用');
+    recommendations.push('   重启高内存进程');
+  } else if (warnings.some(w => w.includes('内存'))) {
+    recommendations.push('🟡 **监控内存使用**：`free -m`');
+  }
+  
+  // 配置问题
+  if (alerts.some(a => a.includes('JSON'))) {
+    recommendations.push('🔴 **修复 jobs.json**：检查语法错误');
+    recommendations.push('   验证：`cat ~/.openclaw/cron/jobs.json | jq .`');
+  }
+  
+  if (warnings.some(w => w.includes('wakeMode'))) {
+    recommendations.push('🟡 **修复 wakeMode 配置**：添加 heartbeat 任务或移除 wakeMode');
+  }
+  
+  // 无问题时的建议
+  if (recommendations.length === 0) {
+    recommendations.push('✅ **系统运行正常**，无需操作');
+    recommendations.push('   下次检查：1 小时后');
+  }
+  
+  return recommendations;
+}
+
+/**
+ * 生成 ASCII 趋势图表（v3.0 改进）
+ * 
+ * 将执行时间历史数据可视化为 ASCII 图表
+ * @returns {string} ASCII 图表
+ */
+function generateAsciiTrendChart() {
+  const history = loadExecTimeHistory();
+  if (history.length < 3) return null;
+  
+  // 取最近 15 条记录
+  const recent = history.slice(-15);
+  const values = recent.map(h => h.duration);
+  const max = Math.max(...values);
+  const min = Math.min(...values);
+  const range = max - min || 1;
+  
+  // 图表高度
+  const height = 8;
+  const width = recent.length;
+  
+  let chart = '\n```\n';
+  chart += '执行时间趋势 (ms)\n';
+  chart += `${max.toFixed(0).padStart(4)}ms ┤`;
+  
+  for (let row = height; row > 0; row--) {
+    const threshold = min + (range * row / height);
+    let line = '';
+    for (let i = 0; i < width; i++) {
+      const value = values[i];
+      if (value >= threshold) {
+        line += '█';
+      } else if (value >= threshold - range / height / 2) {
+        line += '▄';
+      } else {
+        line += ' ';
+      }
+    }
+    if (row === height) {
+      chart += line + '\n';
+    } else {
+      chart += '     │' + line + '\n';
+    }
+  }
+  
+  chart += `${min.toFixed(0).padStart(4)}ms ┤` + '─'.repeat(width) + '\n';
+  chart += '     └' + '最近 15 次检查'.padStart(width) + '\n';
+  chart += '```\n';
+  
+  return chart;
+}
+
+// 生成详细报告（v3.0 重写）
 function generateDetailedReport() {
   const timestamp = new Date().toISOString().split('T')[0];
   const timeStr = new Date().toLocaleTimeString('zh-CN', { hour: '2-digit', minute: '2-digit' });
   const reportFile = path.join(WORKSPACE_DIR, 'reports', `cron-health-check-${timestamp}.md`);
   
-  // 获取执行时间趋势
+  // 获取执行时间趋势和健康评分
   const trend = getExecTimeTrend();
+  const healthScore = calculateHealthScore();
+  const recommendations = generateActionableRecommendations();
+  const asciiChart = generateAsciiTrendChart();
   
-  let report = `# Cron 健康检查报告\n\n`;
+  let report = `# Cron 健康检查报告 v3.0\n\n`;
   report += `**检查时间:** ${new Date().toISOString()}\n`;
-  report += `**检查版本:** v2.9\n`;
+  report += `**检查版本:** v3.0\n`;
+  report += `**健康评分:** ${healthScore.score}/100 (${healthScore.grade}级)\n`;
+  
   if (trend) {
     const trendIcon = trend.change > 10 ? '⚠️' : trend.change < -10 ? '✅' : '➡️';
     report += `**执行时间趋势:** ${trend.current}ms (${trend.change > 0 ? '+' : ''}${trend.change}%) ${trendIcon}\n`;
   }
   report += `\n`;
   
+  // 健康评分可视化
+  report += `## 📊 健康评分\n\n`;
+  report += `\`\`\`\n`;
+  report += `评分: ${healthScore.score}/100 [${'█'.repeat(Math.floor(healthScore.score / 5))}${'░'.repeat(20 - Math.floor(healthScore.score / 5))}] ${healthScore.grade}级\n`;
+  report += `\`\`\`\n\n`;
+  
+  if (healthScore.deductions.length > 0) {
+    report += `**扣分详情:**\n`;
+    healthScore.deductions.forEach(d => {
+      report += `- ${d.category}: -${d.points}分 (${d.reason})\n`;
+    });
+    report += `\n`;
+  }
+  
   // 状态摘要
   const totalChecks = alerts.length + warnings.length + healthyTasks.length;
-  report += `## 📊 摘要\n\n`;
+  report += `## 📋 检查摘要\n\n`;
   report += `- 总检查项：${totalChecks}\n`;
   report += `- ✅ 健康：${healthyTasks.length}\n`;
   report += `- ⚠️ 警告：${warnings.length}\n`;
   report += `- ❌ 告警：${alerts.length}\n\n`;
+  
+  // ASCII 趋势图
+  if (asciiChart) {
+    report += `## 📈 执行时间趋势\n`;
+    report += asciiChart;
+    report += `\n`;
+  }
   
   // 详细内容
   if (alerts.length > 0) {
@@ -593,25 +914,24 @@ function generateDetailedReport() {
     report += `\n`;
   }
   
-  // 建议操作
-  report += `---\n\n`;
-  report += `**建议操作:**\n\n`;
+  // 可操作建议
+  report += `## 💡 建议操作\n\n`;
+  recommendations.forEach(r => report += `${r}\n`);
+  report += `\n`;
   
-  if (alerts.length > 0) {
-    report += `1. 立即检查调度器状态：\`openclaw cron status\`\n`;
-    report += `2. 查看错误任务详情：\`openclaw cron list\`\n`;
-    report += `3. 必要时重启调度器：\`openclaw gateway restart\`\n`;
-    report += `4. 检查系统资源：\`top\`, \`df -h\`, \`free -m\`\n`;
-  } else if (warnings.length > 0) {
-    report += `1. 观察任务执行情况\n`;
-    report += `2. 如警告持续，检查系统资源\n`;
-    report += `3. 查看相关日志：\`journalctl -u openclaw\`\n`;
-  } else {
-    report += `无需操作，系统运行正常。\n`;
-    report += `下次检查：1 小时后\n`;
+  // 告警抑制信息
+  const suppressedCount = alerts.filter(a => {
+    const key = a.substring(0, 50);
+    return AlertSuppressor.shouldSuppress(key, 4);
+  }).length;
+  
+  if (suppressedCount > 0) {
+    report += `## 🔕 告警抑制\n\n`;
+    report += `${suppressedCount} 个告警被抑制（4 小时内已通知过）\n`;
+    report += `抑制状态文件：${ALERT_STATE_FILE}\n\n`;
   }
   
-  report += `\n---\n`;
+  report += `---\n`;
   report += `> 🪞 孪生于不同世界，彼此映照，共同演化。\n`;
   
   fs.writeFileSync(reportFile, report);
@@ -678,7 +998,7 @@ function sendAlert() {
 
 // 主函数
 function main() {
-  console.log('🏥 Cron 健康检查 v2.9');
+  console.log('🏥 Cron 健康检查 v3.0');
   console.log('='.repeat(40));
   
   // 1. 配置验证
@@ -698,29 +1018,37 @@ function main() {
   results.push(checkSchedulerStatus());
   results.push(checkTaskErrors());
   results.push(checkOverdueTasks());
-  results.push(checkTaskTimeouts()); // v2.1 新增
-  results.push(checkDiskSpace()); // v2.2 新增
-  results.push(checkMemoryUsage()); // v2.4 新增
-  getTaskStats(); // v2.2 新增（仅统计，不影响结果）
+  results.push(checkTaskTimeouts());
+  results.push(checkDiskSpace());
+  results.push(checkMemoryUsage());
+  getTaskStats();
   
-  // 3. 发送报告
+  // 3. 清除已恢复问题的抑制状态
+  const currentAlertKeys = alerts.map(a => a.substring(0, 50));
+  AlertSuppressor.clearRecovered(currentAlertKeys);
+  
+  // 4. 发送报告
   sendAlert();
   
-  // 4. 执行时间统计
+  // 5. 执行时间统计
   const duration = Date.now() - startTime;
   console.log(`\n⏱️ 耗时：${duration}ms`);
   
   // 保存执行时间历史
   saveExecTimeHistory(duration);
   
-  // 显示趋势
+  // 显示趋势和健康评分
   const trend = getExecTimeTrend();
+  const healthScore = calculateHealthScore();
+  
   if (trend) {
     const trendIcon = trend.change > 10 ? '⚠️ 上升' : trend.change < -10 ? '✅ 下降' : '➡️ 平稳';
     console.log(`📊 平均执行时间：${trend.current}ms (${trend.change > 0 ? '+' : ''}${trend.change}%) ${trendIcon}`);
   }
   
-  // 5. 返回状态码（有严重告警时返回 1）
+  console.log(`🏆 健康评分：${healthScore.score}/100 (${healthScore.grade}级)`);
+  
+  // 6. 返回状态码（有严重告警时返回 1）
   const hasAlerts = alerts.length > 0;
   process.exit(hasAlerts ? 1 : 0);
 }
