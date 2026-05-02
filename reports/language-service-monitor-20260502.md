@@ -128,5 +128,21 @@
 
 ---
 
+## 📤 发布状态
+
+| 项目 | 状态 | 说明 |
+|------|------|------|
+| 本地报告生成 | ✅ 完成 | `reports/language-service-monitor-20260502.md` |
+| 状态文件更新 | ✅ 完成 | `data/language-service-monitor-state.json` |
+| Git提交 | ✅ 完成 | Commit: `89d6877` |
+| Git推送 | ✅ 完成 | 已推送至远程 |
+| 飞书文档发布 | ⚠️ 待处理 | 需通过feishu-doc-manager技能执行 |
+| 群聊通知 | ⚠️ 受限 | sessions_send跨树限制，需通过delivery机制 |
+
+**GitHub报告链接：**
+https://github.com/erwinqyf/Claw-s-memory/blob/main/reports/language-service-monitor-20260502.md
+
+---
+
 *报告生成时间: 2026-05-02 11:00 Asia/Shanghai*  
 *下次监控: 2026-05-06 (周二)*
