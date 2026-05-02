@@ -11,19 +11,31 @@
         "count": 7
       },
       "version": "2.5"
+    },
+    {
+      "timestamp": "2026-05-02T16:09:21.455Z",
+      "duration": 1453,
+      "filesProcessed": 7,
+      "insightsExtracted": 147,
+      "fileStats": {
+        "totalSize": 38595,
+        "avgSize": 5513.571428571428,
+        "count": 7
+      },
+      "version": "2.8"
     }
   ],
-  "version": "2.5",
+  "version": "2.8",
   "lastRun": {
-    "timestamp": "2026-04-26T02:01:45.872Z",
-    "duration": 1358,
+    "timestamp": "2026-05-02T16:09:21.455Z",
+    "duration": 1453,
     "filesProcessed": 7,
-    "insightsExtracted": 32,
+    "insightsExtracted": 147,
     "fileStats": {
-      "totalSize": 24806,
-      "avgSize": 3543.714285714286,
+      "totalSize": 38595,
+      "avgSize": 5513.571428571428,
       "count": 7
     },
-    "version": "2.5"
+    "version": "2.8"
   }
 }

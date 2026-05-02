@@ -24,11 +24,12 @@
  * - v1.0: 基础版本
  */
 
-const SCRIPT_VERSION = '2.7';
+const SCRIPT_VERSION = '2.8';
 const SCRIPT_START_TIME = Date.now();
 
 /**
  * 脚本版本历史：
+ * - v2.8 (2026-05-03): 添加智能记忆分类系统、重要性评分、时间线可视化、改进信息提取
  * - v2.7 (2026-05-01): 增强错误处理与优雅降级、改进信息提取去重、添加内存监控
  * - v2.6 (2026-04-27): 优化日志输出格式，添加执行阶段标记，改进错误分类
  * - v2.5 (2026-04-26): 优化 classifyError 函数，增强错误模式识别
@@ -386,6 +387,16 @@ function extractInsights(logs) {
     stats[cat] = 0;
   }
   
+  // 分类标签映射（用于输出展示）
+  const categoryLabels = {
+    '决策': '🎯',
+    '教训': '💡',
+    '偏好': '❤️',
+    '待办': '📝',
+    '重要': '⭐',
+    '技术': '🔧'
+  };
+  
   // 计算信息重要性评分
   function calculateScore(text, category) {
     let score = 0.5; // 基础分
@@ -497,30 +508,143 @@ function extractInsights(logs) {
     }
   }
   
-  // 按评分排序
+  // 按评分排序（高评分在前）
   insights.sort((a, b) => b.score - a.score);
   
-  // 输出分类统计
+  // 输出分类统计（带标签）
   const categorySummary = Object.entries(stats)
     .filter(([_, count]) => count > 0)
-    .map(([cat, count]) => `${cat}:${count}`)
+    .sort((a, b) => b[1] - a[1]) // 按数量排序
+    .map(([cat, count]) => `${categoryLabels[cat] || '📌'} ${cat}:${count}`)
     .join(', ');
   
   const avgScore = insights.length > 0 
     ? (insights.reduce((sum, i) => sum + i.score, 0) / insights.length).toFixed(2)
     : 0;
   
+  // 高评分项目统计
+  const highScoreCount = insights.filter(i => i.score >= 0.8).length;
+  
   console.log(`💡 提取 ${insights.length} 条关键信息（已去重，平均评分: ${avgScore}）`);
   if (categorySummary) {
     console.log(`   📊 分类统计: ${categorySummary}`);
+  }
+  if (highScoreCount > 0) {
+    console.log(`   ⭐ 高评分项目: ${highScoreCount} 条 (≥0.8)`);
   }
   
   return insights;
 }
 
 /**
+ * 生成 ASCII 时间线
+ * 展示近期关键事件的时间分布
+ * 
+ * @param {Array} insights - 提取的信息（带日期）
+ * @returns {string} ASCII 时间线
+ */
+function generateTimeline(insights) {
+  // 提取日期信息
+  const datePattern = /(\d{4}-\d{2}-\d{2})/;
+  const eventsByDate = {};
+  
+  for (const insight of insights) {
+    const match = insight.source.match(datePattern);
+    if (match) {
+      const date = match[1];
+      if (!eventsByDate[date]) {
+        eventsByDate[date] = [];
+      }
+      eventsByDate[date].push(insight);
+    }
+  }
+  
+  const dates = Object.keys(eventsByDate).sort();
+  if (dates.length < 2) return ''; // 数据不足
+  
+  let timeline = '\n### 📅 时间线视图\n\n';
+  timeline += '```\n';
+  
+  // 计算时间跨度
+  const firstDate = new Date(dates[0]);
+  const lastDate = new Date(dates[dates.length - 1]);
+  const daysSpan = Math.ceil((lastDate - firstDate) / (1000 * 60 * 60 * 24));
+  
+  timeline += `时间跨度: ${dates[0]} ~ ${dates[dates.length - 1]} (${daysSpan} 天)\n`;
+  timeline += '事件分布:\n';
+  
+  // 生成简单的 ASCII 柱状图
+  const maxEvents = Math.max(...Object.values(eventsByDate).map(e => e.length));
+  const barWidth = 20;
+  
+  for (const date of dates) {
+    const count = eventsByDate[date].length;
+    const barLength = maxEvents > 0 ? Math.round((count / maxEvents) * barWidth) : 0;
+    const bar = '█'.repeat(barLength) + '░'.repeat(barWidth - barLength);
+    const highScoreCount = eventsByDate[date].filter(e => e.score >= 0.8).length;
+    const star = highScoreCount > 0 ? ` ⭐${highScoreCount}` : '';
+    timeline += `${date} │${bar}│ ${count}条${star}\n`;
+  }
+  
+  timeline += '```\n\n';
+  return timeline;
+}
+
+/**
+ * 生成分类统计摘要
+ * 展示各类别的数量和占比
+ * 
+ * @param {Array} insights - 提取的信息
+ * @returns {string} 分类统计 Markdown
+ */
+function generateCategorySummary(insights) {
+  if (insights.length === 0) return '';
+  
+  const byCategory = {};
+  for (const insight of insights) {
+    if (!byCategory[insight.category]) {
+      byCategory[insight.category] = [];
+    }
+    byCategory[insight.category].push(insight);
+  }
+  
+  const categoryLabels = {
+    '决策': '🎯',
+    '教训': '💡',
+    '偏好': '❤️',
+    '待办': '📝',
+    '重要': '⭐',
+    '技术': '🔧'
+  };
+  
+  const priority = ['重要', '决策', '教训', '技术', '待办', '偏好'];
+  const categories = Object.keys(byCategory).sort((a, b) => {
+    const idxA = priority.indexOf(a);
+    const idxB = priority.indexOf(b);
+    return (idxA === -1 ? 999 : idxA) - (idxB === -1 ? 999 : idxB);
+  });
+  
+  let summary = '\n### 📊 分类统计\n\n';
+  summary += '| 类别 | 数量 | 占比 | 高评分 |\n';
+  summary += '|------|------|------|--------|\n';
+  
+  for (const category of categories) {
+    const items = byCategory[category];
+    const count = items.length;
+    const percentage = ((count / insights.length) * 100).toFixed(1);
+    const highScoreCount = items.filter(i => i.score >= 0.8).length;
+    const highScoreStr = highScoreCount > 0 ? `⭐ ${highScoreCount}` : '-';
+    const label = categoryLabels[category] || '📌';
+    summary += `| ${label} ${category} | ${count} | ${percentage}% | ${highScoreStr} |\n`;
+  }
+  
+  summary += '\n';
+  return summary;
+}
+
+/**
  * 生成巩固报告
- * 按类别分组展示提取的关键信息
+ * 按类别分组展示提取的关键信息，包含时间线和统计摘要
  * 
  * @param {Array} insights - 提取的信息
  * @returns {string} Markdown 格式的报告内容
@@ -532,6 +656,12 @@ function generateConsolidationReport(insights) {
   report += `本次巩固检查了最近 7 天的日常记忆，提取了 ${insights.length} 条关键信息。\n\n`;
   
   if (insights.length > 0) {
+    // 添加分类统计摘要
+    report += generateCategorySummary(insights);
+    
+    // 添加时间线视图
+    report += generateTimeline(insights);
+    
     // 按类别分组
     const byCategory = {};
     for (const insight of insights) {
@@ -553,18 +683,49 @@ function generateConsolidationReport(insights) {
       const items = byCategory[category];
       // 按评分排序，高评分在前
       items.sort((a, b) => b.score - a.score);
-      report += `### ${category} (${items.length} 条)\n\n`;
-      for (const insight of items) {
-        // 截断过长的文本，保持可读性
-        let text = insight.text;
-        if (text.length > 200) {
-          text = text.slice(0, 197) + '...';
+      
+      // 类别标签
+      const categoryLabels = {
+        '决策': '🎯',
+        '教训': '💡',
+        '偏好': '❤️',
+        '待办': '📝',
+        '重要': '⭐',
+        '技术': '🔧'
+      };
+      const label = categoryLabels[category] || '📌';
+      
+      report += `### ${label} ${category} (${items.length} 条)\n\n`;
+      
+      // 高评分项目优先展示
+      const highScoreItems = items.filter(i => i.score >= 0.8);
+      const normalItems = items.filter(i => i.score < 0.8);
+      
+      if (highScoreItems.length > 0) {
+        report += '**高优先级:**\n';
+        for (const insight of highScoreItems) {
+          let text = insight.text;
+          if (text.length > 200) {
+            text = text.slice(0, 197) + '...';
+          }
+          report += `- ⭐ [${insight.source}] ${text}\n`;
         }
-        // 高评分项目添加星标
-        const star = insight.score >= 0.8 ? '⭐ ' : '';
-        report += `- ${star}[${insight.source}] ${text}\n`;
+        report += '\n';
       }
-      report += '\n';
+      
+      if (normalItems.length > 0) {
+        if (highScoreItems.length > 0) {
+          report += '**其他:**\n';
+        }
+        for (const insight of normalItems) {
+          let text = insight.text;
+          if (text.length > 200) {
+            text = text.slice(0, 197) + '...';
+          }
+          report += `- [${insight.source}] ${text}\n`;
+        }
+        report += '\n';
+      }
     }
   } else {
     report += '> 本次未提取到关键信息。\n\n';
