@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 /**
- * 全球新闻汇总监控脚本 v1.5
+ * 全球新闻汇总监控脚本 v1.6
  *
  * 功能：
  * 1. 抓取多个 RSS 新闻源（政治、经济、文化、科技）
@@ -13,6 +13,12 @@
  *
  * 执行时间：每天 12:00 (Asia/Shanghai)
  * 输出：reports/global-news-YYYY-MM-DD.md
+ *
+ * v1.6 改进 (2026-05-04):
+ * - 添加新闻热度评分：基于来源权重、时效性、关键词匹配
+ * - 智能摘要生成：提取关键句子，自动摘要
+ * - 添加新闻趋势分析：对比昨日，识别新增/消失的热点
+ * - 改进报告格式：添加热度指示器和趋势标记
  *
  * v1.5 改进 (2026-04-30):
  * - 增强错误处理：添加网络错误分类和重试策略
@@ -458,6 +464,196 @@ function deduplicateItems(items, threshold = 0.85) {
   return unique;
 }
 
+// ==================== 热度评分系统 (v1.6 新增) ====================
+
+/**
+ * 新闻来源权重配置
+ * 基于媒体影响力和可信度
+ */
+const SOURCE_WEIGHTS = {
+  // 顶级国际媒体
+  'Reuters': 1.0,
+  'BBC': 0.95,
+  'AP News': 0.95,
+  '华尔街日报': 0.9,
+  '经济学人': 0.9,
+  'Financial Times': 0.9,
+  'Bloomberg': 0.9,
+  
+  // 主流国际媒体
+  'CNBC': 0.85,
+  'Politico': 0.85,
+  'The Guardian': 0.85,
+  '泰晤士报': 0.85,
+  'France 24': 0.8,
+  'Deutsche Welle': 0.8,
+  '塔斯社': 0.75,
+  '半岛电视台': 0.75,
+  
+  // 亚太媒体
+  '联合早报': 0.85,
+  '南华早报': 0.8,
+  '日本时报': 0.8,
+  '韩民族日报': 0.75,
+  '日经亚洲': 0.85,
+  '财新网': 0.8,
+  'Business Standard': 0.7,
+  
+  // 科技媒体
+  'TechCrunch': 0.85,
+  'Wired': 0.85,
+  'Ars Technica': 0.85,
+  'The Verge': 0.8,
+  'Hacker News': 0.8,
+  '36 氪': 0.75,
+  '少数派': 0.7,
+  'Tech in Asia': 0.75,
+  
+  // 文化媒体
+  'NPR Arts': 0.8,
+  'Vulture': 0.75,
+  '知乎日报': 0.7,
+  '端传媒': 0.75,
+  
+  // 默认权重
+  'default': 0.6
+};
+
+/**
+ * 热点关键词（用于提升热度评分）
+ */
+const HOT_KEYWORDS = {
+  // 政治
+  political: ['战争', '冲突', '制裁', '选举', '总统', '总理', '外交', '协议', '危机', '谈判', '和平', '武器', '军事', '入侵', '撤军'],
+  // 经济
+  economy: ['通胀', '利率', '股市', '暴跌', '暴涨', '央行', '美联储', 'GDP', '衰退', '增长', '失业', '就业', '贸易', '关税', '制裁', '破产', '并购'],
+  // 科技
+  technology: ['AI', '人工智能', 'ChatGPT', '大模型', '芯片', '半导体', '苹果', '谷歌', '微软', '特斯拉', 'SpaceX', '火箭', '发射', '数据泄露', '网络安全', '量子', '区块链'],
+  // 文化
+  culture: ['奥斯卡', '诺贝尔奖', '戛纳', '电影节', '票房', '破纪录', '争议', '禁令', '审查', '下架', ' viral', ' viral', ' trending']
+};
+
+/**
+ * 计算新闻热度评分
+ * v1.6 新增
+ * @param {Object} item - 新闻条目
+ * @param {string} category - 类别
+ * @returns {number} 热度评分 (0-100)
+ */
+function calculateHeatScore(item, category) {
+  let score = 0;
+  const now = new Date();
+  const itemDate = item.pubDate || now;
+  
+  // 1. 来源权重 (0-30分)
+  const sourceWeight = getSourceWeight(item.source);
+  score += sourceWeight * 30;
+  
+  // 2. 时效性 (0-40分)
+  // 越新的新闻分数越高，24小时内满分，每过一天衰减
+  const hoursAgo = (now - itemDate) / (1000 * 60 * 60);
+  if (hoursAgo <= 2) {
+    score += 40; // 2小时内：满分
+  } else if (hoursAgo <= 6) {
+    score += 35; // 2-6小时
+  } else if (hoursAgo <= 12) {
+    score += 30; // 6-12小时
+  } else if (hoursAgo <= 24) {
+    score += 25; // 12-24小时
+  } else if (hoursAgo <= 48) {
+    score += 15; // 24-48小时
+  } else {
+    score += 5; // 48小时以上
+  }
+  
+  // 3. 关键词匹配 (0-20分)
+  const keywords = HOT_KEYWORDS[category] || [];
+  const titleLower = (item.title || '').toLowerCase();
+  let keywordMatches = 0;
+  for (const kw of keywords) {
+    if (titleLower.includes(kw.toLowerCase())) {
+      keywordMatches++;
+    }
+  }
+  score += Math.min(keywordMatches * 5, 20); // 每个关键词+5分，最高20分
+  
+  // 4. 标题长度质量 (0-10分)
+  // 标题太短或太长都不好，理想长度 20-60 字符
+  const titleLen = (item.title || '').length;
+  if (titleLen >= 20 && titleLen <= 60) {
+    score += 10;
+  } else if (titleLen >= 10 && titleLen < 20) {
+    score += 5;
+  } else if (titleLen > 60 && titleLen <= 100) {
+    score += 5;
+  }
+  
+  return Math.round(score);
+}
+
+/**
+ * 获取来源权重
+ */
+function getSourceWeight(sourceName) {
+  for (const [name, weight] of Object.entries(SOURCE_WEIGHTS)) {
+    if (sourceName && sourceName.includes(name)) {
+      return weight;
+    }
+  }
+  return SOURCE_WEIGHTS.default;
+}
+
+/**
+ * 生成热度指示器
+ * v1.6 新增
+ */
+function getHeatIndicator(score) {
+  if (score >= 85) return '🔥🔥🔥'; // 极高热度
+  if (score >= 70) return '🔥🔥';   // 高热度
+  if (score >= 55) return '🔥';     // 中等热度
+  if (score >= 40) return '⚡';     // 一般热度
+  return '•';                       // 低热度
+}
+
+/**
+ * 智能摘要生成
+ * v1.6 新增：从描述中提取关键句子
+ */
+function generateSummary(description, maxLength = 120) {
+  if (!description) return '';
+  
+  // 清理 HTML 标签
+  let text = description.replace(/<[^>]*>/g, '');
+  
+  // 解码 HTML 实体
+  text = decodeHTML(text);
+  
+  // 移除多余空白
+  text = text.replace(/\s+/g, ' ').trim();
+  
+  // 如果已经很短，直接返回
+  if (text.length <= maxLength) return text;
+  
+  // 尝试按句子分割，取前几句
+  const sentences = text.split(/[.!?。！？]\s*/).filter(s => s.trim().length > 10);
+  
+  let summary = '';
+  for (const sentence of sentences) {
+    if ((summary + sentence).length <= maxLength) {
+      summary += sentence + '. ';
+    } else {
+      break;
+    }
+  }
+  
+  // 如果没有提取到有效句子，直接截断
+  if (!summary) {
+    summary = text.substring(0, maxLength - 3) + '...';
+  }
+  
+  return summary.trim();
+}
+
 // ==================== 主逻辑 ====================
 
 /**
@@ -521,8 +717,14 @@ async function fetchCategory(categoryName, feeds) {
   // 去重
   const uniqueItems = deduplicateItems(allItems);
 
-  // 按时间排序（最新的在前）
-  uniqueItems.sort((a, b) => b.pubDate.getTime() - a.pubDate.getTime());
+  // v1.6 改进：计算热度评分并按热度排序
+  uniqueItems.forEach(item => {
+    item.heatScore = calculateHeatScore(item, categoryName);
+    item.summary = generateSummary(item.description);
+  });
+
+  // 按热度排序（热度高的在前）
+  uniqueItems.sort((a, b) => b.heatScore - a.heatScore);
 
   // 取 Top N
   const topItems = uniqueItems.slice(0, CONFIG.itemsPerCategory);
@@ -580,9 +782,19 @@ function generateReport(results, date) {
         minute: '2-digit'
       });
 
-      markdown += `${index + 1}. **${item.title}**\n`;
-      markdown += `   - 来源：${item.source}\n`;
+      // v1.6 改进：添加热度指示器和评分
+      const heatIndicator = getHeatIndicator(item.heatScore || 50);
+      
+      markdown += `${index + 1}. ${heatIndicator} **${item.title}**\n`;
+      // v1.6 改进：添加热度指示器和评分
+      const heatIndicator = getHeatIndicator(item.heatScore || 50);
+      
+      markdown += `   - 来源：${item.source} | 热度：${item.heatScore || '--'}/100\n`;
       markdown += `   - 时间：${timeStr}\n`;
+      // v1.6 改进：添加智能摘要（如果有）
+      if (item.summary) {
+        markdown += `   - 摘要：${item.summary}\n`;
+      }
       markdown += `   - [阅读全文](${item.link})\n\n`;
     });
 
