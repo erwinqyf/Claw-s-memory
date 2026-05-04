@@ -5,6 +5,7 @@
  * 优化的每日获取脚本，减少API调用次数
  * 
  * 版本历史:
+ * - v2.5 (2026-05-05): 添加执行时间统计与趋势分析、内存使用监控、健康检查摘要、改进错误分类器
  * - v2.4 (2026-04-28): 优化分类算法，添加更多关键词；改进日志输出格式；增强错误分类
  * - v2.3 (2026-04-14): 优化API调用，减少请求次数；添加指数退避重试
  * - v2.2 (2026-04-10): 改进错误处理，添加超时控制
@@ -16,6 +17,7 @@
  * - 分类算法：增加关键词权重匹配，支持多分类标签
  * - 日志输出：添加执行阶段标记，分类统计输出
  * - 错误处理：增强429/500错误分类，改进重试日志
+ * - 性能监控：执行时间趋势分析、内存使用监控
  */
 
 const fs = require('fs');
@@ -27,11 +29,14 @@ const CONFIG = {
   DATA_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'data'),
   REPORTS_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'reports'),
   API_BASE: 'https://clawhub.ai',
-  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.4',
+  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.5',
   MAX_RETRIES: 3,
   RETRY_DELAY_MS: 1000,
   REQUEST_DELAY_MS: 100,
-  DEFAULT_LIMIT: 100
+  DEFAULT_LIMIT: 100,
+  // v2.5: 性能监控配置
+  TREND_WINDOW_SIZE: 10, // 保留最近10次执行记录
+  MEMORY_WARNING_MB: 100 // 内存使用警告阈值
 };
 
 // 确保路径使用绝对路径，避免工作目录问题
@@ -43,6 +48,72 @@ function log(message, emoji = 'ℹ️') {
   console.log(`${emoji} [${timestamp}] ${message}`);
 }
 
+/**
+ * v2.5: 格式化执行时间
+ * @param {number} ms - 毫秒数
+ * @returns {string} 格式化后的时间
+ */
+function formatDuration(ms) {
+  if (ms < 1000) return `${ms}ms`;
+  if (ms < 60000) return `${(ms / 1000).toFixed(1)}s`;
+  const mins = Math.floor(ms / 60000);
+  const secs = ((ms % 60000) / 1000).toFixed(1);
+  return `${mins}m ${secs}s`;
+}
+
+/**
+ * v2.5: 获取当前内存使用情况
+ * @returns {Object} 内存使用统计
+ */
+function getMemoryUsage() {
+  const usage = process.memoryUsage();
+  return {
+    rss: Math.round(usage.rss / 1024 / 1024 * 100) / 100, // MB
+    heapUsed: Math.round(usage.heapUsed / 1024 / 1024 * 100) / 100, // MB
+    heapTotal: Math.round(usage.heapTotal / 1024 / 1024 * 100) / 100, // MB
+    external: Math.round(usage.external / 1024 / 1024 * 100) / 100 // MB
+  };
+}
+
+/**
+ * v2.5: 检查内存使用是否健康
+ * @param {Object} mem - 内存使用统计
+ * @returns {boolean} 是否健康
+ */
+function isMemoryHealthy(mem) {
+  return mem.heapUsed < CONFIG.MEMORY_WARNING_MB;
+}
+
+/**
+ * v2.5: 错误分类器
+ * 对错误进行分类，便于后续处理
+ * @param {Error} error - 错误对象
+ * @returns {string} 错误类型
+ */
+function classifyError(error) {
+  const message = error.message?.toLowerCase() || '';
+  
+  if (message.includes('timeout') || message.includes('etimedout')) {
+    return 'TIMEOUT';
+  }
+  if (message.includes('econnrefused') || message.includes('enotfound') || message.includes('dns')) {
+    return 'CONNECTION';
+  }
+  if (message.includes('429') || message.includes('rate limit')) {
+    return 'RATE_LIMIT';
+  }
+  if (message.includes('500') || message.includes('502') || message.includes('503') || message.includes('504')) {
+    return 'SERVER_ERROR';
+  }
+  if (message.includes('parse') || message.includes('json') || message.includes('syntax')) {
+    return 'PARSE_ERROR';
+  }
+  if (message.includes('enoent') || message.includes('permission') || message.includes('eacces')) {
+    return 'FILE_ERROR';
+  }
+  return 'UNKNOWN';
+}
+
 function ensureDirectories() {
   [CONFIG.DATA_DIR, CONFIG.REPORTS_DIR].forEach(dir => {
     if (!fs.existsSync(dir)) {
@@ -52,7 +123,11 @@ function ensureDirectories() {
   });
 }
 
+/**
+ * v2.5: 增强错误分类和日志
+ */
 async function httpRequest(url, retryCount = 0) {
+  const requestStart = Date.now();
   return new Promise((resolve, reject) => {
     const timeout = setTimeout(() => {
       reject(new Error(`Request timeout after 15000ms: ${url}`));
@@ -68,15 +143,21 @@ async function httpRequest(url, retryCount = 0) {
       res.on('data', chunk => data += chunk);
       res.on('end', () => {
         clearTimeout(timeout);
+        const requestDuration = Date.now() - requestStart;
         
         // 健壮性：检查响应状态码
         if (res.statusCode >= 200 && res.statusCode < 300) {
           try {
             const parsed = JSON.parse(data);
+            // v2.5: 记录慢请求
+            if (requestDuration > 5000) {
+              log(`Slow request (${requestDuration}ms): ${url}`, '⚠️');
+            }
             resolve(parsed);
           } catch (e) {
-            log(`JSON parse error for ${url}: ${e.message}`, '⚠️');
-            reject(new Error(`JSON parse error: ${e.message}, data: ${data.substring(0, 200)}`));
+            const errorType = classifyError(e);
+            log(`JSON parse error [${errorType}] for ${url}: ${e.message}`, '⚠️');
+            reject(new Error(`JSON parse error [${errorType}]: ${e.message}, data: ${data.substring(0, 200)}`));
           }
         } else if (res.statusCode === 429 && retryCount < CONFIG.MAX_RETRIES) {
           const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
@@ -94,13 +175,14 @@ async function httpRequest(url, retryCount = 0) {
       });
     }).on('error', (err) => {
       clearTimeout(timeout);
-      log(`Network error for ${url}: ${err.message}`, '❌');
+      const errorType = classifyError(err);
+      log(`Network error [${errorType}] for ${url}: ${err.message}`, '❌');
       if (retryCount < CONFIG.MAX_RETRIES) {
         const delay = CONFIG.RETRY_DELAY_MS * Math.pow(2, retryCount);
         log(`Retrying in ${delay/1000}s (${retryCount + 1}/${CONFIG.MAX_RETRIES})`, '⏳');
         setTimeout(() => httpRequest(url, retryCount + 1).then(resolve).catch(reject), delay);
       } else {
-        reject(new Error(`Failed after ${CONFIG.MAX_RETRIES} retries: ${err.message}`));
+        reject(new Error(`[${errorType}] Failed after ${CONFIG.MAX_RETRIES} retries: ${err.message}`));
       }
     });
   });
@@ -207,6 +289,11 @@ async function fetchSkillDetails(slug) {
  * @param {number} limit - 返回技能数量上限
  * @returns {Promise<Array>} 技能列表
  * 
+ * v2.5 改进：
+ * - 添加执行时间统计
+ * - 添加错误分类统计
+ * - 内存使用监控
+ * 
  * v2.4 改进：
  * - 添加执行阶段日志
  * - 优化搜索词组合
@@ -214,6 +301,7 @@ async function fetchSkillDetails(slug) {
  */
 async function fetchTopSkills(limit = 100) {
   console.log(`\n📥 阶段 1/3: 获取 ClawHub 技能列表...`);
+  const stageStart = Date.now();
   
   // v2.4: 优化搜索词组合，覆盖更广的技能类型
   const searchQueries = [
@@ -229,6 +317,7 @@ async function fetchTopSkills(limit = 100) {
     'ppt', 'slide', 'presentation'         // 演示类
   ];
   const allSkillsMap = new Map();
+  const errorStats = {}; // v2.5: 错误分类统计
   let searchErrors = 0;
   
   for (const query of searchQueries) {
@@ -241,17 +330,28 @@ async function fetchTopSkills(limit = 100) {
         }
       }
     } catch (err) {
-      log(`搜索 "${query}" 失败：${err.message}`, '⚠️');
+      const errorType = classifyError(err);
+      errorStats[errorType] = (errorStats[errorType] || 0) + 1;
+      log(`搜索 "${query}" 失败 [${errorType}]: ${err.message}`, '⚠️');
       searchErrors++;
     }
   }
   
-  console.log(`✅ 找到 ${allSkillsMap.size} 个唯一技能${searchErrors > 0 ? ` (${searchErrors} 个搜索失败)` : ''}`);
+  const searchDuration = Date.now() - stageStart;
+  console.log(`✅ 找到 ${allSkillsMap.size} 个唯一技能${searchErrors > 0 ? ` (${searchErrors} 个搜索失败)` : ''} (耗时: ${formatDuration(searchDuration)})`);
+  
+  // v2.5: 检查内存使用
+  const memAfterSearch = getMemoryUsage();
+  if (!isMemoryHealthy(memAfterSearch)) {
+    log(`内存使用较高: ${memAfterSearch.heapUsed}MB`, '⚠️');
+  }
   
   // 获取每个技能的详细信息（包含下载统计）
   console.log(`\n📊 阶段 2/3: 获取技能详细信息...`);
+  const detailsStart = Date.now();
   const skillsWithDetails = [];
   const slugs = Array.from(allSkillsMap.keys());
+  let detailErrors = 0;
   
   // 使用 Promise.all 并行请求，但限制并发数
   const CONCURRENCY = 10;
@@ -280,7 +380,10 @@ async function fetchTopSkills(limit = 100) {
           }
           return null;
         } catch (err) {
-          log(`获取 ${slug} 详情失败：${err.message}`, '⚠️');
+          const errorType = classifyError(err);
+          errorStats[errorType] = (errorStats[errorType] || 0) + 1;
+          log(`获取 ${slug} 详情失败 [${errorType}]: ${err.message}`, '⚠️');
+          detailErrors++;
           return null;
         }
       })
@@ -297,6 +400,9 @@ async function fetchTopSkills(limit = 100) {
       log(`进度: ${Math.min(i + CONCURRENCY, slugs.length)}/${slugs.length}`, '📊');
     }
   }
+  
+  const detailsDuration = Date.now() - detailsStart;
+  console.log(`✅ 获取 ${skillsWithDetails.length} 个技能详情${detailErrors > 0 ? ` (${detailErrors} 个失败)` : ''} (耗时: ${formatDuration(detailsDuration)})`);
   
   // 按下载量排序
   skillsWithDetails.sort((a, b) => b.downloads - a.downloads);
@@ -318,6 +424,13 @@ async function fetchTopSkills(limit = 100) {
   
   console.log(`✅ 成功获取 ${topSkills.length} 个技能（按下载量排序）`);
   console.log(`📈 分类分布 Top 5: ${sortedCategories.map(([cat, count]) => `${cat}(${count})`).join(', ')}`);
+  
+  // v2.5: 返回错误统计供后续使用
+  topSkills._errorStats = errorStats;
+  topSkills._stageTimings = {
+    search: searchDuration,
+    details: detailsDuration
+  };
   
   return topSkills;
 }
@@ -365,14 +478,129 @@ function generateSummary(skills, categories) {
   };
 }
 
-function generateMarkdownReport(skills, categories) {
+/**
+ * v2.5: 生成执行时间趋势图
+ * @param {Array} history - 历史执行记录
+ * @returns {string} ASCII 趋势图
+ */
+function generateTrendChart(history) {
+  if (!history || history.length < 2) return '暂无足够数据生成趋势图';
+  
+  const durations = history.map(h => h.duration || 0);
+  const max = Math.max(...durations);
+  const min = Math.min(...durations);
+  const avg = durations.reduce((a, b) => a + b, 0) / durations.length;
+  
+  const chartWidth = 40;
+  const lines = [];
+  
+  // 标题
+  lines.push('执行时间趋势 (最近' + history.length + '次)');
+  lines.push('');
+  
+  // 趋势图
+  for (let i = 0; i < history.length; i++) {
+    const item = history[i];
+    const duration = item.duration || 0;
+    const barLength = max > 0 ? Math.round((duration / max) * chartWidth) : 0;
+    const bar = '█'.repeat(barLength) + '░'.repeat(chartWidth - barLength);
+    const date = item.date ? item.date.substring(5) : '??-??'; // MM-DD
+    const status = item.status === 'success' ? '✓' : '✗';
+    lines.push(`${date} ${status} ${bar} ${formatDuration(duration)}`);
+  }
+  
+  lines.push('');
+  lines.push(`平均: ${formatDuration(avg)} | 最快: ${formatDuration(min)} | 最慢: ${formatDuration(max)}`);
+  
+  return lines.join('\n');
+}
+
+/**
+ * v2.5: 加载历史执行记录
+ * @returns {Array} 历史记录
+ */
+function loadExecutionHistory() {
+  const stateFile = path.join(CONFIG.WORKSPACE_DIR, 'memory', 'clawhub-tracker-state.json');
+  if (!fs.existsSync(stateFile)) return [];
+  
+  try {
+    const state = JSON.parse(fs.readFileSync(stateFile, 'utf8'));
+    return state.executionHistory || [];
+  } catch (e) {
+    return [];
+  }
+}
+
+/**
+ * v2.5: 生成健康检查摘要
+ * @param {Object} errorStats - 错误统计
+ * @param {Object} stageTimings - 阶段耗时
+ * @param {Object} memoryUsage - 内存使用
+ * @returns {string} 健康检查摘要
+ */
+function generateHealthSummary(errorStats, stageTimings, memoryUsage) {
+  const lines = [];
+  lines.push('## 🔍 健康检查摘要\n');
+  
+  // 错误统计
+  const totalErrors = Object.values(errorStats || {}).reduce((a, b) => a + b, 0);
+  if (totalErrors === 0) {
+    lines.push('✅ **错误统计**: 无错误');
+  } else {
+    lines.push(`⚠️ **错误统计**: 共 ${totalErrors} 个错误`);
+    lines.push('');
+    lines.push('| 错误类型 | 数量 |');
+    lines.push('|----------|------|');
+    for (const [type, count] of Object.entries(errorStats || {}).sort((a, b) => b[1] - a[1])) {
+      lines.push(`| ${type} | ${count} |`);
+    }
+  }
+  lines.push('');
+  
+  // 阶段耗时
+  if (stageTimings) {
+    lines.push('**阶段耗时**:');
+    lines.push('');
+    lines.push('| 阶段 | 耗时 |');
+    lines.push('|------|------|');
+    if (stageTimings.search) lines.push(`| 搜索阶段 | ${formatDuration(stageTimings.search)} |`);
+    if (stageTimings.details) lines.push(`| 详情获取 | ${formatDuration(stageTimings.details)} |`);
+    lines.push('');
+  }
+  
+  // 内存使用
+  if (memoryUsage) {
+    const memHealthy = isMemoryHealthy(memoryUsage);
+    lines.push(`**内存使用**: ${memHealthy ? '✅' : '⚠️'} ${memoryUsage.heapUsed}MB / ${memoryUsage.heapTotal}MB (堆)`);
+    lines.push('');
+  }
+  
+  return lines.join('\n');
+}
+
+function generateMarkdownReport(skills, categories, options = {}) {
   const timestamp = new Date().toISOString().split('T')[0];
   const reportPath = path.join(CONFIG.REPORTS_DIR, `clawhub-top100-${timestamp}.md`);
   
   const summary = generateSummary(skills, categories);
+  const { errorStats, stageTimings, memoryUsage, executionHistory } = options;
   
   let report = `# ClawHub Top 100 技能排行榜\n\n`;
   report += `**更新日期:** ${timestamp}\n\n`;
+  
+  // v2.5: 添加健康检查摘要
+  if (errorStats || stageTimings || memoryUsage) {
+    report += generateHealthSummary(errorStats, stageTimings, memoryUsage);
+    report += '\n';
+  }
+  
+  // v2.5: 添加执行时间趋势图
+  if (executionHistory && executionHistory.length >= 2) {
+    report += '## 📈 执行时间趋势\n\n';
+    report += '```\n';
+    report += generateTrendChart(executionHistory);
+    report += '\n```\n\n';
+  }
   
   report += `## 📊 统计摘要\n\n`;
   report += `| 指标 | 数值 |\n`;
@@ -440,21 +668,33 @@ function saveJsonData(skills) {
 
 /**
  * 主函数
+ * v2.5 改进：添加执行时间统计、内存监控、健康检查摘要
  * v2.4 改进：添加执行阶段标记、优化日志输出
  */
 async function main() {
+  const scriptStart = Date.now();
   const startTime = new Date();
+  
   try {
-    console.log('🚀 ClawHub Top 100 Tracker v2.4 (Fast)');
-    console.log('📦 更新: 分类算法优化、增强日志、执行阶段标记');
+    console.log('🚀 ClawHub Top 100 Tracker v2.5 (Fast)');
+    console.log('📦 更新: 执行时间趋势、内存监控、健康检查、错误分类');
     console.log('═'.repeat(40));
     console.log(`开始时间：${startTime.toISOString()}`);
     console.log('');
     
     ensureDirectories();
     
+    // v2.5: 加载历史记录
+    const executionHistory = loadExecutionHistory();
+    
     // 阶段 1: 获取技能
     const skills = await fetchTopSkills(100);
+    const errorStats = skills._errorStats || {};
+    const stageTimings = skills._stageTimings || {};
+    
+    // v2.5: 获取内存使用
+    const memoryUsage = getMemoryUsage();
+    
     console.log(`\n✅ 阶段 1 完成: 获取 ${skills.length} 个技能\n`);
     
     // 阶段 2: 分类
@@ -467,7 +707,12 @@ async function main() {
     saveJsonData(skills);
     
     console.log('📝 生成 Markdown 报告...');
-    generateMarkdownReport(skills, categories);
+    generateMarkdownReport(skills, categories, {
+      errorStats,
+      stageTimings,
+      memoryUsage,
+      executionHistory
+    });
     
     const summary = generateSummary(skills, categories);
     console.log('\n📈 统计摘要:');
@@ -476,24 +721,42 @@ async function main() {
     console.log(`  平均下载量：${summary.avgDownloads.toLocaleString()} 次/技能`);
     console.log(`  最热门分类：${summary.topCategory.name}`);
     
+    // v2.5: 显示内存使用
+    console.log(`  内存使用：${memoryUsage.heapUsed}MB (堆)`);
+    
     console.log('');
     console.log('================================');
     
     const endTime = new Date();
     const duration = Math.round((endTime - startTime) / 1000);
-    console.log(`✅ ClawHub 追踪完成 (耗时：${duration}秒)`);
+    console.log(`✅ ClawHub 追踪完成 (耗时：${formatDuration(duration * 1000)})`);
     console.log(`结束时间：${endTime.toISOString()}`);
     console.log('');
     
+    // v2.5: 保存状态（包含历史记录）
     const stateFile = path.join(CONFIG.WORKSPACE_DIR, 'memory', 'clawhub-tracker-state.json');
     const stateDir = path.dirname(stateFile);
     if (!fs.existsSync(stateDir)) fs.mkdirSync(stateDir, { recursive: true });
+    
+    // 更新历史记录
+    const newHistoryEntry = {
+      date: new Date().toISOString().split('T')[0],
+      duration: duration * 1000,
+      status: 'success',
+      skillsCount: skills.length,
+      memoryUsed: memoryUsage.heapUsed
+    };
+    const updatedHistory = [...executionHistory, newHistoryEntry].slice(-CONFIG.TREND_WINDOW_SIZE);
+    
     const state = {
       lastRun: endTime.toISOString(),
       lastDuration: duration,
       lastStatus: 'success',
       skillsCount: skills.length,
-      reportPath: path.join(CONFIG.REPORTS_DIR, `clawhub-top100-${new Date().toISOString().split('T')[0]}.md`)
+      reportPath: path.join(CONFIG.REPORTS_DIR, `clawhub-top100-${new Date().toISOString().split('T')[0]}.md`),
+      executionHistory: updatedHistory,
+      lastMemoryUsage: memoryUsage,
+      lastErrorStats: errorStats
     };
     fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));
     console.log(`💾 执行状态已保存：${stateFile}`);
@@ -506,16 +769,31 @@ async function main() {
     
   } catch (error) {
     const endTime = new Date();
-    console.error('❌ 错误:', error.message);
+    const errorType = classifyError(error);
+    console.error(`❌ 错误 [${errorType}]:`, error.message);
     console.error(error.stack);
     
     const stateFile = path.join(CONFIG.WORKSPACE_DIR, 'memory', 'clawhub-tracker-state.json');
     const stateDir = path.dirname(stateFile);
     if (!fs.existsSync(stateDir)) fs.mkdirSync(stateDir, { recursive: true });
+    
+    // v2.5: 保存错误状态时也更新历史
+    const executionHistory = loadExecutionHistory();
+    const newHistoryEntry = {
+      date: new Date().toISOString().split('T')[0],
+      duration: Date.now() - scriptStart,
+      status: 'error',
+      errorType: errorType,
+      errorMessage: error.message
+    };
+    const updatedHistory = [...executionHistory, newHistoryEntry].slice(-CONFIG.TREND_WINDOW_SIZE);
+    
     const state = {
       lastRun: endTime.toISOString(),
       lastStatus: 'error',
-      lastError: error.message
+      lastError: error.message,
+      lastErrorType: errorType,
+      executionHistory: updatedHistory
     };
     fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));
     console.log(`\n💾 错误状态已保存：${stateFile}`);

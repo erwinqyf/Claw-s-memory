@@ -786,9 +786,6 @@ function generateReport(results, date) {
       const heatIndicator = getHeatIndicator(item.heatScore || 50);
       
       markdown += `${index + 1}. ${heatIndicator} **${item.title}**\n`;
-      // v1.6 改进：添加热度指示器和评分
-      const heatIndicator = getHeatIndicator(item.heatScore || 50);
-      
       markdown += `   - 来源：${item.source} | 热度：${item.heatScore || '--'}/100\n`;
       markdown += `   - 时间：${timeStr}\n`;
       // v1.6 改进：添加智能摘要（如果有）
