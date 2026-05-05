@@ -747,29 +747,29 @@ Temperature=0.75 的选择基于通用实践，但实验结果暗示：
 
 [13] Popović, M. (2018). Post-editing neural machine translation of literary text: A case study. *Journal of Translation Studies*.
 
-[14] [LiTransProQA authors]. (2025). LiTransProQA: An LLM-based Literary translation Evaluation Metric. *arXiv preprint arXiv:2505.05423*.
+[14] Zhang, R., et al. (2025). LiTransProQA: An LLM-based Literary Translation Evaluation Metric with Professional Question Answering. *arXiv preprint arXiv:2505.05423*.
 
-[15] Toral, A., et al. (2023). Large Language Models Effectively Leverage Document-level Context in Literary Translation. *WMT 2023*.
+[15] Karpinska, I., & Iyyer, M. (2023). Large Language Models Effectively Leverage Document-level Context for Literary Translation, but Critical Errors Persist. *WMT 2023*.
 
 [16] Jiao, W., et al. (2023). Is ChatGPT a good translator? A preliminary study. *arXiv preprint arXiv:2301.08745*.
 
-[17] [Temperature sampling study]. LLM Configuration Parameters: Top-K, Top-P & Temperature. *Machine Learning Research*.
+[17] Ayan, M. (2024). LLM Configuration Parameters: Top-K, Top-P & Temperature. *Substack*.
 
 [18] Holtzman, A., et al. (2020). The curious case of neural text degeneration. *ICLR 2020*.
 
-[19] [Decoding parameters study]. How might the decoding parameters of the LLM affect translation quality? *RAG Systems Research*.
+[19] Milvus. (2024). How might the decoding parameters of the LLM affect the consistency and quality of the answers in a RAG system? *Milvus Documentation*.
 
-[20] Guerreiro, N., et al. (2024). XCOMET: Explainable neural metrics for machine translation evaluation. *EACL 2024*.
+[20] Guerreiro, N., et al. (2024). XCOMET: Transparent Machine Translation Evaluation through Fine-grained Error Detection. *TACL 2024*.
 
 [21] Kocmi, T., & Federmann, C. (2023). GEMBA: GPT-based metric for assessment of translation quality. *EAMT 2023*.
 
 [22] Hernandez, D., et al. (2021). Scaling laws for transfer. *arXiv preprint arXiv:2109.00074*.
 
-[23] Kocmi, T., et al. (2025). GEMBA V2: Ten Judgments Are Better Than One. *WMT 2025*.
+[23] Junczys-Dowmunt, M. (2025). GEMBA V2: Ten Judgments Are Better Than One. *WMT 2025*.
 
 [24] Kim, S., et al. (2024). Prometheus 2: An Open Source Language Model Specialized in Evaluating Other Language Models. *EMNLP 2024*.
 
-[25] Vieira, L., et al. (2025). How Good Are LLMs for Literary Translation, Really? Evaluating Literary Translation with LLM-based Metrics. *NAACL 2025*.
+[25] Karpinska, I., et al. (2024). How Good Are LLMs for Literary Translation, Really? Literary Translation Evaluation with Humans and LLMs. *arXiv preprint arXiv:2410.18697*.
 
 ---
 
