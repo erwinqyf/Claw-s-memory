@@ -1,17 +1,45 @@
 {
-  "lastRun": "2026-05-02T03:00:00.000Z",
-  "lastRunFormatted": "2026-05-02 11:00 Asia/Shanghai",
-  "lastPublished": "2026-05-02T03:15:00.000Z",
-  "newArticlesFound": 12,
-  "reportPath": "reports/language-service-monitor-20260502.md",
+  "lastRun": "2026-05-05T03:00:00.000Z",
+  "lastRunFormatted": "2026-05-05 11:00 Asia/Shanghai",
+  "lastPublished": "2026-05-05T03:15:00.000Z",
+  "newArticlesFound": 4,
+  "reportPath": "reports/language-service-monitor-20260505.md",
   "gitCommit": "",
   "articles": [
+    {
+      "title": "【重点】Nimdzi发布2026 Nimdzi 100行业报告",
+      "source": "Nimdzi",
+      "date": "2026-04",
+      "url": "https://www.nimdzi.com/nimdzi-100-2026/",
+      "summary": "2025年行业规模达726亿美元，AI驱动行业重构，DeepL/Smartling等技术公司首次进入排名"
+    },
+    {
+      "title": "【重点】Slator发布2026 Slator Index",
+      "source": "Slator",
+      "date": "2026-04",
+      "url": "https://slator.com/2026-slator-index/",
+      "summary": "覆盖300+公司，57%公司收入下降，超级代理商占50%+增长，市场整合加速"
+    },
     {
       "title": "【重点】DeepL发布实时语音翻译产品DeepL Voice-to-Voice",
       "source": "DeepL",
       "date": "2026-04-16",
-      "url": "https://www.deepl.com/en/press-release/deepl-unveils-real-time-spoken-translation-breaking-the-next-language-barrier-with-voice-to-voice",
-      "summary": "语言AI领导者DeepL推出实时语音翻译产品套件，支持40+语言的语音对语音实时翻译"
+      "url": "https://www.prnewswire.com/news-releases/deepl-unveils-real-time-spoken-translation-breaking-the-next-language-barrier-with-voice-to-voice-302744002.html",
+      "summary": "支持40+语言的实时语音对语音翻译，可与Zoom/Teams集成"
+    },
+    {
+      "title": "Smartling荣获G2 2026最佳软件奖第2名",
+      "source": "Smartling",
+      "date": "2026-04",
+      "url": "https://www.smartling.com/company-news/smartling-named-g2s-2026-best-software-for-content-management",
+      "summary": "在内容管理系统(CMS)产品类别中排名第2，基于真实用户评价"
+    },
+    {
+      "title": "Lionbridge宣布所有权战略转型至KKR",
+      "source": "Lionbridge",
+      "date": "2026-04",
+      "url": "https://www.lionbridge.com/press-release/lionbridge-announces-strategic-ownership-transition-to-kkr/",
+      "summary": "FS KKR Capital Corp收购Lionbridge，交易已获CCPC批准"
     },
     {
       "title": "【重点】RWS推出Language Weaver Pro企业级AI翻译解决方案",
@@ -19,13 +47,6 @@
       "date": "2026-03-25",
       "url": "https://www.rws.com/about/news/2026/language-weaver-pro/",
       "summary": "与Cohere合作构建的1000亿参数模型，业界最大专用翻译模型"
-    },
-    {
-      "title": "【重点】Nimdzi发布2026 Nimdzi 100排名",
-      "source": "Nimdzi",
-      "date": "2026-04",
-      "url": "https://www.nimdzi.com/nimdzi-100-2026/",
-      "summary": "2026年度语言服务提供商百强排名，前51-100名企业增长11.3%"
     },
     {
       "title": "Lilt四月产品发布 - 新增67种语言支持",
@@ -75,13 +96,6 @@
       "date": "2026-04",
       "url": "https://www.acolad.com/en/news",
       "summary": "安全AI治理能力获得认可"
-    },
-    {
-      "title": "Lionbridge宣布所有权战略转型至KKR",
-      "source": "Lionbridge",
-      "date": "2026-04",
-      "url": "https://www.news-leader.com/press-release/story/30526/lionbridge-announces-strategic-ownership-transition-to-kkr/",
-      "summary": "期待利用KKR的专业知识、资源和全球足迹"
     },
     {
       "title": "【重点】Smartcat发布AI驱动的L&D课程创作与翻译工作流",
