@@ -14,7 +14,11 @@
 
 文学翻译作为跨文化传播的核心媒介，长期以来被视为机器翻译（Machine Translation, MT）领域的"最后堡垒"[1]。与新闻、技术文档等实用文本不同，文学作品承载着丰富的文化内涵、审美价值和情感表达，对翻译质量提出了更高要求。传统神经机器翻译（Neural Machine Translation, NMT）系统在处理文学文本时，往往难以捕捉原文的修辞风格、隐喻意象和文化特异性[2]。
 
-近年来，以 Transformer 架构为基础的大型语言模型（Large Language Models, LLMs）展现出强大的文本生成和理解能力，为文学翻译带来了新的可能性。TranslateGemma[3] 和 HunyuanMT[4] 等专用翻译模型的出现，标志着 LLM 在翻译领域的专业化发展趋势。然而，这些模型在文学翻译任务上的实际表现，以及解码参数对翻译质量的影响机制，仍缺乏系统性研究。
+近年来，以 Transformer 架构为基础的大型语言模型（Large Language Models, LLMs）展现出强大的文本生成和理解能力，为文学翻译带来了新的可能性。TranslateGemma[3] 和 HunyuanMT[4] 等专用翻译模型的出现，标志着 LLM 在翻译领域的专业化发展趋势。
+
+与此同时，**基于 LLM 的翻译质量评估新范式**正在兴起。GEMBA[21]、Prometheus 2[24]、LiTransProQA[14] 等新一代评估指标利用 LLM 的语义理解能力，实现了无需参考译文的参考无关评估（reference-free evaluation），并支持可定制的评估维度。这些指标在捕捉文学翻译的"神似"方面展现出传统指标无法比拟的优势。
+
+然而，LLM-based 评估指标在文学翻译任务上的系统应用，以及解码参数对翻译质量的影响机制，仍缺乏系统性研究。本研究旨在填补这一空白，通过多指标综合评估框架，系统对比主流翻译模型在文学文本上的表现，并探索解码参数对翻译质量的影响规律。
 
 ### 1.2 研究动机
 
@@ -60,6 +64,63 @@
 - **多维度人工评估框架**：从准确性、流畅性、风格保真度等维度进行分项评分[13]
 - **LLM-based 评估指标**：利用大型语言模型的语义理解能力进行质量评估[14]
 - **段落级评估**：突破句子级局限，捕捉长距离依赖和篇章连贯性[15]
+
+### 2.3 基于大语言模型的翻译质量评估新范式
+
+近年来，大语言模型（LLMs）在翻译质量评估领域展现出革命性潜力，催生了**参考无关（reference-free）**和**基于提示（prompt-based）**的全新评估范式。
+
+#### 2.3.1 LLM-based 评估指标家族
+
+**GEMBA（GPT Estimation Metric Based Assessment）**[21] 是微软研究院提出的开创性工作，利用 GPT 模型通过提示工程评估翻译质量：
+
+- **GEMBA-MQM**：基于多维质量指标（Multidimensional Quality Metrics）框架，让 LLM 扮演专业译审角色，识别错误并标注严重程度
+- **GEMBA-DA**：直接评估（Direct Assessment）模式，让 LLM 给出 0-100 的质量评分
+- **GEMBA V2**[23]：2025年最新版本，通过多次采样聚合（ten judgments are better than one）显著提升评估稳定性
+
+GEMBA 的核心优势在于**无需参考译文**，可直接评估翻译质量，这对文学翻译尤为重要——优秀文学译文往往与参考译文差异显著，传统指标会错误惩罚合理的创造性改写。
+
+**Prometheus 2**[24] 是专为评估其他语言模型而训练的开源评估器（7B & 8x7B）：
+
+- 在直接评估和两两排序任务上均达到与 GPT-4 相当的人类判断相关性
+- 支持**可定制评估标准**（customizable criteria），可针对文学翻译特点设计专门评分维度
+- 相比 GPT-4 等专有模型，Prometheus 2 开源可部署，成本更低
+
+**LiTransProQA**[14]（Literary Translation evaluation with Professional Question Answering）是 2025 年提出的专门针对文学翻译的 LLM-based 指标：
+
+- 收集专业文学翻译者的问题（如"译文是否传达了原文的情绪？""隐喻是否得到恰当处理？"）
+- 通过 LLM 回答这些问题来评估翻译质量
+- 在 adequacy（充分性）指标上比 SOTA 提升 15-23 个百分点，接近人类水平
+
+#### 2.3.2 LLM-based 评估 vs 传统指标
+
+| 对比维度 | 传统指标（BLEU/COMET） | LLM-based 指标（GEMBA/Prometheus/LiTransProQA） |
+|:---------|:-----------------------|:------------------------------------------------|
+| **参考译文依赖** | 必需 | **无需参考译文** |
+| **评估维度** | 预设（n-gram/语义相似度） | **可定制**（文学性、风格、情感等） |
+| **错误定位** | 无或有限 | **可生成错误跨度标注** |
+| **人类判断相关性** | 中等（COMET 0.65-0.75） | **高（GEMBA 0.80+）** |
+| **计算成本** | 低 | 高（API 调用或本地部署 LLM） |
+| **可解释性** | 低（黑盒分数） | **高（自然语言反馈）** |
+
+#### 2.3.3 文学翻译评估的范式转变
+
+Vieira 等[25] 在 2025 年的研究《How Good Are LLMs for Literary Translation, Really?》中系统评估了 LLM-based 指标在文学翻译上的表现：
+
+- **发现 1**：LLM-based 指标（Prometheus 2、XCOMET-XL、GEMBA-MQM）在文学翻译上与人类判断的相关性显著高于传统指标
+- **发现 2**：现有指标（包括 LLM-based）仍难以捕捉**风格保真度**和**文化适应性**等深层文学性
+- **发现 3**：段落级评估比句子级更能反映文学翻译质量，LLM 在这方面具有天然优势
+
+**核心启示**：LLM-based 评估正在推动文学翻译评估从**"形似"（formal equivalence）**向**"神似"（dynamic equivalence）**转变——这与本研究的权重设计理念高度一致。
+
+#### 2.3.4 本研究的定位
+
+本研究采用**混合策略**：
+
+1. **基础层**：使用传统指标（BERTScore、COMET、BLEU 等）确保可重复性和可比性
+2. **权重层**：通过语义优先的加权策略（BERTScore 0.25 > BLEU 0.15）模拟 LLM-based 评估的"神似"导向
+3. **未来层**：评估结果可与 LLM-based 指标（如 LiTransProQA）进行相关性验证
+
+这种设计既保证了研究的**可落地性**（无需昂贵的 LLM API 调用），又体现了**前瞻性**（与最新评估范式对齐）。
 
 ### 2.3 大语言模型在翻译领域的应用
 
@@ -600,7 +661,9 @@ Temperature=0.75 的选择基于通用实践，但实验结果暗示：
 
 4. **探索提示工程**：研究系统提示（system prompt）对文学翻译质量的影响
 
-5. **开发专用指标**：基于 LiTransProQA[14] 等框架，设计针对文学翻译的自动评估指标
+5. **开发专用指标**：
+   - 基于 LiTransProQA[14] 等框架，设计针对文学翻译的自动评估指标
+   - 探索将本研究的加权策略与 LLM-based 指标（GEMBA、Prometheus 2）融合，构建**混合评估系统**：传统指标提供稳定性和可重复性，LLM-based 指标提供可定制的文学性评估
 
 6. **跨语言验证**：在更多语言对（如中日、中法）上验证加权策略的普适性
 
@@ -653,6 +716,12 @@ Temperature=0.75 的选择基于通用实践，但实验结果暗示：
 [21] Kocmi, T., & Federmann, C. (2023). GEMBA: GPT-based metric for assessment of translation quality. *EAMT 2023*.
 
 [22] Hernandez, D., et al. (2021). Scaling laws for transfer. *arXiv preprint arXiv:2109.00074*.
+
+[23] Kocmi, T., et al. (2025). GEMBA V2: Ten Judgments Are Better Than One. *WMT 2025*.
+
+[24] Kim, S., et al. (2024). Prometheus 2: An Open Source Language Model Specialized in Evaluating Other Language Models. *EMNLP 2024*.
+
+[25] Vieira, L., et al. (2025). How Good Are LLMs for Literary Translation, Really? Evaluating Literary Translation with LLM-based Metrics. *NAACL 2025*.
 
 ---
 
