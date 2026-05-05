@@ -723,7 +723,7 @@ Temperature=0.75 的选择基于通用实践，但实验结果暗示：
 
 [1] Toral, A., & Way, A. (2018). What level of quality can neural machine translation attain on literary text? In *Translation and Digital Humanities* (pp. 159-182). Springer.
 
-[2] Guzman, F., et al. (2019). The FLores evaluation datasets for low-resource machine translation: Nepali–english and sinhala–english. *EMNLP 2019*.
+[2] Guzmán, F., et al. (2019). The FLORES Evaluation Datasets for Low-Resource Machine Translation: Nepali–English and Sinhala–English. *EMNLP-IJCNLP 2019*.
 
 [3] Google. (2025). TranslateGemma Technical Report. *arXiv preprint arXiv:2601.09012*.
 
@@ -743,9 +743,9 @@ Temperature=0.75 的选择基于通用实践，但实验结果暗示：
 
 [11] Rei, R., et al. (2020). COMET: A neural framework for MT evaluation. *EMNLP 2020*.
 
-[12] Toral, A., & Way, A. (2015). Machine translation in the translation classroom: A study of the use of MT for literary texts. *Translation and Interpreting Studies*.
+[12] Toral, A., & Way, A. (2015). Machine-assisted translation of literary text: A case study. *Translation Spaces*.
 
-[13] Popović, M. (2018). Post-editing neural machine translation of literary text: A case study. *Journal of Translation Studies*.
+[13] Popović, M. (2018). Post-editing of machine-translated literary texts: A case study. *Translation Spaces*.
 
 [14] Zhang, R., et al. (2025). LiTransProQA: An LLM-based Literary Translation Evaluation Metric with Professional Question Answering. *arXiv preprint arXiv:2505.05423*.
 
@@ -763,7 +763,7 @@ Temperature=0.75 的选择基于通用实践，但实验结果暗示：
 
 [21] Kocmi, T., & Federmann, C. (2023). GEMBA: GPT-based metric for assessment of translation quality. *EAMT 2023*.
 
-[22] Hernandez, D., et al. (2021). Scaling laws for transfer. *arXiv preprint arXiv:2109.00074*.
+[22] Hernandez, D., et al. (2021). Scaling Laws for Transfer. *arXiv preprint arXiv:2102.01293*.
 
 [23] Junczys-Dowmunt, M. (2025). GEMBA V2: Ten Judgments Are Better Than One. *WMT 2025*.
 
