@@ -1,8 +1,8 @@
 {
-  "lastRun": "2026-05-05T03:00:00.000Z",
-  "lastRunFormatted": "2026-05-05 11:00 Asia/Shanghai",
+  "lastRun": "2026-05-05T16:04:01.628Z",
+  "lastRunFormatted": "2026/5/6 00:04:01",
   "lastPublished": "2026-05-05T03:15:00.000Z",
-  "newArticlesFound": 4,
+  "newArticlesFound": 0,
   "reportPath": "reports/language-service-monitor-20260505.md",
   "gitCommit": "ee54206",
   "feishuDocToken": "WnyMdlcC7otWJ5x70Kwc5xSsnNe",
@@ -106,5 +106,7 @@
       "url": "https://www.smartcat.com/news/smartcat-unveils-new-lnd-ai-workflows-ltl-2026/",
       "summary": "多智能体系统支持企业L&D团队以比传统工作流快10倍的速度创建、翻译和更新全球学习内容"
     }
-  ]
+  ],
+  "runCount": 1,
+  "lastSaveTime": "2026-05-05T16:04:01.628Z"
 }
