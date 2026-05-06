@@ -5,6 +5,7 @@
  * 优化的每日获取脚本，减少API调用次数
  * 
  * 版本历史:
+ * - v2.6 (2026-05-07): 添加技能趋势检测（上升/下降/新晋）、添加对比分析功能、改进报告格式
  * - v2.5 (2026-05-05): 添加执行时间统计与趋势分析、内存使用监控、健康检查摘要、改进错误分类器
  * - v2.4 (2026-04-28): 优化分类算法，添加更多关键词；改进日志输出格式；增强错误分类
  * - v2.3 (2026-04-14): 优化API调用，减少请求次数；添加指数退避重试
@@ -14,6 +15,8 @@
  * - v1.0 (2026-03-20): 初始版本
  * 
  * 优化点:
+ * - 趋势检测：对比昨日数据，识别技能排名变化
+ * - 对比分析：生成技能变化报告（上升/下降/新晋）
  * - 分类算法：增加关键词权重匹配，支持多分类标签
  * - 日志输出：添加执行阶段标记，分类统计输出
  * - 错误处理：增强429/500错误分类，改进重试日志
@@ -29,14 +32,17 @@ const CONFIG = {
   DATA_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'data'),
   REPORTS_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'reports'),
   API_BASE: 'https://clawhub.ai',
-  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.5',
+  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.6',
   MAX_RETRIES: 3,
   RETRY_DELAY_MS: 1000,
   REQUEST_DELAY_MS: 100,
   DEFAULT_LIMIT: 100,
   // v2.5: 性能监控配置
   TREND_WINDOW_SIZE: 10, // 保留最近10次执行记录
-  MEMORY_WARNING_MB: 100 // 内存使用警告阈值
+  MEMORY_WARNING_MB: 100, // 内存使用警告阈值
+  // v2.6: 趋势检测配置
+  TREND_THRESHOLD: 0.05, // 5% 变化阈值
+  NEW_SKILL_DAYS: 7 // 7天内为"新晋"
 };
 
 // 确保路径使用绝对路径，避免工作目录问题
@@ -46,6 +52,177 @@ CONFIG.REPORTS_DIR = path.resolve(CONFIG.WORKSPACE_DIR, 'reports');
 function log(message, emoji = 'ℹ️') {
   const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
   console.log(`${emoji} [${timestamp}] ${message}`);
+}
+
+/**
+ * v2.6: 加载昨日技能数据用于对比
+ * @returns {Object|null} 昨日数据
+ */
+function loadYesterdayData() {
+  const today = new Date();
+  const yesterday = new Date(today);
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = yesterday.toISOString().split('T')[0];
+  
+  const jsonPath = path.join(CONFIG.DATA_DIR, `clawhub-top100-${yesterdayStr}.json`);
+  if (!fs.existsSync(jsonPath)) {
+    // 尝试加载最新快照
+    const latestPath = path.join(CONFIG.DATA_DIR, 'clawhub-top100-latest.json');
+    if (fs.existsSync(latestPath)) {
+      try {
+        const data = JSON.parse(fs.readFileSync(latestPath, 'utf8'));
+        // 检查数据日期
+        const firstSkill = data[0];
+        if (firstSkill && firstSkill.updatedAt) {
+          const dataDate = new Date(firstSkill.updatedAt);
+          const daysDiff = (today - dataDate) / (1000 * 60 * 60 * 24);
+          if (daysDiff < 2) {
+            log(`使用最新快照数据（${daysDiff.toFixed(1)}天前）进行对比`, '📊');
+            return { skills: data, date: dataDate.toISOString().split('T')[0] };
+          }
+        }
+      } catch (e) {
+        log(`加载最新快照失败: ${e.message}`, '⚠️');
+      }
+    }
+    return null;
+  }
+  
+  try {
+    const data = JSON.parse(fs.readFileSync(jsonPath, 'utf8'));
+    return { skills: data, date: yesterdayStr };
+  } catch (e) {
+    log(`加载昨日数据失败: ${e.message}`, '⚠️');
+    return null;
+  }
+}
+
+/**
+ * v2.6: 分析技能趋势（上升/下降/新晋/稳定）
+ * @param {Array} todaySkills - 今日技能列表
+ * @param {Array} yesterdaySkills - 昨日技能列表
+ * @returns {Object} 趋势分析结果
+ */
+function analyzeTrends(todaySkills, yesterdaySkills) {
+  if (!yesterdaySkills || yesterdaySkills.length === 0) {
+    return { rising: [], falling: [], new: [], stable: [] };
+  }
+  
+  const yesterdayMap = new Map();
+  yesterdaySkills.forEach((skill, index) => {
+    yesterdayMap.set(skill.name, { rank: index + 1, downloads: skill.downloads });
+  });
+  
+  const rising = [];
+  const falling = [];
+  const stable = [];
+  const newSkills = [];
+  
+  todaySkills.forEach((skill, index) => {
+    const todayRank = index + 1;
+    const yesterdayData = yesterdayMap.get(skill.name);
+    
+    if (!yesterdayData) {
+      // 新晋技能
+      newSkills.push({
+        ...skill,
+        rank: todayRank,
+        change: 'NEW'
+      });
+    } else {
+      const rankChange = yesterdayData.rank - todayRank; // 正数表示上升
+      const downloadChange = skill.downloads - yesterdayData.downloads;
+      const downloadChangePercent = yesterdayData.downloads > 0 
+        ? (downloadChange / yesterdayData.downloads) 
+        : 0;
+      
+      const trendData = {
+        ...skill,
+        rank: todayRank,
+        previousRank: yesterdayData.rank,
+        rankChange,
+        downloadChange,
+        downloadChangePercent
+      };
+      
+      if (rankChange > 2 || downloadChangePercent > CONFIG.TREND_THRESHOLD) {
+        rising.push(trendData);
+      } else if (rankChange < -2 || downloadChangePercent < -CONFIG.TREND_THRESHOLD) {
+        falling.push(trendData);
+      } else {
+        stable.push(trendData);
+      }
+    }
+  });
+  
+  return {
+    rising: rising.sort((a, b) => b.rankChange - a.rankChange),
+    falling: falling.sort((a, b) => a.rankChange - b.rankChange),
+    new: newSkills,
+    stable
+  };
+}
+
+/**
+ * v2.6: 生成趋势报告部分
+ * @param {Object} trends - 趋势分析结果
+ * @returns {string} Markdown 趋势报告
+ */
+function generateTrendReport(trends) {
+  const lines = [];
+  lines.push('## 📈 技能趋势分析\n');
+  
+  // 上升技能
+  if (trends.rising.length > 0) {
+    lines.push(`### 🚀 上升技能 (${trends.rising.length} 个)\n`);
+    lines.push('| 技能 | 排名变化 | 下载变化 | 趋势 |');
+    lines.push('|------|----------|----------|------|');
+    trends.rising.slice(0, 10).forEach(skill => {
+      const rankChangeStr = skill.rankChange > 0 ? `+${skill.rankChange} ↑` : `${skill.rankChange}`;
+      const downloadChangePercent = (skill.downloadChangePercent * 100).toFixed(1);
+      const trend = downloadChangePercent > 10 ? '🔥' : (downloadChangePercent > 5 ? '📈' : '↗️');
+      lines.push(`| ${skill.name} | ${rankChangeStr} | +${skill.downloadChange.toLocaleString()} (${downloadChangePercent}%) | ${trend} |`);
+    });
+    lines.push('');
+  }
+  
+  // 下降技能
+  if (trends.falling.length > 0) {
+    lines.push(`### 📉 下降技能 (${trends.falling.length} 个)\n`);
+    lines.push('| 技能 | 排名变化 | 下载变化 | 趋势 |');
+    lines.push('|------|----------|----------|------|');
+    trends.falling.slice(0, 10).forEach(skill => {
+      const rankChangeStr = `${skill.rankChange} ↓`;
+      const downloadChangePercent = (skill.downloadChangePercent * 100).toFixed(1);
+      const trend = downloadChangePercent < -10 ? '❄️' : (downloadChangePercent < -5 ? '📉' : '↘️');
+      lines.push(`| ${skill.name} | ${rankChangeStr} | ${skill.downloadChange.toLocaleString()} (${downloadChangePercent}%) | ${trend} |`);
+    });
+    lines.push('');
+  }
+  
+  // 新晋技能
+  if (trends.new.length > 0) {
+    lines.push(`### ✨ 新晋技能 (${trends.new.length} 个)\n`);
+    lines.push('| 技能 | 排名 | 下载数 | 分类 |');
+    lines.push('|------|------|--------|------|');
+    trends.new.slice(0, 10).forEach(skill => {
+      lines.push(`| ${skill.name} | ${skill.rank} | ${skill.downloads.toLocaleString()} | ${skill.category} |`);
+    });
+    lines.push('');
+  }
+  
+  // 统计摘要
+  lines.push('### 📊 趋势统计\n');
+  lines.push('| 类型 | 数量 | 占比 |');
+  lines.push('|------|------|------|');
+  const total = trends.rising.length + trends.falling.length + trends.new.length + trends.stable.length;
+  lines.push(`| 上升 | ${trends.rising.length} | ${((trends.rising.length / total) * 100).toFixed(1)}% |`);
+  lines.push(`| 下降 | ${trends.falling.length} | ${((trends.falling.length / total) * 100).toFixed(1)}% |`);
+  lines.push(`| 新晋 | ${trends.new.length} | ${((trends.new.length / total) * 100).toFixed(1)}% |`);
+  lines.push(`| 稳定 | ${trends.stable.length} | ${((trends.stable.length / total) * 100).toFixed(1)}% |`);
+  lines.push('');
+  
+  return lines.join('\n');
 }
 
 /**
@@ -583,7 +760,7 @@ function generateMarkdownReport(skills, categories, options = {}) {
   const reportPath = path.join(CONFIG.REPORTS_DIR, `clawhub-top100-${timestamp}.md`);
   
   const summary = generateSummary(skills, categories);
-  const { errorStats, stageTimings, memoryUsage, executionHistory } = options;
+  const { errorStats, stageTimings, memoryUsage, executionHistory, trends } = options;
   
   let report = `# ClawHub Top 100 技能排行榜\n\n`;
   report += `**更新日期:** ${timestamp}\n\n`;
@@ -600,6 +777,12 @@ function generateMarkdownReport(skills, categories, options = {}) {
     report += '```\n';
     report += generateTrendChart(executionHistory);
     report += '\n```\n\n';
+  }
+  
+  // v2.6: 添加技能趋势分析
+  if (trends) {
+    report += generateTrendReport(trends);
+    report += '\n';
   }
   
   report += `## 📊 统计摘要\n\n`;
@@ -668,6 +851,7 @@ function saveJsonData(skills) {
 
 /**
  * 主函数
+ * v2.6 改进：添加技能趋势检测、对比分析功能
  * v2.5 改进：添加执行时间统计、内存监控、健康检查摘要
  * v2.4 改进：添加执行阶段标记、优化日志输出
  */
@@ -676,8 +860,8 @@ async function main() {
   const startTime = new Date();
   
   try {
-    console.log('🚀 ClawHub Top 100 Tracker v2.5 (Fast)');
-    console.log('📦 更新: 执行时间趋势、内存监控、健康检查、错误分类');
+    console.log('🚀 ClawHub Top 100 Tracker v2.6 (Fast)');
+    console.log('📦 更新: 技能趋势检测、对比分析、执行时间趋势、内存监控');
     console.log('═'.repeat(40));
     console.log(`开始时间：${startTime.toISOString()}`);
     console.log('');
@@ -686,6 +870,15 @@ async function main() {
     
     // v2.5: 加载历史记录
     const executionHistory = loadExecutionHistory();
+    
+    // v2.6: 加载昨日数据进行对比
+    log('加载昨日数据进行对比...', '📊');
+    const yesterdayData = loadYesterdayData();
+    if (yesterdayData) {
+      log(`找到对比数据: ${yesterdayData.date} (${yesterdayData.skills.length} 个技能)`, '✅');
+    } else {
+      log('未找到昨日数据，跳过趋势分析', '⚠️');
+    }
     
     // 阶段 1: 获取技能
     const skills = await fetchTopSkills(100);
@@ -697,13 +890,26 @@ async function main() {
     
     console.log(`\n✅ 阶段 1 完成: 获取 ${skills.length} 个技能\n`);
     
-    // 阶段 2: 分类
-    console.log('📂 阶段 3/3: 分类技能并生成报告...');
+    // v2.6: 分析趋势
+    let trends = null;
+    if (yesterdayData && yesterdayData.skills) {
+      console.log('📈 阶段 2/4: 分析技能趋势...');
+      trends = analyzeTrends(skills, yesterdayData.skills);
+      console.log(`✅ 趋势分析完成:`);
+      console.log(`   上升: ${trends.rising.length} 个`);
+      console.log(`   下降: ${trends.falling.length} 个`);
+      console.log(`   新晋: ${trends.new.length} 个`);
+      console.log(`   稳定: ${trends.stable.length} 个`);
+      console.log('');
+    }
+    
+    // 阶段 3: 分类
+    console.log('📂 阶段 3/4: 分类技能...');
     const categories = categorizeSkills(skills);
     console.log(`✅ 分为 ${Object.keys(categories).length} 个分类`);
     
-    // 阶段 3: 保存和报告
-    console.log('💾 保存 JSON 数据...');
+    // 阶段 4: 保存和报告
+    console.log('💾 阶段 4/4: 保存数据和生成报告...');
     saveJsonData(skills);
     
     console.log('📝 生成 Markdown 报告...');
@@ -711,7 +917,8 @@ async function main() {
       errorStats,
       stageTimings,
       memoryUsage,
-      executionHistory
+      executionHistory,
+      trends
     });
     
     const summary = generateSummary(skills, categories);
@@ -756,7 +963,13 @@ async function main() {
       reportPath: path.join(CONFIG.REPORTS_DIR, `clawhub-top100-${new Date().toISOString().split('T')[0]}.md`),
       executionHistory: updatedHistory,
       lastMemoryUsage: memoryUsage,
-      lastErrorStats: errorStats
+      lastErrorStats: errorStats,
+      trends: trends ? {
+        rising: trends.rising.length,
+        falling: trends.falling.length,
+        new: trends.new.length,
+        stable: trends.stable.length
+      } : null
     };
     fs.writeFileSync(stateFile, JSON.stringify(state, null, 2));
     console.log(`💾 执行状态已保存：${stateFile}`);
