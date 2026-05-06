@@ -364,7 +364,63 @@ Vieira et al. (2025) [25] 的最新研究系统评估了各类指标在文学翻
 
 ### 3.4 数据集与预处理
 
-[注：此处需根据实际实验补充数据集信息，包括源语言、目标语言、文本类型、样本量等]
+#### 3.4.1 数据集概况
+
+本研究采用**政论文化类文本**作为实验语料，选取《中华优秀传统文化的生命力》一文作为翻译评估的基准文本。该文本具有以下特点：
+
+- **文本类型**：政论性文化散文，兼具学术性与文学性
+- **语言对**：中文（源语言）→ 英文（目标语言）
+- **文本长度**：约1,200字（中文），包含4个主要段落
+- **内容特点**：
+  - 涉及中国传统文化核心价值观（尚德、尚一、尚化）
+  - 包含大量文化负载词（如"修齐治平""内圣外王""天人合一"）
+  - 引用古典文献（《周易》《史记》等）
+  - 融合论述与叙事，兼具抽象概念与具体典故
+
+#### 3.4.2 源文本与参考译文
+
+**源文本（节选）**：
+
+> 中华优秀传统文化的生命力
+> 
+> 博大精深的中华优秀传统文化，承载于浩如烟海的经典著作、各种各样的文化遗产、遍布全国的历史文化名城中，更活在我们的人民、我们的生活、我们的乡土、我们的语言、我们的风习里。
+> 
+> 与古代世界和当今世界的重要文明相比，中华文明具有自己的鲜明特色，比如，中华文明彰显积极性，体现为"天行健，君子以自强不息"...
+
+**参考译文（Reference Translation）**：
+
+> Vitality of the Fine Traditional Chinese Culture
+> 
+> The fine traditional Chinese culture is both rich and profound, as demonstrated in a wealth of classic works, in a great variety of cultural heritage and in historical and cultural cities across China. This cultural value is also kept alive in our people, our daily lives, our land, our language and social mores.
+> 
+> Among the major civilizations in the world, both ancient and contemporary, the Chinese civilization has its distinctive features. For example, the Chinese civilization is positive in approaches, as demonstrated in this famous saying: "as heaven maintains vigor through movement, a man of virtue should constantly strive for self-improvement"...
+
+完整源文本约1,200字，完整参考译文约1,800词。文本涵盖三个主要部分：
+1. **中华文明的整体特征**（积极性、实践性）
+2. **中华优秀传统文化的三大崇尚**（尚德、尚一、尚化）
+3. **中华优秀传统文化塑造的精神**（君子人文精神、中庸辩证精神、愚公移山精神）
+
+#### 3.4.3 文本预处理
+
+**分段策略**：
+- **段落级（Label）**：保持原文4个主要段落结构，评估篇章连贯性
+- **句子级（Sentence）**：按句号、问号、感叹号分句，共约45个句子
+
+**特殊处理**：
+- 保留引号内的古典文献原文（如"天行健，君子以自强不息"）
+- 文化负载词不做预处理，保留原文形式（如"修齐治平"）
+- 数字、专有名词保持原样
+
+#### 3.4.4 实验语料特点
+
+选择该文本的理由：
+
+1. **文学性**：文本运用排比、引用、典故等文学手法，具有文学翻译的典型挑战
+2. **文化性**：涉及大量中国文化特有概念，考验模型的文化转换能力
+3. **政论性**：语言正式、结构严谨，区别于日常口语或技术文本
+4. **适中长度**：1,200字足以体现篇章特征，又不至于超出模型上下文限制
+
+该文本代表了**高文化负载、高文学性、高正式度**的"三高"翻译场景，是检验MT系统文学翻译能力的理想测试集。
 
 ### 3.5 统计分析方法
 
