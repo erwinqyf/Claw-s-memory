@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-05-05T04:00:30.864Z",
-  "lastRunDate": "2026-05-05",
+  "lastRun": "2026-05-06T04:02:30.282Z",
+  "lastRunDate": "2026-05-06",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 271,
+      "totalAvailable": 272,
       "errors": [
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
@@ -25,7 +25,7 @@
         "Reuters Business: HTTP 301: https://www.reutersagency.com/feed/?best-topics=business-finance",
         "经济学人财经: HTTP 403: https://www.economist.com/finance-and-economics/rss",
         "Financial Times: HTTP 301: https://www.ft.com/?format=rss",
-        "Bloomberg: HTTP 404: https://www.bloomberg.com/feed/podcast/etf.xml",
+        "Bloomberg: HTTP 403: https://www.bloomberg.com/feed/podcast/etf.xml",
         "日经亚洲: HTTP 404: https://asia.nikkei.com/rss/markets/feed",
         "财新网: HTTP 403: https://rsshub.app/caixin/finance",
         "Business Standard: HTTP 403: https://www.business-standard.com/rss/economy-101.rss"
@@ -34,7 +34,7 @@
     {
       "category": "culture",
       "itemsCount": 5,
-      "totalAvailable": 9,
+      "totalAvailable": 10,
       "errors": [
         "BBC Culture: HTTP 302: http://feeds.bbci.co.uk/news/entertainment_and_arts/rss.xml",
         "卫报文化: HTTP 302: https://www.theguardian.com/culture/rss",
