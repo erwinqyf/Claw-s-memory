@@ -1,12 +1,12 @@
 {
-  "lastRun": "2026-05-05T16:04:01.628Z",
-  "lastRunFormatted": "2026/5/6 00:04:01",
-  "lastPublished": "2026-05-05T03:15:00.000Z",
-  "newArticlesFound": 0,
-  "reportPath": "reports/language-service-monitor-20260505.md",
-  "gitCommit": "ee54206",
-  "feishuDocToken": "WnyMdlcC7otWJ5x70Kwc5xSsnNe",
-  "feishuDocUrl": "https://fgr91qck1t.feishu.cn/docx/WnyMdlcC7otWJ5x70Kwc5xSsnNe",
+  "lastRun": "2026-05-07T03:01:46.000Z",
+  "lastRunFormatted": "2026/5/7 11:01:46",
+  "lastPublished": "2026-05-07T03:01:46.000Z",
+  "newArticlesFound": 9,
+  "reportPath": "reports/language-service-monitor-20260507.md",
+  "gitCommit": null,
+  "feishuDocToken": null,
+  "feishuDocUrl": null,
   "articles": [
     {
       "title": "【重点】Nimdzi发布2026 Nimdzi 100行业报告",
@@ -105,8 +105,71 @@
       "date": "2026-04-28",
       "url": "https://www.smartcat.com/news/smartcat-unveils-new-lnd-ai-workflows-ltl-2026/",
       "summary": "多智能体系统支持企业L&D团队以比传统工作流快10倍的速度创建、翻译和更新全球学习内容"
+    },
+    {
+      "title": "【重点】FIFA招募语言团队（苏黎世和里约热内卢）",
+      "source": "Slator",
+      "date": "2026-05-05",
+      "url": "https://slator.com/fifa-recruits-language-team-zurich-rio-de-janeiro/",
+      "summary": "国际足联招聘英语翻译师和翻译项目经理，要求具备AI辅助翻译和AI技术应用经验"
+    },
+    {
+      "title": "【重点】AI数据产业让LLM为现实世界做好准备",
+      "source": "Slator",
+      "date": "2026-05-04",
+      "url": "https://slator.com/the-data-industry-making-llms-ready-for-the-real-world/",
+      "summary": "数据产业市场预计从93亿美元增长到215亿美元（2031年），语言解决方案集成商是关键参与者"
+    },
+    {
+      "title": "【重点】OpenAI发布多语言图像生成模型ChatGPT Images 2.0",
+      "source": "Slator",
+      "date": "2026-05-01",
+      "url": "https://slator.com/openai-multilingual-image-generator/",
+      "summary": "显著提升非拉丁语系文字渲染能力，包括中文、日语、韩语等"
+    },
+    {
+      "title": "Appen推出多语言AI评估LLM-as-a-Judge服务",
+      "source": "Slator",
+      "date": "2026-04-28",
+      "url": "https://slator.com/appen-multilingual-ai-evaluation/",
+      "summary": "解决高资源和低资源语言之间高达24.3%的性能差距"
+    },
+    {
+      "title": "Zoom推出内部AI实时语音翻译（Beta版）",
+      "source": "Slator",
+      "date": "2026-04-24",
+      "url": "https://slator.com/zooms-ai-live-speech-translation-live/",
+      "summary": "Voice Translator支持五种语言，60天免费测试期后转为付费功能"
+    },
+    {
+      "title": "【重点】国际刑警组织招聘全球语言服务负责人领导AI转型",
+      "source": "Slator",
+      "date": "2026-04-16",
+      "url": "https://slator.com/interpol-global-language-services-head/",
+      "summary": "从完整翻译过渡到AI辅助修订作为主要工作流程"
+    },
+    {
+      "title": "研究发现AI语音克隆在噪音中比人类更易理解",
+      "source": "Slator",
+      "date": "2026-04-27",
+      "url": "https://slator.com/ai-voice-clones-more-intelligible-than-humans/",
+      "summary": "克隆语音在不同背景噪音水平下比原始人类语音清晰度高出13.4%"
+    },
+    {
+      "title": "全球妇女基金会发布语言服务RFP",
+      "source": "Slator",
+      "date": "2026-05-01",
+      "url": "https://slator.com/global-fund-women-language-services-rfp/",
+      "summary": "寻求阿拉伯语、法语、西班牙语和菲律宾语翻译和口译服务"
+    },
+    {
+      "title": "国际民航组织招聘西班牙语翻译部门主管",
+      "source": "Slator",
+      "date": "2026-04-30",
+      "url": "https://slator.com/icao-seeks-spanish-translation-chief/",
+      "summary": "工作地点在加拿大蒙特利尔总部"
     }
   ],
-  "runCount": 1,
-  "lastSaveTime": "2026-05-05T16:04:01.628Z"
+  "runCount": 2,
+  "lastSaveTime": "2026-05-07T03:01:46.000Z"
 }
