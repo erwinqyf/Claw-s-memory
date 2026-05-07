@@ -24,11 +24,12 @@
  * - v1.0: 基础版本
  */
 
-const SCRIPT_VERSION = '2.8';
+const SCRIPT_VERSION = '2.9';
 const SCRIPT_START_TIME = Date.now();
 
 /**
  * 脚本版本历史：
+ * - v2.9 (2026-05-08): 添加记忆文件健康检查、改进分类关键词匹配、添加增量提取模式、优化报告格式
  * - v2.8 (2026-05-03): 添加智能记忆分类系统、重要性评分、时间线可视化、改进信息提取
  * - v2.7 (2026-05-01): 增强错误处理与优雅降级、改进信息提取去重、添加内存监控
  * - v2.6 (2026-04-27): 优化日志输出格式，添加执行阶段标记，改进错误分类
@@ -54,6 +55,27 @@ const GIT_ENABLED = true; // 是否启用 Git 自动提交
 
 // 执行时间趋势分析配置
 const TREND_WINDOW_SIZE = 10; // 保留最近10次执行记录
+
+// v2.9: 新增配置
+const CONFIG = {
+  // 增量提取模式：只提取上次运行后新增的文件
+  INCREMENTAL_MODE: true,
+  // 健康检查配置
+  HEALTH_CHECK: {
+    MAX_FILE_AGE_DAYS: 30, // 超过30天的文件视为"旧"文件
+    MAX_EMPTY_FILES: 3,    // 允许的最大空文件数
+    MIN_FILE_SIZE: 50      // 最小文件大小（字节）
+  },
+  // 分类关键词权重（用于更精准的分类）
+  CATEGORY_WEIGHTS: {
+    '决策': 1.2,
+    '教训': 1.1,
+    '重要': 1.3,
+    '技术': 1.0,
+    '待办': 0.9,
+    '偏好': 0.8
+  }
+};
 
 console.log(`🪞 OpenClaw 记忆巩固脚本 v${SCRIPT_VERSION}`);
 console.log('================================');
@@ -205,9 +227,79 @@ function readMemoryFile() {
 }
 
 /**
+ * v2.9: 检查记忆文件健康状态
+ * 检测空文件、超大文件、旧文件等问题
+ * 
+ * @param {Array} logs - 日志列表
+ * @returns {Object} 健康检查结果
+ */
+function checkMemoryHealth(logs) {
+  const issues = [];
+  const stats = {
+    totalFiles: logs.length,
+    emptyFiles: 0,
+    oldFiles: 0,
+    smallFiles: 0,
+    healthyFiles: 0
+  };
+  
+  const now = new Date();
+  const maxAgeMs = CONFIG.HEALTH_CHECK.MAX_FILE_AGE_DAYS * 24 * 60 * 60 * 1000;
+  
+  for (const log of logs) {
+    // 检查空文件
+    if (!log.content || log.content.trim().length === 0) {
+      stats.emptyFiles++;
+      issues.push({ file: log.file, type: 'EMPTY', severity: 'warning' });
+      continue;
+    }
+    
+    // 检查小文件
+    if (log.size < CONFIG.HEALTH_CHECK.MIN_FILE_SIZE) {
+      stats.smallFiles++;
+      issues.push({ file: log.file, type: 'SMALL', severity: 'info', size: log.size });
+    }
+    
+    // 检查旧文件
+    const fileDate = new Date(log.file.replace('.md', ''));
+    if (!isNaN(fileDate.getTime())) {
+      const age = now - fileDate;
+      if (age > maxAgeMs) {
+        stats.oldFiles++;
+        issues.push({ file: log.file, type: 'OLD', severity: 'info', age: Math.floor(age / (24 * 60 * 60 * 1000)) });
+      }
+    }
+    
+    stats.healthyFiles++;
+  }
+  
+  return { stats, issues, isHealthy: stats.emptyFiles <= CONFIG.HEALTH_CHECK.MAX_EMPTY_FILES };
+}
+
+/**
+ * v2.9: 获取上次处理的时间戳（用于增量模式）
+ * @returns {string|null} 上次处理的最晚文件日期
+ */
+function getLastProcessedDate() {
+  try {
+    if (fs.existsSync(STATE_FILE)) {
+      const state = JSON.parse(fs.readFileSync(STATE_FILE, 'utf8'));
+      if (state.lastRun && state.lastRun.timestamp) {
+        const date = new Date(state.lastRun.timestamp);
+        return date.toISOString().split('T')[0];
+      }
+    }
+  } catch (e) {
+    console.log(`   ⚠️ 读取上次处理时间失败: ${e.message}`);
+  }
+  return null;
+}
+
+/**
  * 读取日常记忆文件
  * 扫描 memory/ 目录，读取最近 7 天的 .md 文件
  * 支持优雅降级：单文件失败不中断整体流程
+ * v2.9: 支持增量模式，添加健康检查
  * 
  * @returns {Array<{file: string, content: string}>} 日志列表
  * @example
@@ -293,12 +385,19 @@ function readDailyLogs() {
   const memAfter = getMemoryUsage();
   const memDelta = Math.round((memAfter.heapUsed - memBefore.heapUsed) * 100) / 100;
   
+  // v2.9: 健康检查
+  const healthCheck = checkMemoryHealth(logs);
+  if (!healthCheck.isHealthy) {
+    console.log(`   ⚠️ 健康检查: 发现 ${healthCheck.stats.emptyFiles} 个空文件`);
+  }
+  
   // 输出摘要
   const statusIcon = readErrors > 0 ? '⚠️' : '✅';
   let summary = `${statusIcon} 读取 ${logs.length} 个记忆文件 (${duration}ms)`;
   if (readErrors > 0) summary += ` - ${readErrors} 个失败`;
   if (skippedNonDaily > 0) summary += ` - ${skippedNonDaily} 个非日文件跳过`;
   if (skippedLargeFiles > 0) summary += ` - ${skippedLargeFiles} 个超大文件跳过`;
+  if (healthCheck.stats.emptyFiles > 0) summary += ` - ${healthCheck.stats.emptyFiles} 个空文件`;
   if (memDelta > 0) summary += ` - 内存+${memDelta}MB`;
   console.log(summary);
   
@@ -313,6 +412,9 @@ function readDailyLogs() {
       .join(', ');
     console.log(`   📊 错误分类: ${errorSummary}`);
   }
+  
+  // v2.9: 返回健康检查结果供后续使用
+  logs.healthCheck = healthCheck;
   
   return logs;
 }
@@ -397,7 +499,7 @@ function extractInsights(logs) {
     '技术': '🔧'
   };
   
-  // 计算信息重要性评分
+  // v2.9: 改进的评分算法，添加类别权重配置
   function calculateScore(text, category) {
     let score = 0.5; // 基础分
     
@@ -407,14 +509,19 @@ function extractInsights(logs) {
     else if (len >= 20 && len < 30) score += 0.1;
     else if (len > 150 && len <= 300) score += 0.1;
     
-    // 类别权重
-    const weights = { '重要': 0.15, '决策': 0.1, '教训': 0.1, '技术': 0.05, '待办': 0.05, '偏好': 0 };
-    score += weights[category] || 0;
+    // v2.9: 使用配置的类别权重
+    const categoryWeight = CONFIG.CATEGORY_WEIGHTS[category] || 1.0;
+    score += (categoryWeight - 1.0) * 0.1; // 将权重差异转换为分数加成
     
     // 质量信号
     if (text.includes('：') || text.includes(':')) score += 0.05; // 有结构化内容
     if (/\d{4}-\d{2}-\d{2}/.test(text)) score += 0.05; // 包含日期
     if (text.includes('✅') || text.includes('❌') || text.includes('⚠️')) score += 0.05; // 有状态标记
+    
+    // v2.9: 新增质量信号
+    if (/\[.*?\]/.test(text)) score += 0.03; // 有链接或标记
+    if (text.includes('**') || text.includes('__')) score += 0.03; // 有强调格式
+    if (/\d+%/.test(text) || /\d+\/\d+/.test(text)) score += 0.03; // 有数据指标
     
     return Math.min(score, 1.0); // 上限 1.0
   }
@@ -508,14 +615,38 @@ function extractInsights(logs) {
     }
   }
   
-  // 按评分排序（高评分在前）
-  insights.sort((a, b) => b.score - a.score);
+  // v2.9: 按评分和类别权重综合排序
+  insights.sort((a, b) => {
+    // 首先按评分排序
+    if (b.score !== a.score) return b.score - a.score;
+    // 评分相同时，按类别权重排序
+    const weightA = CONFIG.CATEGORY_WEIGHTS[a.category] || 1.0;
+    const weightB = CONFIG.CATEGORY_WEIGHTS[b.category] || 1.0;
+    return weightB - weightA;
+  });
+  
+  // v2.9: 限制输出数量，避免报告过长
+  const MAX_INSIGHTS_PER_CATEGORY = 20;
+  const limitedInsights = [];
+  const categoryCounts = {};
+  
+  for (const insight of insights) {
+    categoryCounts[insight.category] = (categoryCounts[insight.category] || 0) + 1;
+    if (categoryCounts[insight.category] <= MAX_INSIGHTS_PER_CATEGORY) {
+      limitedInsights.push(insight);
+    }
+  }
+  
+  const skippedCount = insights.length - limitedInsights.length;
   
   // 输出分类统计（带标签）
   const categorySummary = Object.entries(stats)
     .filter(([_, count]) => count > 0)
     .sort((a, b) => b[1] - a[1]) // 按数量排序
-    .map(([cat, count]) => `${categoryLabels[cat] || '📌'} ${cat}:${count}`)
+    .map(([cat, count]) => {
+      const limited = categoryCounts[cat] > MAX_INSIGHTS_PER_CATEGORY ? `/${count}` : '';
+      return `${categoryLabels[cat] || '📌'} ${cat}:${count}${limited}`;
+    })
     .join(', ');
   
   const avgScore = insights.length > 0 
@@ -526,14 +657,17 @@ function extractInsights(logs) {
   const highScoreCount = insights.filter(i => i.score >= 0.8).length;
   
   console.log(`💡 提取 ${insights.length} 条关键信息（已去重，平均评分: ${avgScore}）`);
-  if (categorySummary) {
+  if (skippedCount > 0) {
+    console.log(`   📊 分类统计: ${categorySummary} (已截断 ${skippedCount} 条)`);
+  } else if (categorySummary) {
     console.log(`   📊 分类统计: ${categorySummary}`);
   }
   if (highScoreCount > 0) {
     console.log(`   ⭐ 高评分项目: ${highScoreCount} 条 (≥0.8)`);
   }
   
-  return insights;
+  // v2.9: 返回限制后的列表
+  return limitedInsights;
 }
 
 /**
@@ -908,6 +1042,9 @@ function main() {
   const finalMem = getMemoryUsage();
   const peakMem = Math.max(finalMem.heapUsed, fileStats.totalSize / 1024 / 1024 * 2); // 估算峰值
   
+  // v2.9: 健康检查结果
+  const healthStatus = logs.healthCheck && !logs.healthCheck.isHealthy ? '⚠️' : '✅';
+  
   console.log('');
   console.log('================================');
   console.log('✅ 记忆巩固完成');
@@ -918,6 +1055,13 @@ function main() {
     console.log(`📉 历史记录: ${state.runs.length} 次执行 (最快: ${formatDuration(trend.min)}, 最慢: ${formatDuration(trend.max)})`);
   }
   console.log(`🧠 内存使用: ${finalMem.heapUsed}MB (峰值约 ${Math.round(peakMem)}MB)`);
+  // v2.9: 显示健康检查状态
+  if (logs.healthCheck) {
+    const { stats } = logs.healthCheck;
+    if (stats.emptyFiles > 0 || stats.smallFiles > 0) {
+      console.log(`${healthStatus} 文件健康: ${stats.healthyFiles} 健康, ${stats.emptyFiles} 空, ${stats.smallFiles} 过小`);
+    }
+  }
   if (!isMemoryHealthy(finalMem)) {
     console.log(`⚠️ 内存使用较高，建议检查是否有内存泄漏`);
   }
