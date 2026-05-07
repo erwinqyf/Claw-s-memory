@@ -33,7 +33,7 @@
 
 文学翻译作为跨文化传播的核心媒介，长期以来被视为机器翻译（Machine Translation, MT）领域的"最后堡垒"(Toral & Way, 2018)。与新闻、技术文档等实用文本不同，文学作品承载着丰富的文化内涵、审美价值和情感表达，对翻译质量提出了更高要求。传统神经机器翻译（Neural Machine Translation, NMT）系统在处理文学文本时，往往难以捕捉原文的修辞风格、隐喻意象和文化特异性(Guzmán et al., 2019)。
 
-近年来，以 Transformer 架构为基础的大型语言模型（Large Language Models, LLMs）展现出强大的文本生成和理解能力，为文学翻译带来了新的可能性。TranslateGemma(Google, 2025) 和 HunyuanMT(Tencent Hunyuan, 2024) 等专用翻译模型的出现，标志着 LLM 在翻译领域的专业化发展趋势。
+近年来，以 Transformer 架构的解码器（decoder）为基础的大型语言模型（Large Language Models, LLMs）展现出强大的文本生成能力，为文学翻译带来了新的可能性。TranslateGemma(Google, 2025) 和 HunyuanMT(Tencent Hunyuan, 2024) 等专用翻译模型的出现，标志着 LLM 在翻译领域的专业化发展趋势。
 
 与此同时，**基于 LLM 的翻译质量评估新范式**正在兴起。GEMBA(Kocmi & Federmann, 2023)、Prometheus 2(Kim et al., 2024)、LiTransProQA(Zhang et al., 2025) 等新一代评估指标利用 LLM 的语义理解能力，实现了无需参考译文的参考无关评估（reference-free evaluation），并支持可定制的评估维度。这些指标在捕捉文学翻译的"神似"方面展现出传统指标无法比拟的优势。
 
