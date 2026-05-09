@@ -1,13 +1,56 @@
 {
-  "lastRun": "2026-05-07T03:01:46.000Z",
-  "lastRunFormatted": "2026/5/7 11:01:46",
-  "lastPublished": "2026-05-07T03:01:46.000Z",
-  "newArticlesFound": 9,
-  "reportPath": "reports/language-service-monitor-20260507.md",
+  "lastRun": "2026-05-09T03:00:20.714Z",
+  "lastRunFormatted": "2026/5/9 11:00:20",
+  "lastPublished": "2026-05-09T03:00:20.000Z",
+  "newArticlesFound": 6,
+  "reportPath": "reports/language-service-monitor-20260509.md",
   "gitCommit": null,
   "feishuDocToken": null,
   "feishuDocUrl": null,
   "articles": [
+    {
+      "title": "【重点】TransPerfect发布2026商业展望报告：AI已成为全球内容运营标准",
+      "source": "TransPerfect",
+      "date": "2026-05-05",
+      "url": "https://www.transperfect.com/about/press/transperfect-releases-2026-business-outlook-report-ai-now-standard-global-content",
+      "summary": "74%的企业领导者表示AI战略和自动化是2026年的首要任务；69%的企业正在积极试点或已将AI嵌入更广泛的运营中"
+    },
+    {
+      "title": "【重点】Nimdzi发布The Next 250中型语言服务商排名",
+      "source": "Nimdzi",
+      "date": "2026-04",
+      "url": "https://www.nimdzi.com/the-next-250-2026/",
+      "summary": "年收入120万至1830万美元的中型语言服务商分析：81家实现正增长，其中45家两位数增长；阿联酋和英国增长最快"
+    },
+    {
+      "title": "【重点】OpenAI发布多语言图像生成模型ChatGPT Images 2.0",
+      "source": "Slator",
+      "date": "2026-05-01",
+      "url": "https://slator.com/openai-multilingual-image-generator/",
+      "summary": "显著提升非拉丁语系文字渲染能力，包括中文、日语、韩语等"
+    },
+    {
+      "title": "【重点】AI数据产业让LLM为现实世界做好准备",
+      "source": "Slator",
+      "date": "2026-05-04",
+      "url": "https://slator.com/the-data-industry-making-llms-ready-for-the-real-world/",
+      "summary": "数据产业市场预计从93亿美元增长到215亿美元（2031年），语言解决方案集成商是关键参与者"
+    },
+    {
+      "title": "【重点】FIFA招募语言团队（苏黎世和里约热内卢）",
+      "source": "Slator",
+      "date": "2026-05-05",
+      "url": "https://slator.com/fifa-recruits-language-team-zurich-rio-de-janeiro/",
+      "summary": "国际足联招聘英语翻译师和翻译项目经理，要求具备AI辅助翻译和AI技术应用经验"
+    },
+    {
+      "title": "【重点】国际刑警组织招聘全球语言服务负责人领导AI转型",
+      "source": "Slator",
+      "date": "2026-04-16",
+      "url": "https://slator.com/interpol-global-language-services-head/",
+      "summary": "从完整翻译过渡到AI辅助修订作为主要工作流程"
+    },
+    {
     {
       "title": "【重点】Nimdzi发布2026 Nimdzi 100行业报告",
       "source": "Nimdzi",
@@ -170,6 +213,6 @@
       "summary": "工作地点在加拿大蒙特利尔总部"
     }
   ],
-  "runCount": 2,
-  "lastSaveTime": "2026-05-07T03:01:46.000Z"
+  "runCount": 3,
+  "lastSaveTime": "2026-05-09T03:00:20.714Z"
 }
