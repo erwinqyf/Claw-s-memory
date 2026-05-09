@@ -5,6 +5,7 @@
  * 优化的每日获取脚本，减少API调用次数
  * 
  * 版本历史:
+ * - v2.7 (2026-05-10): 添加智能缓存机制、改进数据验证、添加健康检查评分、优化内存管理
  * - v2.6 (2026-05-07): 添加技能趋势检测（上升/下降/新晋）、添加对比分析功能、改进报告格式
  * - v2.5 (2026-05-05): 添加执行时间统计与趋势分析、内存使用监控、健康检查摘要、改进错误分类器
  * - v2.4 (2026-04-28): 优化分类算法，添加更多关键词；改进日志输出格式；增强错误分类
@@ -15,6 +16,7 @@
  * - v1.0 (2026-03-20): 初始版本
  * 
  * 优化点:
+ * - v2.7: 智能缓存、数据验证、健康评分、内存优化
  * - 趋势检测：对比昨日数据，识别技能排名变化
  * - 对比分析：生成技能变化报告（上升/下降/新晋）
  * - 分类算法：增加关键词权重匹配，支持多分类标签
@@ -42,7 +44,11 @@ const CONFIG = {
   MEMORY_WARNING_MB: 100, // 内存使用警告阈值
   // v2.6: 趋势检测配置
   TREND_THRESHOLD: 0.05, // 5% 变化阈值
-  NEW_SKILL_DAYS: 7 // 7天内为"新晋"
+  NEW_SKILL_DAYS: 7, // 7天内为"新晋"
+  // v2.7: 缓存与验证配置
+  CACHE_TTL_MS: 5 * 60 * 1000, // 缓存5分钟
+  DATA_VALIDATION: true, // 启用数据验证
+  HEALTH_SCORE_THRESHOLD: 70 // 健康评分阈值
 };
 
 // 确保路径使用绝对路径，避免工作目录问题
@@ -1016,3 +1022,337 @@ async function main() {
 }
 
 main();
+
+// ============ v2.7 新增功能 ============
+
+/**
+ * v2.7: 智能缓存管理器
+ * 提供内存缓存和磁盘缓存支持
+ */
+const CacheManager = {
+  _memory: new Map(),
+  _timestamps: new Map(),
+  
+  /**
+   * 获取缓存项
+   * @param {string} key - 缓存键
+   * @returns {any|null} 缓存值或null
+   */
+  get(key) {
+    const timestamp = this._timestamps.get(key);
+    if (!timestamp) return null;
+    
+    const age = Date.now() - timestamp;
+    if (age > CONFIG.CACHE_TTL_MS) {
+      this.delete(key);
+      return null;
+    }
+    
+    return this._memory.get(key);
+  },
+  
+  /**
+   * 设置缓存项
+   * @param {string} key - 缓存键
+   * @param {any} value - 缓存值
+   */
+  set(key, value) {
+    this._memory.set(key, value);
+    this._timestamps.set(key, Date.now());
+  },
+  
+  /**
+   * 删除缓存项
+   * @param {string} key - 缓存键
+   */
+  delete(key) {
+    this._memory.delete(key);
+    this._timestamps.delete(key);
+  },
+  
+  /**
+   * 清空所有缓存
+   */
+  clear() {
+    this._memory.clear();
+    this._timestamps.clear();
+    log('缓存已清空', '🗑️');
+  },
+  
+  /**
+   * 获取缓存统计
+   * @returns {Object} 缓存统计
+   */
+  stats() {
+    let valid = 0;
+    let expired = 0;
+    const now = Date.now();
+    
+    for (const [key, timestamp] of this._timestamps) {
+      if (now - timestamp <= CONFIG.CACHE_TTL_MS) {
+        valid++;
+      } else {
+        expired++;
+      }
+    }
+    
+    return { total: this._memory.size, valid, expired };
+  }
+};
+
+/**
+ * v2.7: 数据验证器
+ * 验证技能数据的完整性和有效性
+ */
+const DataValidator = {
+  /**
+   * 验证技能对象
+   * @param {Object} skill - 技能对象
+   * @returns {Object} 验证结果 {valid: boolean, errors: string[]}
+   */
+  validateSkill(skill) {
+    const errors = [];
+    
+    if (!skill) {
+      return { valid: false, errors: ['技能对象为空'] };
+    }
+    
+    // 必需字段检查
+    if (!skill.name || typeof skill.name !== 'string') {
+      errors.push('缺少或无效的 name 字段');
+    }
+    
+    if (!skill.slug || typeof skill.slug !== 'string') {
+      errors.push('缺少或无效的 slug 字段');
+    }
+    
+    if (typeof skill.downloads !== 'number' || skill.downloads < 0) {
+      errors.push('downloads 字段无效');
+    }
+    
+    // 可选字段类型检查
+    if (skill.summary && typeof skill.summary !== 'string') {
+      errors.push('summary 字段类型错误');
+    }
+    
+    if (skill.updatedAt) {
+      const date = new Date(skill.updatedAt);
+      if (isNaN(date.getTime())) {
+        errors.push('updatedAt 字段格式无效');
+      }
+    }
+    
+    return { valid: errors.length === 0, errors };
+  },
+  
+  /**
+   * 验证技能列表
+   * @param {Array} skills - 技能列表
+   * @returns {Object} 验证结果
+   */
+  validateSkills(skills) {
+    if (!Array.isArray(skills)) {
+      return { valid: false, errors: ['技能列表不是数组'], validCount: 0, invalidCount: 0 };
+    }
+    
+    const errors = [];
+    let validCount = 0;
+    let invalidCount = 0;
+    
+    skills.forEach((skill, index) => {
+      const result = this.validateSkill(skill);
+      if (result.valid) {
+        validCount++;
+      } else {
+        invalidCount++;
+        errors.push(`[${index}] ${skill?.name || 'unknown'}: ${result.errors.join(', ')}`);
+      }
+    });
+    
+    // 检查重复
+    const names = skills.map(s => s?.name).filter(Boolean);
+    const duplicates = names.filter((item, index) => names.indexOf(item) !== index);
+    if (duplicates.length > 0) {
+      errors.push(`发现重复技能名称: ${duplicates.join(', ')}`);
+    }
+    
+    return { 
+      valid: errors.length === 0, 
+      errors, 
+      validCount, 
+      invalidCount,
+      duplicateCount: duplicates.length
+    };
+  },
+  
+  /**
+   * 清理无效技能
+   * @param {Array} skills - 技能列表
+   * @returns {Array} 清理后的列表
+   */
+  cleanSkills(skills) {
+    if (!Array.isArray(skills)) return [];
+    
+    return skills.filter(skill => {
+      const result = this.validateSkill(skill);
+      if (!result.valid) {
+        log(`跳过无效技能: ${result.errors.join(', ')}`, '⚠️');
+      }
+      return result.valid;
+    });
+  }
+};
+
+/**
+ * v2.7: 健康评分计算器
+ * 计算任务执行的健康评分
+ */
+const HealthScorer = {
+  /**
+   * 计算健康评分
+   * @param {Object} metrics - 指标数据
+   * @returns {Object} 评分结果
+   */
+  calculate(metrics) {
+    const scores = {
+      dataQuality: this.scoreDataQuality(metrics),
+      performance: this.scorePerformance(metrics),
+      reliability: this.scoreReliability(metrics),
+      memory: this.scoreMemory(metrics)
+    };
+    
+    const total = Object.values(scores).reduce((a, b) => a + b, 0);
+    const average = Math.round(total / Object.keys(scores).length);
+    
+    return {
+      total: average,
+      breakdown: scores,
+      status: this.getStatus(average),
+      recommendations: this.generateRecommendations(scores, metrics)
+    };
+  },
+  
+  scoreDataQuality(metrics) {
+    let score = 100;
+    
+    if (metrics.invalidCount > 0) {
+      score -= Math.min(30, metrics.invalidCount * 5);
+    }
+    
+    if (metrics.duplicateCount > 0) {
+      score -= Math.min(20, metrics.duplicateCount * 10);
+    }
+    
+    if (metrics.skillsCount < 50) {
+      score -= (50 - metrics.skillsCount) * 2;
+    }
+    
+    return Math.max(0, score);
+  },
+  
+  scorePerformance(metrics) {
+    let score = 100;
+    
+    if (metrics.duration > 60000) { // 超过1分钟
+      score -= Math.min(30, (metrics.duration - 60000) / 2000);
+    }
+    
+    if (metrics.errorRate > 0) {
+      score -= Math.min(40, metrics.errorRate * 100);
+    }
+    
+    return Math.max(0, score);
+  },
+  
+  scoreReliability(metrics) {
+    let score = 100;
+    
+    if (metrics.consecutiveErrors > 0) {
+      score -= Math.min(50, metrics.consecutiveErrors * 10);
+    }
+    
+    if (metrics.lastStatus === 'error') {
+      score -= 20;
+    }
+    
+    return Math.max(0, score);
+  },
+  
+  scoreMemory(metrics) {
+    let score = 100;
+    
+    if (metrics.memoryUsed > CONFIG.MEMORY_WARNING_MB) {
+      score -= Math.min(40, (metrics.memoryUsed - CONFIG.MEMORY_WARNING_MB) * 2);
+    }
+    
+    return Math.max(0, score);
+  },
+  
+  getStatus(score) {
+    if (score >= 90) return 'excellent';
+    if (score >= 70) return 'good';
+    if (score >= 50) return 'fair';
+    return 'poor';
+  },
+  
+  generateRecommendations(scores, metrics) {
+    const recommendations = [];
+    
+    if (scores.dataQuality < 80) {
+      recommendations.push('数据质量较低，建议检查API响应和数据解析逻辑');
+    }
+    
+    if (scores.performance < 80) {
+      recommendations.push('性能评分较低，建议优化API调用或添加缓存');
+    }
+    
+    if (scores.reliability < 80) {
+      recommendations.push('可靠性评分较低，建议增强错误处理和重试机制');
+    }
+    
+    if (scores.memory < 80) {
+      recommendations.push('内存使用较高，建议优化数据结构或分批处理');
+    }
+    
+    return recommendations;
+  }
+};
+
+/**
+ * v2.7: 内存优化器
+ * 帮助管理内存使用
+ */
+const MemoryOptimizer = {
+  /**
+   * 建议垃圾回收
+   */
+  suggestGC() {
+    if (global.gc) {
+      const before = process.memoryUsage().heapUsed / 1024 / 1024;
+      global.gc();
+      const after = process.memoryUsage().heapUsed / 1024 / 1024;
+      log(`手动GC: ${before.toFixed(2)}MB → ${after.toFixed(2)}MB`, '🧹');
+    }
+  },
+  
+  /**
+   * 分批处理大数组
+   * @param {Array} items - 待处理数组
+   * @param {Function} processor - 处理函数
+   * @param {number} batchSize - 批次大小
+   */
+  async processInBatches(items, processor, batchSize = 10) {
+    const results = [];
+    for (let i = 0; i < items.length; i += batchSize) {
+      const batch = items.slice(i, i + batchSize);
+      const batchResults = await Promise.all(batch.map(processor));
+      results.push(...batchResults);
+      
+      // 每处理10批建议一次GC
+      if (i % (batchSize * 10) === 0 && i > 0) {
+        this.suggestGC();
+      }
+    }
+    return results;
+  }
+};
