@@ -1,0 +1,32 @@
+{
+  "id": "omega",
+  "name": "总体设计部",
+  "codename": "Omega",
+  "version": "1.0.0",
+  "description": "基于钱学森系统工程思想的 OpenClaw 总体协调 Agent",
+  "role": "coordinator",
+  "status": "active",
+  "capabilities": [
+    "task-orchestration",
+    "state-monitoring",
+    "resource-management",
+    "decision-support",
+    "agent-coordination"
+  ],
+  "managedAgents": [
+    "alpha",
+    "bravo",
+    "charlie",
+    "delta",
+    "echo"
+  ],
+  "config": {
+    "heartbeatInterval": 30000,
+    "healthCheckInterval": 60000,
+    "taskTimeout": 300000,
+    "maxRetries": 3,
+    "fallbackEnabled": true
+  },
+  "createdAt": "2026-05-10T23:50:00+08:00",
+  "updatedAt": "2026-05-10T23:50:00+08:00"
+}

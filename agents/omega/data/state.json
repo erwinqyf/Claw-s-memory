@@ -1,0 +1,36 @@
+{
+  "timestamp": 1778428753416,
+  "status": "stopping",
+  "stats": {
+    "totalSubmitted": 1,
+    "totalCompleted": 0,
+    "totalFailed": 0,
+    "totalRetried": 0,
+    "avgProcessingTime": 0
+  },
+  "health": {
+    "shi": 0.51,
+    "level": "critical",
+    "metrics": {
+      "agentAvailability": 1,
+      "taskSuccessRate": 0,
+      "queueHealth": 0.999,
+      "resourceUtilization": 0.05555555555555555
+    },
+    "agents": {
+      "total": 5,
+      "online": 5,
+      "offline": 0,
+      "totalLoad": 1,
+      "totalCapacity": 18
+    },
+    "tasks": {
+      "total": 1,
+      "pending": 0,
+      "running": 0,
+      "completed": 0,
+      "failed": 0
+    },
+    "timestamp": 1778428753416
+  }
+}
