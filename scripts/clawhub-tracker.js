@@ -98,7 +98,7 @@ function saveState(state) {
   }
 }
 
-// 从 agent-browser 获取的数据（通过外部命令注入）
+// 从 ClawHub API 获取的数据
 async function fetchTop100() {
   const dataPath = process.env.CLAWHUB_DATA_PATH || '/tmp/clawhub_top100_raw.json';
   
@@ -117,18 +117,26 @@ async function fetchTop100() {
     throw error;
   }
   
-  // 移除可能的命令输出前缀
-  const jsonMatch = rawData.match(/\[.*\]/s);
-  if (!jsonMatch) {
-    const error = new Error('无法从数据中提取 JSON 数组');
-    error.classified = { type: 'PARSE_ERROR', severity: 'ERROR', retryable: false };
-    throw error;
-  }
-  
   try {
-    const data = JSON.parse(jsonMatch[0]);
-    log('INFO', '数据解析成功', { count: data.length });
-    return data;
+    const parsed = JSON.parse(rawData);
+    // ClawHub API 返回 { items: [...] } 格式
+    const data = parsed.items || parsed;
+    
+    // 转换为脚本期望的格式
+    const skills = data.map(item => ({
+      name: item.displayName || item.slug,
+      slug: item.slug,
+      owner: item.publisher?.name || 'unknown',
+      desc: item.summary || '',
+      downloads: item.stats?.downloads?.toString() || '0',
+      stars: item.stats?.stars?.toString() || '0',
+      installs: item.stats?.installsCurrent?.toString() || '0',
+      versions: item.stats?.versions?.toString() || '0',
+      updatedAt: item.updatedAt
+    }));
+    
+    log('INFO', '数据解析成功', { count: skills.length });
+    return skills;
   } catch (error) {
     error.classified = classifyError(error);
     throw error;
