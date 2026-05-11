@@ -1,9 +1,10 @@
 #!/usr/bin/env node
 /**
- * ClawHub Top100 追踪脚本 v2.0
+ * ClawHub Top100 追踪脚本 v2.1
  * 抓取 ClawHub 下载量前100名技能并生成报告
  * 
  * 版本历史:
+ * v2.1 (2026-05-12) - 添加数据验证、性能监控、导出格式多样化
  * v2.0 (2026-05-11) - 添加错误分类器、趋势分析、结构化日志
  * v1.0 (2026-03-20) - 初始版本
  */
@@ -20,6 +21,19 @@ const STATE_FILE = path.join(DATA_DIR, 'clawhub-tracker-state.json');
 const LOG_LEVELS = { DEBUG: 0, INFO: 1, WARN: 2, ERROR: 3 };
 const CURRENT_LOG_LEVEL = LOG_LEVELS[process.env.LOG_LEVEL || 'INFO'];
 
+// 性能监控
+const perfMetrics = {
+  startTime: null,
+  stages: {},
+  memory: []
+};
+
+function recordStage(name) {
+  perfMetrics.stages[name] = Date.now();
+  const memUsage = process.memoryUsage();
+  perfMetrics.memory.push({ stage: name, ...memUsage });
+}
+
 // 结构化日志
 function log(level, message, meta = {}) {
   const levelNum = LOG_LEVELS[level] || LOG_LEVELS.INFO;
@@ -29,6 +43,50 @@ function log(level, message, meta = {}) {
   const emoji = { DEBUG: '🔍', INFO: 'ℹ️', WARN: '⚠️', ERROR: '❌' }[level];
   const metaStr = Object.keys(meta).length ? ' ' + JSON.stringify(meta) : '';
   console.log(`${emoji} [${timestamp}] ${level}: ${message}${metaStr}`);
+}
+
+// 数据验证器
+function validateSkill(skill, index) {
+  const errors = [];
+  
+  if (!skill.name || typeof skill.name !== 'string') {
+    errors.push(`[${index}] 缺少或无效的技能名称`);
+  }
+  if (!skill.slug || typeof skill.slug !== 'string') {
+    errors.push(`[${index}] 缺少或无效的 slug`);
+  }
+  if (!skill.owner || typeof skill.owner !== 'string') {
+    errors.push(`[${index}] 缺少或无效的作者信息`);
+  }
+  
+  // 验证数字字段
+  const downloads = parseNumber(skill.downloads);
+  if (downloads < 0) {
+    errors.push(`[${index}] 下载数为负数`);
+  }
+  
+  return {
+    valid: errors.length === 0,
+    errors,
+    skill: {
+      ...skill,
+      downloadsNum: downloads,
+      starsNum: parseNumber(skill.stars)
+    }
+  };
+}
+
+// 批量验证
+function validateSkills(skills) {
+  const results = skills.map((s, i) => validateSkill(s, i));
+  const validSkills = results.filter(r => r.valid).map(r => r.skill);
+  const allErrors = results.filter(r => !r.valid).flatMap(r => r.errors);
+  
+  return {
+    valid: validSkills,
+    invalid: results.length - validSkills.length,
+    errors: allErrors
+  };
 }
 
 // 错误分类器
@@ -158,42 +216,123 @@ function parseNumber(str) {
 
 // 生成分类（基于描述关键词）
 const CATEGORY_KEYWORDS = {
-  'Search': ['search', '搜索', 'find', 'query'],
-  'Web/Browser': ['browser', 'web', 'scrap', 'crawl', 'fetch'],
-  'Memory': ['memory', 'remember', 'recall', 'store'],
-  'Automation': ['automation', 'workflow', 'n8n', 'automate', 'schedule'],
-  'Security': ['security', 'vet', 'audit', 'scan', 'protect'],
-  'Document': ['pdf', 'doc', 'excel', 'ppt', 'document', 'spreadsheet'],
-  'Media': ['image', 'video', 'photo', 'media', 'youtube', 'audio'],
-  'Dev Tools': ['github', 'git', 'code', 'dev', 'developer'],
-  'Communication': ['slack', 'discord', 'email', 'gmail', 'message', 'notify'],
-  'Finance': ['stock', 'finance', 'market', 'crypto', 'trading'],
-  'Weather': ['weather', 'forecast', 'climate'],
-  'Skill Dev': ['skill', 'create', 'author', 'template'],
-  'Agent Enhancement': ['proactive', 'self-improving', 'enhance', 'upgrade']
+  'Search': ['search', '搜索', 'find', 'query', 'lookup'],
+  'Web/Browser': ['browser', 'web', 'scrap', 'crawl', 'fetch', 'surf'],
+  'Memory': ['memory', 'remember', 'recall', 'store', 'persist'],
+  'Automation': ['automation', 'workflow', 'n8n', 'automate', 'schedule', 'cron'],
+  'Security': ['security', 'vet', 'audit', 'scan', 'protect', 'sanitize'],
+  'Document': ['pdf', 'doc', 'excel', 'ppt', 'document', 'spreadsheet', 'csv'],
+  'Media': ['image', 'video', 'photo', 'media', 'youtube', 'audio', 'music'],
+  'Dev Tools': ['github', 'git', 'code', 'dev', 'developer', 'debug', 'lint'],
+  'Communication': ['slack', 'discord', 'email', 'gmail', 'message', 'notify', 'chat'],
+  'Finance': ['stock', 'finance', 'market', 'crypto', 'trading', 'invest'],
+  'Weather': ['weather', 'forecast', 'climate', 'temperature'],
+  'Skill Dev': ['skill', 'create', 'author', 'template', 'scaffold'],
+  'Agent Enhancement': ['proactive', 'self-improving', 'enhance', 'upgrade', 'optimize'],
+  'Data Analysis': ['data', 'analysis', 'analytics', 'chart', 'visualization', 'stats'],
+  'Translation': ['translate', 'translation', 'language', 'i18n', 'localization']
 };
 
-function categorizeSkill(skill) {
+// 分类置信度计算
+function calculateCategoryConfidence(skill, category) {
   const desc = (skill.desc || '').toLowerCase();
   const name = (skill.name || '').toLowerCase();
   const text = `${name} ${desc}`;
+  const keywords = CATEGORY_KEYWORDS[category] || [];
   
-  // 计算每个分类的匹配分数
-  const scores = {};
-  for (const [category, keywords] of Object.entries(CATEGORY_KEYWORDS)) {
-    scores[category] = keywords.reduce((sum, kw) => {
-      const regex = new RegExp(kw, 'gi');
-      const matches = text.match(regex);
-      return sum + (matches ? matches.length : 0);
-    }, 0);
+  let score = 0;
+  let matchedKeywords = [];
+  
+  keywords.forEach(kw => {
+    const regex = new RegExp(kw, 'gi');
+    const matches = text.match(regex);
+    if (matches) {
+      score += matches.length;
+      matchedKeywords.push(kw);
+    }
+  });
+  
+  // 名称匹配权重更高
+  keywords.forEach(kw => {
+    if (name.includes(kw)) {
+      score += 2;
+    }
+  });
+  
+  return {
+    score,
+    matchedKeywords,
+    confidence: Math.min(score / keywords.length, 1)
+  };
+}
+
+function categorizeSkill(skill) {
+  // 计算每个分类的置信度
+  const categoryScores = {};
+  for (const category of Object.keys(CATEGORY_KEYWORDS)) {
+    categoryScores[category] = calculateCategoryConfidence(skill, category);
   }
   
   // 选择得分最高的分类
-  const bestCategory = Object.entries(scores)
-    .sort((a, b) => b[1] - a[1])
-    .find(([_, score]) => score > 0);
+  const bestCategory = Object.entries(categoryScores)
+    .sort((a, b) => b[1].score - a[1].score)
+    .find(([_, data]) => data.score > 0);
   
   return bestCategory ? bestCategory[0] : 'Other';
+}
+
+// 生成 CSV 导出
+function generateCSV(skills) {
+  const headers = ['rank', 'name', 'slug', 'owner', 'downloads', 'stars', 'category', 'description'];
+  const rows = skills.map((skill, idx) => {
+    const category = categorizeSkill(skill);
+    const desc = (skill.desc || '').replace(/"/g, '""').substring(0, 100);
+    return [
+      idx + 1,
+      `"${(skill.name || '').replace(/"/g, '""')}"`,
+      skill.slug,
+      skill.owner,
+      skill.downloads,
+      skill.stars,
+      category,
+      `"${desc}"`
+    ].join(',');
+  });
+  
+  return [headers.join(','), ...rows].join('\n');
+}
+
+// 生成 JSON 统计摘要
+function generateStatsSummary(skills) {
+  const categories = {};
+  skills.forEach(s => {
+    const cat = categorizeSkill(s);
+    categories[cat] = (categories[cat] || 0) + 1;
+  });
+  
+  const totalDownloads = skills.reduce((sum, s) => sum + parseNumber(s.downloads), 0);
+  const totalStars = skills.reduce((sum, s) => sum + parseNumber(s.stars), 0);
+  
+  return {
+    generatedAt: new Date().toISOString(),
+    totalSkills: skills.length,
+    totalDownloads,
+    totalStars,
+    avgDownloads: Math.round(totalDownloads / skills.length),
+    avgStars: Math.round(totalStars / skills.length),
+    categories: Object.entries(categories)
+      .map(([name, count]) => ({ name, count, percentage: (count / skills.length * 100).toFixed(1) }))
+      .sort((a, b) => b.count - a.count),
+    topAuthors: Object.entries(
+      skills.reduce((acc, s) => {
+        acc[s.owner] = (acc[s.owner] || 0) + 1;
+        return acc;
+      }, {})
+    )
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 10)
+      .map(([name, count]) => ({ name, count }))
+  };
 }
 
 // 趋势分析 - 与历史数据对比
@@ -343,10 +482,11 @@ function generateMarkdownReport(skills, trends = null, state = null) {
 
 // 主函数
 async function main() {
-  const startTime = Date.now();
+  perfMetrics.startTime = Date.now();
   const state = loadState();
   
-  log('INFO', 'ClawHub Top100 追踪开始', { version: '2.0', runCount: state.runCount + 1 });
+  log('INFO', 'ClawHub Top100 追踪开始', { version: '2.1', runCount: state.runCount + 1 });
+  recordStage('start');
   
   // 确保目录存在
   if (!ensureDirectories()) {
@@ -355,10 +495,27 @@ async function main() {
   
   try {
     const skills = await fetchTop100();
+    recordStage('fetch');
     log('INFO', '数据获取成功', { count: skills.length });
     
+    // 数据验证
+    const validation = validateSkills(skills);
+    if (validation.invalid > 0) {
+      log('WARN', '数据验证发现无效项', { 
+        total: skills.length, 
+        valid: validation.valid.length, 
+        invalid: validation.invalid,
+        errors: validation.errors.slice(0, 5) // 只显示前5个错误
+      });
+    } else {
+      log('INFO', '数据验证通过', { count: validation.valid.length });
+    }
+    
+    const validSkills = validation.valid;
+    
     // 趋势分析
-    const trends = analyzeTrends(skills, state);
+    const trends = analyzeTrends(validSkills, state);
+    recordStage('trends');
     if (trends.hasTrends) {
       log('INFO', '趋势分析完成', { 
         newEntries: trends.newEntries.length,
@@ -369,37 +526,68 @@ async function main() {
     
     // 保存 JSON 数据
     const jsonPath = path.join(DATA_DIR, `clawhub-top100-${today}.json`);
-    fs.writeFileSync(jsonPath, JSON.stringify(skills, null, 2));
+    fs.writeFileSync(jsonPath, JSON.stringify(validSkills, null, 2));
     log('INFO', 'JSON 数据已保存', { path: jsonPath });
     
     // 更新最新快照
     const latestPath = path.join(DATA_DIR, 'clawhub-top100-latest.json');
-    fs.writeFileSync(latestPath, JSON.stringify(skills, null, 2));
+    fs.writeFileSync(latestPath, JSON.stringify(validSkills, null, 2));
     log('DEBUG', '最新快照已更新', { path: latestPath });
     
     // 生成 Markdown 报告
     const reportPath = path.join(REPORTS_DIR, `clawhub-top100-${today}.md`);
-    const report = generateMarkdownReport(skills, trends, state);
+    const report = generateMarkdownReport(validSkills, trends, state);
     fs.writeFileSync(reportPath, report);
     log('INFO', 'Markdown 报告已生成', { path: reportPath });
     
+    // 生成 CSV 导出
+    const csvPath = path.join(DATA_DIR, `clawhub-top100-${today}.csv`);
+    const csv = generateCSV(validSkills);
+    fs.writeFileSync(csvPath, csv);
+    log('INFO', 'CSV 导出已生成', { path: csvPath });
+    
+    // 生成统计摘要
+    const statsPath = path.join(DATA_DIR, `clawhub-stats-${today}.json`);
+    const stats = generateStatsSummary(validSkills);
+    fs.writeFileSync(statsPath, JSON.stringify(stats, null, 2));
+    log('INFO', '统计摘要已生成', { path: statsPath });
+    recordStage('export');
+    
     // 更新状态
-    state.lastData = skills;
+    state.lastData = validSkills;
     saveState(state);
+    recordStage('complete');
     
     // 输出摘要
-    const duration = ((Date.now() - startTime) / 1000).toFixed(2);
+    const duration = ((Date.now() - perfMetrics.startTime) / 1000).toFixed(2);
+    const stageTimes = Object.entries(perfMetrics.stages).map(([name, time]) => ({
+      stage: name,
+      elapsed: `${((time - perfMetrics.startTime) / 1000).toFixed(2)}s`
+    }));
+    
     log('INFO', '执行摘要', {
       duration: `${duration}s`,
-      skills: skills.length,
-      top1: skills[0]?.name,
-      top1Downloads: skills[0]?.downloads
+      skills: validSkills.length,
+      validated: validation.valid.length,
+      invalid: validation.invalid,
+      top1: validSkills[0]?.name,
+      top1Downloads: validSkills[0]?.downloads,
+      stages: stageTimes
     });
     
     console.log('\n📊 ClawHub Top100 追踪完成!');
-    console.log(`   技能总数: ${skills.length}`);
-    console.log(`   第一名: ${skills[0]?.name} (${skills[0]?.downloads})`);
+    console.log(`   技能总数: ${validSkills.length}`);
+    console.log(`   验证通过: ${validation.valid.length}`);
+    if (validation.invalid > 0) {
+      console.log(`   无效数据: ${validation.invalid}`);
+    }
+    console.log(`   第一名: ${validSkills[0]?.name} (${validSkills[0]?.downloads})`);
     console.log(`   执行耗时: ${duration}s`);
+    console.log(`   导出文件:`);
+    console.log(`     - JSON: ${jsonPath}`);
+    console.log(`     - CSV: ${csvPath}`);
+    console.log(`     - Stats: ${statsPath}`);
+    console.log(`     - Report: ${reportPath}`);
     
   } catch (error) {
     const classified = error.classified || classifyError(error);
