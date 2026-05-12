@@ -1,218 +1,49 @@
 {
-  "lastRun": "2026-05-09T03:00:20.714Z",
-  "lastRunFormatted": "2026/5/9 11:00:20",
-  "lastPublished": "2026-05-09T03:00:20.000Z",
-  "newArticlesFound": 6,
-  "reportPath": "reports/language-service-monitor-20260509.md",
+  "lastRun": "2026-05-12T03:02:30.000Z",
+  "lastRunFormatted": "2026/5/12 11:02:30",
+  "lastPublished": "2026-05-12T03:02:30.000Z",
+  "newArticlesFound": 5,
+  "reportPath": "reports/language-service-monitor-20260512.md",
   "gitCommit": null,
   "feishuDocToken": null,
   "feishuDocUrl": null,
   "articles": [
     {
-      "title": "【重点】TransPerfect发布2026商业展望报告：AI已成为全球内容运营标准",
+      "title": "【重点】AI实验阶段是否已结束？本地化行业深度转型",
+      "source": "Slator",
+      "date": "2026-03",
+      "url": "https://slator.com/ai-experimentation-phase-localization/",
+      "summary": "40.5%受访者认为AI实验阶段才刚刚开始，28.5%认为已进入实施阶段。行业正从弹性应对转向创新驱动"
+    },
+    {
+      "title": "【重点】Meta发布OMT多语言翻译系统，支持1600种语言",
+      "source": "Slator",
+      "date": "2026-03-17",
+      "url": "https://slator.com/meta-1600-languages-ai-translation/",
+      "summary": "OMT将AI翻译支持从200种扩展到1600+种语言，采用双架构设计，显著改善低资源语言翻译质量"
+    },
+    {
+      "title": "【重点】Google Translate升级Gemini AI，支持语境感知和交互功能",
+      "source": "Slator",
+      "date": "2026-02-26",
+      "url": "https://slator.com/google-translate-ai-context/",
+      "summary": "支持语境感知、习语处理和交互式翻译，用户可查看替代措辞和语气解释。同时发布Nano Banana 2图像翻译模型"
+    },
+    {
+      "title": "【重点】TransPerfect发布2026商业展望报告：AI成为全球内容运营标准",
       "source": "TransPerfect",
       "date": "2026-05-05",
       "url": "https://www.transperfect.com/about/press/transperfect-releases-2026-business-outlook-report-ai-now-standard-global-content",
-      "summary": "74%的企业领导者表示AI战略和自动化是2026年的首要任务；69%的企业正在积极试点或已将AI嵌入更广泛的运营中"
+      "summary": "74%企业领导者将AI战略作为2026年首要任务；65%已在本地化流程中使用AI；40%预计预算持平但要求更高效率"
     },
     {
-      "title": "【重点】Nimdzi发布The Next 250中型语言服务商排名",
-      "source": "Nimdzi",
-      "date": "2026-04",
-      "url": "https://www.nimdzi.com/the-next-250-2026/",
-      "summary": "年收入120万至1830万美元的中型语言服务商分析：81家实现正增长，其中45家两位数增长；阿联酋和英国增长最快"
-    },
-    {
-      "title": "【重点】OpenAI发布多语言图像生成模型ChatGPT Images 2.0",
-      "source": "Slator",
-      "date": "2026-05-01",
-      "url": "https://slator.com/openai-multilingual-image-generator/",
-      "summary": "显著提升非拉丁语系文字渲染能力，包括中文、日语、韩语等"
-    },
-    {
-      "title": "【重点】AI数据产业让LLM为现实世界做好准备",
-      "source": "Slator",
-      "date": "2026-05-04",
-      "url": "https://slator.com/the-data-industry-making-llms-ready-for-the-real-world/",
-      "summary": "数据产业市场预计从93亿美元增长到215亿美元（2031年），语言解决方案集成商是关键参与者"
-    },
-    {
-      "title": "【重点】FIFA招募语言团队（苏黎世和里约热内卢）",
-      "source": "Slator",
-      "date": "2026-05-05",
-      "url": "https://slator.com/fifa-recruits-language-team-zurich-rio-de-janeiro/",
-      "summary": "国际足联招聘英语翻译师和翻译项目经理，要求具备AI辅助翻译和AI技术应用经验"
-    },
-    {
-      "title": "【重点】国际刑警组织招聘全球语言服务负责人领导AI转型",
-      "source": "Slator",
-      "date": "2026-04-16",
-      "url": "https://slator.com/interpol-global-language-services-head/",
-      "summary": "从完整翻译过渡到AI辅助修订作为主要工作流程"
-    },
-    {
-    {
-      "title": "【重点】Nimdzi发布2026 Nimdzi 100行业报告",
-      "source": "Nimdzi",
-      "date": "2026-04",
-      "url": "https://www.nimdzi.com/nimdzi-100-2026/",
-      "summary": "2025年行业规模达726亿美元，AI驱动行业重构，DeepL/Smartling等技术公司首次进入排名"
-    },
-    {
-      "title": "【重点】Slator发布2026 Slator Index",
-      "source": "Slator",
-      "date": "2026-04",
-      "url": "https://slator.com/2026-slator-index/",
-      "summary": "覆盖300+公司，57%公司收入下降，超级代理商占50%+增长，市场整合加速"
-    },
-    {
-      "title": "【重点】DeepL发布实时语音翻译产品DeepL Voice-to-Voice",
+      "title": "【重点】DeepL发布《Borderless Business》报告：83%企业语言AI应用滞后",
       "source": "DeepL",
-      "date": "2026-04-16",
-      "url": "https://www.prnewswire.com/news-releases/deepl-unveils-real-time-spoken-translation-breaking-the-next-language-barrier-with-voice-to-voice-302744002.html",
-      "summary": "支持40+语言的实时语音对语音翻译，可与Zoom/Teams集成"
-    },
-    {
-      "title": "Smartling荣获G2 2026最佳软件奖第2名",
-      "source": "Smartling",
-      "date": "2026-04",
-      "url": "https://www.smartling.com/company-news/smartling-named-g2s-2026-best-software-for-content-management",
-      "summary": "在内容管理系统(CMS)产品类别中排名第2，基于真实用户评价"
-    },
-    {
-      "title": "Lionbridge宣布所有权战略转型至KKR",
-      "source": "Lionbridge",
-      "date": "2026-04",
-      "url": "https://www.lionbridge.com/press-release/lionbridge-announces-strategic-ownership-transition-to-kkr/",
-      "summary": "FS KKR Capital Corp收购Lionbridge，交易已获CCPC批准"
-    },
-    {
-      "title": "【重点】RWS推出Language Weaver Pro企业级AI翻译解决方案",
-      "source": "RWS",
-      "date": "2026-03-25",
-      "url": "https://www.rws.com/about/news/2026/language-weaver-pro/",
-      "summary": "与Cohere合作构建的1000亿参数模型，业界最大专用翻译模型"
-    },
-    {
-      "title": "Lilt四月产品发布 - 新增67种语言支持",
-      "source": "Lilt",
-      "date": "2026-04",
-      "url": "https://lilt.com/blog/april-2026-monthly-product-release",
-      "summary": "新增67种语言，推出LILT Assist自主AI代理，即时翻译速度提升7.5倍"
-    },
-    {
-      "title": "Smartling AI平台助力IBM本地化时间缩短一半",
-      "source": "Smartling",
-      "date": "2026-04-14",
-      "url": "https://www.smartling.com/company-news/smartling-ai-translation-enables-ibm-to-cut-localization-time-in-half",
-      "summary": "IBM在170多个国家实现营销内容本地化，上市时间缩短50%，质量提升40%"
-    },
-    {
-      "title": "Smartling入选Fast Company 2026全球最具创新力公司",
-      "source": "Smartling",
-      "date": "2026-04",
-      "url": "https://www.smartling.com/company-news/smartling-named-fast-companys-most-innovative-companies-of-2026",
-      "summary": "在商业服务类别中排名第3"
-    },
-    {
-      "title": "Smartling推出MCP服务器",
-      "source": "Smartling",
-      "date": "2026-04",
-      "url": "https://www.smartling.com/blog/mcp-servers-bridging-the-gap-between-development-and-localization",
-      "summary": "AI工具可直接与翻译系统连接"
-    },
-    {
-      "title": "TransPerfect 2025财年收入增长7%达13.2亿美元",
-      "source": "TransPerfect",
-      "date": "2026-04",
-      "url": "https://www.prnewswire.com/news-releases/transperfect-billed-revenues-increase-7-in-2025-to-1-32-billion-302704496.html",
-      "summary": "连续第33年实现增长"
-    },
-    {
-      "title": "Crowdin发布2026 AI翻译企业调查报告",
-      "source": "Crowdin",
-      "date": "2026-04",
-      "url": "https://crowdin.com/blog/ai-translation-enterprise-survey-2026",
-      "summary": "95%的企业现在使用AI翻译"
-    },
-    {
-      "title": "Acolad荣获CyberVadis金牌认证",
-      "source": "Acolad",
-      "date": "2026-04",
-      "url": "https://www.acolad.com/en/news",
-      "summary": "安全AI治理能力获得认可"
-    },
-    {
-      "title": "【重点】Smartcat发布AI驱动的L&D课程创作与翻译工作流",
-      "source": "Smartcat",
-      "date": "2026-04-28",
-      "url": "https://www.smartcat.com/news/smartcat-unveils-new-lnd-ai-workflows-ltl-2026/",
-      "summary": "多智能体系统支持企业L&D团队以比传统工作流快10倍的速度创建、翻译和更新全球学习内容"
-    },
-    {
-      "title": "【重点】FIFA招募语言团队（苏黎世和里约热内卢）",
-      "source": "Slator",
-      "date": "2026-05-05",
-      "url": "https://slator.com/fifa-recruits-language-team-zurich-rio-de-janeiro/",
-      "summary": "国际足联招聘英语翻译师和翻译项目经理，要求具备AI辅助翻译和AI技术应用经验"
-    },
-    {
-      "title": "【重点】AI数据产业让LLM为现实世界做好准备",
-      "source": "Slator",
-      "date": "2026-05-04",
-      "url": "https://slator.com/the-data-industry-making-llms-ready-for-the-real-world/",
-      "summary": "数据产业市场预计从93亿美元增长到215亿美元（2031年），语言解决方案集成商是关键参与者"
-    },
-    {
-      "title": "【重点】OpenAI发布多语言图像生成模型ChatGPT Images 2.0",
-      "source": "Slator",
-      "date": "2026-05-01",
-      "url": "https://slator.com/openai-multilingual-image-generator/",
-      "summary": "显著提升非拉丁语系文字渲染能力，包括中文、日语、韩语等"
-    },
-    {
-      "title": "Appen推出多语言AI评估LLM-as-a-Judge服务",
-      "source": "Slator",
-      "date": "2026-04-28",
-      "url": "https://slator.com/appen-multilingual-ai-evaluation/",
-      "summary": "解决高资源和低资源语言之间高达24.3%的性能差距"
-    },
-    {
-      "title": "Zoom推出内部AI实时语音翻译（Beta版）",
-      "source": "Slator",
-      "date": "2026-04-24",
-      "url": "https://slator.com/zooms-ai-live-speech-translation-live/",
-      "summary": "Voice Translator支持五种语言，60天免费测试期后转为付费功能"
-    },
-    {
-      "title": "【重点】国际刑警组织招聘全球语言服务负责人领导AI转型",
-      "source": "Slator",
-      "date": "2026-04-16",
-      "url": "https://slator.com/interpol-global-language-services-head/",
-      "summary": "从完整翻译过渡到AI辅助修订作为主要工作流程"
-    },
-    {
-      "title": "研究发现AI语音克隆在噪音中比人类更易理解",
-      "source": "Slator",
-      "date": "2026-04-27",
-      "url": "https://slator.com/ai-voice-clones-more-intelligible-than-humans/",
-      "summary": "克隆语音在不同背景噪音水平下比原始人类语音清晰度高出13.4%"
-    },
-    {
-      "title": "全球妇女基金会发布语言服务RFP",
-      "source": "Slator",
-      "date": "2026-05-01",
-      "url": "https://slator.com/global-fund-women-language-services-rfp/",
-      "summary": "寻求阿拉伯语、法语、西班牙语和菲律宾语翻译和口译服务"
-    },
-    {
-      "title": "国际民航组织招聘西班牙语翻译部门主管",
-      "source": "Slator",
-      "date": "2026-04-30",
-      "url": "https://slator.com/icao-seeks-spanish-translation-chief/",
-      "summary": "工作地点在加拿大蒙特利尔总部"
+      "date": "2026-03-10",
+      "url": "https://www.artificialintelligence-news.com/news/deepls-borderless-business-report-reveals-83-of-enterprises-are-still-behind-on-language-ai/",
+      "summary": "尽管企业在其他领域广泛投资AI，但83%的企业尚未过渡到现代语言AI能力。全球扩张是首要驱动因素"
     }
   ],
-  "runCount": 3,
-  "lastSaveTime": "2026-05-09T03:00:20.714Z"
+  "runCount": 4,
+  "lastSaveTime": "2026-05-12T03:02:30.000Z"
 }
