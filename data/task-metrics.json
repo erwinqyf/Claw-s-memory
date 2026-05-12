@@ -1,0 +1,111 @@
+{
+  "version": "1.0",
+  "createdAt": "2026-05-12T14:58:50.720Z",
+  "tasks": [
+    {
+      "id": "task_1778597975642_8ijz8fk8s",
+      "type": "test",
+      "agent": "main",
+      "description": "测试任务",
+      "startTime": "2026-05-12T22:00:00Z",
+      "endTime": "2026-05-12T22:01:30Z",
+      "duration": 90000,
+      "status": "success",
+      "errorType": null,
+      "errorMessage": null,
+      "toolsUsed": [],
+      "tokenCount": 0,
+      "recordedAt": "2026-05-12T14:59:35.642Z"
+    },
+    {
+      "id": "task_1778598019656_v9ywoymv6",
+      "type": "cron",
+      "agent": "alpha",
+      "description": "夜间自主任务",
+      "startTime": "2026-05-12T00:00:00Z",
+      "endTime": "2026-05-12T00:15:00Z",
+      "duration": 900000,
+      "status": "success",
+      "errorType": null,
+      "errorMessage": null,
+      "toolsUsed": [],
+      "tokenCount": 0,
+      "recordedAt": "2026-05-12T15:00:19.656Z"
+    },
+    {
+      "id": "task_1778598066874_bxfhuaqre",
+      "type": "cron",
+      "agent": "bravo",
+      "description": "健康检查",
+      "startTime": "2026-05-12T11:00:00Z",
+      "endTime": "2026-05-12T11:05:00Z",
+      "duration": 300000,
+      "status": "failed",
+      "errorType": "network",
+      "errorMessage": "飞书通知超时",
+      "toolsUsed": [],
+      "tokenCount": 0,
+      "recordedAt": "2026-05-12T15:01:06.874Z"
+    }
+  ],
+  "dailyStats": {
+    "2026-05-12": {
+      "total": 3,
+      "success": 2,
+      "failed": 1,
+      "timeout": 0,
+      "byType": {
+        "test": {
+          "total": 1,
+          "success": 1,
+          "failed": 0
+        },
+        "cron": {
+          "total": 2,
+          "success": 1,
+          "failed": 1
+        }
+      },
+      "byAgent": {
+        "main": {
+          "total": 1,
+          "success": 1,
+          "failed": 0
+        },
+        "alpha": {
+          "total": 1,
+          "success": 1,
+          "failed": 0
+        },
+        "bravo": {
+          "total": 1,
+          "success": 0,
+          "failed": 1
+        }
+      }
+    }
+  },
+  "agentStats": {
+    "main": {
+      "totalTasks": 1,
+      "successCount": 1,
+      "failedCount": 0,
+      "totalDuration": 90000,
+      "avgDuration": 90000
+    },
+    "alpha": {
+      "totalTasks": 1,
+      "successCount": 1,
+      "failedCount": 0,
+      "totalDuration": 900000,
+      "avgDuration": 900000
+    },
+    "bravo": {
+      "totalTasks": 1,
+      "successCount": 0,
+      "failedCount": 1,
+      "totalDuration": 300000,
+      "avgDuration": 300000
+    }
+  }
+}
