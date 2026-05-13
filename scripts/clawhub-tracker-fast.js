@@ -4,7 +4,13 @@
  * ==============================================
  * 优化的每日获取脚本，减少API调用次数
  * 
+ * @fileoverview 自动追踪 ClawHub 技能市场 Top 100 技能，生成排行榜报告
+ * @author Claw (AI Agent)
+ * @version 2.8
+ * @license MIT
+ * 
  * 版本历史:
+ * - v2.8 (2026-05-14): 添加完整 JSDoc 注释、改进代码文档、优化函数说明
  * - v2.7 (2026-05-10): 添加智能缓存机制、改进数据验证、添加健康检查评分、优化内存管理
  * - v2.6 (2026-05-07): 添加技能趋势检测（上升/下降/新晋）、添加对比分析功能、改进报告格式
  * - v2.5 (2026-05-05): 添加执行时间统计与趋势分析、内存使用监控、健康检查摘要、改进错误分类器
@@ -15,7 +21,15 @@
  * - v2.0 (2026-04-06): 重构为快速版本，使用搜索API
  * - v1.0 (2026-03-20): 初始版本
  * 
+ * 核心功能:
+ * 1. 技能数据获取：通过 ClawHub API 获取技能列表和详情
+ * 2. 自动分类：基于关键词权重匹配自动分类技能
+ * 3. 趋势分析：对比昨日数据，识别技能排名变化
+ * 4. 报告生成：生成 Markdown 和 JSON 格式的排行榜报告
+ * 5. 健康监控：执行时间趋势、内存使用、错误统计
+ * 
  * 优化点:
+ * - v2.8: 完整 JSDoc 注释、代码文档优化
  * - v2.7: 智能缓存、数据验证、健康评分、内存优化
  * - 趋势检测：对比昨日数据，识别技能排名变化
  * - 对比分析：生成技能变化报告（上升/下降/新晋）
@@ -23,28 +37,63 @@
  * - 日志输出：添加执行阶段标记，分类统计输出
  * - 错误处理：增强429/500错误分类，改进重试日志
  * - 性能监控：执行时间趋势分析、内存使用监控
+ * 
+ * @example
+ * // 直接运行
+ * node scripts/clawhub-tracker-fast.js
+ * 
+ * // 设置自定义工作目录
+ * WORKSPACE_DIR=/custom/path node scripts/clawhub-tracker-fast.js
  */
 
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
+/**
+ * 全局配置对象
+ * @namespace CONFIG
+ * @property {string} WORKSPACE_DIR - 工作目录路径
+ * @property {string} DATA_DIR - 数据存储目录
+ * @property {string} REPORTS_DIR - 报告输出目录
+ * @property {string} API_BASE - ClawHub API 基础URL
+ * @property {string} USER_AGENT - HTTP请求User-Agent
+ * @property {number} MAX_RETRIES - 最大重试次数
+ * @property {number} RETRY_DELAY_MS - 初始重试延迟(毫秒)
+ * @property {number} REQUEST_DELAY_MS - 请求间隔(毫秒)
+ * @property {number} DEFAULT_LIMIT - 默认获取技能数量
+ * @property {number} TREND_WINDOW_SIZE - 执行时间趋势窗口大小
+ * @property {number} MEMORY_WARNING_MB - 内存警告阈值(MB)
+ * @property {number} TREND_THRESHOLD - 趋势检测阈值(5%)
+ * @property {number} NEW_SKILL_DAYS - 新晋技能天数阈值
+ * @property {number} CACHE_TTL_MS - 缓存有效期(毫秒)
+ * @property {boolean} DATA_VALIDATION - 是否启用数据验证
+ * @property {number} HEALTH_SCORE_THRESHOLD - 健康评分阈值
+ */
 const CONFIG = {
+  // 基础路径配置
   WORKSPACE_DIR: process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'),
   DATA_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'data'),
   REPORTS_DIR: path.join(process.env.WORKSPACE_DIR || path.join(process.env.HOME, '.openclaw', 'workspace'), 'reports'),
+  
+  // API配置
   API_BASE: 'https://clawhub.ai',
-  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.6',
+  USER_AGENT: 'OpenClaw-ClawHub-Tracker/2.7',
+  
+  // 重试与限流配置
   MAX_RETRIES: 3,
   RETRY_DELAY_MS: 1000,
   REQUEST_DELAY_MS: 100,
   DEFAULT_LIMIT: 100,
+  
   // v2.5: 性能监控配置
   TREND_WINDOW_SIZE: 10, // 保留最近10次执行记录
   MEMORY_WARNING_MB: 100, // 内存使用警告阈值
+  
   // v2.6: 趋势检测配置
   TREND_THRESHOLD: 0.05, // 5% 变化阈值
   NEW_SKILL_DAYS: 7, // 7天内为"新晋"
+  
   // v2.7: 缓存与验证配置
   CACHE_TTL_MS: 5 * 60 * 1000, // 缓存5分钟
   DATA_VALIDATION: true, // 启用数据验证
@@ -55,14 +104,50 @@ const CONFIG = {
 CONFIG.DATA_DIR = path.resolve(CONFIG.WORKSPACE_DIR, 'data');
 CONFIG.REPORTS_DIR = path.resolve(CONFIG.WORKSPACE_DIR, 'reports');
 
+/**
+ * 日志输出函数
+ * @param {string} message - 日志消息
+ * @param {string} emoji - 表情符号前缀
+ * @returns {void}
+ */
 function log(message, emoji = 'ℹ️') {
   const timestamp = new Date().toISOString().split('T')[1].split('.')[0];
   console.log(`${emoji} [${timestamp}] ${message}`);
 }
 
 /**
- * v2.6: 加载昨日技能数据用于对比
- * @returns {Object|null} 昨日数据
+ * 格式化持续时间
+ * @param {number} ms - 毫秒数
+ * @returns {string} 格式化后的时间字符串
+ * @example
+ * formatDuration(1500); // "1.5s"
+ * formatDuration(65000); // "1m 5.0s"
+ */
+function formatDuration(ms) {
+  if (ms < 1000) return `${ms}ms`;
+  if (ms < 60000) return `${(ms / 1000).toFixed(1)}s`;
+  const mins = Math.floor(ms / 60000);
+  const secs = ((ms % 60000) / 1000).toFixed(1);
+  return `${mins}m ${secs}s`;
+}
+
+/**
+ * 加载昨日技能数据用于趋势对比
+ * @function loadYesterdayData
+ * @returns {Object|null} 昨日数据对象，包含 skills 数组和 date 字符串；如无数据则返回 null
+ * @description
+ * 尝试加载前一天的技能数据文件，用于与今日数据进行对比分析。
+ * 如果昨日文件不存在，会尝试加载最新的快照数据。
+ * 
+ * 文件查找顺序:
+ * 1. clawhub-top100-YYYY-MM-DD.json (昨日日期)
+ * 2. clawhub-top100-latest.json (最新快照)
+ * 
+ * @example
+ * const yesterdayData = loadYesterdayData();
+ * if (yesterdayData) {
+ *   console.log(`昨日有 ${yesterdayData.skills.length} 个技能`);
+ * }
  */
 function loadYesterdayData() {
   const today = new Date();
@@ -104,10 +189,23 @@ function loadYesterdayData() {
 }
 
 /**
- * v2.6: 分析技能趋势（上升/下降/新晋/稳定）
+ * 分析技能趋势（上升/下降/新晋/稳定）
+ * @function analyzeTrends
  * @param {Array} todaySkills - 今日技能列表
  * @param {Array} yesterdaySkills - 昨日技能列表
- * @returns {Object} 趋势分析结果
+ * @returns {Object} 趋势分析结果，包含 rising、falling、new、stable 四个数组
+ * @description
+ * 对比今日和昨日的技能数据，识别排名变化趋势：
+ * - 上升(rising): 排名上升超过2位，或下载量增长超过阈值
+ * - 下降(falling): 排名下降超过2位，或下载量减少超过阈值
+ * - 新晋(new): 昨日不存在的技能
+ * - 稳定(stable): 排名和下载量变化在阈值内
+ * 
+ * 阈值由 CONFIG.TREND_THRESHOLD 控制（默认5%）
+ * 
+ * @example
+ * const trends = analyzeTrends(todaySkills, yesterdaySkills);
+ * console.log(`上升: ${trends.rising.length}, 新晋: ${trends.new.length}`);
  */
 function analyzeTrends(todaySkills, yesterdaySkills) {
   if (!yesterdaySkills || yesterdaySkills.length === 0) {
@@ -231,18 +329,7 @@ function generateTrendReport(trends) {
   return lines.join('\n');
 }
 
-/**
- * v2.5: 格式化执行时间
- * @param {number} ms - 毫秒数
- * @returns {string} 格式化后的时间
- */
-function formatDuration(ms) {
-  if (ms < 1000) return `${ms}ms`;
-  if (ms < 60000) return `${(ms / 1000).toFixed(1)}s`;
-  const mins = Math.floor(ms / 60000);
-  const secs = ((ms % 60000) / 1000).toFixed(1);
-  return `${mins}m ${secs}s`;
-}
+
 
 /**
  * v2.5: 获取当前内存使用情况
@@ -268,10 +355,29 @@ function isMemoryHealthy(mem) {
 }
 
 /**
- * v2.5: 错误分类器
- * 对错误进行分类，便于后续处理
+ * 错误分类器 - 对错误进行分类，便于后续处理和统计
+ * @function classifyError
  * @param {Error} error - 错误对象
- * @returns {string} 错误类型
+ * @returns {string} 错误类型枚举值
+ * @description
+ * 根据错误消息内容对错误进行分类，支持以下类型：
+ * - TIMEOUT: 请求超时
+ * - CONNECTION: 连接错误（DNS、拒绝连接等）
+ * - RATE_LIMIT: API限流（429错误）
+ * - SERVER_ERROR: 服务器错误（5xx）
+ * - PARSE_ERROR: 数据解析错误
+ * - FILE_ERROR: 文件操作错误
+ * - UNKNOWN: 未知错误
+ * 
+ * @example
+ * try {
+ *   await fetchData();
+ * } catch (err) {
+ *   const errorType = classifyError(err);
+ *   if (errorType === 'RATE_LIMIT') {
+ *     // 等待后重试
+ *   }
+ * }
  */
 function classifyError(error) {
   const message = error.message?.toLowerCase() || '';
@@ -373,11 +479,35 @@ async function httpRequest(url, retryCount = 0) {
 
 /**
  * 自动分类技能
- * @param {Object} skill - 技能对象
+ * @function autoCategorizeSkill
+ * @param {Object} skill - 技能对象，包含 slug、summary 等属性
  * @returns {string} 分类名称
+ * @description
+ * 基于技能名称和描述自动分类。使用关键词匹配算法，支持权重机制。
  * 
- * 分类规则优先级：从前到后匹配，第一个匹配的返回
- * v2.4 改进：添加更多关键词，优化匹配逻辑
+ * 分类规则优先级（从前到后匹配）：
+ * 1. 浏览器自动化（playwright, puppeteer, selenium）
+ * 2. 搜索与研究（tavily, perplexity, deep research）
+ * 3. 文档处理（feishu, notion, confluence）
+ * 4. 数据处理（excel, csv, json transform）
+ * 5. 系统工具（healthcheck, monitor, cron）
+ * 6. 创意与演示（ppt, slide, presentation）
+ * 7. AI 与 Agent（agent, llm, workflow）
+ * 8. 版本控制（github, git commit）
+ * 9. 测试工具（unit test, e2e test）
+ * 10. 安全工具（security audit, vetter）
+ * 11. 通信与通知（email, notify, webhook）
+ * 12. 开发工具（linter, debugger）
+ * 13. 其他（兜底）
+ * 
+ * v2.4 改进：添加更多关键词，优化匹配逻辑，支持权重
+ * 
+ * @example
+ * const category = autoCategorizeSkill({
+ *   slug: 'web-scraper',
+ *   summary: 'A tool for web scraping'
+ * });
+ * // 返回: "浏览器自动化"
  */
 function autoCategorizeSkill(skill) {
   const slug = skill.slug?.toLowerCase() || '';
