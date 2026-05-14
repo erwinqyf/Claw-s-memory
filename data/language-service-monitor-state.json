@@ -1,13 +1,13 @@
 {
-  "lastRun": "2026-05-12T03:02:30.000Z",
-  "lastRunFormatted": "2026/5/12 11:02:30",
-  "lastPublished": "2026-05-12T03:02:30.000Z",
+  "lastRun": "2026-05-14T03:00:00.000Z",
+  "lastRunFormatted": "2026/5/14 11:00:00",
+  "lastPublished": null,
   "newArticlesFound": 5,
-  "reportPath": "reports/language-service-monitor-20260512.md",
+  "reportPath": "reports/language-service-monitor-20260514.md",
   "gitCommit": null,
   "feishuDocToken": null,
   "feishuDocUrl": null,
-  "feishuMessageId": "om_x100b6f1ddd56dd08c4550a54c4cbc8d",
+  "feishuMessageId": null,
   "articles": [
     {
       "title": "【重点】AI实验阶段是否已结束？本地化行业深度转型",
@@ -43,8 +43,50 @@
       "date": "2026-03-10",
       "url": "https://www.artificialintelligence-news.com/news/deepls-borderless-business-report-reveals-83-of-enterprises-are-still-behind-on-language-ai/",
       "summary": "尽管企业在其他领域广泛投资AI，但83%的企业尚未过渡到现代语言AI能力。全球扩张是首要驱动因素"
+    },
+    {
+      "title": "【重点】RWS 发布 Language Weaver Pro，挑战 DeepL 市场地位",
+      "source": "RWS",
+      "date": "2026-03-26",
+      "url": "https://itbrief.co.uk/story/rws-launches-ai-translation-tool-to-challenge-deepl",
+      "summary": "RWS与Cohere合作推出拥有超过1000亿参数的专业AI翻译模型，在32种语言测试中31种超越DeepL和Gemini，已集成到Trados产品组合"
+    },
+    {
+      "title": "【重点】DeepL 进军语音翻译市场，发布实时语音到语音翻译套件",
+      "source": "DeepL",
+      "date": "2026-04-16",
+      "url": "https://techcrunch.com/2026/04/16/deepl-known-for-text-translation-now-wants-to-translate-your-voice/",
+      "summary": "DeepL发布语音到语音翻译套件，支持会议、移动和网络对话场景，提供Zoom和Microsoft Teams插件，目前处于早期访问阶段"
+    },
+    {
+      "title": "【重点】RWS 发布《2026年本地化技术完整指南》",
+      "source": "RWS",
+      "date": "2026-02-20",
+      "url": "https://www.rws.com/blog/pillars/localization-technology-2026-complete-guide/",
+      "summary": "报告阐述2026年本地化技术生态系统现状，强调人机协作重要性，本地化已从职能转变为基础设施"
+    },
+    {
+      "title": "【重点】Nimdzi 发布 2026 语言服务行业百强报告",
+      "source": "Nimdzi",
+      "date": "2026-04",
+      "url": "https://www.nimdzi.com/nimdzi-100-2026/",
+      "summary": "2025年行业规模726亿美元，预计2026年734亿美元；AI带来三倍生产力提升，企业削减传统语言人员20%-25%"
+    },
+    {
+      "title": "【重点】Slator 发布 2026年5月语言行业数据与新闻简报",
+      "source": "Slator",
+      "date": "2026-05",
+      "url": "https://slator.com/language-industry-data-and-news-briefing-may-2026/",
+      "summary": "涵盖最新收购、招聘、融资和财务业绩动态，重点关注Autodesk、Riot Games等公司本地化领导者变动"
+    },
+    {
+      "title": "DeepL 扩展数据基础设施至 AWS",
+      "source": "DeepL",
+      "date": "2026-05-05",
+      "url": "https://www.deepl.com",
+      "summary": "DeepL将于2026年5月20日更新服务条款，将AWS添加为子处理器，客户数据将不再仅在DeepL欧洲服务器上独家处理"
     }
   ],
-  "runCount": 4,
-  "lastSaveTime": "2026-05-12T03:02:30.000Z"
+  "runCount": 5,
+  "lastSaveTime": "2026-05-14T03:00:00.000Z"
 }
