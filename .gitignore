@@ -1,0 +1,47 @@
+# OpenClaw Memory Repository
+# Git-synced persistent memory for AI assistant
+
+## Temporary files
+*.tmp
+*.log
+*.swp
+*~
+
+## Cache directories
+.cache/
+qmd/
+**/node_modules/
+
+## Sensitive information (NEVER commit these)
+.env
+.env.local
+*.key
+*.pem
+secrets/
+credentials/
+
+## Session state (local only)
+.openclaw/workspace-state.json
+.openclaw/sessions/
+
+## Build artifacts
+dist/
+build/
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## IDE
+.vscode/
+.idea/
+
+## Keep memory files (explicitly included)
+!MEMORY.md
+!memory/
+!SOUL.md
+!USER.md
+!IDENTITY.md
+!AGENTS.md
+!TOOLS.md
+!HEARTBEAT.md
