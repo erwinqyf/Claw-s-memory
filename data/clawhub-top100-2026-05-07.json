@@ -1,0 +1,702 @@
+[
+  {
+    "owner": "@pskoett",
+    "name": "Self-Improving Agent",
+    "desc": "Captures learnings, errors, and corrections to enable continuous improvement. Use when: (1) A command or operation fails unexpectedly, (2) User corrects Clau...",
+    "stars": "3.5k",
+    "downloads": "426k"
+  },
+  {
+    "owner": "@spclaudehome",
+    "name": "Skill Vetter",
+    "desc": "Security-first skill vetting for AI agents. Use before installing any skill from ClawdHub, GitHub, or other sources. Checks for red flags, permission scope, and suspicious patterns.",
+    "stars": "1.1k",
+    "downloads": "233k"
+  },
+  {
+    "owner": "@ivangdavila",
+    "name": "Self-Improving + Proactive Agent",
+    "desc": "Self-reflection + Self-criticism + Self-learning + Self-organizing memory. Agent evaluates its own work, catches mistakes, and improves permanently. Use when...",
+    "stars": "1.1k",
+    "downloads": "182k"
+  },
+  {
+    "owner": "@oswalpalash",
+    "name": "ontology",
+    "desc": "Typed knowledge graph for structured agent memory and composable skills. Use when creating/querying entities (Person, Project, Task, Event, Document), linkin...",
+    "stars": "591",
+    "downloads": "177k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Github",
+    "desc": "Interact with GitHub using the `gh` CLI. Use `gh issue`, `gh pr`, `gh run`, and `gh api` for issues, PRs, CI runs, and advanced queries.",
+    "stars": "572",
+    "downloads": "173k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Gog",
+    "desc": "Google Workspace CLI for Gmail, Calendar, Drive, Contacts, Sheets, and Docs.",
+    "stars": "880",
+    "downloads": "170k"
+  },
+  {
+    "owner": "@tokauthai",
+    "name": "SkillScan",
+    "desc": "Security gate for skills. Every new skill MUST pass SkillScan before use. Activate on any install, load, add, evaluate, or safety question about a skill. On...",
+    "stars": "14",
+    "downloads": "167k"
+  },
+  {
+    "owner": "@joelchance",
+    "name": "Polymarket",
+    "desc": "Query Polymarket prediction markets. Check odds, find trending markets, search events, track price movements.",
+    "stars": "110",
+    "downloads": "165k"
+  },
+  {
+    "owner": "@halthelobster",
+    "name": "Proactive Agent",
+    "desc": "Transform AI agents from task-followers into proactive partners that anticipate needs and continuously improve. Now with WAL Protocol, Working Buffer, Autonomous Crons, and battle-tested patterns. Part of the Hal Stack 🦞",
+    "stars": "746",
+    "downloads": "155k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Weather",
+    "desc": "Get current weather and forecasts (no API key required).",
+    "stars": "383",
+    "downloads": "147k"
+  },
+  {
+    "owner": "@gpyangyoujun",
+    "name": "Multi Search Engine",
+    "desc": "Multi search engine integration with 16 engines (7 CN + 9 Global). Supports advanced search operators, time filters, site search, privacy engines, and Wolfra...",
+    "stars": "658",
+    "downloads": "137k"
+  },
+  {
+    "owner": "@fly0pants",
+    "name": "AdMapix",
+    "desc": "Ad intelligence & app analytics assistant. Search ad creatives, analyze apps, view rankings, track downloads/revenue, and get market insights. Get your API k...",
+    "stars": "275",
+    "downloads": "128k"
+  },
+  {
+    "owner": "@matrixy",
+    "name": "Agent Browser",
+    "desc": "Headless browser automation CLI optimized for AI agents with accessibility tree snapshots and ref-based element selection",
+    "stars": "373",
+    "downloads": "104k"
+  },
+  {
+    "owner": "@biostartechnology",
+    "name": "Humanizer",
+    "desc": "Remove signs of AI-generated writing from text. Use when editing or reviewing\ntext to make it sound more natural and human-written. Based on Wikipedia's\ncomprehensive \"Signs of AI writing\" guide. Detects and fixes patterns including:\ninflated symbolism, promotional language, superficial -ing analyses, vague\nattributions, em dash overuse, rule of three, AI vocabulary words, negative\nparallelisms, and excessive conjunctive phrases.",
+    "stars": "592",
+    "downloads": "103k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Nano Pdf",
+    "desc": "Edit PDFs with natural-language instructions using the nano-pdf CLI.",
+    "stars": "242",
+    "downloads": "101k"
+  },
+  {
+    "owner": "@pollyreach",
+    "name": "PollyReach",
+    "desc": "PollyReach gives every AI agent a phone number and the ability to get things done over the phone — finding contacts, making calls, and completing tasks. Just...",
+    "stars": "40",
+    "downloads": "96.8k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Nano Banana Pro",
+    "desc": "Generate/edit images with Nano Banana Pro (Gemini 3 Pro Image). Use for image create/modify requests incl. edits. Supports text-to-image + image-to-image; 1K/2K/4K; use --input-image.",
+    "stars": "376",
+    "downloads": "94k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Obsidian",
+    "desc": "Work with Obsidian vaults (plain Markdown notes) and automate via obsidian-cli.",
+    "stars": "372",
+    "downloads": "91.1k"
+  },
+  {
+    "owner": "@jacky1n7",
+    "name": "Tavily 搜索",
+    "desc": "Web search via Tavily API (alternative to Brave). Use when the user asks to search the web / look up sources / find links and Brave web_search is unavailable...",
+    "stars": "246",
+    "downloads": "90.5k"
+  },
+  {
+    "owner": "@ide-rea",
+    "name": "Baidu web search",
+    "desc": "Search the web using Baidu AI Search Engine (BDSE). Use for live information, documentation, or research topics.",
+    "stars": "212",
+    "downloads": "83.9k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Notion",
+    "desc": "Notion API for creating and managing pages, databases, and blocks.",
+    "stars": "245",
+    "downloads": "83.4k"
+  },
+  {
+    "owner": "@maximeprades",
+    "name": "Auto-Updater Skill",
+    "desc": "Automatically update Clawdbot and all installed skills once daily. Runs via cron, checks for updates, applies them, and messages the user with a summary of what changed.",
+    "stars": "394",
+    "downloads": "82.4k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Sonoscli",
+    "desc": "Control Sonos speakers (discover/status/play/volume/group).",
+    "stars": "52",
+    "downloads": "80.8k"
+  },
+  {
+    "owner": "@chindden",
+    "name": "Skill Creator",
+    "desc": "Guide for creating effective skills. This skill should be used when users want to create a new skill (or update an existing skill) that extends Claude's capabilities with specialized knowledge, workflows, or tool integrations.",
+    "stars": "273",
+    "downloads": "79.4k"
+  },
+  {
+    "owner": "@uroboros1205",
+    "name": "Prismfy Web Search",
+    "desc": "Default web search for OpenClaw. Search the web across 10 engines — Google, Reddit, GitHub, arXiv, Hacker News, and more — using Prismfy. Free tier included,...",
+    "stars": "30",
+    "downloads": "78.6k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Openai Whisper",
+    "desc": "Local speech-to-text with the Whisper CLI (no API key).",
+    "stars": "302",
+    "downloads": "76.4k"
+  },
+  {
+    "owner": "@byungkyu",
+    "name": "API Gateway",
+    "desc": "Connect to external services through Maton-managed API routes. Use this skill only after the user names the target app, account, and task. Start with read/li...",
+    "stars": "373",
+    "downloads": "75.3k"
+  },
+  {
+    "owner": "@jk-0001",
+    "name": "Automation Workflows",
+    "desc": "Design and implement automation workflows to save time and scale operations as a solopreneur. Use when identifying repetitive tasks to automate, building workflows across tools, setting up triggers and actions, or optimizing existing automations. Covers automation opportunity identification, workflow design, tool selection (Zapier, Make, n8n), testing, and maintenance. Trigger on \"automate\", \"automation\", \"workflow automation\", \"save time\", \"reduce manual work\", \"automate my business\", \"no-code automation\".",
+    "stars": "281",
+    "downloads": "72.8k"
+  },
+  {
+    "owner": "@mrsz",
+    "name": "Agent Phone Call",
+    "desc": "Agent Phone Call gives every AI agent a phone number and the ability to get things done over the phone — finding contacts, making calls, and completing tasks...",
+    "stars": "7",
+    "downloads": "72.3k"
+  },
+  {
+    "owner": "@ivangdavila",
+    "name": "Word / DOCX",
+    "desc": "Create, inspect, and edit Microsoft Word documents and DOCX files with reliable styles, numbering, tracked changes, tables, sections, and compatibility check...",
+    "stars": "314",
+    "downloads": "70.8k"
+  },
+  {
+    "owner": "@ivangdavila",
+    "name": "Excel / XLSX",
+    "desc": "Create, inspect, and edit Microsoft Excel workbooks and XLSX files with reliable formulas, dates, types, formatting, recalculation, and template preservation...",
+    "stars": "255",
+    "downloads": "64.1k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Mcporter",
+    "desc": "Use the mcporter CLI to list, configure, auth, and call MCP servers/tools directly (HTTP or stdio), including ad-hoc servers, config edits, and CLI/type generation.",
+    "stars": "185",
+    "downloads": "61.1k"
+  },
+  {
+    "owner": "@shaivpidadi",
+    "name": "Free Ride - Unlimited free AI",
+    "desc": "Manages free AI models from OpenRouter for OpenClaw. Automatically ranks models by quality, configures fallbacks for rate-limit handling, and updates opencla...",
+    "stars": "434",
+    "downloads": "61k"
+  },
+  {
+    "owner": "@nextfrontierbuilds",
+    "name": "Elite Longterm Memory",
+    "desc": "Ultimate AI agent memory system for Cursor, Claude, ChatGPT & Copilot. WAL protocol + vector search + git-notes + cloud backup. Never lose context again. Vibe-coding ready.",
+    "stars": "201",
+    "downloads": "56.4k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Brave Search",
+    "desc": "Web search and content extraction via Brave Search API. Use for searching documentation, facts, or any web content. Lightweight, no browser required.",
+    "stars": "183",
+    "downloads": "54.3k"
+  },
+  {
+    "owner": "@matagul",
+    "name": "Desktop Control",
+    "desc": "Advanced desktop automation with mouse, keyboard, and screen control",
+    "stars": "329",
+    "downloads": "52.3k"
+  },
+  {
+    "owner": "@udiedrichsen",
+    "name": "Stock Analysis",
+    "desc": "Analyze stocks and cryptocurrencies using Yahoo Finance data. Supports portfolio management, watchlists with alerts, dividend analysis, 8-dimension stock scoring, viral trend detection (Hot Scanner), and rumor/early signal detection. Use for stock analysis, portfolio tracking, earnings reactions, crypto monitoring, trending stocks, or finding rumors before they hit mainstream.",
+    "stars": "225",
+    "downloads": "48k"
+  },
+  {
+    "owner": "@michaelgathara",
+    "name": "YouTube Watcher",
+    "desc": "Fetch and read transcripts from YouTube videos. Use when you need to summarize a video, answer questions about its content, or extract information from it.",
+    "stars": "291",
+    "downloads": "47.4k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Video Frames",
+    "desc": "Extract frames or short clips from videos using ffmpeg.",
+    "stars": "118",
+    "downloads": "47k"
+  },
+  {
+    "owner": "@fangkelvin",
+    "name": "Find Skills Skill",
+    "desc": "Search and discover OpenClaw skills from various sources. Use when: user wants to find available skills, search for specific functionality, or discover new s...",
+    "stars": "109",
+    "downloads": "43.5k"
+  },
+  {
+    "owner": "@gzlicanyi",
+    "name": "imap-smtp-email",
+    "desc": "Read and send email via IMAP/SMTP. Check for new/unread messages, fetch content, search mailboxes, mark as read/unread, and send emails with attachments. Sup...",
+    "stars": "98",
+    "downloads": "43.1k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Slack",
+    "desc": "Use when you need to control Slack from Clawdbot via the slack tool, including reacting to messages or pinning/unpinning items in Slack channels or DMs.",
+    "stars": "136",
+    "downloads": "42.3k"
+  },
+  {
+    "owner": "@matthew77",
+    "name": "Tavily Search",
+    "desc": "Web search using Tavily's LLM-optimized API. Returns relevant results with content snippets, scores, and metadata.",
+    "stars": "109",
+    "downloads": "41.3k"
+  },
+  {
+    "owner": "@lamelas",
+    "name": "Himalaya",
+    "desc": "CLI to manage emails via IMAP/SMTP. Use `himalaya` to list, read, write, reply, forward, search, and organize emails from the terminal. Supports multiple accounts and message composition with MML (MIME Meta Language).",
+    "stars": "65",
+    "downloads": "41.3k"
+  },
+  {
+    "owner": "@moltbro",
+    "name": "Humanize AI text",
+    "desc": "Humanize AI-generated text to bypass detection. This humanizer rewrites ChatGPT, Claude, and GPT content to sound natural and pass AI detectors like GPTZero,...",
+    "stars": "165",
+    "downloads": "41.1k"
+  },
+  {
+    "owner": "@ivangdavila",
+    "name": "Powerpoint / PPTX",
+    "desc": "Create, inspect, and edit Microsoft PowerPoint presentations and PPTX decks with reliable layouts, templates, placeholders, notes, charts, and visual QA. Use...",
+    "stars": "120",
+    "downloads": "40.3k"
+  },
+  {
+    "owner": "@joargp",
+    "name": "News Summary",
+    "desc": "This skill should be used when the user asks for news updates, daily briefings, or what's happening in the world. Fetches news from trusted international RSS feeds and can create voice summaries.",
+    "stars": "126",
+    "downloads": "40.2k"
+  },
+  {
+    "owner": "@peytoncasper",
+    "name": "Browser Automation",
+    "desc": "Automate web browser interactions using natural language via CLI commands. Use when the user asks to browse websites, navigate web pages, extract data from websites, take screenshots, fill forms, click buttons, or interact with web applications.",
+    "stars": "53",
+    "downloads": "40k"
+  },
+  {
+    "owner": "@shawnpana",
+    "name": "Browser Use",
+    "desc": "Automates browser interactions for web testing, form filling, screenshots, and data extraction. Use when the user needs to navigate websites, interact with w...",
+    "stars": "97",
+    "downloads": "40k"
+  },
+  {
+    "owner": "@xiucheng",
+    "name": "Self Improving Agent",
+    "desc": "Self-improving agent system that analyzes conversation quality, identifies improvement opportunities, and continuously optimizes response strategies.",
+    "stars": "58",
+    "downloads": "40k"
+  },
+  {
+    "owner": "@jrbobbyhansen-pixel",
+    "name": "Memory Setup",
+    "desc": "Enable and configure Moltbot/Clawdbot memory search for persistent context. Use when setting up memory, fixing \"goldfish brain,\" or helping users configure memorySearch in their config. Covers MEMORY.md, daily logs, and vector search setup.",
+    "stars": "121",
+    "downloads": "39.6k"
+  },
+  {
+    "owner": "@spiceman161",
+    "name": "Playwright MCP",
+    "desc": "Browser automation via Playwright MCP server. Navigate websites, click elements, fill forms, extract data, take screenshots, and perform full browser automation workflows.",
+    "stars": "144",
+    "downloads": "39.2k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Blogwatcher",
+    "desc": "Monitor blogs and RSS/Atom feeds for updates using the blogwatcher CLI.",
+    "stars": "66",
+    "downloads": "38.3k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Markdown Converter",
+    "desc": "Convert documents and files to Markdown using markitdown. Use when converting PDF, Word (.docx), PowerPoint (.pptx), Excel (.xlsx, .xls), HTML, CSV, JSON, XML, images (with EXIF/OCR), audio (with transcription), ZIP archives, YouTube URLs, or EPubs to Markdown format for LLM processing or text analysis.",
+    "stars": "171",
+    "downloads": "38.2k"
+  },
+  {
+    "owner": "@nicholasspisak",
+    "name": "Clawdbot Documentation Expert",
+    "desc": "Clawdbot documentation expert with decision tree navigation, search scripts, doc fetching, version tracking, and config snippets for all Clawdbot features",
+    "stars": "293",
+    "downloads": "38.1k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Trello",
+    "desc": "Manage Trello boards, lists, and cards via the Trello REST API.",
+    "stars": "140",
+    "downloads": "37k"
+  },
+  {
+    "owner": "@byteroverinc",
+    "name": "ByteRover",
+    "desc": "You MUST use this for gathering contexts before any work. This is a Knowledge management for AI agents. Use `brv` to store and retrieve project patterns, dec...",
+    "stars": "115",
+    "downloads": "36.9k"
+  },
+  {
+    "owner": "@bestrocky",
+    "name": "Proactive Agent Lite",
+    "desc": "Transform AI agents from task-followers into proactive partners with memory architecture, reverse prompting, and self-healing patterns. Lightweight version f...",
+    "stars": "58",
+    "downloads": "36.3k"
+  },
+  {
+    "owner": "@guogang1024",
+    "name": "Session-logs",
+    "desc": "Search and analyze your own session logs (older/parent conversations) using jq.",
+    "stars": "27",
+    "downloads": "35.4k"
+  },
+  {
+    "owner": "@guohongbin-git",
+    "name": "Skill Finder Cn",
+    "desc": "Skill 查找器 | Skill Finder. 帮助发现和安装 ClawHub Skills | Discover and install ClawHub Skills. 回答'有什么技能可以X'、'找一个技能' | Answers 'what skill can X', 'find a skill'. 触发...",
+    "stars": "117",
+    "downloads": "35.2k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Model Usage",
+    "desc": "Use CodexBar CLI local cost usage to summarize per-model usage for Codex or Claude, including the current (most recent) model or a full model breakdown. Trigger when asked for model-level usage/cost data from codexbar, or when you need a scriptable per-model summary from codexbar cost JSON.",
+    "stars": "109",
+    "downloads": "34.7k"
+  },
+  {
+    "owner": "@bert-builder",
+    "name": "Tavily AI Search",
+    "desc": "AI-optimized web search using Tavily Search API. Use when you need comprehensive web research, current events lookup, domain-specific search, or AI-generated answer summaries. Tavily is optimized for LLM consumption with clean structured results, answer generation, and raw content extraction. Best for research tasks, news queries, fact-checking, and gathering authoritative sources.",
+    "stars": "31",
+    "downloads": "34.6k"
+  },
+  {
+    "owner": "@borye",
+    "name": "Xiaohongshu (小红书) Automation",
+    "desc": "Automate Xiaohongshu (RedNote) content operations using a Python client for the xiaohongshu-mcp server. Use for: (1) Publishing image, text, and video content, (2) Searching for notes and trends, (3) Analyzing post details and comments, (4) Managing user profiles and content feeds. Triggers: xiaohongshu automation, rednote content, publish to xiaohongshu, xiaohongshu search, social media management.",
+    "stars": "164",
+    "downloads": "34.3k"
+  },
+  {
+    "owner": "@mpociot",
+    "name": "SuperDesign",
+    "desc": "Expert frontend design guidelines for creating beautiful, modern UIs. Use when building landing pages, dashboards, or any user interface.",
+    "stars": "171",
+    "downloads": "34k"
+  },
+  {
+    "owner": "@awspace",
+    "name": "Pdf",
+    "desc": "Comprehensive PDF manipulation toolkit for extracting text and tables, creating new PDFs, merging/splitting documents, and handling forms. When Claude needs to fill in a PDF form or programmatically process, generate, or analyze PDF documents at scale.",
+    "stars": "50",
+    "downloads": "33.8k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Clawdhub",
+    "desc": "Use the ClawdHub CLI to search, install, update, and publish agent skills from clawdhub.com. Use when you need to fetch new skills on the fly, sync installed skills to latest or a specific version, or publish new/updated skill folders with the npm-installed clawdhub CLI.",
+    "stars": "237",
+    "downloads": "33.7k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Discord",
+    "desc": "Use when you need to control Discord from Clawdbot via the discord tool: send messages, react, post or upload stickers, upload emojis, run polls, manage threads/pins/search, fetch permissions or member/role/channel info, or handle moderation actions in Discord DMs or channels.",
+    "stars": "70",
+    "downloads": "33.4k"
+  },
+  {
+    "owner": "@byungkyu",
+    "name": "Gmail",
+    "desc": "Gmail API integration with managed OAuth. Read, send, and manage emails, threads, labels, and drafts. Use this skill when users want to interact with Gmail....",
+    "stars": "67",
+    "downloads": "33.2k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Apple Notes",
+    "desc": "Manage Apple Notes via the `memo` CLI on macOS (create, view, edit, delete, search, move, and export notes). Use when a user asks Clawdbot to add a note, list notes, search notes, or manage note folders.",
+    "stars": "49",
+    "downloads": "32.9k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Gemini",
+    "desc": "Gemini CLI for one-shot Q&A, summaries, and generation.",
+    "stars": "50",
+    "downloads": "31.2k"
+  },
+  {
+    "owner": "@ivangdavila",
+    "name": "Playwright (Automation + MCP + Scraper)",
+    "desc": "Browser automation via Playwright MCP. Navigate websites, click elements, fill forms, take screenshots, extract data, and debug real browser workflows. Use w...",
+    "stars": "113",
+    "downloads": "31.1k"
+  },
+  {
+    "owner": "@adboio",
+    "name": "AgentMail",
+    "desc": "API-first email platform designed for AI agents. Create and manage dedicated email inboxes, send and receive emails programmatically, and handle email-based workflows with webhooks and real-time events. Use when you need to set up agent email identity, send emails from agents, handle incoming email workflows, or replace traditional email providers like Gmail with agent-friendly infrastructure.",
+    "stars": "59",
+    "downloads": "30.9k"
+  },
+  {
+    "owner": "@ivangdavila",
+    "name": "Data Analysis",
+    "desc": "Data analysis and visualization. Query databases, generate reports, automate spreadsheets, and turn raw data into clear, actionable insights. Use when (1) yo...",
+    "stars": "103",
+    "downloads": "30.5k"
+  },
+  {
+    "owner": "@robin797860",
+    "name": "Stock Watcher",
+    "desc": "Manage and monitor a personal stock watchlist with support for adding, removing, listing stocks, and summarizing their recent performance using data from 10jqka.com.cn. Use when the user wants to track specific stocks, get performance summaries, or manage their watchlist.",
+    "stars": "83",
+    "downloads": "30.4k"
+  },
+  {
+    "owner": "@billyutw",
+    "name": "Web Search",
+    "desc": "This skill should be used when users need to search the web for information, find current content, look up news articles, search for images, or find videos. It uses DuckDuckGo's search API to return results in clean, formatted output (text, markdown, or JSON). Use for research, fact-checking, finding recent information, or gathering web resources.",
+    "stars": "29",
+    "downloads": "30.3k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Qmd",
+    "desc": "Local search/indexing CLI (BM25 + vectors + rerank) with MCP mode.",
+    "stars": "102",
+    "downloads": "30k"
+  },
+  {
+    "owner": "@wwlyzzyorg",
+    "name": "description: 将用户讲稿一键生成乔布斯风极简科技感竖屏HTML演示稿。当用户需要生成PPT、演示文稿、Slides、幻灯片，或要求科技风/极简风/乔布斯风格的演示时触发此技能。输出为单个可直接运行的HTML文件。",
+    "desc": "将用户讲稿一键生成乔布斯风极简科技感竖屏HTML演示稿。当用户需要生成PPT、演示文稿、Slides、幻灯片，或要求科技风/极简风/乔布斯风格的演示时触发此技能。输出为单个可直接运行的HTML文件。",
+    "stars": "79",
+    "downloads": "29.9k"
+  },
+  {
+    "owner": "@arnarsson",
+    "name": "Docker Essentials",
+    "desc": "Essential Docker commands and workflows for container management, image operations, and debugging.",
+    "stars": "31",
+    "downloads": "29.8k"
+  },
+  {
+    "owner": "@kowl64",
+    "name": "n8n workflow automation",
+    "desc": "Designs and outputs n8n workflow JSON with robust triggers, idempotency, error handling, logging, retries, and human-in-the-loop review queues. Use when you need an auditable automation that won’t silently fail.",
+    "stars": "140",
+    "downloads": "29.6k"
+  },
+  {
+    "owner": "@parags",
+    "name": "Deep Research Pro",
+    "desc": "Multi-source deep research agent. Searches the web, synthesizes findings, and delivers cited reports. No API keys required.",
+    "stars": "78",
+    "downloads": "29.5k"
+  },
+  {
+    "owner": "@xobi667",
+    "name": "UI/UX Pro Max",
+    "desc": "UI/UX design intelligence and implementation guidance for building polished interfaces. Use when the user asks for UI design, UX flows, information architecture, visual style direction, design systems/tokens, component specs, copy/microcopy, accessibility, or to generate/critique/refine frontend UI (HTML/CSS/JS, React, Next.js, Vue, Svelte, Tailwind). Includes workflows for (1) generating new UI layouts and styling, (2) improving existing UI/UX, (3) producing design-system tokens and component guidelines, and (4) turning UX recommendations into concrete code changes.",
+    "stars": "137",
+    "downloads": "29.4k"
+  },
+  {
+    "owner": "@brandonwise",
+    "name": "Humanizer",
+    "desc": "Humanize AI-generated text by detecting and removing patterns typical of LLM output. Rewrites text to sound natural, specific, and human. Uses 24 pattern detectors, 500+ AI vocabulary terms across 3 tiers, and statistical analysis (burstiness, type-token ratio, readability) for comprehensive detection. Use when asked to humanize text, de-AI writing, make content sound more natural/human, review writing for AI patterns, score text for AI detection, or improve AI-generated drafts. Covers content, language, style, communication, and filler categories.",
+    "stars": "66",
+    "downloads": "29k"
+  },
+  {
+    "owner": "@theishangoswami",
+    "name": "Web Search by Exa",
+    "desc": "Neural web search, content extraction, company and people research, code search, and deep research via the Exa MCP server. Use when you need to: (1) search t...",
+    "stars": "44",
+    "downloads": "28.2k"
+  },
+  {
+    "owner": "@jakelin",
+    "name": "DuckDuckGo Web Search",
+    "desc": "Web search without an API key using DuckDuckGo Lite via web_fetch. Use as a fallback when web_search fails with missing_brave_api_key error, or whenever you...",
+    "stars": "28",
+    "downloads": "28k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "1password",
+    "desc": "Set up and use 1Password CLI (op). Use when installing the CLI, enabling desktop app integration, signing in (single or multi-account), or reading/injecting/running secrets via op.",
+    "stars": "46",
+    "downloads": "27.5k"
+  },
+  {
+    "owner": "@arnarsson",
+    "name": "Git Essentials",
+    "desc": "Essential Git commands and workflows for version control, branching, and collaboration.",
+    "stars": "32",
+    "downloads": "27.5k"
+  },
+  {
+    "owner": "@asleep123",
+    "name": "Caldav Calendar",
+    "desc": "Sync and query CalDAV calendars (iCloud, Google, Fastmail, Nextcloud, etc.) using vdirsyncer + khal. Works on Linux.",
+    "stars": "220",
+    "downloads": "27.3k"
+  },
+  {
+    "owner": "@ide-rea",
+    "name": "Baidu Wenku AIPPT",
+    "desc": "Generate PPT with Baidu Wenku AI. Smart template selection based on content.",
+    "stars": "54",
+    "downloads": "27.3k"
+  },
+  {
+    "owner": "@zlc000190",
+    "name": "Using Superpowers",
+    "desc": "Use when starting any conversation - establishes how to find and use skills, requiring Skill tool invocation before ANY response including clarifying questions",
+    "stars": "54",
+    "downloads": "26.6k"
+  },
+  {
+    "owner": "@alex3alex",
+    "name": "OpenClaw Backup",
+    "desc": "Backup and restore OpenClaw data. Use when user asks to create backups, set up automatic backup schedules, restore from backup, or manage backup rotation. Handles ~/.openclaw directory archiving with proper exclusions.",
+    "stars": "79",
+    "downloads": "26.5k"
+  },
+  {
+    "owner": "@waisimon",
+    "name": "Playwright Scraper Skill",
+    "desc": "Playwright-based web scraping OpenClaw Skill with anti-bot protection. Successfully tested on complex sites like Discuss.com.hk.",
+    "stars": "54",
+    "downloads": "26.4k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Peekaboo",
+    "desc": "Capture and automate macOS UI with the Peekaboo CLI.",
+    "stars": "74",
+    "downloads": "26.4k"
+  },
+  {
+    "owner": "@kys42",
+    "name": "Stock Market Pro",
+    "desc": "Yahoo Finance (yfinance) powered stock analysis skill: quotes, fundamentals, ASCII trends, high-resolution charts (RSI/MACD/BB/VWAP/ATR), plus optional web a...",
+    "stars": "150",
+    "downloads": "26.3k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Apple Reminders",
+    "desc": "Manage Apple Reminders via the `remindctl` CLI on macOS (list, add, edit, complete, delete). Supports lists, date filters, and JSON/plain output.",
+    "stars": "51",
+    "downloads": "26.1k"
+  },
+  {
+    "owner": "@stellarhold170nt",
+    "name": "healthcheck",
+    "desc": "Track water and sleep with JSON file storage",
+    "stars": "10",
+    "downloads": "25.7k"
+  },
+  {
+    "owner": "@steipete",
+    "name": "Tmux",
+    "desc": "Remote-control tmux sessions for interactive CLIs by sending keystrokes and scraping pane output.",
+    "stars": "40",
+    "downloads": "25.5k"
+  },
+  {
+    "owner": "@byungkyu",
+    "name": "YouTube",
+    "desc": "YouTube Data API integration with managed OAuth. Search videos, manage playlists, access channel data, and interact with comments. Use this skill when users...",
+    "stars": "134",
+    "downloads": "25.2k"
+  },
+  {
+    "owner": "@10e9928a",
+    "name": "Performs web searches using DuckDuckGo to retrieve real-time information from the internet. Use when the user needs to search for current events, documentation, tutorials, or any information that requires web search capabilities.",
+    "desc": "Performs web searches using DuckDuckGo to retrieve real-time information from the internet. Use when the user needs to search for current events, documentation, tutorials, or any information that requires web search capabilities.",
+    "stars": "40",
+    "downloads": "25.2k"
+  },
+  {
+    "owner": "@mbpz",
+    "name": "A股量化 AkShare",
+    "desc": "A股量化数据分析工具，基于AkShare库获取A股行情、财务数据、板块信息等。用于回答关于A股股票查询、行情数据、财务分析、选股等问题。",
+    "stars": "77",
+    "downloads": "24.9k"
+  },
+  {
+    "owner": "@dennis-da-menace",
+    "name": "Agent Memory",
+    "desc": "Persistent memory for AI agents to store facts, learn from actions, recall information, and track entities across sessions.",
+    "stars": "26",
+    "downloads": "24.8k"
+  }
+]

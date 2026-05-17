@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "skills": {
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1773287291573
+    },
+    "excel-xlsx": {
+      "version": "1.0.2",
+      "installedAt": 1773289986244
+    },
+    "ppt-generator": {
+      "version": "1.0.0",
+      "installedAt": 1773290161485
+    },
+    "deep-research-pro": {
+      "version": "1.0.2",
+      "installedAt": 1773290232171
+    },
+    "weekly-report-generator": {
+      "version": "1.0.0",
+      "installedAt": 1773290280694
+    },
+    "feishu-doc-manager": {
+      "version": "1.0.0",
+      "installedAt": 1773298442204
+    },
+    "session-logs": {
+      "version": "1.0.0",
+      "installedAt": 1773306151657
+    },
+    "github": {
+      "version": "1.0.0",
+      "installedAt": 1773372979742
+    },
+    "find-skills": {
+      "version": "0.1.0",
+      "installedAt": 1773373081855
+    },
+    "agent-browser": {
+      "version": "0.2.0",
+      "installedAt": 1773373141041
+    },
+    "summarize": {
+      "version": "1.0.0",
+      "installedAt": 1773466955254
+    },
+    "proactive-agent": {
+      "version": "3.1.0",
+      "installedAt": 1773467080479
+    },
+    "self-improving": {
+      "version": "1.2.16",
+      "installedAt": 1773467103020
+    },
+    "doc-summarize-pro": {
+      "version": "2.3.0",
+      "installedAt": 1773470764195
+    }
+  }
+}

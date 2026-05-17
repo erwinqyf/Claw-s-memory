@@ -1,0 +1,21 @@
+{
+  "taskId": "news-digest-{YYYYMMDD}",
+  "taskName": "全球新闻汇总",
+  "schedule": "每日 12:00",
+  "priority": "medium",
+  "steps": [
+    {"id": 1, "agent": "Bravo", "name": "新闻收集", "timeout": 240},
+    {"id": 2, "agent": "Alpha", "name": "分析筛选", "timeout": 180},
+    {"id": 3, "agent": "Charlie", "name": "格式化简报", "timeout": 120},
+    {"id": 4, "agent": "Echo", "name": "记忆归档", "timeout": 120}
+  ],
+  "params": {
+    "sources": ["Reuters", "BBC", "新华网", "科技媒体"],
+    "categories": ["科技", "AI", "国际", "财经"],
+    "maxItems": 10
+  },
+  "output": {
+    "reportPath": "reports/news-digest-{date}.md",
+    "deliveryChannel": "feishu"
+  }
+}

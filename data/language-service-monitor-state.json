@@ -1,0 +1,92 @@
+{
+  "lastRun": "2026-05-14T03:00:00.000Z",
+  "lastRunFormatted": "2026/5/14 11:00:00",
+  "lastPublished": "2026-05-14T03:00:00.000Z",
+  "newArticlesFound": 5,
+  "reportPath": "reports/language-service-monitor-20260514.md",
+  "gitCommit": "892b976",
+  "feishuDocToken": null,
+  "feishuDocUrl": null,
+  "feishuMessageId": "om_x100b6f678c2f9094c45cb7d799fe9e6",
+  "articles": [
+    {
+      "title": "【重点】AI实验阶段是否已结束？本地化行业深度转型",
+      "source": "Slator",
+      "date": "2026-03",
+      "url": "https://slator.com/ai-experimentation-phase-localization/",
+      "summary": "40.5%受访者认为AI实验阶段才刚刚开始，28.5%认为已进入实施阶段。行业正从弹性应对转向创新驱动"
+    },
+    {
+      "title": "【重点】Meta发布OMT多语言翻译系统，支持1600种语言",
+      "source": "Slator",
+      "date": "2026-03-17",
+      "url": "https://slator.com/meta-1600-languages-ai-translation/",
+      "summary": "OMT将AI翻译支持从200种扩展到1600+种语言，采用双架构设计，显著改善低资源语言翻译质量"
+    },
+    {
+      "title": "【重点】Google Translate升级Gemini AI，支持语境感知和交互功能",
+      "source": "Slator",
+      "date": "2026-02-26",
+      "url": "https://slator.com/google-translate-ai-context/",
+      "summary": "支持语境感知、习语处理和交互式翻译，用户可查看替代措辞和语气解释。同时发布Nano Banana 2图像翻译模型"
+    },
+    {
+      "title": "【重点】TransPerfect发布2026商业展望报告：AI成为全球内容运营标准",
+      "source": "TransPerfect",
+      "date": "2026-05-05",
+      "url": "https://www.transperfect.com/about/press/transperfect-releases-2026-business-outlook-report-ai-now-standard-global-content",
+      "summary": "74%企业领导者将AI战略作为2026年首要任务；65%已在本地化流程中使用AI；40%预计预算持平但要求更高效率"
+    },
+    {
+      "title": "【重点】DeepL发布《Borderless Business》报告：83%企业语言AI应用滞后",
+      "source": "DeepL",
+      "date": "2026-03-10",
+      "url": "https://www.artificialintelligence-news.com/news/deepls-borderless-business-report-reveals-83-of-enterprises-are-still-behind-on-language-ai/",
+      "summary": "尽管企业在其他领域广泛投资AI，但83%的企业尚未过渡到现代语言AI能力。全球扩张是首要驱动因素"
+    },
+    {
+      "title": "【重点】RWS 发布 Language Weaver Pro，挑战 DeepL 市场地位",
+      "source": "RWS",
+      "date": "2026-03-26",
+      "url": "https://itbrief.co.uk/story/rws-launches-ai-translation-tool-to-challenge-deepl",
+      "summary": "RWS与Cohere合作推出拥有超过1000亿参数的专业AI翻译模型，在32种语言测试中31种超越DeepL和Gemini，已集成到Trados产品组合"
+    },
+    {
+      "title": "【重点】DeepL 进军语音翻译市场，发布实时语音到语音翻译套件",
+      "source": "DeepL",
+      "date": "2026-04-16",
+      "url": "https://techcrunch.com/2026/04/16/deepl-known-for-text-translation-now-wants-to-translate-your-voice/",
+      "summary": "DeepL发布语音到语音翻译套件，支持会议、移动和网络对话场景，提供Zoom和Microsoft Teams插件，目前处于早期访问阶段"
+    },
+    {
+      "title": "【重点】RWS 发布《2026年本地化技术完整指南》",
+      "source": "RWS",
+      "date": "2026-02-20",
+      "url": "https://www.rws.com/blog/pillars/localization-technology-2026-complete-guide/",
+      "summary": "报告阐述2026年本地化技术生态系统现状，强调人机协作重要性，本地化已从职能转变为基础设施"
+    },
+    {
+      "title": "【重点】Nimdzi 发布 2026 语言服务行业百强报告",
+      "source": "Nimdzi",
+      "date": "2026-04",
+      "url": "https://www.nimdzi.com/nimdzi-100-2026/",
+      "summary": "2025年行业规模726亿美元，预计2026年734亿美元；AI带来三倍生产力提升，企业削减传统语言人员20%-25%"
+    },
+    {
+      "title": "【重点】Slator 发布 2026年5月语言行业数据与新闻简报",
+      "source": "Slator",
+      "date": "2026-05",
+      "url": "https://slator.com/language-industry-data-and-news-briefing-may-2026/",
+      "summary": "涵盖最新收购、招聘、融资和财务业绩动态，重点关注Autodesk、Riot Games等公司本地化领导者变动"
+    },
+    {
+      "title": "DeepL 扩展数据基础设施至 AWS",
+      "source": "DeepL",
+      "date": "2026-05-05",
+      "url": "https://www.deepl.com",
+      "summary": "DeepL将于2026年5月20日更新服务条款，将AWS添加为子处理器，客户数据将不再仅在DeepL欧洲服务器上独家处理"
+    }
+  ],
+  "runCount": 5,
+  "lastSaveTime": "2026-05-14T03:00:00.000Z"
+}

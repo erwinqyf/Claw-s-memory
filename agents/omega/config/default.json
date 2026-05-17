@@ -1,0 +1,70 @@
+{
+  "omega": {
+    "version": "1.0.0",
+    "name": "总体设计部",
+    "codename": "Omega"
+  },
+  "taskBus": {
+    "maxQueueSize": 1000,
+    "defaultTimeout": 300000,
+    "maxRetries": 3
+  },
+  "healthMonitor": {
+    "checkInterval": 60000,
+    "historyWindow": 86400000,
+    "thresholds": {
+      "shi": {
+        "healthy": 0.9,
+        "warning": 0.7
+      },
+      "agentAvailability": {
+        "healthy": 0.8,
+        "warning": 0.6
+      },
+      "taskSuccessRate": {
+        "healthy": 0.95,
+        "warning": 0.8
+      },
+      "queueHealth": {
+        "healthy": 0.7,
+        "warning": 0.4
+      },
+      "resourceUtilization": {
+        "healthy": 0.85,
+        "warning": 0.95
+      }
+    }
+  },
+  "agents": {
+    "alpha": {
+      "capabilities": ["task-execution", "report-generation", "code-optimization"],
+      "capacity": 5
+    },
+    "bravo": {
+      "capabilities": ["monitoring", "review", "analysis"],
+      "capacity": 3
+    },
+    "charlie": {
+      "capabilities": ["memory-management", "consolidation", "heartbeat"],
+      "capacity": 3
+    },
+    "delta": {
+      "capabilities": ["report-generation", "data-collection", "notification"],
+      "capacity": 4
+    },
+    "echo": {
+      "capabilities": ["intelligence", "tracking", "research"],
+      "capacity": 3
+    }
+  },
+  "skills": {
+    "health-check": {
+      "enabled": true,
+      "schedule": "0 */1 * * *"
+    }
+  },
+  "notifications": {
+    "channels": ["feishu", "log"],
+    "alertThreshold": "warning"
+  }
+}

@@ -1,0 +1,359 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "name": "周报复盘 - 孪生体协作总结",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "timezone": "Asia/Shanghai",
+        "description": "每周一上午 9 点（上海时间）",
+        "expr": "0 9 * * 1"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "请生成本周的孪生协作周报复盘：\n\n1. 统计本周对话次数、消息数、Token 使用量\n2. 检查记忆机制健康状态：\n   - MEMORY.md 更新情况\n   - 日常记忆文件完整性\n   - Git 同步状态\n   - session-logs 可搜索性\n3. 总结成功经验（配合默契的时刻、高效对话、有价值决策）\n4. 记录踩过的坑（技术问题、沟通误解、可优化的交互）\n5. 提出改进计划（系统优化、协作优化）\n6. 列出下周待办事项\n\n使用模板：templates/weekly-report.md\n报告保存到：reports/weekly-YYYY-MM-DD.md\n生成后提交到 Git 仓库并推送。"
+      },
+      "deleteAfterRun": false,
+      "retryPolicy": {
+        "maxRetries": 3,
+        "retryDelayMs": 300000
+      },
+      "metadata": {
+        "category": "weekly-review",
+        "priority": "high",
+        "tags": [
+          "周报",
+          "复盘",
+          "孪生协作",
+          "记忆检查"
+        ]
+      },
+      "createdAt": "2026-03-12T21:30:00+08:00",
+      "updatedAt": "2026-03-12T21:30:00+08:00",
+      "state": {
+        "nextRunAtMs": 1774227600000,
+        "lastRunAtMs": 1773625895835,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 100812,
+        "lastError": "AxiosError: Request failed with status code 400",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
+      },
+      "id": "weekly-report-monday-9am",
+      "wakeMode": "now",
+      "delivery": {
+        "mode": "feishu",
+        "to": "ou_adcbc44a6fb7460391e585338f9e1e35"
+      },
+      "updatedAtMs": 1773641461485
+    },
+    {
+      "name": "记忆巩固 - 每周日",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "timezone": "Asia/Shanghai",
+        "description": "每周日上午 10 点（上海时间）",
+        "expr": "0 10 * * 0"
+      },
+      "sessionTarget": "main",
+      "payload": {
+        "kind": "systemEvent",
+        "event": "memory-consolidation",
+        "text": "请执行记忆巩固流程：\n\n1. 运行脚本：`node workspace/scripts/consolidate-memory.js`\n2. 检查最近 7 天的日常记忆文件 (memory/YYYY-MM-DD.md)\n3. 提取关键信息、决策、偏好、待办事项\n4. 将巩固报告追加到 MEMORY.md\n5. 审查新增内容，确保质量\n6. 提交到 Git 并推送到远程仓库\n\n命令示例：\n```bash\ncd ~/.openclaw/workspace\nnode scripts/consolidate-memory.js\ngit add MEMORY.md\ngit commit -m \"chore: 记忆巩固 $(date +%Y-%m-%d)\"\ngit push\n```\n\n完成后通过飞书通知丰。"
+      },
+      "deleteAfterRun": false,
+      "retryPolicy": {
+        "maxRetries": 3,
+        "retryDelayMs": 300000
+      },
+      "metadata": {
+        "category": "memory-consolidation",
+        "priority": "high",
+        "tags": [
+          "记忆巩固",
+          "MEMORY.md",
+          "Git 同步"
+        ]
+      },
+      "createdAt": "2026-03-13T10:30:00+08:00",
+      "updatedAt": "2026-03-13T10:30:00+08:00",
+      "state": {
+        "nextRunAtMs": 1774144800000,
+        "lastRunAtMs": 1773540000015,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 548029,
+        "lastError": "Delivering to Feishu requires target <chatId|user:openId|chat:chatId>",
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 1
+      },
+      "id": "memory-consolidate-sunday-10am",
+      "wakeMode": "now",
+      "updatedAtMs": 1773540548044
+    },
+    {
+      "name": "ClawHub Top100 追踪 - 每日",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "timezone": "Asia/Shanghai",
+        "description": "每天早上 6 点（上海时间）",
+        "expr": "0 6 * * *"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "请执行 ClawHub Top100 技能追踪：\n\n1. 运行脚本：`node workspace/scripts/clawhub-tracker.js`\n2. 获取 ClawHub 下载量前 100 名技能\n3. 记录：名字、下载数、星星数、功能描述、分类\n4. 生成 Markdown 报告保存到 reports/clawhub-top100-YYYY-MM-DD.md\n5. 保存 JSON 数据到 data/clawhub-top100-YYYY-MM-DD.json\n6. 更新 data/clawhub-top100-latest.json 最新快照\n7. 提交到 Git 并推送到远程仓库\n\n命令示例：\n```bash\ncd ~/.openclaw/workspace\nnode scripts/clawhub-tracker.js\ngit add data/ reports/\ngit commit -m \"feat: ClawHub Top100 追踪 $(date +%Y-%m-%d)\"\ngit push\n```\n\n完成后通过飞书通知丰，附上 Top10 技能列表。"
+      },
+      "deleteAfterRun": false,
+      "retryPolicy": {
+        "maxRetries": 3,
+        "retryDelayMs": 300000
+      },
+      "metadata": {
+        "category": "clawhub-tracking",
+        "priority": "medium",
+        "tags": [
+          "ClawHub",
+          "技能追踪",
+          "多维表格",
+          "排行榜"
+        ]
+      },
+      "createdAt": "2026-03-13T10:36:00+08:00",
+      "updatedAt": "2026-03-13T10:36:00+08:00",
+      "state": {
+        "nextRunAtMs": 1773698400000,
+        "lastRunAtMs": 1773625791943,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 49722,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 0
+      },
+      "id": "clawhub-tracker-daily-6am",
+      "wakeMode": "now",
+      "updatedAtMs": 1773642891875,
+      "delivery": {
+        "mode": "announce",
+        "to": "ou_adcbc44a6fb7460391e585338f9e1e35"
+      }
+    },
+    {
+      "name": "语言服务行业监控 - 每周二/四/六",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "timezone": "Asia/Shanghai",
+        "description": "每周二、四、六上午 11 点（北京时间），12 点前完成汇报",
+        "expr": "0 11 * * 2,4,6"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "请执行语言服务行业监控任务：\n\n## 任务目标\n实时监控全网语言服务行业相关方的新闻动态，追踪最新行业发展趋势、市场变化及重要事件。\n\n## 监控对象\n\n### 组织（官网）\n- Nimdzi: www.nimdzi.com\n- Slator: https://slator.com\n- Multilingual: https://multilingual.com\n\n### 公司（50 个 - Nimdzi Top 100 2025）\n\n**Top 10:** TransPerfect, RWS, Keywords Studios, Lionbridge, LanguageLine Solutions, Sorenson, Iyuno, Propio Language Group, Acolad Group, Welocalize\n\n**Top 11-30:** DeepL, EC Innovations, GienTech, Sunyu Transphere, Appen, Translate Plus, Centific, Trustpoint, Smartling, Vistatec, Acclaro, Stepes, Gengo, OneHour Translation, MarsHub, Tarjama, Rask AI, Lilt, Memsource, XTM Cloud\n\n**Top 31-50:** Day Translations, Tomedes, Pangeanic, TextMaster, Translated, Wordbee, Wordfast, SDL, Trados, Phrase, Crowdin, Localize, Lokalise, Transifex, Globalization Partners, Berlitz, Rosetta Stone, EuroTalk, Inlingua, Semantix\n\n## 执行流程\n\n1. 运行脚本：`node workspace/scripts/language-service-monitor.js`\n2. 检查各网站新闻动态\n3. 过滤出新内容（与上次抓取对比）\n4. 生成 Markdown 报告保存到 reports/language-service-monitor-YYYYMMDD.md\n5. 保存抓取状态到 data/language-service-monitor-state.json\n6. **发布到飞书云文档**（重要：使用 feishu-doc-manager 技能）\n7. 提交到 Git 并推送\n8. 通过飞书通知丰，附上文档链接\n\n## 汇报内容\n- 将各个网站更新的内容进行简要概括\n- 每条概要后附上原文链接\n- 如果网站没有更新，忽略掉（不发送空报告）\n\n## 汇报格式\n- 标题：语言服务动态监控周报_YYYYMMDD\n- 按组织/公司分类呈现\n- 每条动态包含：标题 + 概要 + 链接 + 发布日期\n- 重大行业新闻标注【重点】\n\n## 注意事项\n- 确保链接可正常访问\n- 概要内容需客观准确，避免主观臆断\n- 保持格式统一，便于后续归档与检索\n\n命令示例：\n```bash\ncd ~/.openclaw/workspace\nnode scripts/language-service-monitor.js\n# 如果有新内容，发布到飞书文档并通知\n```\n\n**只有发现新动态时才发送通知**，无更新时静默完成。"
+      },
+      "deleteAfterRun": false,
+      "retryPolicy": {
+        "maxRetries": 3,
+        "retryDelayMs": 300000
+      },
+      "metadata": {
+        "category": "industry-monitoring",
+        "priority": "high",
+        "tags": [
+          "语言服务",
+          "行业监控",
+          "新闻动态",
+          "飞书文档"
+        ]
+      },
+      "createdAt": "2026-03-13T12:12:00+08:00",
+      "updatedAt": "2026-03-13T12:48:00+08:00",
+      "state": {
+        "nextRunAtMs": 1773716400000
+      },
+      "id": "language-service-monitor-tue-thu-sat-11am",
+      "wakeMode": "now",
+      "delivery": {
+        "mode": "feishu",
+        "to": "ou_adcbc44a6fb7460391e585338f9e1e35"
+      },
+      "updatedAtMs": 1773641464372
+    },
+    {
+      "name": "夜间自主任务 - 每日凌晨",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "timezone": "Asia/Shanghai",
+        "description": "每天凌晨 0 点开始执行夜间自主任务，7 点发送报告",
+        "expr": "0 0 * * *"
+      },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "## 🌙 夜间自主任务\n\n**执行时间窗口：** 凌晨 0:00-7:00\n**报告时间：** 早上 7:00 发送飞书消息\n\n### 任务清单\n\n1. **记忆整理**\n   - 检查 memory/ 目录文件完整性\n   - 补充缺失的记忆细节\n   - 整理 MEMORY.md 结构\n   - Git 提交变更\n\n2. **代码优化**\n   - 选择 1-2 个脚本进行重构\n   - 添加注释、修复潜在 bug\n   - 优化代码结构\n   - Git 提交变更\n\n3. **学习研究**\n   - 调研 1 个新技能或技术\n   - 阅读相关文档\n   - 写学习笔记\n   - Git 提交变更\n\n4. **自我反思**\n   - 分析前一天的对话\n   - 记录改进点\n   - 更新行为准则\n   - Git 提交变更\n\n5. **生成晨间报告** (6:30-7:00)\n   - 汇总夜间所有产出\n   - 生成 Markdown 报告\n   - 早上 7:00 发送飞书消息\n\n### 行为准则\n\n- ✅ 内部行动直接做（写文件、改代码、提交 Git）\n- ⚠️ 外部行动先确认（安装技能、发邮件、公开内容）\n- 📝 所有产出提交到 Git 仓库\n- 🪞 保持透明，记录所有动作\n\n### 报告模板\n\n保存到：`reports/nightly-report-YYYY-MM-DD.md`\n\n```\n# 夜间自主任务报告\n\n**日期:** YYYY-MM-DD\n**执行时间窗口:** 00:00-07:00\n\n## ✅ 完成的任务\n\n### 1. 记忆整理\n- ...\n\n### 2. 代码优化\n- ...\n\n### 3. 学习研究\n- ...\n\n### 4. 自我反思\n- ...\n\n## 📊 Git 提交记录\n\n```\n(git log --since='00:00' --oneline)\n```\n\n## 💡 发现与建议\n\n...\n\n## ⚠️ 需要确认的事项\n\n...\n\n---\n> 孪生于不同世界，彼此映照，共同演化。🪞\n```\n\n**注意：** 早上 7:00 通过飞书发送报告给丰。"
+      },
+      "deleteAfterRun": false,
+      "retryPolicy": {
+        "maxRetries": 3,
+        "retryDelayMs": 300000
+      },
+      "metadata": {
+        "category": "nightly-autonomous",
+        "priority": "medium",
+        "tags": [
+          "夜间任务",
+          "自主执行",
+          "自我提升",
+          "晨间报告"
+        ]
+      },
+      "createdAt": "2026-03-14T23:14:00+08:00",
+      "updatedAt": "2026-03-14T23:14:00+08:00",
+      "state": {
+        "nextRunAtMs": 1773676800000,
+        "lastRunAtMs": 1773625594688,
+        "lastRunStatus": "error",
+        "lastStatus": "error",
+        "lastDurationMs": 197255,
+        "lastDeliveryStatus": "unknown",
+        "consecutiveErrors": 3,
+        "lastError": "AxiosError: Request failed with status code 400"
+      },
+      "id": "nightly-autonomous-midnight",
+      "wakeMode": "now",
+      "updatedAtMs": 1773641458592,
+      "delivery": {
+        "mode": "feishu",
+        "to": "ou_adcbc44a6fb7460391e585338f9e1e35"
+      }
+    },
+    {
+      "name": "Heartbeat - 每 30 分钟",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "timezone": "Asia/Shanghai",
+        "description": "每 30 分钟唤醒一次，保持系统活跃",
+        "expr": "0,30 * * * *"
+      },
+      "sessionTarget": "main",
+      "payload": {
+        "kind": "systemEvent",
+        "event": "heartbeat",
+        "text": "Read HEARTBEAT.md if it exists (workspace context). Follow it strictly. Do not infer or repeat old tasks from prior chats. If nothing needs attention, reply HEARTBEAT_OK."
+      },
+      "deleteAfterRun": false,
+      "metadata": {
+        "category": "heartbeat",
+        "priority": "low"
+      },
+      "createdAt": "2026-03-14T23:30:00+08:00",
+      "updatedAt": "2026-03-14T23:30:00+08:00",
+      "state": {
+        "nextRunAtMs": 1773644400000,
+        "lastRunAtMs": 1773642600011,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 45361,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0
+      },
+      "id": "heartbeat-every-30min",
+      "wakeMode": "now",
+      "updatedAtMs": 1773642645372
+    },
+    {
+      "name": "晨间报告发送 - 每日 7 点",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "timezone": "Asia/Shanghai",
+        "description": "每天早上 7 点发送夜间任务报告",
+        "expr": "0 7 * * *"
+      },
+      "sessionTarget": "main",
+      "payload": {
+        "kind": "systemEvent",
+        "text": "## 🌅 发送晨间报告\n\n**任务：** 读取昨晚的夜间自主任务报告，通过飞书发送给丰\n\n**步骤：**\n1. 读取 reports/nightly-report-YYYY-MM-DD.md（昨天的日期）\n2. 简要总结报告内容\n3. 通过飞书发送给丰\n\n**注意：**\n- 如果报告不存在，说明夜间任务未执行，需要检查原因\n- 保持报告简洁，突出重点\n- 附上完整报告的 Git 链接"
+      },
+      "deleteAfterRun": false,
+      "retryPolicy": {
+        "maxRetries": 3,
+        "retryDelayMs": 300000
+      },
+      "metadata": {
+        "category": "morning-report",
+        "priority": "high",
+        "tags": [
+          "晨间报告",
+          "飞书通知",
+          "夜间任务"
+        ]
+      },
+      "createdAt": "2026-03-14T23:35:00+08:00",
+      "updatedAt": "2026-03-14T23:35:00+08:00",
+      "state": {
+        "nextRunAtMs": 1773702000000,
+        "lastRunAtMs": 1773625841665,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 49143,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0
+      },
+      "id": "morning-report-7am",
+      "wakeMode": "now",
+      "updatedAtMs": 1773625890808
+    },
+    {
+      "name": "Cron 健康检查 - 每小时",
+      "enabled": true,
+      "schedule": {
+        "kind": "cron",
+        "timezone": "Asia/Shanghai",
+        "description": "每小时检查调度器健康状态",
+        "expr": "0 * * * *",
+        "staggerMs": 300000
+      },
+      "sessionTarget": "main",
+      "payload": {
+        "kind": "systemEvent",
+        "event": "cron-health-check",
+        "text": "请运行 cron 健康检查脚本：node scripts/cron-health-check.js\n\n如有严重告警，立即通知丰。"
+      },
+      "deleteAfterRun": false,
+      "retryPolicy": {
+        "maxRetries": 2,
+        "retryDelayMs": 300000
+      },
+      "metadata": {
+        "category": "health-check",
+        "priority": "high",
+        "tags": [
+          "cron",
+          "健康检查",
+          "监控"
+        ]
+      },
+      "id": "cron-health-check-hourly",
+      "wakeMode": "now",
+      "state": {
+        "nextRunAtMs": 1773644676387,
+        "lastRunAtMs": 1773641076396,
+        "lastRunStatus": "ok",
+        "lastStatus": "ok",
+        "lastDurationMs": 196978,
+        "lastDeliveryStatus": "not-requested",
+        "consecutiveErrors": 0
+      },
+      "updatedAtMs": 1773641273374
+    }
+  ]
+}

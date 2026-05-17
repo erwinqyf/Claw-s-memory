@@ -1,0 +1,52 @@
+# AutoResearchClaw 配置 - 翻译实践报告生成
+project:
+  name: "phak-translation-report"
+  mode: "docs-first"
+
+research:
+  topic: "《飞行员航空知识手册》（2023 版）第一章英汉翻译实践报告——基于卡特福德翻译转移理论的被动语态转换研究"
+  domains: ["translation-studies", "aviation-english", "contrastive-linguistics"]
+  daily_paper_count: 15
+  quality_threshold: 3.5
+
+runtime:
+  timezone: "Asia/Shanghai"
+  max_parallel_tasks: 2
+  approval_timeout_hours: 24
+  retry_limit: 2
+
+llm:
+  provider: "openai-compatible"
+  base_url: "https://api.openai.com/v1"
+  api_key_env: "OPENAI_API_KEY"
+  primary_model: "gpt-4o"
+  fallback_models: ["gpt-4o-mini"]
+
+experiment:
+  mode: "sandbox"
+  time_budget_sec: 600
+  max_iterations: 5
+  metric_key: "translation_quality"
+  metric_direction: "maximize"
+  sandbox:
+    python_path: ".venv/bin/python"
+    allowed_imports: [math, random, json, csv, numpy, pandas, matplotlib]
+
+web_search:
+  enabled: true
+  enable_scholar: true
+  enable_pdf_extraction: true
+  max_web_results: 20
+
+export:
+  target_conference: "thesis"
+  authors: "丰 (Claw AI Assistant)"
+  bib_file: "references"
+
+# 翻译研究特定配置
+translation_study:
+  source_text: "PHAK 2023 Chapter 1"
+  word_count: 15000
+  theoretical_framework: ["Catford Translation Shifts", "Toury Descriptive Translation Studies"]
+  analysis_focus: ["passive voice", "technical terminology", "sentence structure"]
+  corpus_size: 128

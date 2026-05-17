@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-05-14T22:00:05.770Z",
+  "totalSkills": 99,
+  "totalDownloads": 0,
+  "totalStars": 0,
+  "avgDownloads": 0,
+  "avgStars": 0,
+  "categories": [
+    {
+      "name": "Other",
+      "count": 44,
+      "percentage": "44.4"
+    },
+    {
+      "name": "Search",
+      "count": 12,
+      "percentage": "12.1"
+    },
+    {
+      "name": "Document",
+      "count": 9,
+      "percentage": "9.1"
+    },
+    {
+      "name": "Agent Enhancement",
+      "count": 5,
+      "percentage": "5.1"
+    },
+    {
+      "name": "Finance",
+      "count": 5,
+      "percentage": "5.1"
+    },
+    {
+      "name": "Web/Browser",
+      "count": 4,
+      "percentage": "4.0"
+    },
+    {
+      "name": "Communication",
+      "count": 4,
+      "percentage": "4.0"
+    },
+    {
+      "name": "Memory",
+      "count": 3,
+      "percentage": "3.0"
+    },
+    {
+      "name": "Media",
+      "count": 3,
+      "percentage": "3.0"
+    },
+    {
+      "name": "Security",
+      "count": 2,
+      "percentage": "2.0"
+    },
+    {
+      "name": "Dev Tools",
+      "count": 2,
+      "percentage": "2.0"
+    },
+    {
+      "name": "Skill Dev",
+      "count": 2,
+      "percentage": "2.0"
+    },
+    {
+      "name": "Automation",
+      "count": 2,
+      "percentage": "2.0"
+    },
+    {
+      "name": "Weather",
+      "count": 1,
+      "percentage": "1.0"
+    },
+    {
+      "name": "Data Analysis",
+      "count": 1,
+      "percentage": "1.0"
+    }
+  ],
+  "topAuthors": [
+    {
+      "name": "unknown",
+      "count": 99
+    }
+  ]
+}

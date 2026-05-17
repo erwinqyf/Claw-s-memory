@@ -1,0 +1,18 @@
+{
+  "taskId": "clawhub-tracker-{YYYYMMDD}",
+  "taskName": "ClawHub Top100 追踪",
+  "schedule": "每日 06:00",
+  "priority": "medium",
+  "steps": [
+    {"id": 1, "agent": "Echo", "name": "技能追踪", "timeout": 180},
+    {"id": 2, "agent": "Charlie", "name": "生成简报", "timeout": 120}
+  ],
+  "params": {
+    "trackChanges": true,
+    "alertNewSkills": true,
+    "topN": 100
+  },
+  "output": {
+    "reportPath": "reports/clawhub-tracker-{date}.md"
+  }
+}

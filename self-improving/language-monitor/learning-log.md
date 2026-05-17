@@ -1,0 +1,42 @@
+# 语言服务监控 - 自我学习日志
+
+**最后更新:** 2026-04-23T03:02:11.045Z
+
+## 失败网站
+
+- Nimdzi: HTTP 404 (2026-03-14T06:18:16.666Z)
+- Multilingual: HTTP 403 (2026-03-14T06:18:19.502Z)
+- DeepL: Invalid URL (2026-03-14T06:18:20.386Z)
+- Nimdzi: HTTP 404 (2026-03-14T07:52:09.503Z)
+- Multilingual: HTTP 403 (2026-03-14T07:52:12.035Z)
+- DeepL: Invalid URL (2026-03-14T07:52:13.251Z)
+- Nimdzi: HTTP 404 (2026-03-14T08:00:56.453Z)
+- Multilingual: HTTP 403 (2026-03-14T08:00:58.997Z)
+- DeepL: Invalid URL (2026-03-14T08:00:59.849Z)
+- Nimdzi: HTTP 404 (2026-03-14T08:01:21.491Z)
+- Multilingual: HTTP 403 (2026-03-14T08:01:23.968Z)
+- DeepL: Invalid URL (2026-03-14T08:01:24.676Z)
+- Nimdzi: HTTP 404 (2026-03-14T08:06:34.470Z)
+- Multilingual: HTTP 403 (2026-03-14T08:06:37.021Z)
+- DeepL: Invalid URL (2026-03-14T08:06:37.953Z)
+- Nimdzi: HTTP 404 (2026-04-18T03:01:19.724Z)
+- Slator: Invalid URL (2026-04-18T03:01:20.861Z)
+- Multilingual: HTTP 403 (2026-04-18T03:01:20.896Z)
+- DeepL: Invalid URL (2026-04-18T03:01:22.338Z)
+- Nimdzi: HTTP 404 (2026-04-21T03:03:12.485Z)
+- Slator: Invalid URL (2026-04-21T03:03:13.613Z)
+- Multilingual: HTTP 403 (2026-04-21T03:03:13.647Z)
+- DeepL: Invalid URL (2026-04-21T03:03:15.125Z)
+- Nimdzi: HTTP 404 (2026-04-23T03:02:08.340Z)
+- Slator: Invalid URL (2026-04-23T03:02:09.374Z)
+- Multilingual: HTTP 403 (2026-04-23T03:02:09.401Z)
+- DeepL: Invalid URL (2026-04-23T03:02:11.045Z)
+
+## 成功模式
+
+- 成功抓取 /news/
+- 成功抓取 /news
+- 成功抓取 /blog
+
+## 优化建议
+

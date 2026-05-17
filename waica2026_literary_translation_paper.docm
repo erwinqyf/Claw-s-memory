@@ -1,0 +1,51 @@
+Contribution Title
+
+N
+o Author Given
+
+No Institute Given
+
+Abstract. The abstract should summarize the contents of the paper in short terms, i.e. 15–250 words.
+
+Keywords: First Keyword, Second Keyword, Third Keyword.
+
+1 Introduction
+
+Please note that the first paragraph of a section or subsection is not indented. The first paragraphs that follows a table, figure, equation etc. does not have an indent, either.
+
+Subsequent paragraphs, however, are indented.
+
+Sample Heading (Third Level). Only two levels of headings should be numbered. Lower level headings remain unnumbered; they are formatted as run-in headings.
+
+Sample Heading (Forth Level). The contribution should contain no more than four levels of headings. The following Table 1 gives a summary of all heading levels.
+
+Table 1. Table captions should be placed above the tables.
+
+Heading level	Example	Font size and style
+Title (centered)	Lecture Notes	14 point, bold
+1st-level heading	1 Introduction	12 point, bold
+2nd-level heading	2.1 Printing Area	10 point, bold
+3rd-level heading	Run-in Heading in Bold.	10 point, bold
+4th-level heading	Lowest Level Heading.	10 point, italic
+
+Displayed equations are centered and set on a separate line.
+
+	x + y = z	(1)
+
+Please try to avoid rasterized images for line-art diagrams and schemas. Whenever possible, use vector graphics instead (see Fig. 1).
+
+Fig. 1. A figure caption is always placed below the illustration. Short captions are centered, while long ones are justified. The macro button chooses the correct format automatically.
+
+For citations of references, we prefer the use of square brackets and consecutive numbers. Citations using labels or the author/year convention are also acceptable. The following bibliography provides a sample reference list with entries for journal articles [1], an LNCS chapter [2], a book [3], proceedings without editors [4], as well as a URL [5].
+
+Acknowledgments. A third level heading in 9-point font size at the end of the paper is used for general acknowledgments, for example: This study was funded by X (grant number Y).
+
+Disclosure of Interests. It is now necessary to declare any competing interests or to specifically state that the authors have no competing interests. Please place the statement with a third level heading in 9-point font size beneath the (optional) acknowledgments, for example: The authors have no competing interests to declare that are relevant to the content of this article. Or: Author A has received research grants from Company W. Author B has received a speaker honorarium from Company X and owns stock in Company Y. Author C is a member of committee Z.
+
+References
+
+1. Author, F.: Article title. Journal 2(5), 99–110 (2016)
+2. Author, F., Author, S.: Title of a proceedings paper. In: Editor, F., Editor, S. (eds.) CONFERENCE 2016, LNCS, vol. 9999, pp. 1–13. Springer, Heidelberg (2016)
+3. Author, F., Author, S., Author, T.: Book title. 2nd edn. Publisher, Location (1999)
+4. Author, F.: Contribution title. In: 9th International Proceedings on Proceedings, pp. 1–2. Publisher, Location (2010)
+5. WAICA2026 Homepage, https://waica2026.worldaic.com.cn/, last accessed 2026/02/25

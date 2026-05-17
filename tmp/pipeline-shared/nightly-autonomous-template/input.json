@@ -1,0 +1,20 @@
+{
+  "taskId": "nightly-autonomous-{YYYYMMDD}",
+  "taskName": "夜间自主任务",
+  "schedule": "每日 00:00",
+  "priority": "high",
+  "steps": [
+    {"id": 1, "agent": "Alpha", "name": "统筹规划", "timeout": 300},
+    {"id": 2, "agent": "Delta", "name": "技术执行", "timeout": 600},
+    {"id": 3, "agent": "Charlie", "name": "文档整理", "timeout": 300},
+    {"id": 4, "agent": "Echo", "name": "记忆归档", "timeout": 180}
+  ],
+  "params": {
+    "tasks": ["memory_cleanup", "code_optimize", "learning", "reflection"],
+    "reportTime": "07:00"
+  },
+  "output": {
+    "reportPath": "reports/nightly-{date}.md",
+    "morningReport": true
+  }
+}

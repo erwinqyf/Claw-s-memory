@@ -1,0 +1,21 @@
+{
+  "taskId": "weekly-report-{YYYYMMDD}",
+  "taskName": "周报复盘",
+  "schedule": "每周一 09:00",
+  "priority": "high",
+  "steps": [
+    {"id": 1, "agent": "Bravo", "name": "数据收集", "timeout": 300},
+    {"id": 2, "agent": "Alpha", "name": "分析总结", "timeout": 300},
+    {"id": 3, "agent": "Charlie", "name": "生成周报", "timeout": 300},
+    {"id": 4, "agent": "Echo", "name": "记忆归档", "timeout": 180}
+  ],
+  "params": {
+    "sections": ["kpi", "accomplishments", "blockers", "plans"],
+    "includeMetrics": true,
+    "sendTo": "chat:oc_544ef0ac66f15f18550668c007ee8566"
+  },
+  "output": {
+    "reportPath": "reports/weekly-report-{date}.md",
+    "deliveryChannel": "feishu"
+  }
+}
