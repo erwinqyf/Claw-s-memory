@@ -1,9 +1,9 @@
 {
-  "lastRun": "2026-05-17T22:05:40.034Z",
-  "lastDuration": 188,
+  "lastRun": "2026-05-18T22:03:43.915Z",
+  "lastDuration": 205,
   "lastStatus": "success",
   "skillsCount": 100,
-  "reportPath": "/home/admin/.openclaw/workspace/reports/clawhub-top100-2026-05-17.md",
+  "reportPath": "/home/admin/.openclaw/workspace/reports/clawhub-top100-2026-05-18.md",
   "executionHistory": [
     {
       "date": "2026-05-17",
@@ -11,14 +11,26 @@
       "status": "success",
       "skillsCount": 100,
       "memoryUsed": 9.13
+    },
+    {
+      "date": "2026-05-18",
+      "duration": 205000,
+      "status": "success",
+      "skillsCount": 100,
+      "memoryUsed": 8.81
     }
   ],
   "lastMemoryUsage": {
-    "rss": 70.62,
-    "heapUsed": 9.13,
-    "heapTotal": 10.85,
-    "external": 2.08
+    "rss": 70.19,
+    "heapUsed": 8.81,
+    "heapTotal": 10.6,
+    "external": 2.03
   },
   "lastErrorStats": {},
-  "trends": null
+  "trends": {
+    "rising": 0,
+    "falling": 0,
+    "new": 1,
+    "stable": 99
+  }
 }
