@@ -1,37 +1,36 @@
 # 全球新闻汇总 2026-05-19
 
-**生成时间:** 2026/5/19 12:21:02 (Asia/Shanghai)
+**生成时间:** 2026/5/19 12:24:15 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
 
 ## 🌍 政治
 
-1. 🔥 **Trump’s repeated ultimatums betray his lack of leverage over Iran**
+1. 🔥 **How Philadelphia’s Democratic primary tests the bounds of US progressivism**
+   - 来源：半岛电视台 | 热度：68/100
+   - 时间：05/19 12:09
+   - [阅读全文](https://www.aljazeera.com/news/2026/5/19/how-philadelphias-democratic-primary-tests-the-bounds-of-us-progressivism?traffic_source=rss)
+
+2. 🔥 **Trump’s repeated ultimatums betray his lack of leverage over Iran**
    - 来源：半岛电视台 | 热度：68/100
    - 时间：05/19 11:27
    - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/5/19/trumps-repeated-ultimatums-betray-his-lack-of-leverage-over-iran?traffic_source=rss)
 
-2. 🔥 **WHO responding to ‘complex, difficult’ Ebola outbreak in DR Congo**
+3. 🔥 **WHO responding to ‘complex, difficult’ Ebola outbreak in DR Congo**
    - 来源：半岛电视台 | 热度：68/100
    - 时间：05/19 11:10
    - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/5/19/aje-onl-nf_clip-who-responds-to-ebola-outbreak-in-drc-180526?traffic_source=rss)
 
-3. 🔥 **Russia-China ties ‘stabilising’ force in world, Putin says before Xi talks**
+4. 🔥 **Russia-China ties ‘stabilising’ force in world, Putin says before Xi talks**
    - 来源：半岛电视台 | 热度：68/100
    - 时间：05/19 11:09
    - [阅读全文](https://www.aljazeera.com/news/2026/5/19/russia-china-ties-stabilising-force-in-world-putin-says-before-xi-talks?traffic_source=rss)
 
-4. 🔥 **Brazil call up Neymar to World Cup 2026 squad**
+5. 🔥 **Brazil call up Neymar to World Cup 2026 squad**
    - 来源：半岛电视台 | 热度：68/100
    - 时间：05/19 06:30
    - [阅读全文](https://www.aljazeera.com/sports/2026/5/18/brazil-call-up-neymar-to-world-cup-2026-squad?traffic_source=rss)
-
-5. 🔥 **Russia’s air defenses destroy six Ukrainian UAVs over Kaluga Region**
-   - 来源：塔斯社 | 热度：68/100
-   - 时间：05/19 12:17
-   - 摘要：According to preliminary information, there were no casualties or damage
-   - [阅读全文]()
 
 ---
 
@@ -47,20 +46,20 @@
    - 时间：05/19 11:36
    - [阅读全文](https://www.cnbc.com/2026/05/19/japan-first-quarter-gdp-economy-inflation-energy.html)
 
-3. 🔥 **Putin heads to Beijing days after Trump in test of China's balancing act**
+3. 🔥🔥 **Asia markets trade mixed as oil eases after Trump delays planned Iran strike**
+   - 来源：CNBC | 热度：71/100
+   - 时间：05/19 12:22
+   - [阅读全文](https://www.cnbc.com/2026/05/19/asia-markets-today-asx-sensex-nikkei-kospi-hang-seng-csi-300-nifty.html)
+
+4. 🔥 **Putin heads to Beijing days after Trump in test of China's balancing act**
    - 来源：CNBC | 热度：66/100
    - 时间：05/19 09:27
    - [阅读全文](https://www.cnbc.com/2026/05/19/putin-russia-visit-china-beijing-trump-summit-ukraine-war-energy-shock-.html)
 
-4. 🔥 **Trump says he's postponing 'scheduled attack of Iran tomorrow' at Middle East leaders' request**
+5. 🔥 **Trump says he's postponing 'scheduled attack of Iran tomorrow' at Middle East leaders' request**
    - 来源：CNBC | 热度：66/100
    - 时间：05/19 06:40
    - [阅读全文](https://www.cnbc.com/2026/05/18/trump-iran-attack-saudi-uae-qatar-deal.html)
-
-5. 🔥 **Oil prices fall as Trump postpones Iran strike, easing supply disruption fears**
-   - 来源：CNBC | 热度：66/100
-   - 时间：05/19 08:47
-   - [阅读全文](https://www.cnbc.com/2026/05/19/oil-today-brent-wti-iran-trump-hormuz-iea-supply-crude.html)
 
 ---
 
@@ -116,14 +115,14 @@
    - 摘要：作者｜黄楠 编辑｜袁斯来 硬氪获悉，AI体育科技公司SportVision近日已完成天使+轮融资，高瓴创投（GL Ventures）领投，谦恒资本担任独家财务顾问. 本轮资金将重点用于核心技术研发、产品量产落地及市场的拓展推广.
    - [阅读全文]()
 
-4. 🔥🔥 **柯马签署具有约束力的协议，全面收购巴西仓储物流自动化企业 Invent**
+4. 🔥🔥 **抖音商城618前三日成交额破千万元，直播间数同比增长116%**
    - 来源：36 氪 | 热度：73/100
-   - 时间：05/19 12:12
+   - 时间：05/19 12:23
    - [阅读全文]()
 
-5. 🔥🔥 **民德电子：晶睿电子碳化硅外延片已有小批量供货**
+5. 🔥🔥 **IDC：一季度中国平板电脑市场出货量811万台，同比下降4.8%**
    - 来源：36 氪 | 热度：73/100
-   - 时间：05/19 12:11
+   - 时间：05/19 12:22
    - [阅读全文]()
 
 ---
