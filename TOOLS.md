@@ -35,6 +35,10 @@ Things like:
 
 **教训 (2026-03-13)：** 记忆健康检查配置了 `wakeMode` 但没有 heartbeat 定时任务，导致任务永远无法执行。修复：删除 `wakeMode` 行。
 
+**教训 (2026-05-21)：** `deepseek-v3.2` 虽然在 bailian-coding-plan provider 配置里，但编码计划代理（coding.dashscope）不支持它的工具调用格式，报 "provider rejected the request schema or tool payload" 错误。脚本类任务不要用 deepseek-v3.2，改用 qwen3.6-plus。
+
+**教训 (2026-05-21)：** 默认 timeout 120s 太紧，多个任务在 model-call-started 阶段超时。脚本类任务至少 180s，报告类任务至少 240-300s。
+
 ## Examples
 
 ```markdown
