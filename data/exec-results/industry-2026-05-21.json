@@ -1,0 +1,14 @@
+{
+  "date": "2026-05-21",
+  "type": "industry-monitor",
+  "status": "degraded",
+  "fixed": {
+    "slator": "URL修正为 /industry-news (返回200)，但页面JS渲染，HTTP无法抓取",
+    "nimdzi": "移除（改版后无公开聚合页）",
+    "multilingual": "移除（HTTP 403反爬）",
+    "deepl": "移除（URL结构变化）"
+  },
+  "working": ["Slator", "TransPerfect", "RWS", "Smartling", "Rask AI", "Lilt"],
+  "issue": "所有可达网站今日无新动态；Slator需浏览器自动化才能抓取",
+  "recommendation": "考虑改用 web_fetch 或 agent-browser 抓取 JS 渲染页面"
+}

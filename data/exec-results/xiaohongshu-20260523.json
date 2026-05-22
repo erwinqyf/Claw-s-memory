@@ -1,0 +1,41 @@
+{
+  "date": "2026-05-23",
+  "trends": [
+    {
+      "title": "2026中国翻译协会年会：行业总产值701.2亿元，AI翻译企业达2183家",
+      "summary": "4月25-26日2026中国翻译协会年会在武汉举行，发布《2026中国翻译行业发展报告》。2025年中国翻译行业总产值701.2亿元，从业人员686.7万人。以AI翻译为主营业务的企业达2183家，同比净增638家。人机协同翻译模式成为行业基本共识，86.67%受访者认为'大模型初译+人工保障'将成为未来主要翻译工作模式。",
+      "source": "新华网/中国翻译协会",
+      "link": "https://www.news.cn/politics/20260426/50f516fd17ce473ebdaaa662609a6e67/c.html",
+      "relevance": "high"
+    },
+    {
+      "title": "AI翻译准确率达94.2%，但仍存在 idiom 和 nuance 挑战",
+      "summary": "2026年AI翻译系统平均准确率达94.2%，用户满意度4.3/5。但Appen 2026年2月研究显示，主流AI模型在惯用语、文化背景、情感表达方面仍有明显短板。GPT-5翻译在自然性和idiomaticity上存在问题，不适合直接发布需人工编辑。",
+      "source": "Slator / Elite Asia",
+      "link": "https://slator.com/resources/ai-translation-struggles",
+      "relevance": "high"
+    },
+    {
+      "title": "全球语言服务市场2026年约7553亿美元，2031年将达9697亿美元",
+      "summary": "根据Mordor Intelligence和Fortune Business Insights数据，2026年全球语言服务市场规模约7553-8145亿美元，预计2031年达9697亿美元，复合增长率5.12%-7.6%。欧洲市场领先占42.45%-45.2%份额。生成式AI正在transform语言服务行业。",
+      "source": "Mordor Intelligence / Fortune Business Insights",
+      "link": "https://www.mordorintelligence.com/industry-reports/language-services-market",
+      "relevance": "high"
+    },
+    {
+      "title": "语音/配音/实时翻译成高增长方向，Timekettle发布2026年AI同传突破",
+      "summary": "多模态翻译成为行业热点。语音合成、AI配音、实时语音翻译、多语视频内容处理高速增长。Timekettle宣布2026年初将推出SOTA翻译引擎选择器、更新混合算法和Babel OS增强。AI驱动的语音翻译正从实验技术成为企业会议、国际大会的核心驱动力。",
+      "source": "MultiLingual / Timekettle",
+      "link": "https://multilingual.com/magazine/may-2026",
+      "relevance": "medium"
+    },
+    {
+      "title": "翻译行业从'规模扩张'转向'质量与模式创新'，民营企业客户占比首超政府",
+      "summary": "2025年翻译行业最大变化是需求端：民营企业客户贡献营收占比达30.7%，首超政府和事业单位。企业出海、跨境电商、信息通信技术成为驱动市场新引擎。多数需求方已形成'内部团队+AI工具+按需外包'的混合模式。翻译企业正从单一语言转换升级为全链条解决方案。",
+      "source": "新华网/中国科技网",
+      "link": "https://www.stdaily.com/web/gdxw/2026-04/26/content_508436.html",
+      "relevance": "medium"
+    }
+  ],
+  "totalNew": 5
+}

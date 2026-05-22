@@ -45,3 +45,7 @@ Thumbs.db
 !AGENTS.md
 !TOOLS.md
 !HEARTBEAT.md
+
+## Keep exec results (explicitly included)
+!data/
+!data/exec-results/

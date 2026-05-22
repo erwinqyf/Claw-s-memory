@@ -1,0 +1,68 @@
+{
+  "timestamp": "2026-05-21T14:17:38.293Z",
+  "sourceCheck": "self-check-2026-05-21.json",
+  "actions": [
+    {
+      "action": "React-夜间脚本-MISSING",
+      "status": "INVESTIGATING",
+      "detail": "结果文件缺失，检查 cron 状态...",
+      "time": "2026-05-21T14:17:38.287Z"
+    },
+    {
+      "action": "React-夜间脚本",
+      "status": "WARN",
+      "detail": "未找到匹配的 cron 任务",
+      "time": "2026-05-21T14:17:38.289Z"
+    },
+    {
+      "action": "React-ClawHub追踪-MISSING",
+      "status": "INVESTIGATING",
+      "detail": "结果文件缺失，检查 cron 状态...",
+      "time": "2026-05-21T14:17:38.289Z"
+    },
+    {
+      "action": "React-ClawHub追踪",
+      "status": "WARN",
+      "detail": "未找到匹配的 cron 任务",
+      "time": "2026-05-21T14:17:38.290Z"
+    },
+    {
+      "action": "React-行业监控-DEGRADED",
+      "status": "INVESTIGATING",
+      "detail": "Multiple sources down; scripts need URL fixes",
+      "time": "2026-05-21T14:17:38.291Z"
+    },
+    {
+      "action": "React-行业监控-URL-fix",
+      "status": "NEEDS_REVIEW",
+      "detail": "Nimdzi URL https://www.nimdzi.com 仍在脚本中，需要人工确认新地址",
+      "time": "2026-05-21T14:17:38.292Z"
+    },
+    {
+      "action": "React-行业监控-URL-fix",
+      "status": "NEEDS_REVIEW",
+      "detail": "Slator URL https://slator.com 仍在脚本中，需要人工确认新地址",
+      "time": "2026-05-21T14:17:38.292Z"
+    },
+    {
+      "action": "React-行业监控-URL-fix",
+      "status": "NEEDS_REVIEW",
+      "detail": "Multilingual URL https://multilingual.com 仍在脚本中，需要人工确认新地址",
+      "time": "2026-05-21T14:17:38.292Z"
+    },
+    {
+      "action": "React-小红书周报-MISSING",
+      "status": "INVESTIGATING",
+      "detail": "结果文件缺失，检查 cron 状态...",
+      "time": "2026-05-21T14:17:38.292Z"
+    },
+    {
+      "action": "React-小红书周报",
+      "status": "WARN",
+      "detail": "未找到匹配的 cron 任务",
+      "time": "2026-05-21T14:17:38.293Z"
+    }
+  ],
+  "summary": "10 个响应动作，需人工介入: 0",
+  "escalations": []
+}

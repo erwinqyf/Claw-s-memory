@@ -1,0 +1,32 @@
+{
+  "script": "night-script",
+  "date": "2026-05-22",
+  "startedAt": "2026-05-22T00:00:00+08:00",
+  "steps": [
+    {
+      "name": "git-sync",
+      "command": "bash scripts/git-sync.sh sync",
+      "status": "success",
+      "detail": "远程仓库已是最新，本地记忆文件无变更"
+    },
+    {
+      "name": "check-memory-file",
+      "file": "memory/2026-05-22.md",
+      "status": "created",
+      "detail": "今日文件缺失，已创建空白模板"
+    },
+    {
+      "name": "scripts-audit",
+      "status": "completed",
+      "totalScripts": 38,
+      "largestScript": "clawhub-tracker-fast.js",
+      "largestScriptLines": 1487,
+      "recommendation": {
+        "script": "clawhub-tracker-fast.js",
+        "issue": "CONFIG 对象存在冗余初始化 — DATA_DIR 和 REPORTS_DIR 在 CONFIG 对象内部和外部被分别赋值了两次；与 consolidate-memory.js 共享大量相似的工具函数（日志、格式化、错误分类），未提取为公共模块；1487 行单体文件可拆分为 3-4 个独立模块（配置、API 客户端、分析引擎、报告生成）。",
+        "estimatedImpact": "降低代码重复，提升可维护性，减少未来 bug 修复时的多文件同步成本"
+      }
+    }
+  ],
+  "summary": "全部步骤完成。1/1 脚本执行成功，1/1 文件已创建，脚本审计完成。"
+}

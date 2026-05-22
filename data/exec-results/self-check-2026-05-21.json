@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-05-21T14:16:43.951Z",
+  "issues": [
+    {
+      "type": "MISSING",
+      "name": "夜间脚本",
+      "detail": "最近没有执行结果文件"
+    },
+    {
+      "type": "MISSING",
+      "name": "ClawHub追踪",
+      "detail": "最近没有执行结果文件"
+    },
+    {
+      "type": "DEGRADED",
+      "name": "行业监控",
+      "detail": "Multiple sources down; scripts need URL fixes",
+      "file": "industry-2026-05-21.json"
+    },
+    {
+      "type": "MISSING",
+      "name": "小红书周报",
+      "detail": "最近没有执行结果文件"
+    }
+  ],
+  "summary": "发现 4 个异常",
+  "actionNeeded": true
+}

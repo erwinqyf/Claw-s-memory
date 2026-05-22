@@ -1,0 +1,30 @@
+{
+  "date": "2026-05-22",
+  "executed_at": "2026-05-22T13:00:22.131Z",
+  "scripts": [
+    {
+      "name": "language-service-monitor-v2.js",
+      "status": "success",
+      "new_items": 6,
+      "report_path": "reports/language-service-monitor-20260522-v2.md",
+      "notes": [
+        "Slator 抓取成功",
+        "Smartling 抓取到 6 条博客（patent-translation, affordable-translation-services, translation-tools 各重复出现两次，标题/摘要重复）",
+        "TransPerfect/RWS 摘要生成失败（doc-summarize.sh 参数含未转义引号导致 bash 语法错误）",
+        "Rask AI, Lilt 正常执行",
+        "Proactive Agent 趋势分析完成"
+      ]
+    },
+    {
+      "name": "xiaohongshu-extract-major.js",
+      "status": "success",
+      "major_news_count": 0,
+      "deduplicated_count": 0,
+      "notes": [
+        "尝试读取 3 份历史周报（20260516, 20260519, 20260521），均不存在",
+        "提取结果：0 条重点新闻"
+      ]
+    }
+  ],
+  "summary": "监控 v2.1 成功执行，抓取到 6 条 Smartling 博客动态（专利翻译、平价翻译服务、2026 翻译工具对比）。但 doc-summarize.sh 在 TransPerfect/RWS 摘要生成环节因特殊字符引发 bash 语法错误，连续多次失败。提取脚本因缺少历史周报文件，未能生成重点新闻列表。"
+}

@@ -1,0 +1,87 @@
+{
+  "date": "2026-05-22",
+  "searchKeywords": [
+    "content manager localization China Shanghai Beijing Fortune 500 site:linkedin.com/jobs",
+    "localization specialist i18n China remote multinational company jobs",
+    "technical writer China localization foreign company site:indeed.com",
+    "translation project manager China multinational site:linkedin.com",
+    "UX writer China localization Apple Google Microsoft site:linkedin.com/jobs",
+    "content operations manager China Asia Pacific remote site:indeed.com",
+    "site:slator.com localization jobs China 2026",
+    "site:proz.com localization China translator jobs",
+    "Apple localization China Beijing Shanghai jobs site:apple.com/jobs",
+    "site:mathworks.com localization specialist China jobs 2026",
+    "Keywords Studios localization China remote jobs site:keywordsstudios.com",
+    "ByteDance localization China Shanghai content writer jobs site:linkedin.com/jobs"
+  ],
+  "totalFound": 15,
+  "newJobs": [
+    {
+      "title": "Chinese Localization Specialist",
+      "company": "MathWorks",
+      "location": "Beijing, China",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://www.mathworks.com/company/jobs/opportunities/37080-chinese-localization-specialist",
+      "postedDate": "May 2026",
+      "companyTier": "Fortune 500",
+      "tags": ["localization", "technical", "software", "MATLAB", "Simulink"],
+      "matchScore": 4,
+      "jd": "Responsible for validating and improving localized content from both linguistic and technical perspectives. Localize English software user interface, documentation for MATLAB and Simulink, marketing and training materials. Work closely with engineering teams to support localization of MATLAB and Simulink software and documentation."
+    },
+    {
+      "title": "English to Simplified Chinese Freelance Game Translator",
+      "company": "Keywords Studios",
+      "location": "Remote",
+      "type": "Freelance",
+      "salary": "面议",
+      "link": "https://www.keywordsstudios.com/en/careers/browse-careers/iQP-english-to-simplified-chinese-freelance-game-translator",
+      "postedDate": "May 2026",
+      "companyTier": "Top (游戏本地化行业Top)",
+      "tags": ["translation", "gaming", "localization", "freelance"],
+      "matchScore": 4,
+      "jd": "Expanding pool of English into Simplified Chinese freelance translators for gaming projects. Requirements: Native Simplified Chinese, extensive English knowledge, university degree or equivalent in translation, extensive localization experience, gaming/localization expertise, computer skills (translation tools, TM/Terminology management). Benefits: Working on top video game titles, autonomous work organization, flexible time."
+    },
+    {
+      "title": "Localization Content Specialist (Japanese/Korean/Vietnamese/Thai/Indonesian)",
+      "company": "E-commerce Company (via HiredChina)",
+      "location": "China",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://www.hiredchina.com/jobs/80b3d037-8786-4b48-8d45-8864feefe918",
+      "postedDate": "May 2026",
+      "companyTier": "Top (大型电商)",
+      "tags": ["localization", "UX", "e-commerce", "i18n"],
+      "matchScore": 3,
+      "jd": "Seeking experienced localization specialist for Japanese, Korean, Vietnamese, Thai, or Indonesian to join User Experience Design team at leading e-commerce company in China. Responsibilities: Craft clear, engaging UX content for product interfaces, evaluate and refine large language models for translation, ensure accurate outputs across product descriptions, promotional emails, mobile notifications."
+    },
+    {
+      "title": "Content Design Manager",
+      "company": "ByteDance",
+      "location": "Shanghai, China or Singapore",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://sg.linkedin.com/jobs/view/content-design-manager-singapore-at-bytedance-2875423494",
+      "postedDate": "May 2026",
+      "companyTier": "Top (TikTok/字节跳动)",
+      "tags": ["content", "design", "UX", "TikTok"],
+      "matchScore": 4,
+      "jd": "Manage content design team for TikTok. Based in Shanghai (China) or Singapore, manage team in China. Minimum 6+ years experience in UX. Work with product, design, engineering, operations and localization teams."
+    },
+    {
+      "title": "Content Designer - TikTok LIVE",
+      "company": "ByteDance",
+      "location": "Shanghai, China",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://www.linkedin.com/jobs/view/产品内容设计师-tiktok直播（上海）-content-designer-tiktok-live-shanghai-at-bytedance-4318332162",
+      "postedDate": "May 2026",
+      "companyTier": "Top (TikTok/字节跳动)",
+      "tags": ["content", "design", "TikTok LIVE", "直播"],
+      "matchScore": 4,
+      "jd": "撰写并编辑清晰、以用户为中心的内容，包括用户界面流程、培训资料及新功能公告；与产品、设计、工程师、运营及本地化团队密切合作，设定整体用户体验的内容标准。"
+    }
+  ],
+  "removedJobs": [],
+  "notes": "本次搜索发现5个潜在新职位。MathWorks (Fortune 500) 招聘中文本地化专员，位于北京。Keywords Studios (游戏本地化Top) 招聘自由译者。字节跳动有两个Content/UX相关职位（上海）。E-commerce公司招聘多语言本地化专家。对比上次结果(7个)，本次新增职位主要是MathWorks、字节跳动相关职位。"
+}
