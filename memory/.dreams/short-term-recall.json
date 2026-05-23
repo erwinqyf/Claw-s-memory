@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "updatedAt": "2026-05-23T05:34:30.938Z",
+  "entries": {
+    "memory:memory/2026-05-03.md:111:147": {
+      "key": "memory:memory/2026-05-03.md:111:147",
+      "path": "memory/2026-05-03.md",
+      "startLine": 111,
+      "endLine": 147,
+      "source": "memory",
+      "snippet": "- 适用场景：嵌入式、WASM、资源受限环境 4. **性能对比 (2024 基准测试)** - HTTP 服务器吞吐量：Tokio > async-std > smol (约 15% 差距) - 内存占用：smol < async-std < Tokio (smol 节省 ~30%) - 编译时间：smol < async-std < Tokio (smol 快 ~40%) - 二进制体积：smol < async-std < Tokio (smol 小 ~50%) 5. **选型建议** - 默认选择 Tokio：生态系统成熟、文档完善、社区活跃 - 选择 async-std：需要与 std 高度兼容的迁移项目 - 选择 smol：嵌入式、WASM、对资源敏感的场景 **学习笔记:** `notes/rust-async-runtimes-2026-05-03.md` (约 2.5KB) --- ## 4. 自我反思 (00:40-00:50) ### 反思日期: 2026-05-02 **数据来源:** `memory/2026-05-02.md` **关键事件:** - 夜间自主任务完整执行（4/4 任务完成） - 代码优化：cron-health-check.js v3.0 发布 - 学习研究：WASM 最新进展调研 - 晨间报告发送：通过 GitHub 链接方式 **做得好的:** 1. 代码优化有实质性改进（智能告警抑制、健康评分、ASCII 趋势图） 2. 学习研究深入，产出结构化笔记 3. 晨间",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-23T05:34:30.938Z",
+      "lastRecalledAt": "2026-05-23T05:34:30.938Z",
+      "queryHashes": [
+        "42f7c637bb14"
+      ],
+      "recallDays": [
+        "2026-05-23"
+      ],
+      "conceptTags": [
+        "async-std",
+        "2.5kb",
+        "40-00",
+        "memory/2026-05-02.md",
+        "4/4",
+        "cron-health-check.js",
+        "v3.0",
+        "适用"
+      ]
+    }
+  }
+}
