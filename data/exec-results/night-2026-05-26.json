@@ -1,0 +1,64 @@
+{
+  "date": "2026-05-26",
+  "executed_at": "2026-05-26T00:00:10+08:00",
+  "trigger": "cron:e783e372",
+  "steps": [
+    {
+      "name": "git-sync.sh sync",
+      "status": "success",
+      "details": "远程已是最新，本地无变更，无需推送",
+      "duration_ms": null
+    },
+    {
+      "name": "check memory/2026-05-26.md",
+      "status": "created",
+      "details": "今日文件缺失，已创建 memory/2026-05-26.md"
+    },
+    {
+      "name": "scripts audit - most needing optimization",
+      "status": "success",
+      "result": {
+        "script": "scripts/cron-health-check.js",
+        "lines": 1056,
+        "size_kb": 37,
+        "reasons": [
+          "1056 行单文件，v1.0→v3.0 增量式堆叠，未做模块化拆分",
+          "版本历史中多次出现 '版本号不一致' bug (v2.3, v2.9)，说明代码结构脆弱",
+          "同时承担 13 个职责（停滞检测、错误统计、超时、磁盘、内存、健康评分…），违反单一职责",
+          "每小时执行，是高频任务，优化收益最大",
+          "建议：拆分为 4-5 个独立检查模块 + 统一报告生成器"
+        ]
+      }
+    }
+  ],
+  "scripts_overview": {
+    "total_scripts": 41,
+    "total_lines": 13295,
+    "duplicate_groups": [
+      {
+        "family": "clawhub-tracker",
+        "files": ["clawhub-tracker.js", "clawhub-tracker-v3.js", "clawhub-tracker-fast.js"],
+        "total_lines": 2494,
+        "note": "三个版本并存，fast.js 是现行版本，旧版可归档"
+      },
+      {
+        "family": "language-service-monitor",
+        "files": ["language-service-monitor.js", "language-service-monitor-v2.js"],
+        "total_lines": 571,
+        "note": "v1 和 v2 并存，v1 可删除"
+      },
+      {
+        "family": "morning-report",
+        "files": ["send-morning-report.js", "send-morning-report-feishu.js"],
+        "total_lines": 755,
+        "note": "两个实现并存，功能重叠"
+      },
+      {
+        "family": "feishu-publish",
+        "files": ["send-feishu-final.js", "send-feishu-report.js", "publish-monitor-report.js", "publish-to-feishu-api.js"],
+        "total_lines": 990,
+        "note": "多个飞书发送/发布脚本，可收敛为统一 SDK"
+      }
+    ]
+  }
+}
