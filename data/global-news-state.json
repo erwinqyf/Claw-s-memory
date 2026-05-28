@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-05-27T04:00:24.611Z",
-  "lastRunDate": "2026-05-27",
+  "lastRun": "2026-05-28T04:00:27.438Z",
+  "lastRunDate": "2026-05-28",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 272,
+      "totalAvailable": 274,
       "errors": [
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
@@ -47,7 +47,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 120,
+      "totalAvailable": 119,
       "errors": [
         "少数派: HTTP 403: https://rsshub.app/sspai/index",
         "Tech in Asia: HTTP 301: https://www.techinasia.com/feed/",
