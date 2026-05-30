@@ -1,0 +1,42 @@
+{
+  "date": "2026-05-30",
+  "trends": [
+    {
+      "title": "Nimdzi 100 2026: AI推动行业深度整合",
+      "summary": "语言服务行业2025年规模达726亿美元，预计2026年734亿美元。AI带来3倍生产力提升，传统翻译执行转向工作流编排和AI数据管理。中端市场提供商面临严峻挑战，头部玩家加速并购整合。",
+      "source": "Nimdzi",
+      "link": "https://www.nimdzi.com/nimdzi-100-2026",
+      "category": "market"
+    },
+    {
+      "title": "Argo Translation收购Magnum Group",
+      "summary": "美国Argo Translation于2025年12月收购总部位于费城的Magnum Group，加强其在政府、商业和非营利领域的复杂沟通服务能力，计划未来两年继续收购扩张。",
+      "source": "Slator",
+      "link": "https://slator.com/argo-translation-magnum-group-acquisition",
+      "category": "M&A"
+    },
+    {
+      "title": "The Translation People五月连收五家公司",
+      "summary": "The Translation People在2026年5月进行了一系列收购，包括Kocarek GmbH（翻译、本地化和聊天机器人开发服务），展现强劲整合扩张势头。",
+      "source": "Tracxn",
+      "link": "https://tracxn.com/d/acquisitions/acquisitions-by-the-translation-people",
+      "category": "M&A"
+    },
+    {
+      "title": "AI翻译技术6大趋势",
+      "summary": "2026年AI翻译趋势包括：本地化prompt工程崛起、AI术语管理和质量评估、实时语音翻译、多模态能力增强。TMS系统必须集成AI翻译否则将被淘汰。",
+      "source": "POEditor",
+      "link": "https://poeditor.com/blog/ai-translation-trends-2026",
+      "category": "technology"
+    },
+    {
+      "title": "2026语言行业7大预测",
+      "summary": "Lokalise专家预测：AI定价模型、SEO将消亡、翻译管理转向代理化(agentic)、超本地化成为标配、实时音视频本地化爆发。行业从\"翻译\"概念转向\"语言AI\"。",
+      "source": "Lokalise",
+      "link": "https://lokalise.com/blog/7-bold-predictions-for-the-future-of-localization-in-2026",
+      "category": "AI"
+    }
+  ],
+  "totalItems": 5,
+  "topTrend": "AI驱动语言服务行业深度整合：头部玩家加速M&A抢占AI和数据能力，中小型提供商面临转型压力，行业从纯翻译执行转向工作流编排+AI数据管理的整合服务模式。"
+}

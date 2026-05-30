@@ -1,0 +1,42 @@
+{
+  "date": "2026-05-23",
+  "trends": [
+    {
+      "title": "Slator 2026 Index: 行业增长集中于头部玩家，57%公司收入下降",
+      "summary": "2026年Slator指数显示行业top-line增长但并非市场扩张。参与公司总营收增长8.2%至103亿美元，但57%公司报告收入下降，22.9%出现营收下滑。增长高度集中：Super Agencies（2.5亿美元+）增长10.4%，Challengers增长11.6%，而Leaders增长仅6%。M&A活动持续推高聚合收入，但增长集中在收购型玩家而非有机扩张。",
+      "source": "Slator",
+      "link": "https://slator.com/2026-slator-index",
+      "category": "market"
+    },
+    {
+      "title": "2026年语言行业M&A：从投机转向能力驱动",
+      "summary": "Lion People Global分析显示，2026年语言服务行业M&A从机会投机转向能力驱动。买家不再追求单纯规模，而是聚焦：垂直领域深度定位、可验证的AI增强交付模型、强工作流粘性、递归收入模式。估值从投机回归理性，PE-backed买家关注tech disruptors和已完成AI转型的LSP。AI从buzzword变为valuation filter。",
+      "source": "Lion People Global",
+      "link": "https://lionpeopleglobal.com/raising-the-sails-outlook-for-2026",
+      "category": "M&A"
+    },
+    {
+      "title": "AI翻译仍面临质量信任危机",
+      "summary": "尽管AI能力进步，AI翻译输出质量仍是主要痛点，导致采用谨慎。Appen 2026年2月研究测试20种语言7大AI模型，发现惯用语和文化引用等 nuanced language 表现差。Slator测试GPT-5发现翻译准确但自然度和 idiom 存在问题。行业正在弥合机器效率与人类专业知识间的差距。",
+      "source": "Slator",
+      "link": "https://slator.com/resources/ai-translation-struggles",
+      "category": "AI"
+    },
+    {
+      "title": "Women in Localization与TAUS合作推动AI伦理",
+      "summary": "Women in Localization与TAUS宣布合作，共同塑造AI在本地化领域的未来。合作聚焦于负责任地扩大多语言内容、Quality Estimation和AI伦理。此举反映行业对AI发展中包容性和伦理框架的关注。",
+      "source": "MultiLingual",
+      "link": "https://multilingual.com/women-in-localization-taus-partner-shape-future-ai-in-localization",
+      "category": "AI"
+    },
+    {
+      "title": "TAUS罗马大会聚焦欧洲多语言生态系统",
+      "summary": "TAUS大规模多语言AI大会将于罗马举行，聚焦欧洲多语言生态系统。大会将展示语言技术和AI的最新创新，推动跨语言AI技术发展。",
+      "source": "LinkedIn/TAUS",
+      "link": "https://www.linkedin.com/posts/taus_massively-multilingual-ai-conference-rome-activity-7442231287253192704",
+      "category": "conference"
+    }
+  ],
+  "totalItems": 5,
+  "topTrend": "行业分化加剧：头部玩家通过M&A实现两位数增长，57%中小玩家收入下滑；AI从概念验证转向valuation filter，但质量信任危机仍在"
+}

@@ -1,0 +1,52 @@
+{
+  "date": "2026-05-24",
+  "newSkills": [
+    {
+      "name": "felo-superAgent",
+      "description": "流式对话+LiveDoc工作区+6个内置工具（图像生成、深度研究、文档创建、PPT生成、HTML页面、X/Twitter搜索）",
+      "rating": "high",
+      "link": "https://clowhub.ai/skill/felo-superAgent",
+      "notes": "2026年新发布，整合多个Felo服务到单一技能。多语言支持，需felo-livedoc依赖。图像生成建议90s超时。"
+    },
+    {
+      "name": "felo-slides",
+      "description": "AI PPT生成 - 描述需求即可生成专业PPT，HTML渲染每个元素可独立编辑",
+      "rating": "high",
+      "link": "https://clowhub.ai/skill/felo-slides",
+      "notes": "填补ClawHub演示技能空白。返回PPTX下载链接+LiveDoc编辑URL。"
+    },
+    {
+      "name": "felo-search",
+      "description": "实时AI搜索 - 返回结构化答案而非链接列表，带来源引用，支持中日韩英",
+      "rating": "high",
+      "link": "https://clowhub.ai/skill/felo-search",
+      "notes": "Felo API免费开放期间可用。多语言搜索是差异化优势。"
+    },
+    {
+      "name": "felo-livedoc",
+      "description": "LiveDoc知识库管理 - 对话持久化工作区，生成的图像/文档/幻灯片自动保存",
+      "rating": "medium",
+      "link": "https://clowhub.ai/skill/felo-livedoc",
+      "notes": "felo-superAgent依赖项，配套Felo技能使用。"
+    },
+    {
+      "name": "Clawdex",
+      "description": "安全扫描技能 - 安装前检查技能是否在Koi Security恶意技能数据库中",
+      "rating": "high",
+      "link": "https://clowhub.ai/skill/Clawdex",
+      "notes": "安全必备！Koi Security发布，建议安装任何技能前先扫描。已知341个恶意技能。"
+    }
+  ],
+  "totalNew": 5,
+  "recommended": [
+    "Clawdex - 安全扫描必装",
+    "felo-search - 搜索效率提升",
+    "felo-slides - 演示生成填补空白"
+  ],
+  "securityWarning": "超过30% ClawHub技能被标记为可疑或恶意。安装任何技能前：1)检查源代码 2)验证发布者 3)使用Clawdex扫描 4)注意 wildcard shell 权限请求",
+  "sources": [
+    "https://felo.ai/blog/best-openclaw-skills-2026",
+    "https://blink.new/blog/best-openclaw-skills-2026",
+    "https://thehackernews.com/2026/02/researchers-find-341-malicious-clawhub.html"
+  ]
+}

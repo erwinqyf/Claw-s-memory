@@ -1,0 +1,45 @@
+{
+  "date": "2026-05-29",
+  "newSkills": [
+    {
+      "name": "skill-security-scan",
+      "description": "安装前安全检查技能，提供预安装检查清单、依赖审查、生命周期脚本检测、动态内容检查等",
+      "rating": "high",
+      "link": "https://clawhub.ai/skills/skill-security-scan",
+      "notes": "强烈推荐！提供完整的安装前安全检查流程，识别 ClawHavoc 等已知攻击活动，包含数据泄露检查和核心文件保护规则"
+    },
+    {
+      "name": "skill-defender",
+      "description": "已安装技能的恶意模式扫描器，检测提示注入、凭据盗窃、数据泄露等",
+      "rating": "high",
+      "link": "https://clawhub.ai/itsclawdbro/skill-defender",
+      "notes": "推荐安装！Python 脚本实现，扫描已安装技能，可自动触发或手动运行，含内置白名单减少误报"
+    },
+    {
+      "name": "wren-skill-factory",
+      "description": "将 recurring 痛点自动转换为发布的技能，从 .learnings/ 错误日志提取模式",
+      "rating": "medium",
+      "link": "https://clawhub.ai/skills/wren-skill-factory",
+      "notes": "适合高级用户。自动化技能构建工作流，需配合 self-improving-agent 使用，需要 Python 3 和 ClawHub CLI"
+    },
+    {
+      "name": "openclaw-optimizer",
+      "description": "OpenClaw 成本/配置/性能优化器，provider 配置、上下文管理、cron 自动化建议",
+      "rating": "medium",
+      "link": "https://clawhub.ai/jacob-bd/openclaw-optimizer",
+      "notes": "适合想优化 OpenClaw 配置的用户。提供审计和成本优化建议，需 v2026.2.23+"
+    },
+    {
+      "name": "universal-skills-manager",
+      "description": "跨多个 AI 工具的统一技能管理器，支持 ClawHub、SkillsMP.com、SkillHub",
+      "rating": "medium",
+      "link": "https://clawhub.ai/jacob-bd/universal-skills-manager",
+      "notes": "多平台技能管理，需网络访问调用各平台 API，不适合 claude.ai/ChatGPT 等无网络环境"
+    }
+  ],
+  "totalNew": 5,
+  "recommended": [
+    "skill-security-scan",
+    "skill-defender"
+  ]
+}

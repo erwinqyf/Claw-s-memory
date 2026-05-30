@@ -1,0 +1,13 @@
+{
+  "date": "2026-05-23",
+  "newSkills": [],
+  "totalNew": 0,
+  "recommended": [],
+  "notes": "无法获取ClawHub最新技能 - skills.openclaw.ai DNS解析失败。搜索发现大量关于ClawHub的讨论文章和指南，但无法抓取具体新技能列表。ClawHub目前拥有5400+技能，3000+发布。",
+  "sources": [
+    "https://www.digitalocean.com/resources/articles/what-are-openclaw-skills",
+    "https://blink.new/blog/best-openclaw-skills",
+    "https://www.digitalapplied.com/blog/clawhub-skills-marketplace-developer-guide-2026"
+  ],
+  "riskWarning": "注意：The Register报道发现30+恶意技能(ClawSwarm活动)，安装新技能前务必使用skill-vetter进行安全审计"
+}

@@ -1,0 +1,42 @@
+{
+  "date": "2026-05-28",
+  "trends": [
+    {
+      "title": "NIMDZI 100 2026 报告发布：市场分化加剧",
+      "summary": "2026年NIMDZI 100报告已发布。数据显示行业呈现明显分化：头部公司仍在增长，但小型服务商面临压力。市场预测未来几年将维持7%的CAGR，到2028年达到953亿美元。",
+      "source": "Nimdzi Insights",
+      "link": "https://www.nimdzi.com",
+      "category": "market"
+    },
+    {
+      "title": "共识翻译(Consensus Translation)技术兴起",
+      "summary": "基于多引擎共识的AI翻译方式正在兴起，通过同时调用多个独立AI引擎，可将翻译错误降低高达22%。AI翻译市场2024年估值12亿美元，预计2033年达到45亿美元(CAGR 16.5%)。",
+      "source": "Technology.org",
+      "link": "https://www.technology.org/2025/12/29/why-2026s-smartest-ai-translation-upgrade-is-built-on-consensus-and-what-it-means-for-global-tech",
+      "category": "technology"
+    },
+    {
+      "title": "本地化技术生态系统2026：從工具到基础设施",
+      "summary": "2026年成为本地化技术拐点。本地化从单纯的功能部门转变为企业基础设施。现代技术栈需协调复杂工作流、集成实际使用工具、支持AI同时管控风险。Human+AI协作成为主流模式。",
+      "source": "RWS",
+      "link": "https://www.rws.com/blog/pillars/localization-technology-2026-complete-guide",
+      "category": "technology"
+    },
+    {
+      "title": "Slator 2026指数发布：CETRA等语言服务商排名",
+      "summary": "2026年Slator Index发布，CETRA连续第六年入选全球语言服务商百榜，排名第117位，属语言解决方案集成商(LSI)类别中的精品公司。",
+      "source": "Slator",
+      "link": "https://slator.com/language-industry-data-and-news-briefing-may-2026",
+      "category": "market"
+    },
+    {
+      "title": "AI口译技术加速发展，反AI运动同时兴起",
+      "summary": "AI口译技术正在加速发展，部分市场细分已准备好收获AI红利。同时，翻译和口译领域的反AI运动也在明显增长。对于顶级市场(AI表现不足的语言对)的口译员来说存在机会。",
+      "source": "Dr. Claudio Fantinuoli",
+      "link": "https://www.claudiofantinuoli.org/2026/01/04/trends-2026-in-technology-and-interpreting",
+      "category": "AI"
+    }
+  ],
+  "totalItems": 5,
+  "topTrend": "2026年语言服务行业呈现AI驱动的技术转型与市场分化双轨并行：共识翻译等技术突破推动效率提升，但中小服务商面临更大竞争压力，头部LSP与专注细分市场的公司更具优势。"
+}

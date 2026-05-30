@@ -1,0 +1,37 @@
+{
+  "date": "2026-05-30",
+  "newSkills": [],
+  "totalNew": 0,
+  "recommended": [],
+  "notes": {
+    "status": "unable_to_fetch",
+    "reason": "skills.openclaw.ai域名无法解析，GitHub仓库openclaw/skills返回404，ClawHub网页内容为动态加载",
+    "clahub_stats": {
+      "tools": "52.7k",
+      "users": "180k", 
+      "downloads": "12M",
+      "avg_rating": 4.8
+    },
+    "search_findings": [
+      {
+        "type": "article",
+        "title": "Best OpenClaw Skills in 2026 (Security-Scanned)",
+        "source": "Agensi",
+        "note": "安全扫描的技能推荐列表"
+      },
+      {
+        "type": "article", 
+        "title": "The Ultimate Directory of OpenClaw Skills That Actually Matter - March 2026",
+        "source": "LinkedIn",
+        "note": "生产环境测试的技能目录"
+      },
+      {
+        "type": "release",
+        "title": "OpenClaw 2026.5.3",
+        "date": "May 2026",
+        "note": "新增：配对节点间文件传输、/steer和/side实时控制、插件安装加固"
+      }
+    ],
+    "suggestion": "建议通过 OpenClaw CLI 直接查询: openclaw skills search <关键词> 或访问 clawhub.ai 手动浏览"
+  }
+}

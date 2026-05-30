@@ -1,0 +1,26 @@
+{
+  "date": "2026-05-25",
+  "newSkills": [],
+  "totalNew": 0,
+  "recommended": [],
+  "notes": "无法直接访问 ClawHub/skills.openclaw.ai 获取最新发布列表。网络搜索未发现过去7天明确标记为新发布的技能。",
+  "findings": {
+    "clowdhub_status": "skills.openclaw.ai 和 clowdhub.com 均无法解析",
+    "total_skills": "13,700+ (截至2026年2月)",
+    "awesome_list": "5,400+ 已筛选技能",
+    "search_date_range": "2026-05-18 至 2026-05-25",
+    "articles_found": [
+      "15 Best OpenClaw Skills in 2026 - Blink Blog",
+      "Best OpenClaw Skills for Business - Klaus",
+      "Top 10 OpenClaw Skills - Composio",
+      "Best OpenClaw Skills (2026) - PlusAI"
+    ],
+    "recent_activity": [
+      "OpenClaw v2026.1.30 发布 - 有技能加载回归问题",
+      "TriliumNext 集成技能 - 2026年2月",
+      "win4r/OpenClaw-Skill - 综合管理技能",
+      "VoltAgent/awesome-openclaw-skills 持续更新"
+    ]
+  },
+  "risk_notes": "ClawHub 有 30%+ 技能被安全审计标记为可疑或恶意。安装前建议使用 skill-vetter 进行安全检查。"
+}

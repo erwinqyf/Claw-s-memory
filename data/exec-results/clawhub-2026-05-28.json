@@ -1,0 +1,53 @@
+{
+  "date": "2026-05-28",
+  "newSkills": [
+    {
+      "name": "Skill Finder",
+      "description": "帮助用户发现和评估ClawHub/Skills.sh上的技能。当用户问'如何做X'、'有没有做X的技能'时自动激活，搜索两个生态并推荐最佳匹配。",
+      "rating": "high",
+      "link": "https://clawhub.ai/ivangdavila/skill-finder",
+      "notes": "⭐ 强烈推荐！解决技能发现的痛点，搜索ClawHub+Skills.sh双源，有安全审核机制，自动学习用户偏好。适合所有用户安装。"
+    },
+    {
+      "name": "Skill Evolver",
+      "description": "技能演进工作流：意图分析→技能搜索→深度检查→技能融合→编排执行。解决'现有技能不完全匹配'的场景。",
+      "rating": "high",
+      "link": "https://clawhub.ai/testlbin/skill-evolver",
+      "notes": "⭐ 推荐进阶用户。提供结构化的技能融合和编排流程，适合需要自定义工作流的场景。"
+    },
+    {
+      "name": "Skill Provenance",
+      "description": "追踪技能包的版本和来源，记录构建元数据。",
+      "rating": "medium",
+      "link": "https://clawhub.ai/snapsynapse/skill-provenance",
+      "notes": "适合技能包维护者和发布者，普通用户可跳过。"
+    },
+    {
+      "name": "Approvals UI",
+      "description": "审批新通道、连接OpenClaw UI和终端的请求。",
+      "rating": "low",
+      "link": "https://clawhub.ai/dr1nnas/approvals-ui",
+      "notes": "⚠️ Warn级别安全警告，需要谨慎评估后再安装。"
+    },
+    {
+      "name": "Create Agent Arch",
+      "description": "通过mutating CLI命令创建/注册agent并绑定通道路由。",
+      "rating": "medium",
+      "link": "https://clawhub.ai/dao24dao/create-agent-arch",
+      "notes": "适合高级用户管理多个agent。"
+    },
+    {
+      "name": "Niche Calendar",
+      "description": "日历技能，通过ClawScan安全审核。",
+      "rating": "medium",
+      "link": "https://clawhub.ai/skunnyo/niche-calendar",
+      "notes": "✅ 通过安全审核的日历技能，可替代现有日历方案。"
+    }
+  ],
+  "totalNew": 6,
+  "recommended": [
+    "Skill Finder",
+    "Skill Evolver",
+    "Niche Calendar"
+  ]
+}

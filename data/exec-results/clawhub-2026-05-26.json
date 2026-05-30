@@ -1,0 +1,45 @@
+{
+  "date": "2026-05-26",
+  "newSkills": [
+    {
+      "name": "claw-calendar-new-skill",
+      "description": "Claw Calendar 云服务集成，支持通过 REST API 创建日历、添加事件、生成 .ics 订阅链接同步到手机日历。",
+      "rating": "high",
+      "link": "https://clawhub.ai/5twang/claw-calendar-new-skill",
+      "notes": "5twang 发布，静态分析通过。提供完整的日历管理脚本，支持事件创建、提醒功能。适合需要日历集成的用户。"
+    },
+    {
+      "name": "niche-calendar",
+      "description": "垂直领域日历技能：体育赛事（WHL 冰球赛程）、NPM 发布日历、本地活动、ClawHub 技能发布时间规划。",
+      "rating": "medium",
+      "link": "https://clawhub.ai/skunnyo/niche-calendar",
+      "notes": "skunnyo 发布，ClawScan 审计通过。专注加拿大萨省本地体育和开发者日历，小众但功能明确。"
+    },
+    {
+      "name": "skill-from-memory",
+      "description": "从对话历史或内存文件提取工作流，自动打包成可复用的 skill 并发布到 GitHub/ClawHub。",
+      "rating": "medium",
+      "link": "https://clawhub.ai/zfanmy/skill-from-memory",
+      "notes": "zfanmy 发布，VirusTotal 标记为 suspicious（因其操作文件系统和 Git）。功能强大但需谨慎使用，建议审查生成内容后再发布。"
+    },
+    {
+      "name": "design-analysis",
+      "description": "设计分析技能，用于 UI/UX 设计分析和反馈。",
+      "rating": "low",
+      "link": "https://clawhub.ai/jeasonxiang/design-analysis",
+      "notes": "VirusTotal 审计通过，但描述信息有限，需要更多使用场景验证。"
+    },
+    {
+      "name": "skills-finder",
+      "description": "跨平台技能搜索：ClawHub + Skills.sh，支持搜索、安装、偏好记忆。",
+      "rating": "high",
+      "link": "https://clawhub.ai/welliu/skills-finder",
+      "notes": "安全审计通过。帮助发现其他技能，但安装新技能前需人工审核。推荐安装。"
+    }
+  ],
+  "totalNew": 5,
+  "recommended": [
+    "claw-calendar-new-skill",
+    "skills-finder"
+  ]
+}

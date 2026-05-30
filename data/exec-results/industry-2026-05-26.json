@@ -1,0 +1,42 @@
+{
+  "date": "2026-05-26",
+  "trends": [
+    {
+      "title": "TransPerfect 2026报告：AI已成为全球内容运营标准",
+      "summary": "74%企业将AI列为2026优先事项，65%已在本地化流程中使用AI，40%预计预算持平。AI从实验阶段进入基础设施阶段，企业要求更高产出但预算不增，形成"少做多"压力。",
+      "source": "PRNewswire",
+      "link": "https://www.prnewswire.com/news-releases/transperfect-releases-2026-business-outlook-report-ai-is-now-the-standard-for-global-content-operations-302760771.html",
+      "category": "AI"
+    },
+    {
+      "title": "2026 Slator Index：增长集中头部，57%企业收入下滑",
+      "summary": "总收入增长8.2%达103亿美元，但增长由M&A驱动而非市场扩张。超级代理商(2.5亿+)占市场40%却贡献超50%增长。57%公司报告收入下降，22.9%出现负增长。",
+      "source": "Slator",
+      "link": "https://slator.com/2026-slator-index",
+      "category": "market"
+    },
+    {
+      "title": "Key AI influencer：翻译和口译员面临高风险",
+      "summary": "Andrej Karpathy等关键AI影响者认为，翻译和口译是受AI影响最大的职业之一。行业正在从「翻译」向「语言AI」转型，Phrase CEO称2026年标志着从「翻译」概念的转变。",
+      "source": "Slator",
+      "link": "https://slator.com/industry-news",
+      "category": "AI"
+    },
+    {
+      "title": "共识翻译(Consensus Translation)兴起",
+      "summary": "AI翻译市场2024年12亿美元，预计2033年达45亿美元，复合年增长率16.5%。新范式「共识翻译」通过多引擎同时运行可将错误减少22%，代表自神经机器翻译以来最大可靠性提升。",
+      "source": "Technology.org",
+      "link": "https://www.technology.org/2025/12/29/why-2026s-smartest-ai-translation-upgrade-is-built-on-consensus-and-what-it-means-for-global-tech",
+      "category": "technology"
+    },
+    {
+      "title": "2026年M&A展望：估值分化",
+      "summary": "语言服务商估值出现分化：AI原生SaaS平台、AI增强的服务企业、AI暴露但未转型的公司三类。具备平台杠杆+服务深度的公司寻求通过规模化实现3倍增长。",
+      "source": "Lion People Global",
+      "link": "https://lionpeopleglobal.com/raising-the-sails-outlook-for-2026",
+      "category": "M&A"
+    }
+  ],
+  "totalItems": 5,
+  "topTrend": "AI已从实验阶段进入基础设施阶段，但行业增长高度集中于头部企业，大部分公司面临收入下滑压力；语言服务正从「翻译」向「语言AI」全面转型。"
+}

@@ -1,0 +1,47 @@
+{
+  "date": "2026-05-27",
+  "newSkills": [
+    {
+      "name": "skill-security-scan",
+      "description": "Security checks for installing skills, packages, or plugins. Run before any install commands to verify source, dependencies, and detect malicious patterns.",
+      "rating": "high",
+      "link": "https://clawhub.ai/skills/skill-security-scan",
+      "notes": "Essential safety tool. Checks npm packages, detects lifecycle scripts, verifies sources, scans for dynamic content fetching. Highly recommended before any skill install."
+    },
+    {
+      "name": "claw-calendar-new-skill",
+      "description": "智能日历助手：通过 REST API 与 Claw Calendar 交互，管理日历和事件，支持 .ics 订阅同步到手机。",
+      "rating": "medium",
+      "link": "https://clawhub.ai/5twang/claw-calendar-new-skill",
+      "notes": "Useful for calendar management. Requires CLAW_CALENDAR_API_KEY. Clean implementation with environment variable config. No suspicious behavior."
+    },
+    {
+      "name": "skill-engineer",
+      "description": "Multi-agent skill development workflow - orchestrates Designer, Reviewer, and Tester subagents for quality-gated skill development.",
+      "rating": "high",
+      "link": "https://clawhub.ai/chunhualiao/skill-engineer",
+      "notes": "Powerful for building/reviewing skills. Uses multi-agent architecture for design, review, testing. Good for skill quality assurance."
+    },
+    {
+      "name": "skill-from-memory",
+      "description": "Extract workflows, solutions, and patterns from conversation history or memory files, package them as skills, and publish to GitHub/ClawHub.",
+      "rating": "medium",
+      "link": "https://clawhub.ai/zfanmy/skill-from-memory",
+      "notes": "Interesting for automating skill creation from past work. Requires careful review of extracted content before publishing. Security audit: warns about private data exposure risk."
+    },
+    {
+      "name": "universal-skills-manager",
+      "description": "Discovers skills from SkillsMP, SkillHub, and ClawHub, manages installation across Claude Code, Gemini CLI, and other AI tools.",
+      "rating": "medium",
+      "link": "https://clawhub.ai/jacob-bd/universal-skills-manager",
+      "notes": "Cross-platform skill management. Useful for aggregating skills from multiple sources. API-dependent (SkillsMP requires key)."
+    }
+  ],
+  "totalNew": 5,
+  "recommended": [
+    "skill-security-scan",
+    "skill-engineer"
+  ],
+  "summary": "Found 5 notable skills. skill-security-scan is essential for safe skill installation. skill-engineer is valuable for skill development workflows. Others are moderate utility depending on use case.",
+  "searchNotes": "ClawHub search didn't return specifically new (May 2026) skills - these are existing skills found via site search. ClawHub now has 52.7k tools, 180k users, 12M downloads."
+}

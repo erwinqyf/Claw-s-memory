@@ -1,0 +1,54 @@
+{
+  "date": "2026-05-25",
+  "searchKeywords": [
+    "content manager localization China Shanghai Fortune 500 site:linkedin.com/jobs",
+    "localization specialist i18n China remote multinational company jobs",
+    "technical writer China localization foreign company site:indeed.com",
+    "translation project manager China multinational site:linkedin.com",
+    "UX writer China localization Apple Google Microsoft site:linkedin.com/jobs",
+    "content operations manager China Asia Pacific remote site:indeed.com",
+    "site:slator.com localization jobs China 2026",
+    "site:proz.com localization China translator jobs",
+    "Apple localization China Beijing Shanghai jobs site:apple.com/jobs",
+    "site:mathworks.com localization specialist China jobs 2026",
+    "Keywords Studios localization China remote jobs site:keywordsstudios.com",
+    "ByteDance localization China Shanghai content writer jobs site:linkedin.com/jobs",
+    "RWS localization China Shanghai jobs site:rws.com/careers",
+    "TransPerfect localization China jobs site:transperfect.com",
+    "Lionbridge localization China remote jobs site:lionbridge.com",
+    "Hogarth content localization China Shanghai jobs site:hogarth.com",
+    "AI localization specialist China remote jobs 2026",
+    "UX writer China localization jobs site:linkedin.com/jobs 2026"
+  ],
+  "totalFound": 7,
+  "newJobs": [
+    {
+      "title": "[TECHNICAL] Chinese (Simplified) Translator",
+      "company": "Lionbridge",
+      "location": "Remote (Freelance)",
+      "type": "Freelance",
+      "salary": "面议",
+      "link": "https://careers.lionbridge.com/jobs/technical-chinese-simplified-translator",
+      "postedDate": "May 2026",
+      "companyTier": "Top (本地化行业Top)",
+      "tags": ["translation", "technical", "freelance", "CAT tools"],
+      "matchScore": 4,
+      "jd": "Native-level proficiency in Chinese (Simplified). Fluent knowledge in either: French, Russian, German or Arabic. Degree in Translation. At least 5 years of translation experience in technical fields (Automotive, Manufacturing, IT). Familiarity with CAT tools. Benefits: Diversified projects for world-class customers, cutting-edge localization tools, international team."
+    },
+    {
+      "title": "BD Manager 业务拓展经理",
+      "company": "Keywords Studios",
+      "location": "Remote (China)",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://www.keywordsstudios.com/en/careers/browse-careers/22N-bd-manager-remote",
+      "postedDate": "May 2026",
+      "companyTier": "Top (游戏本地化行业Top)",
+      "tags": ["business development", "sales", "gaming", "localization"],
+      "matchScore": 3,
+      "jd": "Minimum 3-5 years' sales experience in gaming industry. Excellent Chinese and English communication skills. Customer-oriented skill. Knowledge of game dev, game art, localization, player support, testing preferred. Responsibilities: Sell Keywords Service offerings, maintain client relationships, visit clients, represent Keywords at conferences, develop business network."
+    }
+  ],
+  "removedJobs": [],
+  "notes": "本次搜索发现2个潜在新职位。Lionbridge (本地化Top) 招聘简体中文技术译者（自由职业），需要5年以上技术翻译经验。Keywords Studios 招聘业务拓展经理（BD Manager），需要3-5年游戏行业销售经验。对比上次结果(5个)，新增主要是Lionbridge和Keywords Studios的BD职位。"
+}

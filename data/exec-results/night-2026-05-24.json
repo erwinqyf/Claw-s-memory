@@ -1,0 +1,40 @@
+{
+  "run": "night-2026-05-24",
+  "timestamp": "2026-05-24T00:00:00+08:00",
+  "steps": [
+    {
+      "step": "git-sync",
+      "command": "bash scripts/git-sync.sh sync",
+      "status": "success",
+      "detail": "远程仓库已是最新，本地记忆文件无变更"
+    },
+    {
+      "step": "memory-file-check",
+      "check": "memory/2026-05-24.md",
+      "status": "success",
+      "detail": "文件缺失，已创建空白 memory/2026-05-24.md"
+    },
+    {
+      "step": "scripts-audit",
+      "status": "success",
+      "detail": "共 42 个脚本文件（33 .js, 4 .sh, 5 .txt）。最需优化的脚本：clawhub-tracker-fast.js（1487行，v2.8，过度膨胀的单一文件，建议拆分）。"
+    },
+    {
+      "step": "report-write",
+      "output": "data/exec-results/night-2026-05-24.json",
+      "status": "success",
+      "detail": "本报告"
+    }
+  ],
+  "scripts_summary": {
+    "total_files": 42,
+    "by_type": {"js": 33, "sh": 4, "txt": 1},
+    "largest_file": "clawhub-tracker-fast.js",
+    "largest_lines": 1487,
+    "optimization_target": {
+      "file": "clawhub-tracker-fast.js",
+      "lines": 1487,
+      "reason": "单一文件承载数据获取、分类、趋势分析、报告生成、健康监控等多重职责，历经 12+ 次版本迭代已过度膨胀。建议：(1) 拆分为 fetcher / classifier / analyzer / reporter 独立模块；(2) 提取 CONFIG 为独立 config.json；(3) 消除重复的 HTTP 请求逻辑。"
+    }
+  }
+}
