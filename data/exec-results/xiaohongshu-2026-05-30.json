@@ -1,0 +1,53 @@
+{
+  "task": "xiaohongshu-language-service-weekly",
+  "date": "2026-05-30",
+  "status": "completed",
+  "trends_count": 6,
+  "high_relevance": [
+    {
+      "title": "2026中国翻译协会年会在武汉召开，科大讯飞获AAAAA级认证",
+      "source": "新浪财经 / 东方财富网",
+      "url": "https://caifuhao.eastmoney.com/news/20260501140501924062100",
+      "summary": "4月25日年会以'融合与破圈：数智时代翻译的无限可能'为主题，科大讯飞携多语言AI产品矩阵亮相并获AAAAA级认证"
+    },
+    {
+      "title": "《2026中国翻译行业报告》发布：AI翻译企业同比大增638家",
+      "source": "译国译民 / 搜狐",
+      "url": "https://www.sohu.com/a/1014497870_121123913",
+      "summary": "2025年行业总产值701.2亿元，AI翻译企业达2183家，大模型使用率42.8%，74.1%企业认为AI提升订单量"
+    },
+    {
+      "title": "DeepL迁移至AWS引争议，欧洲AI翻译数据安全担忧",
+      "source": "The Guardian",
+      "url": "https://www.theguardian.com/technology/2026/may/07/europe-ai-translation-industry-deepl-partnering-us-firms",
+      "summary": "DeepL与AWS合作引发欧洲业界担忧，用户担心数据不再仅在自有服务器处理"
+    }
+  ],
+  "medium_relevance": [
+    {
+      "title": "2026年重塑翻译服务行业的五大新趋势",
+      "source": "Future Trans",
+      "url": "https://future-trans.com/zh-CN/2026-%E5%B9%B4%E9%87%8D%E5%A1%91%E7%BF%BB%E8%AF%91%E6%9C%8D%E5%8A%A1%E8%A1%8C%E4%B8%9A%E7%9A%84-5-%E5%A4%A7%E6%96%B0%E8%B6%8B%E5%8A%A1"
+    },
+    {
+      "title": "2026多模态AI翻译行业深度报告",
+      "source": "AtomGit / CSDN",
+      "url": "https://gitcode.csdn.net/6a0fc8f110ee7a33f274521c.html"
+    },
+    {
+      "title": "翻译行业迎智变：AI翻译企业达2183家",
+      "source": "人民日报 / 新华网",
+      "url": "https://paper.people.com.cn/rmrbhwb/pc/content/202605/01/content_30154395.html"
+    }
+  ],
+  "insights": [
+    "中国翻译行业进入结构性拐点，民营企业首次超越政府成为第一大客户(30.7%)",
+    "AI全面渗透但分化明显：74.1%企业认为AI提升订单量，25%担忧数据安全",
+    "数据安全成为新门槛，DeepL与AWS合作引发欧洲业界担忧",
+    "人才结构重构：企业对中高级译员需求占86.6%，复合型人才稀缺",
+    "人机协同成主流：基础服务AI化，高端服务专业化"
+  ],
+  "comparison_with_last_week": "新增《2026中国翻译行业报告》深度解读、DeepL数据安全争议、多模态AI翻译落地案例",
+  "git_sync": "completed",
+  "feishu_delivery": "pending"
+}
