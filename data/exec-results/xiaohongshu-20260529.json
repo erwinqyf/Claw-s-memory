@@ -1,0 +1,41 @@
+{
+  "date": "2026-05-29",
+  "trends": [
+    {
+      "title": "NIMDZI 100 2026报告发布：AI驱动生产力大幅提升",
+      "summary": "NIMDZI发布2026年语言行业状态报告，揭示AI驱动下的生产力显著提升、中型语言服务商面临压力、从业模式变化以及对经验丰富语言学家的需求仍强于预期。报告已扩展至NIMDZI 350，探讨集体智能和技术投资如何重塑全球本地化商业模式。",
+      "source": "MultiLingual Media",
+      "link": "https://www.youtube.com/watch?v=_5AWakjBZno",
+      "relevance": "high"
+    },
+    {
+      "title": "AI视频配音市场爆发：2026年达13.1亿美元，YouTube推自动配音",
+      "summary": "全球AI配音和字幕市场2026年达13.1亿美元，预计持续增长至2030年。YouTube推出自动配音功能，可检测视频源语言并生成其他语言配音版本，由Gemini模型支持，模仿原声说话者的声音和情感基调。AI配音成本仅$2-20/分钟，传统配音$2400-8700/语言。",
+      "source": "Technology.org / Nimdzi",
+      "link": "https://www.technology.org/2026/05/08/best-8-ai-video-translation-tools-in-2026-features-quality-and-real-world-performance",
+      "relevance": "high"
+    },
+    {
+      "title": "WMT 2026启动翻译质量评估共享任务",
+      "summary": "ACL发布WMT 2026共享任务，关注自动化翻译质量评估系统。任务聚焦文档级别上下文质量评估，包含三个子任务：片段级翻译错误检测与跨度标注、片段级质量分数预测、无错误片段检测。Ensemble模型表现最佳，GPT-f+CK组合Pearson相关度达0.52。",
+      "source": "ACL / ACL Anthology",
+      "link": "https://www.aclweb.org/portal/content/wmt-2026-shared-task-automated-translation-quality-evaluation-systems",
+      "relevance": "medium"
+    },
+    {
+      "title": "实时语音翻译进入消费设备：Google Meet/Teams/AirPods/Pixel全面普及",
+      "summary": "实时语音翻译正从企业会议走向消费设备。Google Meet支持英语与法德西葡意之间的近乎实时语音翻译；Microsoft Teams Premium和Copilot提供实时翻译字幕；Apple AirPods提供实时翻译手势；Pixel Live Translate支持设备端双向对话。'足够好'的即时翻译提高了日常交流标准。",
+      "source": "FutureTrans / MultiLingual",
+      "link": "https://future-trans.com/zh-CN/2026-%E5%B9%B4%E9%87%8D%E5%A1%91%E7%BF%BB%E8%AF%91%E6%9C%8D%E5%8A%A1%E8%A1%8C%E4%B8%9A%E7%9A%84-5-%E5%A4%A7%E6%96%B0%E8%B6%8B%E5%8A%BF",
+      "relevance": "high"
+    },
+    {
+      "title": "Acclaro推出本地化编排平台，响应多媒体内容全球化需求",
+      "summary": "Acclaro发布本地化编排平台，整合AI以满足全球多媒体内容日益增长的需求。平台支持转录、翻译、视频翻译、语音合成、混音和人工审核的完整流程。RWS同时发布2026本地化技术完整指南，企业需跨越数十个内容系统构建现代本地化生态系统。",
+      "source": "MultiLingual",
+      "link": "https://multilingual.com/news",
+      "relevance": "medium"
+    }
+  ],
+  "totalNew": 5
+}
