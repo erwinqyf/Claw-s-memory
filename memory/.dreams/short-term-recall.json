@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-27T02:00:20.750Z",
+  "updatedAt": "2026-05-30T14:59:23.636Z",
   "entries": {
     "memory:memory/2026-05-03.md:111:147": {
       "key": "memory:memory/2026-05-03.md:111:147",
@@ -93,6 +93,37 @@
         "行业监控-语言服务",
         "web-search",
         "脚本执行-clawhub"
+      ]
+    },
+    "memory:memory/2026-05-26.md:15:35": {
+      "key": "memory:memory/2026-05-26.md:15:35",
+      "path": "memory/2026-05-26.md",
+      "startLine": 15,
+      "endLine": 35,
+      "source": "memory",
+      "snippet": "- 传奇爵士萨克斯手 Sonny Rollins 去世，享年 95 岁 [The Guardian](https://www.theguardian.com/music/2026/may/26/sonny-rollins-jazz-saxophone-dies-aged-95) ### 💻 科技 - 阿里云发布全新海外 AI 产品官网 Qwen Cloud [36kr]() - 国家级产业基金出手，桥田智能获亿元融资 [36kr]() - 两部 AI 剧集闯入戛纳，水母智能要做 AI 内容工业化破局者 [36kr]() - 传大砍分红引发员工不满，台积电紧急声明福利将持续增加 [36kr]() ### 🔧 系统动态 - ClawHub 新增 5 个技能：claw-calendar-new-skill（日历集成）、skills-finder（跨平台技能搜索）等 - 行业监控：TransPerfect 报告称 74% 企业将 AI 列为 2026 优先事项；语言服务正从「翻译」向「语言 AI」转型 ### 💡 值得关注 - AI 已成全球内容运营标准，但 57% 语言服务企业收入下滑，行业分化明显 - 共识翻译新范式可将错误减少 22%，代表神经机器翻译以来最大可靠性提升 ## 晚间总结 (23:00) ### ✅ 今日完成 - **ClawHub 技能监控**：新增 5 个技能，推荐 claw-calendar-new-skill（日历集成）、skills-finder（跨平台搜索） - **行业监控**：74% 企业将 AI 列为 2026 优先事项，但 57%",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-05-30T14:59:23.636Z",
+      "lastRecalledAt": "2026-05-30T14:59:23.636Z",
+      "queryHashes": [
+        "fd844e54c455"
+      ],
+      "recallDays": [
+        "2026-05-30"
+      ],
+      "conceptTags": [
+        "claw-calendar-new-skill",
+        "skills-finder",
+        "传奇",
+        "爵士",
+        "克斯",
+        "sonny",
+        "rollins",
+        "去世"
       ]
     }
   }
