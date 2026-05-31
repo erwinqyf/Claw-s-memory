@@ -1,0 +1,45 @@
+{
+  "tag": "cron-weekly",
+  "description": "周报复盘 + 小红书周报 + 每周记忆巩固",
+  "jobs": [
+    {
+      "id": "43a3c41f-677b-466e-b38b-f8e33a49a9b8",
+      "name": "周报复盘",
+      "schedule": { "kind": "cron", "expr": "0 9 * * 1", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "📋 Reporter 生成周报复盘：\n\n1. 回顾本周 memory/ 日志\n2. 读取 data/exec-results/ 中本周所有执行结果\n3. 总结：完成的工作、任务成功率、学到的教训\n\n投递到飞书。简洁，5-8 句话。",
+        "timeoutSeconds": 240,
+        "model": "bailian-coding-plan/MiniMax-M2.5"
+      },
+      "delivery": { "mode": "announce", "channel": "feishu", "to": "user:ou_adcbc44a6fb7460391e585338f9e1e35" }
+    },
+    {
+      "id": "a739219e-5519-43cd-a6e8-470bb414102f",
+      "name": "脚本执行-小红书周报",
+      "schedule": { "kind": "cron", "expr": "0 21 * * 5", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "🔍 小红书周报子代理：语言服务行业热点\n\n**执行步骤：**\n1. web_search 搜索语言服务/翻译/本地化行业本周热点（至少 5 组关键词）\n2. web_fetch 抓取 3-5 篇重要文章\n3. 对比 reports/ 中最新一份小红书周报，提取本周新增动态\n4. 生成 Markdown 报告写入 `reports/xiaohongshu-language-service-${date}.md`\n\n**Markdown 报告格式：**\n```\n# 📊 小红书语言服务行业周报\n**报告日期：** YYYY-MM-DD\n**覆盖周期：** YYYY-MM-DD ~ YYYY-MM-DD\n**趋势条数：** X 条\n\n## 🔴 高相关度\n### 1. 标题\n**来源：** xxx\n内容摘要（2-3 句）\n> 🔗 [来源](链接)\n\n## 🟡 中等相关度\n### N. 标题\n...\n\n## 💡 核心洞察\n1-5 条关键发现\n```\n\n**执行完成后：**\n1. 运行 bash scripts/git-sync.sh sync（推送报告到 GitHub）\n2. 结果也写入 data/exec-results/xiaohongshu-${date}.json\n3. 生成简洁报告投递到飞书\n\n飞书报告格式：\n- 📊 本周语言服务行业热点 X 条\n- 每条：标题一句话摘要 + [来源](链接)\n- 🔥 新增趋势：与上周对比\n- 💡 核心洞察 1-2 条\n\n简洁，5-8 句话。",
+        "timeoutSeconds": 360,
+        "model": "bailian-coding-plan/MiniMax-M2.5"
+      },
+      "delivery": { "mode": "announce", "channel": "feishu", "to": "user:ou_adcbc44a6fb7460391e585338f9e1e35" }
+    },
+    {
+      "id": "94a8ad40-abc6-4536-9b99-1907cf6a253f",
+      "name": "每周记忆巩固",
+      "schedule": { "kind": "cron", "expr": "0 3 * * 0", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "运行记忆巩固任务：1) 执行 node scripts/consolidate-memory.js 扫描最近7天日常记忆，提取关键信息追加到 MEMORY.md；2) 执行 bash scripts/git-sync.sh sync 同步到远程仓库；3) 报告执行结果和任何异常。如果 consolidate-memory.js 运行失败，单独报告错误信息。",
+        "timeoutSeconds": 300,
+        "model": "bailian-coding-plan/MiniMax-M2.5"
+      },
+      "delivery": { "mode": "announce", "channel": "feishu", "to": "user:ou_adcbc44a6fb7460391e585338f9e1e35" }
+    }
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "tag": "cron-reports",
+  "description": "晨间/午间/晚间定时报告",
+  "jobs": [
+    {
+      "id": "cd64a05e-6ae7-4488-9c27-f9082c8889d0",
+      "name": "晨间报告",
+      "schedule": { "kind": "cron", "expr": "0 7 * * *", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "📋 Reporter 生成晨间报告：\n\n步骤：\n1. 读取 data/exec-results/ 中最近的执行结果（night-*.json, clawhub-*.json, industry-*.json）\n2. 检查所有静默任务结果文件，如果 error/degraded 则标注异常\n3. 生成报告写入 memory/ 今日文件\n4. 投递到飞书\n\n格式：🌙 夜间执行状态 → 📊 系统状态 → 📌 今日待关注\n简洁，3-8 句话。",
+        "timeoutSeconds": 300,
+        "model": "bailian-coding-plan/MiniMax-M2.5"
+      },
+      "delivery": { "mode": "announce", "channel": "feishu", "to": "user:ou_adcbc44a6fb7460391e585338f9e1e35" }
+    },
+    {
+      "id": "08478987-0e28-4d84-a3ed-52c744f452e1",
+      "name": "午间报告",
+      "schedule": { "kind": "cron", "expr": "0 12 * * *", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "🔍 Researcher + 📋 Reporter 生成午间全球新闻报告：\n\n步骤：\n1. 运行 node scripts/global-news-monitor.js 抓取全球 RSS 新闻（政治/经济/文化/科技）\n2. 读取生成的 reports/global-news-${date}.md 报告\n3. 读取 data/exec-results/ 中的 ClawHub 和行业监控结果（如有）\n4. 整合 RSS 报告和系统动态，提取与丰相关的重要信息\n5. 将摘要追加写入 memory/ 今日文件\n6. 投递到飞书\n\n飞书格式：\n- 🌍 政治：2-3 条重点，每条附原文链接\n- 💰 经济：2-3 条重点，每条附原文链接\n- 🎭 文化/社会：1-2 条，每条附原文链接\n- 💻 科技：2-3 条，每条附原文链接\n- 🔧 系统动态：ClawHub/行业监控变化（如有）\n- 💡 值得关注：对丰可能有价值的信息\n\n格式示例：标题一句话摘要 [来源](链接)\n\n简洁，8-12 句话。",
+        "timeoutSeconds": 300,
+        "model": "bailian-coding-plan/MiniMax-M2.5"
+      },
+      "delivery": { "mode": "announce", "channel": "feishu", "to": "user:ou_adcbc44a6fb7460391e585338f9e1e35" }
+    },
+    {
+      "id": "11519f59-e92f-463d-8955-6e04a7f33255",
+      "name": "晚间报告",
+      "schedule": { "kind": "cron", "expr": "0 23 * * *", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "📋 Reporter 生成晚间报告：\n\n步骤：\n1. 读取 memory/ 今日日志\n2. 读取 data/exec-results/ 中今日所有执行结果\n3. 将全天总结写入 memory/ 今日文件\n4. 投递到飞书\n5. 运行 bash scripts/git-sync.sh sync（推送今日报告到 GitHub）\n\n飞书格式：\n- ✅ 今日完成：各任务执行摘要\n- 📝 记忆更新：今日重要事件\n- 🌙 明日预告：明天的定时任务\n\n简洁，3-5 句话。",
+        "timeoutSeconds": 240,
+        "model": "bailian-coding-plan/MiniMax-M2.5"
+      },
+      "delivery": { "mode": "announce", "channel": "feishu", "to": "user:ou_adcbc44a6fb7460391e585338f9e1e35" }
+    }
+  ]
+}

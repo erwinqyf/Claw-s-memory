@@ -1,0 +1,19 @@
+{
+  "tag": "cron-nightly",
+  "description": "夜间运维脚本",
+  "jobs": [
+    {
+      "id": "0caf8be6-a34f-49b4-b96b-b2005267d2bf",
+      "name": "脚本执行-夜间",
+      "schedule": { "kind": "cron", "expr": "0 0 * * *", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "🔧 Engineer 执行夜间脚本：\n1. bash scripts/git-sync.sh sync（Git 同步）\n2. 检查 memory/ 是否有今日文件，缺失则创建\n3. 检查 scripts/ 目录，列出一个最需要优化的脚本（只读不修改）\n4. 将结果写入 data/exec-results/night-${date}.json\n\n报告每个命令的执行结果（成功/失败/原因）。",
+        "timeoutSeconds": 180,
+        "model": "bailian-coding-plan/qwen3.6-plus"
+      },
+      "delivery": { "mode": "none" }
+    }
+  ]
+}

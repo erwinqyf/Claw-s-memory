@@ -1,0 +1,45 @@
+{
+  "tag": "cron-research",
+  "description": "ClawHub追踪 + 行业监控 + 求职监控",
+  "jobs": [
+    {
+      "id": "888e95fe-a8ee-44b7-b9e9-df10eb5bdc7d",
+      "name": "ClawHub 技能追踪",
+      "schedule": { "kind": "cron", "expr": "0 6 * * *", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "🔍 ClawHub 追踪子代理：最新 OpenClaw 技能动态\n\n**执行步骤：**\n1. web_search 搜索 ClawHub/skills.openclaw.ai 最新发布的技能（最近 7 天）\n2. web_fetch 抓取 3-5 个新技能的详情页面\n3. 评估：哪些技能值得安装？哪些有风险？\n4. 结果写入 data/exec-results/clawhub-${date}.json\n\n**JSON 格式：**\n{\"date\":\"YYYY-MM-DD\", \"newSkills\": [{\"name\":\"\", \"description\":\"\", \"rating\":\"high/medium/low\", \"link\":\"\", \"notes\":\"\"}], \"totalNew\": 0, \"recommended\":[\"建议安装的技能名\"]}\n\n报告：用 web_search 找到最新技能，评估价值。简洁。",
+        "timeoutSeconds": 360,
+        "model": "bailian-coding-plan/MiniMax-M2.5"
+      },
+      "delivery": { "mode": "none" }
+    },
+    {
+      "id": "be0d1dd6-bf5f-411a-9ff7-798132a9edf1",
+      "name": "行业监控-语言服务",
+      "schedule": { "kind": "cron", "expr": "0 11 * * 2,4,6", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "🔍 行业监控子代理：语言服务行业实时动态\n\n**执行步骤：**\n1. web_search 搜索近期本地化/翻译行业重大事件（最近 7-14 天）\n   - 搜索词：localization industry news 2026, translation technology news, AI translation news, Slator news, GALA conference, TAUS news\n   - 至少搜 5 组不同关键词\n2. web_fetch 抓取 2-3 篇最重要文章的完整内容\n3. 分析趋势：AI 对行业的影响、技术突破、并购/融资、市场变化\n4. 结果写入 data/exec-results/industry-${date}.json\n\n**JSON 格式：**\n{\"date\":\"YYYY-MM-DD\", \"trends\": [{\"title\":\"\", \"summary\":\"\", \"source\":\"\", \"link\":\"\", \"category\":\"technology/M&A/market/AI/conference\"}], \"totalItems\": 0, \"topTrend\":\"一句话总结最重要的趋势\"}\n\n报告：用 web_search 搜到的行业动态，提取 3-5 条关键变化，附原文链接。简洁。",
+        "timeoutSeconds": 360,
+        "model": "bailian-coding-plan/MiniMax-M2.5"
+      },
+      "delivery": { "mode": "none" }
+    },
+    {
+      "id": "74b0d40d-6f50-4d84-a035-8962a754f4b5",
+      "name": "Job Monitor - Content/Localization",
+      "schedule": { "kind": "cron", "expr": "0 10 * * 1,3,5", "tz": "Asia/Shanghai" },
+      "sessionTarget": "isolated",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "🔍 求职监控：Content / Localization / Writer / Translation 方向\n\n**目标画像：**\n- 公司性质：Fortune 500 / 世界五百强 / 领域 Top 公司\n- 薪资：≥15k RMB/月（年薪 18w+）\n- 工作地点：中国 / remote\n\n**搜索渠道（五大类）：**\n\nA. 本地化行业专属平台：Slator / TranslatorCafe / ProZ / GALA / TAUS\nB. 通用招聘平台：LinkedIn Jobs / Indeed / Boss直聘 / 猎聘\nC. 目标公司官网：Apple / Google / Microsoft / Amazon / RWS / Lionbridge / TransPerfect / Tencent / ByteDance / Alibaba 等\n\n**搜索关键词（至少搜 18 组，详见完整列表在记忆中）：**\n- Content 类：content manager/strategist/designer/operations/technical writer/UX writer\n- Localization 类：localization manager/specialist/program manager/l10n/i18n\n- Translation 类：translation manager/language specialist\n- Emerging：AI content/AI localization/developer relations/devrel\n- Adjacent：knowledge management/customer education/documentation specialist\n\n**执行步骤：**\n1. 用 web_search 搜索以上渠道，至少搜 18 组关键词\n2. 对比 data/exec-results/ 中上一次 job-search-*.json，只提取新增\n3. 去重（同公司同职位）\n4. **关键：对每个候选职位，用 web_fetch 抓取职位详情页，提取完整 JD**\n5. 保存结果到 data/exec-results/job-search-${date}.json\n\n**JSON 格式：**\n{\"date\":\"YYYY-MM-DD\", \"newJobs\": [{\"title\":\"\", \"company\":\"\", \"location\":\"\", \"type\":\"Full-time/Remote/Hybrid\", \"salary\":\"\", \"link\":\"\", \"postedDate\":\"\", \"companyTier\":\"Fortune 500/Top/Other\", \"tags\": [], \"matchScore\": 1-5, \"jd\":\"完整职位描述\"}], \"totalNew\": 0}\n\n**飞书投递格式（有新增时）：**\n\n🆕 **新增职位 X 个**\n\n---\n\n⭐ **[职位名]**\n- 🏢 **公司**：公司名（公司类型，如 Fortune 500 / 本地化行业 Top）\n- 💰 **薪资**：具体数字或\"面议\"\n- 📍 **地址**：城市 + 具体办公地址（如有）\n- 🏷️ **类型**：Full-time / Remote / Hybrid\n- 📝 **JD**：\n  （提取职位核心要求，用简短 bullet 列出 3-5 条关键点）\n- 🔗 [申请链接](url)\n\n---\n\n**飞书投递格式（无新增时）：**\n本次无新增匹配职位。\n\n**注意：**\n- 只报告真实职位，必须有可访问链接\n- JD 从 web_fetch 抓取的真实内容中提取，不编造\n- 薪资无标注写\"面议\"\n- 地址尽量详细（城市+具体位置）",
+        "timeoutSeconds": 420,
+        "model": "bailian-coding-plan/MiniMax-M2.5"
+      },
+      "delivery": { "mode": "announce", "channel": "feishu", "to": "user:ou_adcbc44a6fb7460391e585338f9e1e35" }
+    }
+  ]
+}
