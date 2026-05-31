@@ -1,0 +1,45 @@
+{
+  "date": "2026-05-31",
+  "newSkills": [
+    {
+      "name": "openclaw-security-monitor",
+      "description": "Proactive security monitoring for OpenClaw deployments. Detects ClawHavoc, AMOS stealer, CVE-2026-25253, memory poisoning, and supply chain attacks.",
+      "rating": "high",
+      "link": "https://github.com/adibirzu/openclaw-security-monitor",
+      "notes": "关键安全技能。检测 824+ 恶意技能、60+ CVE、100+ GHSAs。包含 41 点安全扫描、IOC 数据库、自动更新威胁情报。建议安装。"
+    },
+    {
+      "name": "runwayml/openclaw-skills",
+      "description": "AI agent video calling with real-time avatar powered by Runway. Agent initiates call, avatar speaks first, transcript fed back to agent.",
+      "rating": "medium",
+      "link": "https://github.com/runwayml/openclaw-skills",
+      "notes": "创新技能，使用 Runway API 实现视频通话头像。需要 Runway API key，有一定门槛但创新性强。"
+    },
+    {
+      "name": "autonomys/auto-memory",
+      "description": "Permanent decentralized storage via Autonomys Auto Drive API. Gives AI agents permanent memory and on-chain identity.",
+      "rating": "medium",
+      "link": "https://github.com/autonomys/openclaw-skills",
+      "notes": "去中心化永久存储技能，可替代本地 Markdown 记忆。需 Auto Drive API key (免费)。"
+    },
+    {
+      "name": "openclaw-security-news",
+      "description": "Collection of global government warnings, vendor advisories, and news headlines about OpenClaw Security.",
+      "rating": "medium",
+      "link": "https://github.com/joylarkin/openclaw-security-news",
+      "notes": "安全资讯汇总，持续更新。适合关注 OpenClaw 安全动态的用户。"
+    },
+    {
+      "name": "VoltAgent/awesome-openclaw-skills",
+      "description": "Curated list of best OpenClaw skills with 49.5k stars. Browseable by category.",
+      "rating": "high",
+      "link": "https://github.com/VoltAgent/awesome-openclaw-skills",
+      "notes": "技能精选列表，非技能本身而是目录。查找高质量技能的首选资源。"
+    }
+  ],
+  "totalNew": 5,
+  "recommended": [
+    "openclaw-security-monitor",
+    "VoltAgent/awesome-openclaw-skills"
+  ]
+}
