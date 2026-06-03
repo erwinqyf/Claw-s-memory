@@ -1,0 +1,76 @@
+{
+  "date": "2026-06-03",
+  "ecosystemStats": {
+    "totalTools": 52700,
+    "totalUsers": 180000,
+    "totalDownloads": "12M",
+    "avgRating": 4.8,
+    "githubStars": "220K+"
+  },
+  "newSkills": [
+    {
+      "name": "ChartGen AI",
+      "description": "Data visualization and chart generation skill. Published by Steven Cen. Takes any data and generates visual charts through conversational commands.",
+      "rating": "medium",
+      "link": "https://clawhub.ai",
+      "notes": "Published 'last week' (late May/early June 2026). 3 days to build per author. Useful for data reporting but verify data privacy if sending sensitive data."
+    },
+    {
+      "name": "Mixpost (lao9s/mixpost)",
+      "description": "Self-hosted social media scheduling via conversational commands. Schedule posts, check queues, review activity across connected social accounts.",
+      "rating": "high",
+      "link": "https://clawhub.ai/lao9s/mixpost",
+      "notes": "Legitimate, well-known self-hosted tool. Keeps data on your infrastructure. Recommended for social media management needs. Requires self-hosted Mixpost instance."
+    },
+    {
+      "name": "Veryfi / Documents AI (dbirulia/documents-ai)",
+      "description": "Receipt, invoice, and bank statement OCR extraction. Upload documents via chat and get structured data (vendor, amount, date, line items).",
+      "rating": "medium",
+      "link": "https://clawhub.ai/dbirulia/documents-ai",
+      "notes": "Uses Veryfi API - requires API key. Third-party API dependency means data leaves your machine. Useful but vet privacy policy first. Free tier available."
+    },
+    {
+      "name": "Parallel AI Skills (4-pack)",
+      "description": "Parallel publishes 4 official skills: parallel-search, parallel-extract, parallel-deep-research, parallel-enrichment. Web research suite for AI agents.",
+      "rating": "high",
+      "link": "https://docs.parallel.ai/integrations/clawhub",
+      "notes": "Official publisher skills. Covers web search, content extraction, deep research, and data enrichment. Requires 'parallel-web-tools' CLI via pipx. Legitimate and well-documented."
+    },
+    {
+      "name": "Douyin Price Tracker",
+      "description": "Tracks prices on Douyin (Chinese TikTok/e-commerce platform). Newly added to the openclaw/skills archive.",
+      "rating": "low",
+      "link": "https://github.com/openclaw/skills",
+      "notes": "New, unproven skill. Chinese e-commerce specific. No download count data available. Use with caution - vet before installing."
+    }
+  ],
+  "totalNew": 5,
+  "notableEvents": [
+    {
+      "event": "OpenClaw x NVIDIA Collaboration",
+      "date": "2026-06-01",
+      "description": "Every ClawHub skill now ships with NVIDIA Skill Cards + SkillSpector scanning. Three-scanner pipeline: VirusTotal, static analysis, NVIDIA SkillSpector. Open-sourced security dataset of 67,453 skills."
+    },
+    {
+      "event": "Auto Mode for Exec Approvals",
+      "date": "2026-05-31",
+      "description": "Opt-in auto mode for host exec guardrails. Policy-based approval routing."
+    },
+    {
+      "event": "ClawSwarm Crypto Mining Campaign",
+      "date": "2026-04-29",
+      "description": "30 skills by single author co-opting agents into crypto mining swarm. Still relevant - watch for similar patterns."
+    }
+  ],
+  "securitySummary": "ClawHub now hosts ~52,700 skills. NVIDIA partnership significantly improved security visibility (SkillSpector + Skill Cards). However, ~48.7% of skills flagged by SkillSpector as having some agentic risk. ClawSwarm and AMOS stealer campaigns remain active threats. Always run 'clawhub verify' and check Skill Cards before installing. The 100/3 rule (100+ downloads, 3+ months) is a good heuristic for vetting.",
+  "recommended": [
+    "Mixpost (lao9s/mixpost) - if you self-host social media management",
+    "Parallel AI skills (parallel-search/extract/deep-research/enrichment) - if you need web research capabilities beyond existing tools",
+    "ChartGen AI - for data visualization needs, but vet data handling first"
+  ],
+  "doNotInstall": [
+    "Any skill < 100 downloads or < 3 months old without thorough vetting",
+    "Skills with misspelled names of popular skills (typosquatting vector)",
+    "Skills requesting 'install prereqs' that involve downloading executables"
+  ]
+}

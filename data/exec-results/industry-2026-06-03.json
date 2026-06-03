@@ -1,0 +1,42 @@
+{
+  "date": "2026-06-03",
+  "trends": [
+    {
+      "title": "OpenAI 发布 ChatGPT Translate 独立翻译工具，直指 Google Translate 与 DeepL",
+      "summary": "2026年1月15日，OpenAI 低调上线 ChatGPT Translate 独立网页翻译工具，支持 25+ 语言文本、语音和图像翻译。采用双语对照界面，提供语气控制（商务正式/口语/学术/简化）等高级功能，且免费使用。这标志着 AI 巨头将翻译视为高频主流场景而非聊天机器人的附属功能，对传统翻译工具构成直接竞争。",
+      "source": "Slator",
+      "link": "https://slator.com/openai-launches-chatgpt-translate-standalone-translation-tool",
+      "category": "AI"
+    },
+    {
+      "title": "AI 影响者 Andrej Karpathy 将笔译和口译列为 AI 高暴露职业",
+      "summary": "Andrej Karpathy 在展示其新工具时，明确将翻译和口译作为 AI 高度暴露的行业示例。此前他预言 2026 年是 'Slopacalypse'（内容泛滥时代），并指出代码编写已从 80% 自己写到转向 80% 交给 AI 代理。他的观点在语言服务行业引发了对译员职业未来的广泛讨论。",
+      "source": "Slator",
+      "link": "https://slator.com/translation-interpreting-highly-exposed-ai",
+      "category": "AI"
+    },
+    {
+      "title": "SlatorCon London 2026 汇聚 250+ 语言行业与 AI 领袖",
+      "summary": "2026年5月下旬，SlatorCon London 吸引了超过 250 位语言解决方案和 AI 市场领导者，讨论方向包括：'自建 vs 采购' AI 方案的边界模糊化、本地化负责人在企业中角色升级、以及 AI 时代语言服务商如何转型。同期 Slator 发布 2026 指数，对 300+ 语言服务商和技术平台进行营收排名。",
+      "source": "Slator",
+      "link": "https://slator.com/event/slatorcon-london-2026",
+      "category": "conference"
+    },
+    {
+      "title": "Google 突破性端到端语音翻译：延迟 <3 秒、保留原始声线",
+      "summary": "Google 发布了端到端语音翻译（S2ST）模型，延迟控制在 2-3 秒以内，且能保留说话人原始声线和语气。这使会议实时翻译、客服语音本地化、消费设备翻译成为可行的商业场景，将大幅推动音频优先内容本地化需求的增长。",
+      "source": "Google Research / POEditor Blog",
+      "link": "https://research.google/blog/real-time-speech-to-speech-translation/",
+      "category": "technology"
+    },
+    {
+      "title": "EU AI 监管趋严：翻译 AI 面临透明度与合规新要求",
+      "summary": "欧盟 AI 风险管理指南持续收紧，对部署的 AI 系统提出透明度、来源追溯和安全性要求。生成式 AI 在翻译中的幻觉问题在受监管行业（医疗、法律、金融）尤其突出，企业必须实现可解释性、来源日志和人工介入签批机制。AI 翻译从'能用'到'合规可信'成为新焦点。",
+      "source": "POEditor Blog / European Data Protection Supervisor",
+      "link": "https://poeditor.com/blog/ai-translation-trends-2026",
+      "category": "market"
+    }
+  ],
+  "totalItems": 5,
+  "topTrend": "AI 巨头（OpenAI、Google）直接杀入翻译赛道，LLM 正从'辅助翻译'进化为'多语言内容生成引擎'，语言服务行业面临结构性重塑：翻译公司必须从纯人工/人机协作向 AI 管道运营转型，译员角色加速转向 AI 质量监管与领域专家。"
+}

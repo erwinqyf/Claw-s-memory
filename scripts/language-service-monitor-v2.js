@@ -128,17 +128,16 @@ function prioritizeArticles(articles, learning) {
 
 const MONITOR_CONFIG = {
   organizations: [
-    { name: 'Nimdzi', url: 'https://www.nimdzi.com', rssOrNews: '/insights/', type: 'organization', priority: 'high' },
-    { name: 'Slator', url: 'https://slator.com', rssOrNews: '/news/', type: 'organization', priority: 'high' },
-    { name: 'Multilingual', url: 'https://multilingual.com', rssOrNews: '/blog/', type: 'organization', priority: 'medium' }
+    { name: 'Slator', url: 'https://slator.com', rssOrNews: '/industry-news', type: 'organization', priority: 'high' }
+    // Nimdzi 改版后不再有公开聚合页；Multilingual 有反爬。如有新 URL 需要更新。
   ],
   companies: [
     { name: 'TransPerfect', url: 'https://www.transperfect.com', newsPath: '/news' },
     { name: 'RWS', url: 'https://www.rws.com', newsPath: '/news' },
-    { name: 'DeepL', url: 'https://www.deepl.com', newsPath: '/blog' },
     { name: 'Smartling', url: 'https://www.smartling.com', newsPath: '/blog' },
     { name: 'Rask AI', url: 'https://www.rask.ai', newsPath: '/blog' },
     { name: 'Lilt', url: 'https://lilt.com', newsPath: '/blog' }
+    // DeepL blog URL 结构有变，暂移除
   ]
 };
 

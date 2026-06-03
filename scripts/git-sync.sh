@@ -6,7 +6,7 @@ set -e
 
 WORKSPACE_DIR="$HOME/.openclaw/workspace"
 REPO_URL="${OPENCLAW_MEMORY_REPO:-}"
-BRANCH="${OPENCLAW_MEMORY_BRANCH:-main}"
+BRANCH="${OPENCLAW_MEMORY_BRANCH:-master}"
 AUTO_COMMIT="${OPENCLAW_AUTO_COMMIT:-true}"
 
 cd "$WORKSPACE_DIR"
@@ -59,7 +59,7 @@ pull_changes() {
 # 推送本地变更
 push_changes() {
   # 检查是否有未提交的变更
-  if git diff --quiet MEMORY.md memory/ SOUL.md USER.md AGENTS.md TOOLS.md IDENTITY.md 2>/dev/null; then
+  if git diff --quiet MEMORY.md memory/ SOUL.md USER.md AGENTS.md TOOLS.md IDENTITY.md data/ 2>/dev/null; then
     log "✅ 本地记忆文件无变更"
     return 0
   fi
@@ -67,7 +67,7 @@ push_changes() {
   log "📝 检测到本地记忆文件变更"
   
   # 添加变更
-  git add MEMORY.md memory/ SOUL.md USER.md AGENTS.md TOOLS.md IDENTITY.md .gitignore 2>/dev/null || true
+  git add MEMORY.md memory/ SOUL.md USER.md AGENTS.md TOOLS.md IDENTITY.md data/ .gitignore 2>/dev/null || true
   
   # 如果有变更需要提交
   if ! git diff --cached --quiet; then

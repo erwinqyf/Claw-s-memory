@@ -1,6 +1,6 @@
 # 语言服务监控 - 自我学习日志
 
-**最后更新:** 2026-04-23T03:02:11.045Z
+**最后更新:** 2026-05-21T14:22:14.392Z
 
 ## 失败网站
 
@@ -31,12 +31,25 @@
 - Slator: Invalid URL (2026-04-23T03:02:09.374Z)
 - Multilingual: HTTP 403 (2026-04-23T03:02:09.401Z)
 - DeepL: Invalid URL (2026-04-23T03:02:11.045Z)
+- Nimdzi: HTTP 404 (2026-05-19T03:00:37.988Z)
+- Slator: Invalid URL (2026-05-19T03:00:39.158Z)
+- Multilingual: HTTP 403 (2026-05-19T03:00:39.235Z)
+- DeepL: Invalid URL (2026-05-19T03:00:43.007Z)
+- Nimdzi: HTTP 404 (2026-05-21T03:00:10.945Z)
+- Slator: Invalid URL (2026-05-21T03:00:12.146Z)
+- Multilingual: HTTP 403 (2026-05-21T03:00:12.179Z)
+- DeepL: Invalid URL (2026-05-21T03:00:13.120Z)
+- Nimdzi: HTTP 404 (2026-05-21T14:10:48.939Z)
+- Slator: Invalid URL (2026-05-21T14:10:50.025Z)
+- Multilingual: HTTP 403 (2026-05-21T14:10:50.069Z)
+- DeepL: Invalid URL (2026-05-21T14:10:50.988Z)
 
 ## 成功模式
 
 - 成功抓取 /news/
 - 成功抓取 /news
 - 成功抓取 /blog
+- 成功抓取 /industry-news
 
 ## 优化建议
 
