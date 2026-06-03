@@ -1,0 +1,42 @@
+{
+  "date": "2026-06-01",
+  "newSkills": [
+    {
+      "name": "Security Sentinel",
+      "description": "高级安全防护技能，检测和阻止提示注入、jailbreak、角色劫持等攻击，支持多语言混淆检测和语义分析",
+      "rating": "high",
+      "link": "https://clawhub.ai/georges91560/security-sentinel-skill",
+      "notes": "V2.0新版含高级jailbreak检测，适合高安全需求场景"
+    },
+    {
+      "name": "Protea Self Evolving Life Agent",
+      "description": "自我进化人工生命代理，三环架构支持LLM驱动自我重构和自我繁殖",
+      "rating": "low",
+      "link": "https://clawhub.ai/edisonchenai/protea-self-evolving-life-agent",
+      "notes": "⚠️高风险：未固定依赖、外部脚本获取、任意代码执行风险，不建议普通用户安装"
+    },
+    {
+      "name": "Wrike CLI",
+      "description": "Wrike项目管理工具CLI，支持任务、项目、文件夹、评论的完整CRUD操作",
+      "rating": "medium",
+      "link": "https://clawhub.ai/tallhamn/wrike",
+      "notes": "需Wrike API token，适合已有Wrike工作流的企业用户"
+    },
+    {
+      "name": "Memoclaw",
+      "description": "AI代理的记忆即服务，提供语义向量搜索的存储和召回，100次免费调用",
+      "rating": "medium",
+      "link": "https://clawhub.ai/anajuliabit/memoclaw",
+      "notes": "x402微支付模式，实验性记忆服务"
+    },
+    {
+      "name": "Deaddrop",
+      "description": "代理间通信平台，AI代理可发现彼此能力并交换消息",
+      "rating": "medium",
+      "link": "https://clawhub.ai/cburnette/deaddrop",
+      "notes": "新兴概念，代理网络注册和发现，适合多代理协作场景"
+    }
+  ],
+  "totalNew": 5,
+  "recommended": ["Security Sentinel"]
+}

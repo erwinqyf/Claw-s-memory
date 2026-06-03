@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "updatedAt": "2026-05-31T03:42:11.997Z",
+  "updatedAt": "2026-06-01T02:06:45.903Z",
   "entries": {
     "memory:memory/2026-05-03.md:111:147": {
       "key": "memory:memory/2026-05-03.md:111:147",
@@ -42,18 +42,20 @@
       "endLine": 26,
       "source": "memory",
       "snippet": "# 2026-05-25 记忆 ## 📋 晚间报告 ✅ **今日完成** - 全球新闻午间报告：教皇发布 AI 伦理宣言、日经指数首破 65000 点、摩根士丹利预测 2030 年半导体市场规模达 1.5 万亿美元 - ClawHub 技能追踪：skills.openclaw.ai 仍无法访问，审计发现 30%+ 技能存安全风险 - Job Search：找到 2 个新职位（Lionbridge 技术译者、Keywords Studios BD 经理） - 晚间报告已生成 📝 **记忆更新** - 今日生成了完整的新闻报告和职位追踪记录 🌙 **明日预告** - 午间全球新闻、晚间报告、ClawHub 追踪、Job Search 轮询 --- # 2026-05-25 午间全球新闻报告 ## 🌍 政治 - 菲律宾建筑倒塌致 3 死 17 失联 [半岛电视台](https://www.aljazeera.com/news/2026/5/25/building-collapse-in-philippines-leaves-3-dead-17-missing) - 中东战事：Rubio 称伊朗协议仍有可能在周一达成 [France 24](https://www.france24.com/en/middle-east/20260525-middle-east-war-live-rubio-says-iran-deal-still-possible-monday) - 教皇 Leo XIV 将发布 AI 伦理风险宣言 [France 24](https://www",
-      "recallCount": 1,
+      "recallCount": 2,
       "dailyCount": 0,
       "groundedCount": 0,
-      "totalScore": 1,
+      "totalScore": 2,
       "maxScore": 1,
       "firstRecalledAt": "2026-05-27T02:00:20.750Z",
-      "lastRecalledAt": "2026-05-27T02:00:20.750Z",
+      "lastRecalledAt": "2026-06-01T02:06:45.903Z",
       "queryHashes": [
-        "45c129c6f31b"
+        "45c129c6f31b",
+        "8a59ea642ebe"
       ],
       "recallDays": [
-        "2026-05-27"
+        "2026-05-27",
+        "2026-06-01"
       ],
       "conceptTags": [
         "1.5",
@@ -126,6 +128,37 @@
         "sonny",
         "rollins",
         "去世"
+      ]
+    },
+    "memory:memory/2026-05-29.md:1:30": {
+      "key": "memory:memory/2026-05-29.md:1:30",
+      "path": "memory/2026-05-29.md",
+      "startLine": 1,
+      "endLine": 30,
+      "source": "memory",
+      "snippet": "# 2026-05-29 记忆 --- ## 晚间报告 (23:00) ### ✅ 今日完成 - **ClawHub 技能追踪**：发现 5 个新技能，推荐 `skill-security-scan`（安装前安全检查）和 `skill-defender`（恶意模式扫描） - **求职监控**：搜索 19 组关键词，未发现 Fortune 500/Top + 15k+ RMB + 中国/remote 的新增 Content/Localization 职位 ### 📝 记忆更新 - Anthropic 估值飙升至 9650 亿美元，超越 OpenAI - 信达生物与辉瑞达成 105 亿美元合作 - LG 电子与 Google 合作汽车创新，股价飙升 24% ### 🌙 明日预告 - 周六无定时任务 - 下周一 (6月1日) 10:00: Job Monitor - Content/Localization --- ## 午间新闻 (12:00) ### 🌍 政治 - 以色列扩大对黎巴嫩攻击，大规模疏散进行中 [Al Jazeera](https://www.aljazeera.com/video/newsfeed/2026/5/29/lebanon-latest-mass-evacuations-as-israel-expands-attacks) - 俄罗斯无人机击中罗马尼亚公寓楼，靠近乌克兰边境 [France 24](https://www.france24.com/en/europe/20260529-russian-drone-hits-apartm",
+      "recallCount": 1,
+      "dailyCount": 0,
+      "groundedCount": 0,
+      "totalScore": 1,
+      "maxScore": 1,
+      "firstRecalledAt": "2026-06-01T02:06:45.903Z",
+      "lastRecalledAt": "2026-06-01T02:06:45.903Z",
+      "queryHashes": [
+        "8a59ea642ebe"
+      ],
+      "recallDays": [
+        "2026-06-01"
+      ],
+      "conceptTags": [
+        "openai",
+        "skill-security-scan",
+        "skill-defender",
+        "500/top",
+        "中国/remote",
+        "content/localization",
+        "记忆",
+        "晚间"
       ]
     }
   }
