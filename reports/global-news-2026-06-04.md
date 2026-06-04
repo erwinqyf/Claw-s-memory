@@ -1,6 +1,6 @@
 # 全球新闻汇总 2026-06-04
 
-**生成时间:** 2026/6/4 12:00:25 (Asia/Shanghai)
+**生成时间:** 2026/6/4 12:06:14 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
@@ -12,10 +12,11 @@
    - 时间：06/04 10:59
    - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/4/uk-far-right-accused-of-exploiting-killing-of-henry-nowak?traffic_source=rss)
 
-2. 🔥🔥 **Rubio distances himself from Netanyahu’s Gaza plan**
-   - 来源：半岛电视台 | 热度：73/100
-   - 时间：06/04 10:04
-   - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/4/rubio-distances-himself-from-netanyahus-gaza-plan?traffic_source=rss)
+2. 🔥🔥 **Presidents of Russia, Uzbekistan to meet in St. Petersburg**
+   - 来源：塔斯社 | 热度：73/100
+   - 时间：06/04 10:40
+   - 摘要：Vladimir Putin and Shavkat Mirziyoyev are expected to give a start to construction of the first power generating unit...
+   - [阅读全文]()
 
 3. 🔥 **New York Knicks storm back to beat Wembanyama's Spurs in NBA finals opener**
    - 来源：France 24 | 热度：69/100
@@ -121,9 +122,9 @@
    - 时间：06/04 11:52
    - [阅读全文](https://techcrunch.com/2026/06/03/benchmark-raises-its-first-ever-growth-fund-as-part-of-2b-capital-raise/)
 
-5. 🔥🔥 **工信部：1—4月我国规上电子信息制造业增加值同比增长14%**
+5. 🔥🔥 **恒指午间休盘跌1.4%，恒生科技指数跌1.43%**
    - 来源：36 氪 | 热度：73/100
-   - 时间：06/04 11:55
+   - 时间：06/04 12:03
    - [阅读全文]()
 
 ---
