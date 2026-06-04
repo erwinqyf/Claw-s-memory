@@ -1,6 +1,6 @@
 # 全球新闻汇总 2026-06-04
 
-**生成时间:** 2026/6/4 12:06:14 (Asia/Shanghai)
+**生成时间:** 2026/6/4 12:17:45 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
@@ -18,22 +18,23 @@
    - 摘要：Vladimir Putin and Shavkat Mirziyoyev are expected to give a start to construction of the first power generating unit...
    - [阅读全文]()
 
-3. 🔥 **New York Knicks storm back to beat Wembanyama's Spurs in NBA finals opener**
+3. 🔥 **Ukrainian strike kills three in Crimea after Kyiv targets St. Petersburg energy, military sites**
+   - 来源：France 24 | 热度：69/100
+   - 时间：06/04 12:12
+   - 摘要：A Ukrainian strike killed at least three people in Crimea, Moscow-installed authorities said on Thursday, a day after...
+   - [阅读全文](https://www.france24.com/en/europe/20260604-ukrainian-strike-kills-three-in-crimea-after-kyiv-targets-st-petersburg-energy-military-sites)
+
+4. 🔥 **New York Knicks storm back to beat Wembanyama's Spurs in NBA finals opener**
    - 来源：France 24 | 热度：69/100
    - 时间：06/04 11:51
    - 摘要：Jalen Brunson scored 30 points as the New York Knicks rallied from a 14-point second-half deficit to defeat the San A...
    - [阅读全文](https://www.france24.com/en/sport/20260604-knicks-storm-back-against-wembanyama-seize-nba-finals-opener)
 
-4. 🔥 **NASA ends MAVEN mission after Mars orbiter falls silent**
+5. 🔥 **NASA ends MAVEN mission after Mars orbiter falls silent**
    - 来源：France 24 | 热度：69/100
    - 时间：06/04 07:59
    - 摘要：NASA said on Wednesday it will end its mission studying Mars' atmosphere and evolution after losing contact with its ...
    - [阅读全文](https://www.france24.com/en/americas/20260603-nasa-ends-maven-mission-after-mars-orbiter-falls-silent)
-
-5. 🔥 **Elon Musk’s SpaceX eyes $1.77tn valuation ahead of historic IPO**
-   - 来源：半岛电视台 | 热度：68/100
-   - 时间：06/04 10:38
-   - [阅读全文](https://www.aljazeera.com/economy/2026/6/4/elon-musks-spacex-eyes-1-77tn-valuation-ahead-of-historic-ipo?traffic_source=rss)
 
 ---
 
@@ -41,7 +42,7 @@
 
 1. 🔥🔥 **Asia-Pacific markets fall on renewed Middle East tensions**
    - 来源：CNBC | 热度：76/100
-   - 时间：06/04 11:59
+   - 时间：06/04 12:12
    - [阅读全文](https://www.cnbc.com/2026/06/04/asia-markets-today-asx-nikkei-kospi-hang-seng-csi-300-sensex-oil.html)
 
 2. 🔥🔥 **SoftBank’s OpenAI bet and rising debt are raising liquidity crunch concerns**
@@ -49,20 +50,20 @@
    - 时间：06/04 10:47
    - [阅读全文](https://www.cnbc.com/2026/06/04/softbank-openai-liquidity-crunch-arm-son.html)
 
-3. 🔥🔥 **Flesh-eating screwworm is confirmed in the U.S., officials say**
-   - 来源：CNBC | 热度：71/100
-   - 时间：06/04 10:14
-   - [阅读全文](https://www.cnbc.com/2026/06/04/flesh-eating-screwworm-is-confirmed-in-the-us-officials-say.html)
-
-4. 🔥🔥 **CrowdStrike is a buy, just not yet. Here's why**
+3. 🔥🔥 **CrowdStrike is a buy, just not yet. Here's why**
    - 来源：CNBC | 热度：71/100
    - 时间：06/04 09:16
    - [阅读全文](https://www.cnbc.com/2026/06/03/crowdstrike-is-a-buy-just-not-yet-heres-why.html)
 
-5. 🔥 **SpaceX targets $135 IPO price at valuation of $1.77 trillion**
+4. 🔥 **SpaceX targets $135 IPO price at valuation of $1.77 trillion**
    - 来源：CNBC | 热度：66/100
    - 时间：06/04 05:13
    - [阅读全文](https://www.cnbc.com/2026/06/03/spacex-ipo-stock-price-roadshow-musk.html)
+
+5. 🔥 **Broadcom stock plunges on weak software sales, unchanged AI chip forecast for the year**
+   - 来源：CNBC | 热度：66/100
+   - 时间：06/04 07:00
+   - [阅读全文](https://www.cnbc.com/2026/06/03/broadcom-avgo-earnings-report-q2-2026.html)
 
 ---
 
@@ -86,8 +87,8 @@
    - 摘要：The team behind Stranger Things has another series about a group of quirky misfits and mysterious creatures.
    - [阅读全文](https://www.npr.org/2026/06/03/nx-s1-5837574/sinister-forces-invade-an-upscale-retirement-community-in-the-boroughs)
 
-4. 🔥 **A nameless narrator attempts to understand Gertrude Stein in Deborah Levy's new novel**
-   - 来源：NPR Arts | 热度：59/100
+4. ⚡ **A nameless narrator attempts to understand Gertrude Stein in Deborah Levy's new novel**
+   - 来源：NPR Arts | 热度：54/100
    - 时间：06/04 00:11
    - 摘要：In 'My Year in Paris with Gertrude Stein,' the narrator, a writer, actually spends one month trying to understand Ste...
    - [阅读全文](https://www.npr.org/2026/06/03/nx-s1-5843246/my-year-in-paris-with-gertrude-stein-deborah-levy-review)
@@ -122,9 +123,9 @@
    - 时间：06/04 11:52
    - [阅读全文](https://techcrunch.com/2026/06/03/benchmark-raises-its-first-ever-growth-fund-as-part-of-2b-capital-raise/)
 
-5. 🔥🔥 **恒指午间休盘跌1.4%，恒生科技指数跌1.43%**
+5. 🔥🔥 **隆扬电子：公司HVLP5铜箔在配合客户交付部分样品订单**
    - 来源：36 氪 | 热度：73/100
-   - 时间：06/04 12:03
+   - 时间：06/04 12:15
    - [阅读全文]()
 
 ---
