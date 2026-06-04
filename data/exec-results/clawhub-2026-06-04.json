@@ -1,0 +1,52 @@
+{
+  "date": "2026-06-04",
+  "newSkills": [
+    {
+      "name": "Skill Vetter",
+      "description": "Scans skills for malicious code patterns before installation. 3.5K+ downloads. Growing relevance given the security landscape — ClawHub recently purged 2,400+ suspicious skills after the ClawHavoc campaign.",
+      "rating": "high",
+      "link": "https://clawhub.ai/skills/skill-vetter",
+      "notes": "Highly recommended for our setup. With 37.8% skills flagged suspicious by ClawScan and Trail of Bits (June 3) demonstrating scanner bypasses, an extra layer of vetting is prudent. Open source, no external API dependency."
+    },
+    {
+      "name": "Firecrawl CLI",
+      "description": "Advanced web extraction: scrape, crawl, search, and run browser sessions on any website. Supplements our existing web_fetch with headless browser capability.",
+      "rating": "medium",
+      "link": "https://clawhub.ai/skills/firecrawl-cli",
+      "notes": "Powerful but requires Firecrawl API key. Evaluate whether existing web_fetch + agent-browser skill already covers this use case. Medium priority."
+    },
+    {
+      "name": "Mcporter",
+      "description": "Install and manage MCP servers from inside OpenClaw. 11.1K downloads. Allows dynamic installation of Model Context Protocol servers.",
+      "rating": "medium",
+      "link": "https://clawhub.ai/skills/mcporter",
+      "notes": "Useful if expanding MCP ecosystem. Dynamic server installation from agent has security implications — evaluate need before installing."
+    },
+    {
+      "name": "ChartGen AI",
+      "description": "Recently published data visualization skill. Generates charts and graphs from data. Published by steven-cen on LinkedIn.",
+      "rating": "low",
+      "link": "https://clawhub.ai/skills/chartgen-ai",
+      "notes": "New skill, low download count, no long-term track record. Our existing diagram-maker skill already covers visualization needs. Skip for now."
+    },
+    {
+      "name": "API Gateway",
+      "description": "Managed OAuth to 100+ external APIs (Stripe, Salesforce, HubSpot, etc). 13K downloads.",
+      "rating": "low",
+      "link": "https://clawhub.ai/skills/api-gateway",
+      "notes": "Useful for external service integration, but requires OAuth setup and third-party API keys. Not immediately needed for current workflow."
+    }
+  ],
+  "totalNew": 5,
+  "recommended": ["Skill Vetter"],
+  "securitySummary": "Security remains the dominant theme. ClawHub now has 52.7K skills, 12M downloads. NVIDIA SkillSpector scans 98% of skills (48.7% advisory rate). Trail of Bits (2026-06-03) published bypasses for ClawHub/Cisco/skills.sh scanners. OpenClaw released 67K-skill security signals dataset on HuggingFace (2026-05-31). ClawScan verdicts: 61.9% clean, 37.8% suspicious, 0.3% malicious. Ongoing crypto-swarm campaign (30 skills from single author). Vetting before installation is critical.",
+  "ecosystemStats": {
+    "totalTools": 52700,
+    "totalUsers": 180000,
+    "totalDownloads": 12000000,
+    "avgRating": 4.8,
+    "clawScanClean": "61.9%",
+    "clawScanSuspicious": "37.8%",
+    "clawScanMalicious": "0.3%"
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "date": "2026-06-04",
+  "trends": [
+    {
+      "title": "RWS 联合 Cohere 发布 Language Weaver Pro：1000亿参数的企业级翻译模型",
+      "summary": "RWS 与 Cohere 合作推出 Language Weaver Pro，号称"全球最先进 AI 翻译解决方案"，拥有 1000 亿+参数的专用翻译模型（生产中最大的专用翻译模型）。在 32 种语言的基准测试中 31 种排名第一，超越 DeepL 和 Gemini。原生集成 Trados 工具链，专为企业级关键业务内容设计，强调文化、语境和合规性理解。",
+      "source": "RWS/Cohere",
+      "link": "https://www.rws.com/language-weaver/pro/",
+      "category": "technology"
+    },
+    {
+      "title": "OpenAI 推出 ChatGPT Translate 独立翻译工具，正面挑战 Google Translate",
+      "summary": "2026 年 1 月，OpenAI 悄然发布 ChatGPT Translate 独立网页翻译工具，支持 40-50 种语言，UI 类似 Google Translate，允许用户一键调整语气和风格。虽以原型形式推出，但标志着 AI 翻译从"聊天功能"升级为独立产品，对传统翻译行业定价模式和客户预期产生深远影响。",
+      "source": "SiliconANGLE / PoliLingua",
+      "link": "https://siliconangle.com/2026/01/15/openai-quietly-launches-chatgpt-translate-support-25-languages",
+      "category": "AI"
+    },
+    {
+      "title": "2026 Nimdzi 100 报告：语言服务市场达 $73.4B，AI 驱动结构性重塑",
+      "summary": "Nimdzi 发布 2026 年语言行业百强报告。市场 2025 年达 $72.6B，预计 2026 年 $73.4B（线性模型）。核心发现：60% 的百强企业积极寻求并购；亚太地区增长最快（7.2%）；行业大规模裁减传统语言/项目经理岗位（20-25%）； proprietary AI 和数据服务成为最大收入增长和利润率保护领域；Lionbridge 从 H.I.G. Capital 转移至 KKR。",
+      "source": "Nimdzi Insights",
+      "link": "https://www.nimdzi.com/nimdzi-100-2026",
+      "category": "market"
+    },
+    {
+      "title": "Slator 深度分析：AI 翻译 2026 年的真实瓶颈——幻觉率高达 33-60%",
+      "summary": "Slator 指出 AI 翻译仍面临重大质量挑战。Appen 2026 年 2 月研究测试 7 大 AI 模型、20 种语言，发现习语和文化表达仍是最大弱点，大量习语被完全漏译。阿里巴巴研究显示翻译幻觉率高达 33-60%。GPT-5 翻译测试中"自然度和地道性不足"的问题依然突出。Hugging Face 发布大规模翻译数据集试图改善。",
+      "source": "Slator",
+      "link": "https://slator.com/resources/ai-translation-struggles",
+      "category": "technology"
+    },
+    {
+      "title": "共识翻译（Consensus Translation）异军突起：多引擎协同降低 22% 错误率",
+      "summary": "基于多 AI 引擎协同的"共识翻译"模式在 2026 年获得关注，通过同时调用多个独立翻译引擎并取共识结果，可降低高达 22% 的翻译错误。AI 翻译市场 2024 年估值 $1.20B，预计 2033 年达 $4.50B（CAGR 16.5%）。MachineTranslation.com 等工具率先落地该模式。",
+      "source": "Technology Org",
+      "link": "https://www.technology.org/2025/12/29/why-2026s-smartest-ai-translation-upgrade-is-built-on-consensus-and-what-it-means-for-global-tech",
+      "category": "AI"
+    },
+    {
+      "title": "地缘政治冲击行业：贸易战重塑语言服务需求流向",
+      "summary": "US 预算冻结、"英语优先"政策和关税导致美元贬值，严重冲击以美元结算的 EU 语言服务商利润率。全球贸易战减少部分直接跨境商品流动，但同时催生亚太地区新型本地化贸易通道，中国→印尼/日/韩等新语言对需求快速增长。公共部门合同缩减导致依赖政府订单的 LSP 收入下降。",
+      "source": "Nimdzi 100 2026",
+      "link": "https://www.nimdzi.com/nimdzi-100-2026",
+      "category": "market"
+    },
+    {
+      "title": "行业定价模式颠覆：从按字计价转向平台/SaaS 许可费",
+      "summary": "客户要求通过 AI 降低高达 75% 的成本，迫使语言服务商放弃传统的按字计价模式，转向平台访问费、SaaS 许可以及按小时生产力模型。同时口译领域继续高增长，在高风险场景中仍高度依赖人类，机器口译则在低端市场开拓新应用。生命科学、医疗、法律等受监管领域仍需要人工监督。",
+      "source": "Nimdzi / Fortune Business Insights",
+      "link": "https://www.fortunebusinessinsights.com/language-services-market-111514",
+      "category": "market"
+    }
+  ],
+  "totalItems": 7,
+  "topTrend": "2026 年语言服务行业处于 AI 驱动的结构性重塑深水区：RWS/Cohere 的千亿参数专用翻译模型和 OpenAI ChatGPT Translate 代表技术两端突破，但 AI 翻译的 33-60% 幻觉率难题仍未解决；市场向平台化/SaaS 定价模式转型，企业大规模裁减传统岗位，口译和受监管领域仍是人类专家的最后堡垒，亚太新语言对需求与贸易战并行驱动市场格局变化。"
+}
