@@ -1,6 +1,6 @@
 # 全球新闻汇总 2026-06-07
 
-**生成时间:** 2026/6/7 12:00:24 (Asia/Shanghai)
+**生成时间:** 2026/6/7 12:04:44 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
@@ -12,29 +12,26 @@
    - 时间：06/07 10:17
    - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/7/aje-onl-nf_protests-grow-in-albania-against-trump-resort-060626?traffic_source=rss)
 
-2. 🔥 **Ukrainian army killed mercenaries that surrendered to Russian military**
-   - 来源：塔斯社 | 热度：68/100
-   - 时间：06/07 11:27
-   - 摘要：Russian law enforcement agencies noted that Ukrainian drones have been trying for a long time to control the area whe...
-   - [阅读全文]()
+2. 🔥 **Iran war live: Israel kills Lebanon general, Pakistan urges end to war**
+   - 来源：半岛电视台 | 热度：63/100
+   - 时间：06/07 08:00
+   - [阅读全文](https://www.aljazeera.com/news/liveblog/2026/6/7/iran-war-live-israel-kills-lebanon-general-pakistan-urges-end-to-war?traffic_source=rss)
 
-3. 🔥 **China conducted special law enforcement operation east of Taiwan**
-   - 来源：塔斯社 | 热度：68/100
-   - 时间：06/07 11:15
-   - 摘要：According to the news agency, this operation was a necessary response to the unilateral statement by Japan and the Ph...
-   - [阅读全文]()
+3. 🔥 **Trump pardons former US Congress member accused of insider trading**
+   - 来源：半岛电视台 | 热度：63/100
+   - 时间：06/07 07:58
+   - [阅读全文](https://www.aljazeera.com/news/2026/6/6/trump-pardons-former-us-congress-member-accused-of-insider-trading?traffic_source=rss)
 
-4. 🔥 **US gives ten more days for talks among MOL, NIS and Gazprom Neft**
-   - 来源：塔斯社 | 热度：68/100
-   - 时间：06/07 10:30
-   - 摘要：The Hungarian company added that negotiations have advanced significantly, and an additional license extension will a...
-   - [阅读全文]()
+4. 🔥 **Why are Armenia’s elections being so keenly watched abroad?**
+   - 来源：半岛电视台 | 热度：63/100
+   - 时间：06/07 02:19
+   - [阅读全文](https://www.aljazeera.com/video/inside-story/2026/6/6/why-are-armenias-elections-being-so-keenly-watched?traffic_source=rss)
 
-5. 🔥 **Royal Navy spent third of its combat deployment to track Russian submarines**
-   - 来源：塔斯社 | 热度：68/100
-   - 时间：06/07 10:20
-   - 摘要：The UK’s First Sea Lord, Gwyn Jenkins said that British ships were used "dozens of times"
-   - [阅读全文]()
+5. 🔥 **Senegal's ousted PM Sonko re-elected head of his political party**
+   - 来源：France 24 | 热度：59/100
+   - 时间：06/07 04:38
+   - 摘要：Ousmane Sonko, who was sacked as Senegal's prime minister after a falling-out with President Bassirou Diomaye Faye, w...
+   - [阅读全文](https://www.france24.com/en/africa/20260606-senegal-s-ousted-pm-sonko-re-elected-head-of-his-political-party)
 
 ---
 
@@ -123,9 +120,9 @@
    - 时间：06/07 10:14
    - [阅读全文]()
 
-5. 🔥 **多家低成本航空公司对登机箱登机收费**
+5. 🔥 **2026年度电影总票房已突破160亿元**
    - 来源：36 氪 | 热度：68/100
-   - 时间：06/07 11:45
+   - 时间：06/07 12:00
    - [阅读全文]()
 
 ---
