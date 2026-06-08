@@ -1,22 +1,22 @@
 # 全球新闻汇总 2026-06-08
 
-**生成时间:** 2026/6/8 12:00:14 (Asia/Shanghai)
+**生成时间:** 2026/6/8 12:04:47 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
 
 ## 🌍 政治
 
-1. 🔥 **The jailing of Germany’s most wanted woman – podcast**
-   - 来源：英国卫报 | 热度：68/100
-   - 时间：06/08 10:00
-   - 摘要：Dancer, dog owner, bank robber.
-   - [阅读全文](https://www.theguardian.com/news/audio/2026/jun/08/jailing-germany-most-wanted-woman-daniela-klette-podcast)
-
-2. 🔥 **Iran and Israel trade threats after Tehran launches missiles**
+1. 🔥 **Iran and Israel trade threats after Tehran launches missiles**
    - 来源：半岛电视台 | 热度：68/100
    - 时间：06/08 08:13
    - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/8/iran-and-israel-trade-threats-after-tehran-launches-missiles?traffic_source=rss)
+
+2. 🔥 **Canada covers up systematic attacks by Kiev forces on Zaporozhye NPP — Russian Embassy**
+   - 来源：塔斯社 | 热度：68/100
+   - 时间：06/08 12:00
+   - 摘要：According to the embassy, Ottawa also demonstrates astonishing speed in leveling baseless accusations against Moscow
+   - [阅读全文]()
 
 3. 🔥 **EAEU mulls free trade agreements with Tunisia, Pakistan — ministry**
    - 来源：塔斯社 | 热度：68/100
@@ -125,9 +125,9 @@
    - 摘要：文｜胡香赟 编辑｜海若镜 36氪获悉，近日，新一代AI超声脑机公司华超神控（BCI-Sonics）已完成亿元人民币级天使轮系列融资. 天使轮融资由经纬创投领投，天使+轮由德联资本、道远资本联合领投，循光资本持续担任独家财务顾问.
    - [阅读全文]()
 
-5. 🔥🔥 **印尼外汇储备创2018年以来最长连降纪录**
+5. 🔥🔥 **恒指午间休盘跌1.18%，恒生科技指数跌2.4%**
    - 来源：36 氪 | 热度：73/100
-   - 时间：06/08 11:52
+   - 时间：06/08 12:02
    - [阅读全文]()
 
 ---
