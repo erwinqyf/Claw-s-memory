@@ -1,0 +1,25 @@
+{
+  "id": "night-2026-06-07",
+  "date": "2026-06-07",
+  "timestamp": "2026-06-07T23:10:00+08:00",
+  "steps": [
+    {
+      "step": "read_memory",
+      "status": "success"
+    },
+    {
+      "step": "read_exec_results",
+      "status": "success"
+    },
+    {
+      "step": "update_memory",
+      "status": "success"
+    },
+    {
+      "step": "git_sync",
+      "status": "success",
+      "detail": "本地已最新，无变更需推送"
+    }
+  ],
+  "summary": "Today's highlights: fixed morning report (removed expired bailian provider, switched to deepseek-chat), adjusted cron model and timeout strategy, noon news brief sent successfully, night routine OK. Error alert suppressed (consecutive errors at 3, but last run succeeded)."
+}

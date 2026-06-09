@@ -1,0 +1,68 @@
+{
+  "date": "2026-06-05",
+  "newSkills": [
+    {
+      "name": "Multi Search Engine",
+      "description": "集成16个搜索引擎（国内7个+国际9个），无需任何API Key，通过 web_fetch + cookie管理实现跨引擎搜索。支持百度、Google、DuckDuckGo、Brave等。中英文自动分流。",
+      "rating": "high",
+      "link": "https://clawhub.ai/gpyangyoujun/multi-search-engine",
+      "notes": "MIT许可，无外部API依赖，纯web_fetch实现。对中英文混合搜索场景非常有价值，可作为web_search的补充。无需API Key降低了供应链风险。"
+    },
+    {
+      "name": "ChartGen AI",
+      "description": "AI数据可视化与分析平台，支持文本转图表（ECharts全类型）、数据分析、报告生成、PPT输出。上传CSV/Excel即可生成交互式图表和仪表盘。",
+      "rating": "medium",
+      "link": "https://clawhub.ai/chartgen-ai/chartgen-ai",
+      "notes": "需要ChartGen API Key（免费层级可用）。功能强大但绑定了外部SaaS API。适合有数据可视化需求的场景。安全性取决于ChartGen平台（经ClawHub安全审核）。"
+    },
+    {
+      "name": "Skill Engineer",
+      "description": "技能全生命周期管理工具，通过多智能体架构（设计→审核→测试分离）保证技能质量。支持技能分类（能力提升/编码偏好）、自动评估和退役检测。",
+      "rating": "high",
+      "link": "https://clawhub.ai/chunhualiao/skill-engineer",
+      "notes": "需要安装deepwiki和启用vector memory。适合深度使用自定义技能的场景，但前提依赖较多。作者chunhualiao信誉良好，代码开源。"
+    },
+    {
+      "name": "FreeRide",
+      "description": "自动配置OpenClaw使用OpenRouter的免费AI模型，含智能降级链和守护进程。支持自动切换可用模型、定时检测恢复、配置持久化。",
+      "rating": "medium",
+      "link": "https://clawhub.ai/shaivpidadi/free-ride",
+      "notes": "需要OpenRouter API Key（免费获取），修改openclaw.json配置。适合降低推理成本，但依赖OpenRouter的免费模型可用性。守护进程会持续运行。"
+    },
+    {
+      "name": "Gog",
+      "description": "Google Workspace CLI工具，支持Gmail搜索/发送、Calendar事件管理、Drive文件搜索、Sheets读写、Docs导出、Contacts管理。",
+      "rating": "medium",
+      "link": "https://clawhub.ai/steipete/gog",
+      "notes": "需要OAuth认证。功能全面但谷歌服务在国内的可用性受限。安全风险低（OAuth scope可控）。已有内置skill可替代部分功能。"
+    },
+    {
+      "name": "Market Research",
+      "description": "结构化市场研究框架，提供市场定位、竞争分析、客户验证、定价研究等完整方法论。无外部API依赖，纯方法论指导。",
+      "rating": "high",
+      "link": "https://clawhub.ai/ivangdavila/market-research",
+      "notes": "零外部依赖，纯方法论技能。适合需要做市场分析报告的各类场景。作者ivangdavila信誉好（也发布了self-improving skill）。"
+    },
+    {
+      "name": "X Search",
+      "description": "通过xAI Grok API搜索Twitter/X帖子，支持关键词、用户筛选、日期范围、图片/视频理解。结果带原文链接引用。",
+      "rating": "low",
+      "link": "https://clawhub.ai/jaaneek/x-search",
+      "notes": "需要xAI API Key（付费），依赖外部API。对于日常搜索场景价值有限。API成本可能较高。"
+    },
+    {
+      "name": "CastReader",
+      "description": "将任意网页文章转为语音音频并通过Telegram发送。基于Node.js脚本，支持全文和摘要两种模式。",
+      "rating": "low",
+      "link": "https://clawhub.ai/vinxu/castreader-openclaw-skill",
+      "notes": "需要npm安装依赖，仅限Telegram频道。功能较窄且有Telegram依赖。本地已有更好的TTS方案。"
+    }
+  ],
+  "totalNew": 8,
+  "recommended": [
+    "Multi Search Engine",
+    "Market Research",
+    "Skill Engineer"
+  ],
+  "securityWarning": "2026年2月Koi Security发现341个恶意ClawHub Skill（ClawHavoc活动），包括SSH密钥窃取、反向Shell后门、配置凭证窃取等。安装任何新Skill前应先审核SKILL.md。建议安装Koi Security发布的Clawdex扫描工具。"
+}
