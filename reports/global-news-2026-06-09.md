@@ -1,23 +1,23 @@
 # 全球新闻汇总 2026-06-09
 
-**生成时间:** 2026/6/9 12:00:34 (Asia/Shanghai)
+**生成时间:** 2026/6/9 12:04:45 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
 
 ## 🌍 政治
 
-1. 🔥 **Middle East live: Israeli strikes kill 14 in southern Lebanon**
+1. 🔥🔥 **Yevtushenkov names possible date for Medsi IPO**
+   - 来源：塔斯社 | 热度：73/100
+   - 时间：06/09 11:58
+   - 摘要：Network of private medical clinics Medsi may float its shares this fall if conditions allow, the founder and board of...
+   - [阅读全文]()
+
+2. 🔥 **Middle East live: Israeli strikes kill 14 in southern Lebanon**
    - 来源：France 24 | 热度：69/100
    - 时间：06/09 10:41
    - 摘要：Israeli strikes on south Lebanon killed at least 14 people on Monday, the Lebanese health ministry said, after Iran t...
    - [阅读全文](https://www.france24.com/en/middle-east/20260609-middle-east-live-israeli-strikes-kill-14-in-southern-lebanon)
-
-2. 🔥 **The criminal cartels cashing in on the World Cup – podcast**
-   - 来源：英国卫报 | 热度：68/100
-   - 时间：06/09 10:00
-   - 摘要：Football fans are celebrating the tournament coming to Guadalajara.
-   - [阅读全文](https://www.theguardian.com/news/audio/2026/jun/09/the-criminal-cartels-cashing-in-on-the-world-cup-podcast)
 
 3. 🔥 **Trump warns Netanyahu: ‘You’ll be on your own’ if attacks on Iran continue**
    - 来源：半岛电视台 | 热度：68/100
@@ -45,7 +45,7 @@
 
 2. 🔥🔥 **Trump booed before Knicks lose to Spurs at Madison Square Garden in NBA Finals Game 3**
    - 来源：CNBC | 热度：71/100
-   - 时间：06/09 11:56
+   - 时间：06/09 12:01
    - [阅读全文](https://www.cnbc.com/2026/06/08/trump-booed-knicks-spurs-madison-square-garden.html)
 
 3. 🔥🔥 **Asia chip-linked shares recover after U.S. peers bounce back**
