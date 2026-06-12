@@ -1,0 +1,110 @@
+{
+  "date": "2026-06-11",
+  "reportPeriod": "2026-05-28 ~ 2026-06-11",
+  "totalItems": 12,
+  "topTrend": "语言服务行业正经历从NMT到LLM驱动的范式转换：AI翻译市场CAGR 25.2%、行业从'AI辅助人类'转向'AI原生工作流'、M&A估值分裂为AI-native SaaS vs 传统LSP两大阵营",
+  "trends": [
+    {
+      "title": "AI翻译市场高速增长：2025年29.4亿美元 → 2026年36.8亿美元 (CAGR 25.2%)",
+      "summary": "据多份市场报告，AI翻译市场正以25.2%的年复合增长率扩张。行业正从传统的统计机器翻译和NMT向LLM驱动的工作流转型。RWS、DeepL、Google等厂商均推出新型LLM-native翻译方案。语言服务整体市场2026年估值675.2亿美元（Research and Markets），预计2030年达972.1亿美元（CAGR 9.5%）。",
+      "source": "Research and Markets / Fortune Business Insights",
+      "link": "https://www.researchandmarkets.com/reports/5785570/language-services-market-report",
+      "category": "market"
+    },
+    {
+      "title": "Phrase发布Language Intelligence平台：人类与AI Agent的统一语言资产层",
+      "summary": "Phrase宣布扩展其Language Intelligence能力，通过Language Context Layer将翻译记忆、术语库和质量配置（Quality Profiles）变为对企业和AI Agent均开放的统一API。其核心理念：品牌多语言沟通标准不应被封锁在单一平台，而应成为企业内容生态的共享层。这标志着TMS从生产工具向企业语义基础设施的跃迁。",
+      "source": "GALA Global",
+      "link": "https://www.gala-global.org/news/phrase-expands-language-intelligence-for-humans-and-ai-agents",
+      "category": "technology"
+    },
+    {
+      "title": "Krisp入选Slator 2026 Index (口译与语言接入类别)",
+      "summary": "AI语音公司Krisp凭借其实时语音翻译和降噪技术入选Slator 2026 Index。Krisp的产品覆盖实时口译、会议转录和多语言语音交互，反映口译领域正在被AI语音技术深度渗透。行业正从'人工口译+CAT工具'向'AI实时语音翻译+人工审校'模式演进。",
+      "source": "Slator / Krisp Blog",
+      "link": "https://krisp.ai/blog/krisp-recognized-in-the-2026-slator-index-for-interpreting-and-language-access",
+      "category": "AI"
+    },
+    {
+      "title": "Pairaphrase获16州K-12学校AI翻译合作协议",
+      "summary": "Pairaphrase与Google Classroom集成，为美国16个州的K-12学校提供AI翻译服务，涵盖家校沟通、教学内容和行政文件的实时翻译。这一大单标志AI翻译在教育领域的规模化落地——公共部门AI翻译采购正在成为显著增长点。",
+      "source": "Pairaphrase",
+      "link": "https://www.pairaphrase.com/blog/google-classrooms-ai-translation-now-available-for-16-state-k-12-schools/",
+      "category": "market"
+    },
+    {
+      "title": "Youdao (网易有道) Q1 2026：AI产品密集发布，翻译业务持续增长",
+      "summary": "有道Q1收入13亿元人民币（约1.95亿美元），同比增3.8%。CEO周枫重点提及AI产品线：孔子4（Confucius 4）、EmotiVoice 2、有道翻译4、Lobster AI等。净利润下降44.7%主要因AI战略投资加大。有道翻译4和Lobster AI表现获行业奖项和早期市场认可。",
+      "source": "Yahoo Finance / Motley Fool",
+      "link": "https://www.fool.com/earnings/call-transcripts/2026/05/21/youdao-dao-q1-2026-earnings-call-transcript",
+      "category": "AI"
+    },
+    {
+      "title": "Acclaro推出多语言视频/音频统一解决方案",
+      "summary": "Acclaro发布统一的多语言视频和音频内容管理方案，涵盖字幕、配音、转录和本地化，整合AI工作流。反映行业从纯文本翻译向多模态内容（视频/音频/交互）本地化扩展的趋势。",
+      "source": "Slator (via search result)",
+      "link": "https://slator.com/newsroom",
+      "category": "technology"
+    },
+    {
+      "title": "XLIFF Editor 4.0发布：原生集成AI翻译与协作工作流",
+      "summary": "XLIFF编辑器4.0版本发布，新增对AI翻译引擎的原生调用支持，以及更完善的协作审校流程。标准本身也在向AI-native方向进化，支持更丰富的context元数据传递。",
+      "source": "XLIFF / OASIS",
+      "link": "https://slator.com/newsroom",
+      "category": "technology"
+    },
+    {
+      "title": "行业M&A展望2026：估值分裂加速，AI-native平台获溢价",
+      "summary": "Lion People Global分析指出2026年语言服务行业M&A将出现三大阵营的估值分化：(1) AI-native SaaS平台估值最高；(2) AI增强型服务企业居中；(3) 未转型的传统LSP估值受压。交易量稳定但更集中——买家、能力和资本部署日益向头部聚集。Slator 2025 M&A报告核心发现：交易数量同比持平，但活跃度更集中在具备交付模式和集成能力的买家。",
+      "source": "Lion People Global / Slator",
+      "link": "https://lionpeopleglobal.com/raising-the-sails-outlook-for-2026",
+      "category": "M&A"
+    },
+    {
+      "title": "RWS举办LocWorld54 (阿姆斯特丹，2026年10月) + 发布AI翻译白皮书",
+      "summary": "RWS宣布在阿姆斯特丹主办LocWorld54（2026年10月）。RWS同时发布了'What is AI Translation in 2026'白皮书，系统阐述从规则机器翻译→统计MT→NMT→LLM驱动翻译的演进路径，强调RWS的LLM-native翻译方案已整合到企业级工作流中。",
+      "source": "RWS Blog",
+      "link": "https://www.rws.com/blog/what-is-ai-translation-in-2026",
+      "category": "conference"
+    },
+    {
+      "title": "Nimdzi发布最新LSP排名与M&A交易追踪",
+      "summary": "Nimdzi Insights持续追踪全球语言服务公司M&A动态，2026年Q1-Q2多个中型交易活跃。Nimdzi作为行业顶级M&A顾问，报告指出买家越来越关注AI集成能力而非纯营收规模。",
+      "source": "Nimdzi Insights",
+      "link": "https://www.nimdzi.com/mergers-acquisitions",
+      "category": "M&A"
+    },
+    {
+      "title": "SlatorCon San Francisco 2026即将召开 + Slator Index年度更新",
+      "summary": "SlatorCon San Francisco 2026是今年行业重要会议，Slator同时发布2026年度Index，涵盖全球顶尖语言服务和技术公司排名。SlatorPod持续产出高质量行业播客内容。",
+      "source": "Slator",
+      "link": "https://slator.com",
+      "category": "conference"
+    },
+    {
+      "title": "Translated发布2026机器翻译评估报告：LLM翻译质量突破关键节点",
+      "summary": "Translated发布了最新MT年度评估报告，评估显示LLM-based翻译在多个语言对（特别是中低资源语言）质量上超越传统NMT。行业共识正在形成：LLM将取代NMT成为下一代翻译核心引擎，但其推理成本和延迟仍是规模化的主要瓶颈。",
+      "source": "Translated",
+      "link": "https://translated.com/resources/machine-translation-2026-assessment",
+      "category": "AI"
+    }
+  ],
+  "analysis": {
+    "AI_impact": "行业正经历从'AI辅助人类翻译'到'AI原生工作流'的根本转变。LLM正在取代NMT成为翻译核心引擎（Translated评估报告、RWS白皮书均确认此趋势）。多模态（视频/音频/语音）成为AI翻译的新战场——Acclaro、Krisp、Pairaphrase的案例表明文本之外的本地化需求正在爆发。",
+    "technology_breakthroughs": "1) LLM翻译质量在多个语言对上超越传统NMT；2) TMS从生产工具向企业语义基础设施进化（Phrase Language Context Layer）；3) 实时语音翻译+AI口译成熟度提高（Krisp Slator Index入选）；4) 教育领域AI翻译大规模落地（Pairaphrase 16州）。",
+    "M&A_funding": "2026年M&A呈现'估值分裂'格局：AI-native SaaS平台享受最高估值，AI增强型服务企业居中，未转型传统LSP估值承压。交易数量稳定但集中度提高。Nimdzi和Slator均预测更多整合将发生。",
+    "market_changes": "AI翻译市场2026年达36.8亿美元（CAGR 25.2%），远高于整体语言服务市场的9.5%增速。公共部门（教育/政府）成为新增长引擎。中国市场：有道等厂商增投AI但短期利润承压。"
+  },
+  "sources": [
+    "https://slator.com/newsroom",
+    "https://www.gala-global.org/news",
+    "https://www.gala-global.org/news/phrase-expands-language-intelligence-for-humans-and-ai-agents",
+    "https://krisp.ai/blog/krisp-recognized-in-the-2026-slator-index-for-interpreting-and-language-access",
+    "https://www.rws.com/blog/what-is-ai-translation-in-2026",
+    "https://translated.com/resources/machine-translation-2026-assessment",
+    "https://lionpeopleglobal.com/raising-the-sails-outlook-for-2026",
+    "https://www.researchandmarkets.com/reports/5785570/language-services-market-report",
+    "https://www.fool.com/earnings/call-transcripts/2026/05/21/youdao-dao-q1-2026-earnings-call-transcript",
+    "https://www.nimdzi.com/mergers-acquisitions"
+  ]
+}
