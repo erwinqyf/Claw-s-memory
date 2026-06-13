@@ -71,17 +71,29 @@
         "count": 7
       },
       "version": "2.9"
+    },
+    {
+      "timestamp": "2026-06-13T19:05:04.906Z",
+      "duration": 1393,
+      "filesProcessed": 7,
+      "insightsExtracted": 34,
+      "fileStats": {
+        "totalSize": 31319,
+        "avgSize": 4474.142857142857,
+        "count": 7
+      },
+      "version": "2.9"
     }
   ],
   "version": "2.9",
   "lastRun": {
-    "timestamp": "2026-05-30T19:00:41.360Z",
-    "duration": 1117,
+    "timestamp": "2026-06-13T19:05:04.906Z",
+    "duration": 1393,
     "filesProcessed": 7,
-    "insightsExtracted": 13,
+    "insightsExtracted": 34,
     "fileStats": {
-      "totalSize": 12212,
-      "avgSize": 1744.5714285714287,
+      "totalSize": 31319,
+      "avgSize": 4474.142857142857,
       "count": 7
     },
     "version": "2.9"

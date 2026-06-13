@@ -1,0 +1,42 @@
+{
+  "date": "2026-06-13",
+  "trends": [
+    {
+      "title": "Phrase 发布语言智能平台升级：为人类和 AI Agent 提供语言基础设施",
+      "summary": "Phrase 于 6月10日推出新平台增强功能，包括 Style Guides 全面可用、Quality Profiles，以及扩展的 MCP (Model Context Protocol) 能力。新 API 让 AI Agent 可以访问企业的术语库、翻译记忆库、质量标准等语言资产，实现人类与 AI Agent 协同作业的内容治理与一致性保障。这是语言服务平台向 'Agent 就绪' 架构转型的标志性事件。",
+      "source": "GALA Global / Phrase",
+      "link": "https://www.gala-global.org/news/phrase-expands-language-intelligence-for-humans-and-ai-agents",
+      "category": "technology"
+    },
+    {
+      "title": "AI 翻译的三大瓶颈：幻觉、文化语境缺失、术语不一致",
+      "summary": "Slator 深度分析指出，2026年 AI 翻译仍面临严峻挑战：Alibaba 研究显示 AI 翻译幻觉率高达 33%-60%；Appen 2026年2月研究评估 7 大模型在 20 种语言上的表现，发现习语和双关语经常完全未被翻译；GPT-5 翻译测试仍存在 '自然度和地道性' 不足的问题。行业共识：通用大模型无法独立满足企业级翻译质量要求。",
+      "source": "Slator",
+      "link": "https://slator.com/resources/ai-translation-struggles/",
+      "category": "AI"
+    },
+    {
+      "title": "企业翻译从 'AI 实验' 转向 '平台化集成'：通用模型退潮，专业方案崛起",
+      "summary": "Translated 年度趋势报告指出，2026年企业翻译市场经历了决定性转折——从对生成式 AI 的盲目兴奋转向对 ROI 的务实追求。通用语言模型在术语一致性、数据安全方面的重大缺陷迫使企业转向 '混合模式'：人机协同 + 专业调优引擎。静态翻译流程被持续本地化(Continuous Localization)取代，企业将本地化视为持续的收入增长引擎。",
+      "source": "Translated",
+      "link": "https://translated.com/resources/translation-trends-2026",
+      "category": "market"
+    },
+    {
+      "title": "Acclaro 推出统一多语言音视频解决方案，Pairaphrase 获 K-12 学校大单",
+      "summary": "MultiLingual 5月27日-6月1日周报披露：Acclaro 发布统一多语言视频/音频内容处理方案，应对全球音视频内容的爆发式增长；Pairaphrase 与 16 个美国州政府达成大规模协议，为 K-12 学校提供受治理的 AI 翻译服务，保护敏感数据。另外，SweetP Productions 发布 XLIFF Editor 4.0，填补了 Mac 本地化工具链的空白。",
+      "source": "MultiLingual",
+      "link": "https://www.youtube.com/watch?v=gGCd1GJIII4",
+      "category": "technology"
+    },
+    {
+      "title": "EAMT 2026 大会即将召开（6.15-18），语言服务行业迎来密集会议季",
+      "summary": "第 26 届欧洲机器翻译协会年会（EAMT 2026）将于 6 月 15-18 日在荷兰蒂尔堡举行。此外，ITI 的 EX:CHANGE 2026（7月1-2日，英国）、ATC Gold Conference（10月，格拉斯哥）、TC47（12月，卢森堡）相继开放报名。GALA 2026 柏林年会已于 4 月举办。行业交流活跃，AI 与本地化的融合成为核心议题。",
+      "source": "GALA Global",
+      "link": "https://www.gala-global.org/news/european-association-for-machine-translation-conference-is-15-18-june",
+      "category": "conference"
+    }
+  ],
+  "totalItems": 5,
+  "topTrend": "2026年语言服务行业进入'AI 务实主义'阶段：通用大模型幻觉和术语不一致问题迫使企业转向平台化、混合模式，Phrase 等头部玩家率先构建 'Agent 就绪'的语言智能基础设施，AI 翻译市场规模预计 $3.5B-4B 并持续高速增长，但人类专家+专业调优引擎的组合仍不可替代。"
+}
