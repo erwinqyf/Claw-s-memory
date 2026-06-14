@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-06-13T04:04:44.684Z",
-  "lastRunDate": "2026-06-13",
+  "lastRun": "2026-06-14T04:00:18.440Z",
+  "lastRunDate": "2026-06-14",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 227,
+      "totalAvailable": 216,
       "errors": [
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
@@ -25,7 +25,7 @@
         "Reuters Business: HTTP 301: https://www.reutersagency.com/feed/?best-topics=business-finance",
         "经济学人财经: HTTP 403: https://www.economist.com/finance-and-economics/rss",
         "Financial Times: HTTP 301: https://www.ft.com/?format=rss",
-        "Bloomberg: HTTP 403: https://www.bloomberg.com/feed/podcast/etf.xml",
+        "Bloomberg: HTTP 404: https://www.bloomberg.com/feed/podcast/etf.xml",
         "日经亚洲: HTTP 404: https://asia.nikkei.com/rss/markets/feed",
         "财新网: HTTP 403: https://rsshub.app/caixin/finance",
         "Business Standard: HTTP 403: https://www.business-standard.com/rss/economy-101.rss"
@@ -47,7 +47,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 119,
+      "totalAvailable": 120,
       "errors": [
         "少数派: HTTP 403: https://rsshub.app/sspai/index",
         "Tech in Asia: HTTP 301: https://www.techinasia.com/feed/",
