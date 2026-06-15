@@ -1,6 +1,6 @@
 # 全球新闻汇总 2026-06-15
 
-**生成时间:** 2026/6/15 12:00:43 (Asia/Shanghai)
+**生成时间:** 2026/6/15 12:10:45 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
@@ -13,10 +13,10 @@
    - 摘要：The country will face Iran on the field tomorrow. It has the U.S. soft-power landscape to itself.
    - [阅读全文](https://www.politico.com/live-updates/2026/06/14/world-cup-2026/new-zealands-diplomatic-breakaway-00961919)
 
-2. 🔥🔥 **Ecuadorian World Cup fans takeover Philly’s Rocky Steps**
-   - 来源：半岛电视台 | 热度：73/100
-   - 时间：06/15 10:04
-   - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/15/ecuadorian-world-cup-fans-takeover-phillys-rocky-steps?traffic_source=rss)
+2. 🔥 **World Cup 2026: Sweden make statement with commanding victory over Tunisia**
+   - 来源：France 24 | 热度：69/100
+   - 时间：06/15 11:59
+   - [阅读全文](https://www.france24.com/en/sport/20260615-world-cup-2026-sweden-make-statement-with-commanding-victory-over-tunisia)
 
 3. 🔥 **In Pictures: Trump marks 80th birthday with White House UFC spectacle**
    - 来源：France 24 | 热度：69/100
@@ -102,29 +102,29 @@
 
 ## 💻 科技
 
-1. 🔥🔥 **A股三大指数午间休盘集体上涨，半导体板块领涨**
+1. 🔥🔥 **中国“纯硅”成功突破，我国攻克硅基量子芯片关键材料**
+   - 来源：36 氪 | 热度：83/100
+   - 时间：06/15 12:04
+   - [阅读全文]()
+
+2. 🔥🔥 **A股三大指数午间休盘集体上涨，半导体板块领涨**
    - 来源：36 氪 | 热度：78/100
    - 时间：06/15 11:31
    - [阅读全文]()
 
-2. 🔥🔥 **“本源悟空”系列自主超导量子计算机初步形成“矛”“盾”双供给能力**
+3. 🔥🔥 **“本源悟空”系列自主超导量子计算机初步形成“矛”“盾”双供给能力**
    - 来源：36 氪 | 热度：78/100
    - 时间：06/15 11:00
    - [阅读全文]()
 
-3. 🔥🔥 **立讯精密计划最快于7��在香港上市，拟融资不超过30亿美元**
-   - 来源：36 氪 | 热度：73/100
-   - 时间：06/15 11:56
-   - [阅读全文]()
+4. 🔥🔥 **Orbio raises $21 million to automate hiring and onboarding for frontline workers**
+   - 来源：TechCrunch | 热度：76/100
+   - 时间：06/15 12:01
+   - [阅读全文](https://techcrunch.com/2026/06/14/orbio-raises-21-million-to-automate-hiring-and-onboarding-for-frontline-workers/)
 
-4. 🔥🔥 **传阿里出价约118亿港元竞购朴朴超市？阿里暂无回应**
+5. 🔥🔥 **恒指午间休盘涨0.45%，华虹宏力涨超11%**
    - 来源：36 氪 | 热度：73/100
-   - 时间：06/15 11:55
-   - [阅读全文]()
-
-5. 🔥🔥 **国内品牌金饰价格普涨，周生生金价重回1300元**
-   - 来源：36 氪 | 热度：73/100
-   - 时间：06/15 11:51
+   - 时间：06/15 12:02
    - [阅读全文]()
 
 ---
