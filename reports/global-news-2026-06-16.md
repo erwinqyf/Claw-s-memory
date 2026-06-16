@@ -1,22 +1,21 @@
 # 全球新闻汇总 2026-06-16
 
-**生成时间:** 2026/6/16 12:00:26 (Asia/Shanghai)
+**生成时间:** 2026/6/16 12:10:48 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
 
 ## 🌍 政治
 
-1. 🔥🔥 **Iran, New Zealand play to a draw in FIFA World Cup match**
+1. 🔥🔥 **Ukraine starts negotiations to join EU**
+   - 来源：半岛电视台 | 热度：73/100
+   - 时间：06/16 11:55
+   - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/16/ukraine-starts-negotiations-to-join-eu?traffic_source=rss)
+
+2. 🔥🔥 **Iran, New Zealand play to a draw in FIFA World Cup match**
    - 来源：塔斯社 | 热度：73/100
    - 时间：06/16 11:34
    - 摘要：The national teams tied at 2-2
-   - [阅读全文]()
-
-2. 🔥🔥 **European lawmaker calls EU ‘party to Ukrainian conflict’**
-   - 来源：塔斯社 | 热度：73/100
-   - 时间：06/16 10:04
-   - 摘要：The EU cannot act as a mediator for a settlement, Michael von der Schulenburg says
    - [阅读全文]()
 
 3. 🔥 **Iran held by New Zealand in World Cup opener overshadowed by politics**
@@ -43,7 +42,7 @@
 
 1. 🔥🔥 **China economy weakens further in May as retail sales post first drop in over three years**
    - 来源：CNBC | 热度：71/100
-   - 时间：06/16 11:06
+   - 时间：06/16 12:09
    - [阅读全文](https://www.cnbc.com/2026/06/16/china-economy-may-retail-sales-industrial-output-fixed-asset-investment-.html)
 
 2. 🔥🔥 **Bank of Japan hikes rates to highest since 1995 as yen languishes at historic lows**
@@ -70,8 +69,8 @@
 
 ## 🎭 文化
 
-1. 🔥 **Soccer Edition: Watch World Cup highlights from across the NPR Network**
-   - 来源：NPR Arts | 热度：59/100
+1. ⚡ **Soccer Edition: Watch World Cup highlights from across the NPR Network**
+   - 来源：NPR Arts | 热度：54/100
    - 时间：06/16 00:09
    - 摘要：The 2026 World Cup is playing out in communities across the country.
    - [阅读全文](https://www.npr.org/2026/06/15/g-s1-126999/soccer-edition-watch-world-cup-highlights-from-across-the-npr-network)
@@ -119,14 +118,14 @@
    - 摘要：In a bid to dismiss a lawsuit over xAI’s polluting gas turbines, the Justice Department claimed the company is integr...
    - [阅读全文](https://www.wired.com/story/doj-lawyers-argue-xai-vital-national-security-naacp-lawsuit/)
 
-4. 🔥🔥 **A股三大指数午间休盘集体上涨，玻纤概念领涨**
+4. 🔥🔥 **海康威视7月1日上调硬盘价，知情人士：原厂三季度硬盘成本涨幅超50%**
    - 来源：36 氪 | 热度：73/100
-   - 时间：06/16 11:33
+   - 时间：06/16 12:08
    - [阅读全文]()
 
-5. 🔥🔥 **日本央行宣布加息，将政策利率上调至1.0%**
+5. 🔥🔥 **恒指午间休盘跌1.25%，恒生科技指数跌1.61%**
    - 来源：36 氪 | 热度：73/100
-   - 时间：06/16 11:23
+   - 时间：06/16 12:03
    - [阅读全文]()
 
 ---
