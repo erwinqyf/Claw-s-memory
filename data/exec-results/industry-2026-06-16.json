@@ -1,0 +1,58 @@
+{
+  "date": "2026-06-16",
+  "period": "2026-06-02 to 2026-06-16",
+  "topTrend": "语言服务行业加速向AI Agent基础设施转型：Phrase发布面向AI Agent的语言智能API（含MCP协议），传统本地化平台从翻译管理迈向Agent-ready的语言基础设施层，同时AI翻译在文化语境和幻觉问题上仍存在根本性瓶颈。",
+  "totalItems": 6,
+  "trends": [
+    {
+      "title": "Phrase发布AI Agent语言智能平台：Style Guides、Quality Profiles及MCP API正式商用",
+      "summary": "Phrase于6月10日发布重大平台更新，核心亮点包括：Style Guides正式商用（GA）、Quality Profiles质量档案上线、全新API（含Model Context Protocol/MCP支持）。这些能力使AI Agent、企业工作流和外部系统都能访问Phrase的品牌语境、术语库、翻译记忆和质量评估引擎，标志着传统TMS向Agent-ready语言基础设施的进化。Phrase CEO表示'语境、质量控制和语言资产现在可以赋能企业中的每一个Agent、工作流和系统'。",
+      "source": "Phrase Newsroom",
+      "link": "https://phrase.com/news/phrase-expands-language-intelligence-for-humans-and-ai-agents",
+      "category": "technology"
+    },
+    {
+      "title": "AI翻译面临根本性瓶颈：幻觉、习语和文化参照仍是硬伤",
+      "summary": "Slator最新分析指出，尽管LLM翻译质量大幅提升，但在高风险场景下仍存在幻觉问题（编造不存在的原文内容）、习语和文化特有表达的翻译失准、以及长文本一致性维护困难。行业共识是：纯AI翻译在需要文化深度的场景尚无法替代人类审校，混合模式（AI+人工审核）成为主流实践。",
+      "source": "Slator",
+      "link": "https://slator.com/resources/ai-translation-struggles",
+      "category": "AI"
+    },
+    {
+      "title": "MultiLingual周刊：Acclaro推视频本地化方案，XLIFF Editor 4.0集成AI能力",
+      "summary": "5月27日至6月1日期间，MultiLingual发布行业周报：Acclaro推出企业级视频本地化解决方案；口译员培训迎来新型校企合作项目；XLIFF Editor 4.0发布，深度集成AI辅助翻译功能；Pairaphrase获得K-12教育领域州级采购协议。显示本地化工具正在垂直行业（教育、媒体）加速渗透。",
+      "source": "MultiLingual",
+      "link": "https://multilingual.com/news-roundup-may-27-june-1-2026/",
+      "category": "market"
+    },
+    {
+      "title": "2026年本地化行业会议全景：GALA柏林、LocWorld55、AI ThoughtCon聚焦Agent与AI信任",
+      "summary": "2026年下半年本地化行业进入密集会议期：GALA WorldReady Berlin（4月12-14日，柏林）关注全球化策略与多语言内容交付；AI ThoughtCon（线上，3天）探讨可信任的、以人为本的AI构建；Loc Tech Live（线上，30分钟技术session）聚焦AI就绪的本地化系统、Git-based本地化和低代码AI方案；ELIA Together联结自由译者和语言服务公司。Agent和AI信任度成为贯穿全年的核心主题。",
+      "source": "Gridly / POEditor / GALA",
+      "link": "https://www.gridly.com/blog/the-best-localization-events",
+      "category": "conference"
+    },
+    {
+      "title": "中国多模态AI翻译产业报告发布：市场规模与落地路径分析",
+      "summary": "国内发布多模态AI翻译产业深度报告，涵盖文本、语音、图像、视频等多模态翻译技术的市场现状、产业链格局及未来趋势。报告分析了大模型驱动下机器翻译从纯文本向多模态场景延伸的路径，以及中国企业在该领域的竞争格局。国际化场景下的多模态本地化需求正在快速增长。",
+      "source": "行业研究机构",
+      "link": "",
+      "category": "market"
+    },
+    {
+      "title": "Loc Tech Live 2026：Agent-ready本地化系统和Git工作流成为技术焦点",
+      "summary": "Loc Tech Live 2026线上会议议程曝光，核心技术session覆盖：AI-ready本地化系统架构设计、翻译自动化工作流优化、Git-based本地化协作、MDX文件翻译方案、以及面向繁忙本地化团队的no-code/low-code AI方案。开发者生态与本地化工程的融合趋势明显，YAML/MDX/i18n管线成为热门话题。",
+      "source": "Loc Tech Live / Gridly",
+      "link": "https://www.gridly.com/blog/the-best-localization-events",
+      "category": "technology"
+    }
+  ],
+  "sourceLinks": [
+    "https://phrase.com/news/phrase-expands-language-intelligence-for-humans-and-ai-agents",
+    "https://slator.com/resources/ai-translation-struggles",
+    "https://multilingual.com/news-roundup-may-27-june-1-2026/",
+    "https://www.gridly.com/blog/the-best-localization-events",
+    "https://poeditor.com/blog/translation-and-localization-conferences-to-attend-in-2026",
+    "https://www.gala-global.org/worldready-conference"
+  ]
+}
