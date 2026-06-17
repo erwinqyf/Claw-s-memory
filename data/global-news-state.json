@@ -1,6 +1,6 @@
 {
-  "lastRun": "2026-06-16T04:10:48.400Z",
-  "lastRunDate": "2026-06-16",
+  "lastRun": "2026-06-17T04:00:25.111Z",
+  "lastRunDate": "2026-06-17",
   "categories": [
     {
       "category": "political",
@@ -47,7 +47,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 120,
+      "totalAvailable": 118,
       "errors": [
         "少数派: HTTP 403: https://rsshub.app/sspai/index",
         "Tech in Asia: HTTP 301: https://www.techinasia.com/feed/",
