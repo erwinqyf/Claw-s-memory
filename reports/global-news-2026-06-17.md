@@ -1,6 +1,6 @@
 # 全球新闻汇总 2026-06-17
 
-**生成时间:** 2026/6/17 12:00:25 (Asia/Shanghai)
+**生成时间:** 2026/6/17 12:10:45 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
@@ -29,11 +29,10 @@
    - 摘要：Iranian oil tankers have exited the zone in the Gulf blockaded by the US Navy, the TankerTrackers website said on Wed...
    - [阅读全文](https://www.france24.com/en/middle-east/20260617-middle-east-live-us-iran-memorandum-details-to-be-released-soon)
 
-5. 🔥 **Will a ban keep the UK’s kids off social media? – podcast**
-   - 来源：英国卫报 | 热度：68/100
-   - 时间：06/17 10:00
-   - 摘要：Governments around the world want to keep under-16s off YouTube, TikTok and Instagram.
-   - [阅读全文](https://www.theguardian.com/news/audio/2026/jun/17/will-a-ban-keep-the-uks-kids-off-social-media-podcast)
+5. 🔥 **Trump administration seeks to halt air pollution lawsuit against xAI**
+   - 来源：半岛电视台 | 热度：68/100
+   - 时间：06/17 11:14
+   - [阅读全文](https://www.aljazeera.com/economy/2026/6/17/trump-administration-seeks-to-halt-air-pollution-lawsuit-against-xai-data?traffic_source=rss)
 
 ---
 
