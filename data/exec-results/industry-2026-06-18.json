@@ -1,0 +1,63 @@
+{
+  "date": "2026-06-18",
+  "reportPeriod": "2026-05-22 ~ 2026-06-18",
+  "topTrend": "语言 AI 从实验走向全面落地，74% 语言服务企业对 AI 达到"运营级"以上应用水平，行业加速整合（M&A 活跃）+ 消费级翻译产品（ChatGPT Translate）+ 企业级架构重构（RWS × Cohere）三线并行",
+  "totalItems": 7,
+  "trends": [
+    {
+      "title": "SlatorCon London 2026：语言 AI 从实验走向实施的分水岭",
+      "summary": "2026年5月22日，250+ C-Suite 领袖、企业买家和 AI 产品构建者云集伦敦。核心数据：74%的 LSI（语言服务集成商）已达"运营级/活跃级/系统级"AI 应用，三年前仅6%。RWS × Cohere 发布 LanguageWeaver Pro（1000亿参数企业级翻译模型），强调质量评估、基础设施、合规与实时护栏四支柱架构。Voice AI 进入运营部署阶段，本地化团队正向战略角色转型——"用和业务部门一样的指标来证明价值"。",
+      "source": "Slator",
+      "link": "https://slator.com/key-takeaways-slatorcon-london-2026/",
+      "category": "conference"
+    },
+    {
+      "title": "OpenAI 低调发布 ChatGPT Translate，翻译进入消费级 AI 赛道",
+      "summary": "2026年1月15日，OpenAI 上线 ChatGPT Translate（chatgpt.com/translate），支持 50+ 语言文本翻译，双栏界面类似 Google Translate/DeepL。核心优势：互动式改写（tone/audience 调节）、语义优先翻译。目前仍为免费、无独立 App、无企业级工作流。Slator 判断短期内不构成对专业 LTP 平台的直接威胁，但会加速消费者对"可调节翻译"的预期，推动行业向对话式精炼翻译演进。",
+      "source": "Slator",
+      "link": "https://slator.com/openai-launches-chatgpt-translate-standalone-translation-tool/",
+      "category": "technology"
+    },
+    {
+      "title": "Tasq AI 与 BLEND 合并，数据标注与本地化加速融合",
+      "summary": "2026年2月，数据标注公司 Tasq AI 与本地化平台 BLEND 合并，旨在弥合 AI"信任缺口"。合并后整合 25,000+ 专家人力，标志着 AI 训练数据供应链与语言服务行业之间的边界日益模糊——Data-for-AI 成为语言服务的新核心业务。",
+      "source": "Slator",
+      "link": "https://slator.com/tasq-ai-blend-merge/",
+      "category": "M&A"
+    },
+    {
+      "title": "Tyler Technologies 以 2.12 亿美元押注语言 AI 法庭技术",
+      "summary": "2026年2月，老牌政府 IT 承包商 Tyler Technologies 宣布 2.12 亿美元收购 AI 法庭录音/翻译公司。显示语言 AI 在垂直行业（司法、政务）的刚需爆发——非传统本地化行业的巨头开始通过收购获取语言 AI 能力。",
+      "source": "Slator",
+      "link": "https://slator.com/government-contractor-language-ai-courtroom-tech/",
+      "category": "M&A"
+    },
+    {
+      "title": "LeadDesk 收购 Fluentic 增强 AI 翻译能力",
+      "summary": "2026年2月，芬兰上市 B2B 客服平台 LeadDesk 收购 AI 翻译初创公司 Fluentic，将翻译能力嵌入其多服务 B2B 通信生态。反应出 AI 翻译从独立工具向平台内置能力的"嵌入式"趋势。",
+      "source": "Slator",
+      "link": "https://slator.com/leaddesk-acquihires-fluentic/",
+      "category": "M&A"
+    },
+    {
+      "title": "企业本地化：从语言成本中心到业务价值引擎",
+      "summary": "SlatorCon London 上，Coca-Cola、Wayfair、SONY、Deliveroo 等企业本地化负责人一致认为：AI 正在将本地化角色从翻译执行推向战略层面。"用和业务一样的指标说话"——Deliveroo 提出"全栈本地化"概念，横向渗透产品开发全生命周期。Video AI 驱动的多语内容爆发要求全新工作流设计。",
+      "source": "Slator",
+      "link": "https://slator.com/key-takeaways-slatorcon-london-2026/",
+      "category": "market"
+    },
+    {
+      "title": "行业并购持续活跃：Aglatech14/Centrolingue、Cineverse/Giant、Wolfestone/Omni 等多起交易",
+      "summary": "2026上半年语言服务 M&A 保持高节奏：Aglatech14 收购意大利 Centrolingue（区域整合）、Cineverse 收购 Giant Worldwide（扩展本地化服务线）、Wolfestone 收购美国 Omni（跨大西洋扩张）。交易模式以能力补全和地理扩展为主，预示行业集中度进一步提升。",
+      "source": "Slator",
+      "link": "https://slator.com/mergers-acquisitions/",
+      "category": "M&A"
+    }
+  ],
+  "metaAnalysis": {
+    "aiAdoption": "从实验到制度化——74% LSI 已深度应用 AI，企业本地化正从翻译成本中心转向战略价值中心",
+    "mAndA": "2026上半年至少8起重要并购/合并，横跨数据标注、司法 AI、客服 AI、传统 LSI 整合，行业边界加速模糊",
+    "consumerShift": "ChatGPT Translate 入局翻译消费市场，虽暂不威胁企业级 LTP，但预示着"对话式精炼翻译"将成为新常态",
+    "keyRisk": "AI 翻译在 idiomatic（习语）和 hallucination 方向上仍有实质挑战，RWS/Cohere 的"四支柱架构"代表了企业级客户的核心诉求——质量+合规+安全+护栏，缺一不可"
+  }
+}
