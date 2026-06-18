@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-06-18T04:00:44.953Z",
+  "lastRun": "2026-06-18T04:10:53.107Z",
   "lastRunDate": "2026-06-18",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 218,
+      "totalAvailable": 268,
       "errors": [
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
@@ -14,8 +14,7 @@
         "AP News: HTTP 403: https://rsshub.app/apnews/topics/ap-top-news",
         "联合早报: HTTP 404: https://www.zaobao.com.sg/rss/news/china.xml",
         "南华早报: HTTP 301: https://www.scmp.com/rss/91/feed",
-        "韩民族日报: HTTP 403: https://english.hani.co.kr/rss/",
-        "中东观察: TIMEOUT: Request timeout after 30000ms: https://www.middleeastmonitor.com/feed/"
+        "韩民族日报: HTTP 403: https://english.hani.co.kr/rss/"
       ]
     },
     {

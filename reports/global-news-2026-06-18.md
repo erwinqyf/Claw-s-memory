@@ -1,6 +1,6 @@
 # 全球新闻汇总 2026-06-18
 
-**生成时间:** 2026/6/18 12:00:44 (Asia/Shanghai)
+**生成时间:** 2026/6/18 12:10:53 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
@@ -27,10 +27,10 @@
    - 时间：06/18 10:24
    - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/18/greta-thunberg-joins-brussels-protest-against-israel?traffic_source=rss)
 
-5. 🔥🔥 **Air defenses down another nine drones heading for Moscow**
+5. 🔥🔥 **Drone hits apartment building in Zhukovsky outside Moscow**
    - 来源：塔斯社 | 热度：73/100
-   - 时间：06/18 11:40
-   - 摘要：42 drones heading for Moscow have been shot down since midnight
+   - 时间：06/18 12:00
+   - 摘要：According to Moscow Region Governor Andrey Vorobyov, drone debris fell at several locations in Lubertsy outside Mosco...
    - [阅读全文]()
 
 ---
@@ -110,19 +110,19 @@
    - 时间：06/18 09:23
    - [阅读全文](https://techcrunch.com/2026/06/17/how-to-turn-off-ai-in-your-google-docs/)
 
-3. 🔥🔥 **韩国KOSPI指数历史首次上破9000点**
+3. 🔥🔥 **恒指午间休盘跌1.7%，恒生科技指数跌1.38%**
+   - 来源：36 氪 | 热度：73/100
+   - 时间：06/18 12:02
+   - [阅读全文]()
+
+4. 🔥🔥 **韩国KOSPI指数历史首次上破9000点**
    - 来源：36 氪 | 热度：73/100
    - 时间：06/18 11:54
    - [阅读全文]()
 
-4. 🔥🔥 **研究显示德国工业就业人数降至十年来的最低水平**
+5. 🔥🔥 **研究显示德国工业就业人数降至十年来的最低水平**
    - 来源：36 氪 | 热度：73/100
    - 时间：06/18 11:35
-   - [阅读全文]()
-
-5. 🔥🔥 **A股三大指数午间休盘涨跌不一，寒武纪涨超13%**
-   - 来源：36 氪 | 热度：73/100
-   - 时间：06/18 11:31
    - [阅读全文]()
 
 ---
