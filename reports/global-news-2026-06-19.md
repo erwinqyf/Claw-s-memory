@@ -1,6 +1,6 @@
 # 全球新闻汇总 2026-06-19
 
-**生成时间:** 2026/6/19 12:01:35 (Asia/Shanghai)
+**生成时间:** 2026/6/19 12:10:49 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
@@ -18,51 +18,49 @@
    - 时间：06/19 10:58
    - [阅读全文](https://www.france24.com/en/live-news/20260619-mexico-become-first-team-to-reach-world-cup-knockout-phase)
 
-3. 🔥🔥 **Jack Schlossberg on Trump, RFK Jr. and the future of the Democratic Party**
+3. 🔥🔥 **Norway MP’s join viral World Cup ‘Viking Row’ trend**
+   - 来源：半岛电视台 | 热度：73/100
+   - 时间：06/19 11:57
+   - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/19/norway-mps-join-viral-world-cup-viking-row-trend?traffic_source=rss)
+
+4. 🔥🔥 **Ukraine urges EU to pressure Russia to end war before winter**
+   - 来源：半岛电视台 | 热度：73/100
+   - 时间：06/19 11:55
+   - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/19/ukraine-urges-eu-to-pressure-russia-to-end-war-before-winter?traffic_source=rss)
+
+5. 🔥🔥 **Jack Schlossberg on Trump, RFK Jr. and the future of the Democratic Party**
    - 来源：Politico | 热度：71/100
    - 时间：06/19 11:59
    - [阅读全文](https://www.politico.com/video/2026/06/18/jack-schlossberg-on-trump-rfk-jr-and-the-future-of-the-democratic-party-2107033)
-
-4. 🔥 **US launches Germany pharma pricing probe, raising threat of new tariffs**
-   - 来源：France 24 | 热度：69/100
-   - 时间：06/19 11:10
-   - 摘要：Germany came under fresh US trade scrutiny on Thursday as the United States launched an investigation into the countr...
-   - [阅读全文](https://www.france24.com/en/americas/20260619-us-launches-germany-pharma-pricing-probe-raising-threat-of-new-tariffs)
-
-5. 🔥 **World Cup 2026: Mexico reach World Cup knockout stage first after beating South Korea**
-   - 来源：France 24 | 热度：69/100
-   - 时间：06/19 11:08
-   - 摘要：Co-hosts Mexico became the first team to secure a place in the World Cup knockout stage after a 1-0 victory over Sout...
-   - [阅读全文](https://www.france24.com/en/americas/20260619-world-cup-2026-mexico-reach-world-cup-knockout-stage-first-after-beating-south-korea)
 
 ---
 
 ## 💰 经济
 
-1. 🔥🔥 **Why Japan's $70 billion-plus intervention and a rate hike didn't prop up the yen more**
-   - 来源：CNBC | 热度：71/100
-   - 时间：06/19 10:04
-   - [阅读全文](https://www.cnbc.com/2026/06/19/japan-yen-intervention-boj-rate-hike.html)
-
-2. 🔥🔥 **Oil drifts lower as Strait of Hormuz reopens, focus shifts to demand outlook**
+1. 🔥🔥 **Oil drifts lower as Strait of Hormuz reopens, focus shifts to demand outlook**
    - 来源：CNBC | 热度：71/100
    - 时间：06/19 11:26
    - [阅读全文](https://www.cnbc.com/2026/06/19/oil-prices-wti-brent-crude-us-iran-deal-strait-hormuz-shipping-recovery.html)
 
-3. 🔥🔥 **Yen slides past 161 against the dollar, nearing 40-year low and reviving intervention bets**
+2. 🔥🔥 **Yen slides past 161 against the dollar, nearing 40-year low and reviving intervention bets**
    - 来源：CNBC | 热度：71/100
    - 时间：06/19 11:44
    - [阅读全文](https://www.cnbc.com/2026/06/19/japan-yen-161-dollar-intervention-risk-currency-markets.html)
 
-4. 🔥🔥 **MSCI isn't done with Indonesia yet: new report signals continued concerns over market transparency**
+3. 🔥🔥 **MSCI isn't done with Indonesia yet: new report signals continued concerns over market transparency**
    - 来源：CNBC | 热度：71/100
    - 时间：06/19 11:12
    - [阅读全文](https://www.cnbc.com/2026/06/19/msci-still-concerned-about-indonesian-stock-market-transparency.html)
 
-5. 🔥 **Trump claims Iran deal is 'unconditional surrender,' says his power has 'no limits': Axios**
+4. 🔥 **Trump claims Iran deal is 'unconditional surrender,' says his power has 'no limits': Axios**
    - 来源：CNBC | 热度：66/100
    - 时间：06/19 10:00
    - [阅读全文](https://www.cnbc.com/2026/06/19/trump-claims-iran-deal-is-unconditional-surrender-axios-.html)
+
+5. 🔥 **Why Japan's $70 billion-plus intervention and a rate hike didn't prop up the yen more**
+   - 来源：CNBC | 热度：66/100
+   - 时间：06/19 10:04
+   - [阅读全文](https://www.cnbc.com/2026/06/19/japan-yen-intervention-boj-rate-hike.html)
 
 ---
 
