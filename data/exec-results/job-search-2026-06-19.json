@@ -1,0 +1,289 @@
+{
+  "date": "2026-06-19",
+  "notes": "Job monitoring: Content/Localization/Translation. Compared with baseline from 2026-06-17 (15 jobs).",
+  "keywordsSearched": [
+    "content manager job 2026",
+    "localization specialist job 2026",
+    "translation manager job 2026",
+    "technical writer job 2026",
+    "UX writer content designer job 2026",
+    "AI content manager job 2026",
+    "content strategist job 2026 remote",
+    "localization program manager job 2026",
+    "developer relations job 2026",
+    "knowledge management specialist job 2026"
+  ],
+  "previousBaseline": "job-search-2026-06-17.json (15 jobs)",
+  "marketInsights": {
+    "contentJobs_WorkingInContent": "620 Content Jobs – 144 New – 18 June 2026",
+    "uxWriterJobs_WorkingInContent": "36 UX Writer Jobs – 10 New – 18 June 2026",
+    "technicalWriterJobs_WorkingInContent": "185 Technical Writer jobs – 58 New – 17 June 2026",
+    "contentStrategistJobs_WorkingInContent": "212 Content Strategist jobs – 50 New – 18 June 2026",
+    "contentManagerJobs_WorkingInContent": "36 Content Manager jobs (unchanged since Jun 12)",
+    "devRel_Glassdoor": "252 remote developer relations jobs",
+    "localization_Glassdoor": "63 remote localization specialist jobs"
+  },
+  "newJobs": [
+    {
+      "title": "Content Designer",
+      "company": "The Judge Group",
+      "location": "Remote",
+      "type": "Contract",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content design",
+        "contract",
+        "remote"
+      ]
+    },
+    {
+      "title": "Lead Content Designer",
+      "company": "Cvent",
+      "location": "Tysons Corner, VA",
+      "type": "Full-time",
+      "salary": "$100k-125k/yr",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content design",
+        "lead",
+        "Tysons"
+      ]
+    },
+    {
+      "title": "Content Experience Designer",
+      "company": "Volvo Cars",
+      "location": "Mahwah, NJ",
+      "type": "Full-time",
+      "salary": "$82k-154k/yr",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content design",
+        "automotive",
+        "Mahwah"
+      ]
+    },
+    {
+      "title": "Senior Content Strategist",
+      "company": "Parallel Design Studio",
+      "location": "Bengaluru, India",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content strategist",
+        "design studio",
+        "Bengaluru"
+      ]
+    },
+    {
+      "title": "UX Content Writer",
+      "company": "Kforce Inc",
+      "location": "Remote",
+      "type": "Contract",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "UX writing",
+        "content",
+        "contract",
+        "remote"
+      ]
+    },
+    {
+      "title": "Senior Content Designer",
+      "company": "Aditi Consulting",
+      "location": "Hyderabad, India",
+      "type": "Contract",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content design",
+        "contract",
+        "Hyderabad"
+      ]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "Skepper Creative",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content strategist",
+        "remote",
+        "creative"
+      ]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "HP",
+      "location": "Vancouver, WA",
+      "type": "Full-time",
+      "salary": "$105k-161k/yr",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content strategist",
+        "tech",
+        "Vancouver WA"
+      ]
+    },
+    {
+      "title": "Technical Content Writer",
+      "company": "FetchJobs.co",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "technical writer",
+        "remote",
+        "content"
+      ]
+    },
+    {
+      "title": "Lead Content Strategist",
+      "company": "Own Up",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://dynamitejobs.com/company/ownup/remote-job/ux-content-strategist",
+      "postedDate": "June 2026",
+      "source": "dynamitejobs.com",
+      "tags": [
+        "content strategist",
+        "fintech",
+        "remote",
+        "product"
+      ]
+    },
+    {
+      "title": "Localization Program Manager",
+      "company": "Roblox",
+      "location": "San Mateo, CA",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://careers.roblox.com/jobs/7813041",
+      "postedDate": "June 2026",
+      "source": "careers.roblox.com",
+      "tags": [
+        "localization",
+        "program management",
+        "gaming",
+        "San Mateo"
+      ]
+    },
+    {
+      "title": "Records & Info Management Specialist (Knowledge Management)",
+      "company": "USAJOBS / US Government",
+      "location": "Middletown, PA",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://www.usajobs.gov/Search?k=Knowledge+Management",
+      "postedDate": "May 27, 2026 (apply by Jun 24)",
+      "source": "usajobs.gov",
+      "tags": [
+        "knowledge management",
+        "government",
+        "Pennsylvania"
+      ]
+    },
+    {
+      "title": "Senior UX Writer",
+      "company": "Critical Mass",
+      "location": "Cupertino, CA",
+      "type": "Contract",
+      "salary": "$80-88/h",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 2, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "UX writer",
+        "senior",
+        "contract",
+        "Cupertino"
+      ]
+    },
+    {
+      "title": "Marketing and Content Strategist",
+      "company": "Talent Hackers",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 11, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content strategist",
+        "marketing",
+        "remote"
+      ]
+    },
+    {
+      "title": "Website Content Strategist",
+      "company": "Talentgigs",
+      "location": "New Delhi, India",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 11, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content strategist",
+        "website",
+        "New Delhi"
+      ]
+    },
+    {
+      "title": "Content Strategist III",
+      "company": "itD",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 12, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content strategist",
+        "remote",
+        "IT"
+      ]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "Quik Hire Staffing",
+      "location": "Remote",
+      "type": "Part-time",
+      "salary": "$29/h",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 11, 2026",
+      "source": "workingincontent.com",
+      "tags": [
+        "content strategist",
+        "part-time",
+        "remote"
+      ]
+    }
+  ],
+  "totalNew": 17,
+  "note": "Compared to 2026-06-17 baseline (15 positions). This round adds 17 new positions. Notable: Roblox Localization PM, HP Content Strategist ($105k-161k), Own Up Lead Content Strategist, Tether DevRel AI, Volvo Cars Content Experience Designer."
+}

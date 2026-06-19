@@ -1,0 +1,81 @@
+{
+  "date": "2026-06-19",
+  "source": "ClawHub 技能追踪 (cron-research)",
+  "ecosystemSnapshot": {
+    "skillCount": "13,000+ (as of Apr 2026, per findskill.ai)",
+    "maliciousSkillsFound": "341 (Feb 2026, Koi Security), later 1,184 flagged",
+    "installLeader": "Felo Search (145k+ installs)",
+    "note": "安全形势严峻，约 1/5 技能存在风险。需坚持使用 skill-vetter 检查。"
+  },
+  "trendingSkills": [
+    {
+      "name": "Fastio",
+      "author": "dbalve",
+      "install": "clawhub install dbalve/fast-io",
+      "category": "存储 & 持久记忆",
+      "value": "给 agent 持久化工作空间层，跨会话保留文件和输出",
+      "recommendation": "可选 —— 已有类似能力，暂不需要",
+      "alreadyInstalled": false
+    },
+    {
+      "name": "GitHub",
+      "author": "steipete",
+      "install": "clawhub install steipete/github",
+      "category": "编码 & Release",
+      "value": "封装 gh CLI，PR/Issue/CI 操作",
+      "recommendation": "已有 github skill，无需重复安装",
+      "alreadyInstalled": true
+    },
+    {
+      "name": "Tmux",
+      "author": "steipete",
+      "install": "clawhub install steipete/tmux",
+      "category": "终端交互",
+      "value": "持久化交互式终端控制，发送按键+抓取输出",
+      "recommendation": "已有 tmux skill，无需重复安装",
+      "alreadyInstalled": true
+    },
+    {
+      "name": "Agent Browser",
+      "author": "TheSethRose",
+      "install": "npm install -g agent-browser",
+      "category": "浏览器自动化",
+      "value": "Rust 无头浏览器，点击/输入/截图/录屏",
+      "recommendation": "已有 agent-browser skill，无需重复安装",
+      "alreadyInstalled": true
+    },
+    {
+      "name": "Brave Search",
+      "author": "steipete",
+      "install": "cd ~/Projects/... && npm ci",
+      "category": "Web 搜索",
+      "value": "无浏览器搜索+内容提取",
+      "recommendation": "已有 web_search 工具，无需额外 skill",
+      "alreadyInstalled": false
+    },
+    {
+      "name": "Summarize",
+      "author": "steipete",
+      "install": "brew install summarize",
+      "category": "内容摘要",
+      "value": "URL/PDF/图片/音频/YouTube 转文本+摘要，175k+下载",
+      "recommendation": "已有 summarize skill，无需重复安装",
+      "alreadyInstalled": true
+    },
+    {
+      "name": "Notion",
+      "author": "-",
+      "category": "文档协作",
+      "value": "Notion 页面读写、搜索",
+      "recommendation": "已有 notion skill（内置），无需重复安装",
+      "alreadyInstalled": true
+    }
+  ],
+  "newNotableSkills": [],
+  "securityAlert": {
+    "status": "ongoing",
+    "details": "Feb 2026 发现 341 个恶意技能（Koi Security），后续扩展至 1,184。常见手法：伪造前置依赖投毒（Atomic Stealer AMOS）、reverse shell 后门嵌入功能代码、窃取 ~/.clawdbot/.env 凭证。",
+    "mitigation": "安装前必须使用 skill-vetter 检查。已安装该 skill。"
+  },
+  "summary": "当前技能栈覆盖了所有高频推荐类别（GitHub/Tmux/Agent Browser/Summarize/Notion）。本期未发现必须安装的新技能。ClawHub 生态规模快速增长但安全风险同步上升，建议保持 skill-vetter 习惯并定期追踪。"
+}
