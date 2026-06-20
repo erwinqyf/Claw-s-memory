@@ -83,17 +83,41 @@
         "count": 7
       },
       "version": "2.9"
+    },
+    {
+      "timestamp": "2026-06-20T19:00:05.320Z",
+      "duration": 1403,
+      "filesProcessed": 7,
+      "insightsExtracted": 23,
+      "fileStats": {
+        "totalSize": 22552,
+        "avgSize": 3221.714285714286,
+        "count": 7
+      },
+      "version": "2.9"
+    },
+    {
+      "timestamp": "2026-06-20T19:04:35.454Z",
+      "duration": 1192,
+      "filesProcessed": 7,
+      "insightsExtracted": 23,
+      "fileStats": {
+        "totalSize": 22552,
+        "avgSize": 3221.714285714286,
+        "count": 7
+      },
+      "version": "2.9"
     }
   ],
   "version": "2.9",
   "lastRun": {
-    "timestamp": "2026-06-13T19:05:04.906Z",
-    "duration": 1393,
+    "timestamp": "2026-06-20T19:04:35.454Z",
+    "duration": 1192,
     "filesProcessed": 7,
-    "insightsExtracted": 34,
+    "insightsExtracted": 23,
     "fileStats": {
-      "totalSize": 31319,
-      "avgSize": 4474.142857142857,
+      "totalSize": 22552,
+      "avgSize": 3221.714285714286,
       "count": 7
     },
     "version": "2.9"
