@@ -1,0 +1,57 @@
+{
+  "date": "2026-06-20",
+  "generatedAt": "2026-06-20T11:10:00+08:00",
+  "topTrend": "3大事件重塑翻译行业：OpenAI发布GPT-Realtime-Translate实时语音翻译API，DeepL裁员250人聚焦Voice AI，2025年语言解决方案及AI市场规模达308.5亿美元",
+  "trends": [
+    {
+      "title": "OpenAI发布GPT-Realtime-Translate实时语音翻译模型",
+      "summary": "2026年5月7日，OpenAI推出GPT-Realtime-Translate专用流式语音翻译模型，宣称"作为口译员"而非聊天助手。该模型基于数千小时专业口译员音频训练，支持70+输入语言翻译为13种输出语言，定价0.034美元/分钟。合作伙伴包括Deutsche Telekom（多语言客服）和Vimeo（教育视频实时翻译）。Slator读者调查显示40.6%认为"重大事件"，25%确信，34.4%不以为然。",
+      "source": "Slator",
+      "link": "https://slator.com/openai-new-real-time-interpreter/",
+      "category": "technology"
+    },
+    {
+      "title": "DeepL裁员250人，全面押注Voice AI",
+      "summary": "与OpenAI发布同日，DeepL CEO Jarek Kutylowski宣布公司将"加倍投入"语言AI，同时裁减250个岗位。重点转向Voice AI，称之为"全球企业语言的下一个前沿"。此举标志着欧洲翻译巨头从传统NMT向实时语音翻译的战略转型。",
+      "source": "Slator / LinkedIn",
+      "link": "https://www.linkedin.com/pulse/important-update-deepl-jarek-kutylowski-66yxe/",
+      "category": "market"
+    },
+    {
+      "title": "2025年语言解决方案及AI市场规模达308.5亿美元",
+      "summary": "Slator 2026市场报告发布（130页），2025年全球语言解决方案及AI可寻址市场规模达308.5亿美元，预计2031年增长至361亿美元（CAGR 2.65%）。报告将市场分为15个垂直领域，涵盖翻译、本地化、配音、字幕、多语言内容生成、无障碍、实时多语通信等。Language AI已从独立赛道融入企业AI基础设施层。",
+      "source": "Slator",
+      "link": "https://slator.com/2026-market-report-language-solutions-ai/",
+      "category": "market"
+    },
+    {
+      "title": "行业M&A转向选择性整合，AI从炒作变基础设施",
+      "summary": "Lion People Global 2026年M&A展望指出：利率不再为主要冲击变量，估值已重新校准，并购环境从观望转向行动。2026年将呈现更少投机收购、更多能力驱动交易、更注重整合准备。AI已从"是否改变商业模式"转向"AI属于哪里"，买方精准瞄准技术颠覆者、AI转型完成的LSP、以及困境中的传统LSP。EBITDA倍数已大幅修正并趋稳。",
+      "source": "Lion People Global",
+      "link": "https://lionpeopleglobal.com/raising-the-sails-outlook-for-2026/",
+      "category": "M&A"
+    },
+    {
+      "title": "Boostlingo报告：16.8%机构已使用AI口译，15.9%正在评估",
+      "summary": "Boostlingo发布《2026年口译技术状况》报告，调查发现16.8%的组织已在使用AI口译，另有15.9%正在评估该技术。Slator MD Florian Faes与Boostlingo联合创始人开展网络研讨，讨论这一趋势对专业口译行业的影响。同时，国际民航组织ICAO和国际货币基金组织IMF等国际机构仍在招聘高级语言专家岗位，显示人类语言专业人才需求并未消失。",
+      "source": "Slator / Boostlingo",
+      "link": "https://boostlingo.com/resources/state-of-interpreting-2026/",
+      "category": "market"
+    },
+    {
+      "title": "ChatGPT 2026三大翻译入口全面对比：Voice Mode、API、Whisper+DIV",
+      "summary": "LiveLingo发布的深入对比研究显示，ChatGPT在2026年提供三种翻译入口：1) 消费者级ChatGPT Voice实时翻译（需Plus订阅约$20/月）；2) GPT-Realtime-Translate专用API模型；3) Whisper+GPT-4o-mini自由DIY管道。API模式支持70+输入语言但仅13种输出语言，DIY模式无限语言对但需要开发者处理VAD、分段、幻觉过滤等工程挑战。",
+      "source": "LiveLingo",
+      "link": "https://www.livelingo.io/guides/openai-live-translation",
+      "category": "technology"
+    }
+  ],
+  "totalItems": 6,
+  "keyTakeaways": [
+    "实时语音翻译成为2026年语言AI主战场，OpenAI与DeepL正面交锋",
+    "语言AI正从独立工具演进为"企业AI基础设施"组成部分",
+    "传统LSP面临AI转型压力，行业M&A从被动观望转向主动整合",
+    "专业人类语言人才需求依然存在——国际组织仍在招聘高级岗位",
+    "市场稳定增长（CAGR 2.65%）但结构正在快速分化：语言服务收缩 vs 语言AI增长"
+  ]
+}

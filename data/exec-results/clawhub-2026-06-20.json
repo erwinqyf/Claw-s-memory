@@ -1,0 +1,96 @@
+{
+  "date": "2026-06-20",
+  "source": "ClawHub 技能追踪 (cron-research)",
+  "ecosystemStats": {
+    "totalSkills": "13,000+",
+    "githubStars": "190k+ (OpenClaw repo)",
+    "topInstalled": "Felo Search (145k+) / Agent Browser (11k+) / Summarize (175k+)",
+    "malwareRate": "~12-36% flagged by various security audits; early 2026 cleanup reduced but not eliminated risk"
+  },
+  "trendingSkills": [
+    {
+      "name": "Fastio",
+      "author": "dbalve",
+      "slug": "dbalve/fast-io",
+      "install": "clawhub install dbalve/fast-io",
+      "category": "持久存储/工作空间",
+      "value": "19 个 MCP 工具：工作区、上传、分享、AI 对话持久化",
+      "assessment": "已有类似文件操作能力，暂不急需",
+      "recommendation": "watch"
+    },
+    {
+      "name": "Openclaw Optimizer",
+      "author": "jacob-bd",
+      "slug": "jacob-bd/openclaw-optimizer",
+      "install": "clawhub install openclaw-optimizer",
+      "category": "运维优化",
+      "value": "成本优化、模型路由、provider 配置、上下文管理、cron/子 Agent 架构审计",
+      "assessment": "提供 40+ provider 参考和故障排查手册，有一定参考价值",
+      "recommendation": "consider — 需要时再安装，评估其 audit 报告是否实用"
+    },
+    {
+      "name": "Skill From Memory",
+      "author": "zfanmy",
+      "slug": "zfanmy/skill-from-memory",
+      "install": "clawhub install skill-from-memory",
+      "category": "技能开发",
+      "value": "从对话/记忆文件提取可复用工作流，打包成 skill 并发布到 GitHub/ClawHub",
+      "assessment": "与 skill-creator 功能重叠较多",
+      "recommendation": "skip — 已有 skill-creator"
+    },
+    {
+      "name": "Learning Growth Coach",
+      "author": "harrylabsj",
+      "slug": "harrylabsj/self-improving-skill",
+      "install": "clawhub install @harrylabsj/self-improving-skill",
+      "category": "学习辅导",
+      "value": "人类技能训练的瓶颈诊断、刻意练习计划、进度追踪",
+      "assessment": "是给人类用的技能训练 coach，不是 agent 自改进",
+      "recommendation": "skip — 非当前赛道"
+    },
+    {
+      "name": "Nano Banana Pro",
+      "author": "-",
+      "slug": "skills/nano-banana-pro-fork",
+      "install": "-",
+      "category": "图像生成",
+      "value": "基于 Gemini 3.1 Flash Image 的图像模型 skill",
+      "assessment": "图像生成非核心场景",
+      "recommendation": "skip"
+    },
+    {
+      "name": "Felo Super Agent / Felo LiveDoc / Felo Slides",
+      "author": "felo.ai",
+      "category": "AI 套件",
+      "value": "Felo 系列超能力 agent、在线文档、PPT 生成",
+      "assessment": "封闭平台集成，需外部 API 授权",
+      "recommendation": "skip — 有替代方案"
+    },
+    {
+      "name": "Web Browsing (official)",
+      "author": "OpenClaw",
+      "install": "clawhub install web-browsing",
+      "category": "网页浏览",
+      "value": "最受欢迎 skill（180k+ 安装），页面导航/内容提取/链接追踪",
+      "assessment": "已通过 agent-browser 解决",
+      "recommendation": "skip"
+    }
+  ],
+  "deltaFrom0607-0619": {
+    "newTrending": [
+      "Openclaw Optimizer — 新出现在多个榜单中，面向 OpenClaw 运维优化"
+    ],
+    "noLongerTrending": [],
+    "alreadyInstalled": ["GitHub", "Tmux", "Agent Browser", "Summarize", "Notion"]
+  },
+  "securityAlert": {
+    "status": "ongoing — 12-36% 技能含风险（Koi Security / Bitdefender / Snyk 审计结果）",
+    "commonThreats": [
+      "伪造前置依赖投毒（Atomic Stealer AMOS）",
+      "reverse shell 后门嵌入功能代码",
+      "窃取 ~/.clawdbot/.env 凭据"
+    ],
+    "mitigation": "skill-vetter 已安装并可用。安装任何新技能前先 vet 检查。"
+  },
+  "summary": "本期无明显必须安装的新技能。注意到 Openclaw Optimizer 作为运维辅助工具值得保持关注，但当前工作流暂无明确优化痛点。已有技能栈覆盖全面。ClawHub 安全态势仍然严峻，13k+ 技能中约 1/5 存在风险，保持警惕。"
+}
