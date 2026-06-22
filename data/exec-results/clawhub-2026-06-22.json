@@ -1,0 +1,65 @@
+{
+  "date": "2026-06-22",
+  "source": "web_search / blink.new / firecrawl.dev / medium",
+  "ecosystem": {
+    "total_skills_on_clawhub": "13,700+ (Firecrawl, Feb 2026)",
+    "vetted_awesome_list": "5,494 (VoltAgent)",
+    "blink_blog_mentions": "5,400+ listed, ~30 exceptional",
+    "malicious_found": "341 (Koi Security, Feb 2026 — including AMOS stealer campaigns, reverse shells in polymarket skills)"
+  },
+  "trending_or_recommended_skills_we_dont_have": [
+    {
+      "name": "telegram-notify",
+      "reason": "Top recommended notification skill. OpenClaw's most reliable channel. If cron reports target Telegram, valuable. Currently no Telegram skill installed.",
+      "install_cmd": "openclaw skills install telegram-notify",
+      "value_estimate": "medium (depends on whether we use Telegram for delivery)"
+    },
+    {
+      "name": "web-search",
+      "reason": "We already have web_search tool via OpenClaw builtin + tavily plugin skill. NOT needed.",
+      "install_cmd": null,
+      "value_estimate": "already covered"
+    },
+    {
+      "name": "email-summary",
+      "reason": "Gmail/IMAP inbox triage. Could be useful for automation, but no clear requirement from 丰 yet.",
+      "install_cmd": "openclaw skills install email-summary",
+      "value_estimate": "low (no stated need)"
+    },
+    {
+      "name": "memory-wiki",
+      "reason": "Persistent memory across sessions — we already have MEMORY.md + memory/*.md system + AGENTS.md mem framework. NOT needed.",
+      "install_cmd": null,
+      "value_estimate": "already covered"
+    },
+    {
+      "name": "google-calendar",
+      "reason": "Calendar read/write. Useful for daily briefing if we build one. No current need.",
+      "install_cmd": "openclaw skills install google-calendar",
+      "value_estimate": "low-medium (nice-to-have)"
+    },
+    {
+      "name": "felo-search",
+      "reason": "145,000+ installs — second most installed. AI-synthesized search. We have tavily + web_search, so overlap.",
+      "install_cmd": "openclaw skills install felo-search",
+      "value_estimate": "low (overlapping)"
+    },
+    {
+      "name": "Capability Evolver",
+      "reason": "35K+ installs. Self-improving agent capability. We already have proactive-agent + self-improving skill. NOT needed.",
+      "install_cmd": null,
+      "value_estimate": "already covered"
+    },
+    {
+      "name": "Firecrawl CLI",
+      "reason": "Web scraping skill. We have web_search + web_fetch tools. Low added value.",
+      "install_cmd": "openclaw skills install firecrawl",
+      "value_estimate": "low (overlap)"
+    }
+  ],
+  "security_alert": {
+    "summary": "Feb 2026 Koi Security audit of 2,857 skills found 341 malicious: 335 used fake pre-requisites to install AMOS macOS stealer; others hid reverse shell backdoors or exfiltrated ~/.clawdbot/.env credentials via webhook.site. All installs should be vetted with skill-vetter first.",
+    "action": "skill-vetter already installed ✓ — use before any new install"
+  },
+  "suggested_action": "No strong candidates to install from current trending. Existing skill coverage is good. Monitor next week."
+}

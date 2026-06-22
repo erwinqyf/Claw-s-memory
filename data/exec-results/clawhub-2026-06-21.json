@@ -1,0 +1,100 @@
+{
+  "date": "2026-06-21",
+  "source": "ClawHub 技能追踪 (周日)",
+  "ecosystem_snapshot": {
+    "openclaw_github_stars": "190,000+",
+    "clawhub_skills_total": "10,000+ (据多方数据，12K~13K)",
+    "verified_malicious_before_cleanup": "~20% (1/5)",
+    "recent_audit_flag_rate": "13.4% critical issues (Snyk)",
+    "key_concern": "Trail of Bits 2026-06-03 报告显示 ClawHub 恶意检测器、Cisco 扫描器、skills.sh 扫描器均可被绕过（.docx 间接注入/.pyc 字节码投毒/prompt 注入），安全仍无保障"
+  },
+  "hot_skills_this_week": {
+    "1": {
+      "name": "Web Browsing",
+      "installs": "180,000+",
+      "category": "基础/Web",
+      "status": "官方技能，最基础",
+      "verdict": "已有 Agent Browser 技能覆盖，无需重复安装"
+    },
+    "2": {
+      "name": "Capability Evolver",
+      "installs": "35,000+",
+      "category": "Agent 自优化",
+      "status": "✅ 已验证，bundled-tier 信任，无需 API Key",
+      "verdict": "高价值 — 让 Agent 自我迭代能力，建议评估安装"
+    },
+    "3": {
+      "name": "Felo Search",
+      "installs": "145,000+",
+      "category": "搜索",
+      "status": "需第三方 API Key",
+      "verdict": "已有 Tavily 搜索替代，暂无需安装"
+    },
+    "4": {
+      "name": "Self-Improving Agent",
+      "installs": "15,000+",
+      "category": "记忆/个性化",
+      "status": "✅ 已验证，ClawHub 最高评星 (132 stars)",
+      "verdict": "✅ 已安装。持续关注更新"
+    },
+    "5": {
+      "name": "Agent Browser",
+      "installs": "11,000+",
+      "category": "Web 自动化",
+      "status": "⚠️ 需审查 — Rust headless browser，建议 Docker 沙箱运行",
+      "verdict": "✅ 已安装。安全建议：运行在 Docker 沙箱中"
+    },
+    "6": {
+      "name": "GitHub Integration",
+      "installs": "10,000+",
+      "category": "DevOps",
+      "status": "✅ 已验证，使用官方 gh CLI",
+      "verdict": "✅ 已安装。社区广泛审计"
+    },
+    "7": {
+      "name": "Summarize",
+      "installs": "10,000+",
+      "category": "内容处理",
+      "status": "✅ 已验证，本地处理，无需 API Key",
+      "verdict": "有 doc-summarize-pro 替代，暂无需"
+    },
+    "8": {
+      "name": "Tavily Search",
+      "installs": "9,000+",
+      "category": "搜索",
+      "status": "⚠️ 需第三方 API Key",
+      "verdict": "✅ 已安装（tavily skill）"
+    },
+    "9": {
+      "name": "N8N Workflow",
+      "installs": "8,000+",
+      "category": "自动化工作流",
+      "status": "⚠️ 需本地 N8N 实例",
+      "verdict": "当前无 N8N 需求，暂忽略"
+    },
+    "10": {
+      "name": "GOG (Google Workspace)",
+      "installs": "14,000+",
+      "category": "生产力/协作",
+      "status": "⚠️ 需 Google OAuth，权限较大",
+      "verdict": "暂不需要 Google Workspace 集成"
+    }
+  },
+  "security_alerts": {
+    "trail_of_bits_report": "2026-06-03 — 绕过 ClawHub 恶意检测器的 4 种攻击方法均已公开。所有从 ClawHub 安装的技能都应在安装前人工审查 SKILL.md",
+    "arxiv_paper_2604.13064": "26,502 技能分析，>30% 标记为可疑/恶意。中文技能偏向应用场景（媒体生成、社交内容、金融），英文技能偏向基础设施（API、自动化、记忆）",
+    "csa_research_note": "2026-06-10 — AI Agent 技能扫描器「全面被绕过」",
+    "recommendation": "安装前运行 skill-vetter 审查，不信任自动扫描结果"
+  },
+  "worth_watching": [
+    "Capability Evolver — 35K+ 安装，自优化能力，无需 API Key，值得试装",
+    "skill-creator (Anthropic) — Reddit 社区推荐用于构建/评估自有技能",
+    "antigravity-awesome-skills — 930+ 技能集合（含 Anthropic/Vercel 官方），但安全和质量需自行过滤"
+  ],
+  "install_recommendations_this_week": {
+    "high_priority": ["Capability Evolver"],
+    "low_priority": [],
+    "skip": ["Felo Search", "N8N Workflow", "GOG", "Web Browsing", "Summarize"]
+  },
+  "already_installed_skills_ok": ["Self-Improving Agent", "Agent Browser", "GitHub", "Tavily"]
+}

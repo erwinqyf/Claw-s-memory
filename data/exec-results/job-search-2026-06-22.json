@@ -1,0 +1,184 @@
+{
+  "date": "2026-06-22",
+  "notes": "Job monitoring: Content/Localization/Translation. Compared with baseline from 2026-06-19 (17 jobs).",
+  "keywordsSearched": [
+    "content manager job 2026 hiring",
+    "localization specialist job hiring 2026",
+    "translation manager job opening",
+    "technical writer job 2026",
+    "UX writer job hiring 2026",
+    "AI content manager job 2026",
+    "content strategist job opening 2026",
+    "localization program manager job 2026",
+    "developer relations job 2026 hiring",
+    "knowledge management specialist job 2026"
+  ],
+  "previousBaseline": "job-search-2026-06-19.json (17 jobs)",
+  "marketInsights": {
+    "contentJobs_WorkingInContent_Jun21": "586 Content Jobs – 119 New – 21 June 2026",
+    "uxWriterJobs_WorkingInContent_Jun21": "34 UX Writer Jobs – 9 New – 21 June 2026",
+    "technicalWriterJobs_WorkingInContent_Jun19": "183 Technical Writer jobs – 39 New – 19 June 2026",
+    "contentStrategistJobs_WorkingInContent_Jun19": "216 Content Strategist jobs – 40 New – 19 June 2026",
+    "devRel_remoteRocketship": "Multiple remote DevRel roles (Cloudera, Nebius, Pantheon, Metabase)",
+    "localization_Glassdoor": "39 remote localization specialist jobs on Glassdoor",
+    "localization_indeed": "San Jose CA Localization Specialist $167k-206k/yr"
+  },
+  "newJobs": [
+    {
+      "title": "SEO & Content Marketing Manager",
+      "company": "Uscreen",
+      "location": "Remote (US)",
+      "type": "Full-time",
+      "salary": "$75k-90k/yr",
+      "link": "https://dynamitejobs.com/company/uscreen/remote-job/seo-content-marketing-manager",
+      "postedDate": "June 21, 2026",
+      "source": "dynamitejobs.com",
+      "tags": ["content manager", "SEO", "remote", "SaaS"]
+    },
+    {
+      "title": "Senior Content Strategist",
+      "company": "IonQ",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$84k-110k/yr",
+      "link": "https://job-boards.greenhouse.io/ionq/jobs/6019268004",
+      "postedDate": "June 19, 2026",
+      "source": "greenhouse.io",
+      "tags": ["content strategist", "quantum computing", "remote", "senior"]
+    },
+    {
+      "title": "Staff UX Content Designer",
+      "company": "Google",
+      "location": "New York City, NY",
+      "type": "Full-time",
+      "salary": "$171k-248k/yr",
+      "link": "https://www.indeed.com/q-google-ux-design-jobs.html",
+      "postedDate": "June 18, 2026",
+      "source": "indeed.com",
+      "tags": ["UX writer", "Google", "NYC", "staff"]
+    },
+    {
+      "title": "Senior UX Writer and Content Designer",
+      "company": "Google",
+      "location": "New York City, NY",
+      "type": "Full-time",
+      "salary": "$159k-231k/yr",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX writer", "Google", "NYC", "senior"]
+    },
+    {
+      "title": "UX Writer and Content Designer (Google Ads)",
+      "company": "Google",
+      "location": "New York, NY",
+      "type": "Full-time",
+      "salary": "$144k-209k/yr",
+      "link": "https://www.glassdoor.com/Job/new-york-content-designer-jobs-SRCH_IL.0,8_IC1132348_KO9,25.htm",
+      "postedDate": "June 2026",
+      "source": "glassdoor.com",
+      "tags": ["UX writer", "Google Ads", "NYC"]
+    },
+    {
+      "title": "UX Content Writer",
+      "company": "ASBL",
+      "location": "Hyderabad, India",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 19, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX writer", "Hyderabad", "content"]
+    },
+    {
+      "title": "Senior UX Writer",
+      "company": "Scaleway",
+      "location": "Paris, France",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 19, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX writer", "Paris", "cloud", "senior"]
+    },
+    {
+      "title": "Copywriter (UX Writing)",
+      "company": "ChatGPT Jobs",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$68k-97k/yr",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 19, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX writer", "AI", "remote", "copywriter"]
+    },
+    {
+      "title": "Content & Marketing Strategist",
+      "company": "Bellweather Agency",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$75k-85k/yr",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "agency", "remote"]
+    },
+    {
+      "title": "Associate Content Strategist",
+      "company": "MissionWired",
+      "location": "Remote",
+      "type": "Temporary",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "remote", "temporary"]
+    },
+    {
+      "title": "Senior Technical Writer",
+      "company": "Everfox",
+      "location": "Herndon, VA",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": ["technical writer", "Herndon", "senior", "security"]
+    },
+    {
+      "title": "Senior Director of Developer Relations & Community",
+      "company": "Cloudera",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://jobs.accel.com/companies/cloudera-2/jobs/83347463-sr-director-of-developer-relations-community",
+      "postedDate": "June 2026",
+      "source": "accel.com",
+      "tags": ["devrel", "leadership", "remote", "AI/data platform"]
+    },
+    {
+      "title": "Localization Specialist",
+      "company": "Multiple (via Indeed)",
+      "location": "San Jose, CA",
+      "type": "Full-time",
+      "salary": "$167k-206k/yr",
+      "link": "https://www.indeed.com/q-localization-specialist-l-san-jose,-ca-jobs.html",
+      "postedDate": "June 2026",
+      "source": "indeed.com",
+      "tags": ["localization", "San Jose", "high salary"]
+    },
+    {
+      "title": "Knowledge Management Specialist",
+      "company": "Duke University (DUMAC)",
+      "location": "Durham, NC",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://careers.duke.edu/job/Durham-Knowledge-Management-Specialist-NC-27710/1387456800",
+      "postedDate": "June 2026",
+      "source": "duke.edu",
+      "tags": ["knowledge management", "documentation", "taxonomy", "Durham"]
+    }
+  ],
+  "totalNew": 14,
+  "note": "Compared to 2026-06-19 baseline (17 positions). This round adds 14 new positions. Notable: Google 3x UX Content roles in NYC ($144k-248k), IonQ Content Strategist (quantum computing), Cloudera DevRel Director, Duke KM Specialist."
+}
