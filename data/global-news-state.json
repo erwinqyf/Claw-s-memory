@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-23T04:00:21.114Z",
+  "lastRun": "2026-06-23T04:10:46.769Z",
   "lastRunDate": "2026-06-23",
   "categories": [
     {
@@ -25,7 +25,7 @@
         "Reuters Business: HTTP 301: https://www.reutersagency.com/feed/?best-topics=business-finance",
         "经济学人财经: HTTP 403: https://www.economist.com/finance-and-economics/rss",
         "Financial Times: HTTP 301: https://www.ft.com/?format=rss",
-        "Bloomberg: HTTP 403: https://www.bloomberg.com/feed/podcast/etf.xml",
+        "Bloomberg: HTTP 404: https://www.bloomberg.com/feed/podcast/etf.xml",
         "日经亚洲: HTTP 404: https://asia.nikkei.com/rss/markets/feed",
         "财新网: HTTP 403: https://rsshub.app/caixin/finance",
         "Business Standard: HTTP 403: https://www.business-standard.com/rss/economy-101.rss"

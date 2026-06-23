@@ -1,38 +1,37 @@
 # 全球新闻汇总 2026-06-23
 
-**生成时间:** 2026/6/23 12:00:21 (Asia/Shanghai)
+**生成时间:** 2026/6/23 12:10:46 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
 
 ## 🌍 政治
 
-1. 🔥 **World Cup 2026: Haaland strikes twice as Norway secure knockout progression**
-   - 来源：France 24 | 热度：69/100
-   - 时间：06/23 10:09
-   - [阅读全文](https://www.france24.com/en/sport/20260623-world-cup-2026-haaland-strikes-twice-as-norway-secure-knockout-progression)
-
-2. 🔥 **Middle East live: Iran says Strait of Hormuz will be administered by Tehran**
-   - 来源：France 24 | 热度：69/100
-   - 时间：06/23 10:02
-   - 摘要：Iran’s chief negotiator Mohammad Bagher Ghalibaf said on Tuesday that the Strait of Hormuz will be administered by Te...
-   - [阅读全文](https://www.france24.com/en/middle-east/20260623-middle-east-live-iran-says-strait-of-hormuz-will-be-administered-by-tehran)
-
-3. 🔥 **Where did it all go wrong for Starmer? – podcast**
+1. 🔥 **Extreme heat: is the UK becoming a 40C country? – podcast**
    - 来源：英国卫报 | 热度：68/100
-   - 时间：06/23 10:00
-   - 摘要：The UK has lost its sixth prime minister in a decade.
-   - [阅读全文](https://www.theguardian.com/news/audio/2026/jun/23/where-did-it-all-go-wrong-for-starmer-podcast)
+   - 时间：06/23 12:00
+   - 摘要：Met Office forecasters have issued a rare red weather warning for England, with temperatures potentially reaching 40C...
+   - [阅读全文](https://www.theguardian.com/science/audio/2026/jun/23/extreme-heat-is-uk-becoming-40c-country-podcast)
 
-4. 🔥 **Last one, the best one? How Lionel Messi keeps doing it at the World Cup**
+2. 🔥 **Five Eyes intelligence alliance warns of threats from new AI models**
+   - 来源：半岛电视台 | 热度：68/100
+   - 时间：06/23 11:56
+   - [阅读全文](https://www.aljazeera.com/economy/2026/6/23/five-eyes-intelligence-alliance-warns-of-threats-from-new-ai-models?traffic_source=rss)
+
+3. 🔥 **Last one, the best one? How Lionel Messi keeps doing it at the World Cup**
    - 来源：半岛电视台 | 热度：68/100
    - 时间：06/23 11:47
    - [阅读全文](https://www.aljazeera.com/sports/2026/6/23/last-one-the-best-one-how-lionel-messi-keeps-doing-it-at-the-world-cup?traffic_source=rss)
 
-5. 🔥 **Conservative radio host defends Trump, says he’s better than Vance**
+4. 🔥 **Conservative radio host defends Trump, says he’s better than Vance**
    - 来源：半岛电视台 | 热度：68/100
    - 时间：06/23 11:42
    - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/23/conservative-radio-host-defends-trump-says-hes-better-than-vance?traffic_source=rss)
+
+5. 🔥 **Alan Greenspan, former US Federal Reserve chairman, dies at 100**
+   - 来源：半岛电视台 | 热度：68/100
+   - 时间：06/23 10:58
+   - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/23/alan-greenspan-former-us-federal-reserve-chairman-dies-at-100?traffic_source=rss)
 
 ---
 
@@ -113,20 +112,19 @@
    - 摘要：6月16日-17日，36氪WAVES 2026新浪潮大会在广州举行.
    - [阅读全文]()
 
-3. 🔥🔥 **首个高考志愿AI测评发布：千问在稳定性、精确性、结构化表达上表现突出**
+3. 🔥🔥 **英伟达、vivo、红杉中国等公司联合加码B站AI创造公开赛**
+   - 来源：36 氪 | 热度：78/100
+   - 时间：06/23 12:09
+   - [阅读全文]()
+
+4. 🔥🔥 **首个高考志愿AI测评发布：千问在稳定性、精确性、结构化表达上表现突出**
    - 来源：36 氪 | 热度：78/100
    - 时间：06/23 11:59
    - [阅读全文]()
 
-4. 🔥🔥 **豆包大模型的日均tokens调用量达到180万亿**
+5. 🔥🔥 **豆包大模型的日均tokens调用量达到180万亿**
    - 来源：36 氪 | 热度：78/100
    - 时间：06/23 10:20
-   - [阅读全文]()
-
-5. 🔥🔥 **WAVES 2026：今年盛夏，在创投浪潮里，做迎风而立的少数人！**
-   - 来源：36 氪 | 热度：73/100
-   - 时间：06/23 11:57
-   - 摘要：盛夏赴约WAVES 2026. 一群迎风的少数人，掀起中国新一代创新力量的风口. 2026年，创投圈的浪潮再次翻涌：AI从技术概念走进产业深水区，硬科技创业从“小众赛道”变成“主流共识”，年轻的创业者们正在重新定义中国创新的未来坐标.
    - [阅读全文]()
 
 ---
