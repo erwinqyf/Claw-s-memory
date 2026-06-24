@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-06-23T04:10:46.769Z",
-  "lastRunDate": "2026-06-23",
+  "lastRun": "2026-06-24T04:11:16.709Z",
+  "lastRunDate": "2026-06-24",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 241,
+      "totalAvailable": 191,
       "errors": [
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
@@ -14,7 +14,8 @@
         "AP News: HTTP 403: https://rsshub.app/apnews/topics/ap-top-news",
         "联合早报: HTTP 404: https://www.zaobao.com.sg/rss/news/china.xml",
         "南华早报: HTTP 301: https://www.scmp.com/rss/91/feed",
-        "韩民族日报: HTTP 403: https://english.hani.co.kr/rss/"
+        "韩民族日报: HTTP 403: https://english.hani.co.kr/rss/",
+        "中东观察: TIMEOUT: Request timeout after 30000ms: https://www.middleeastmonitor.com/feed/"
       ]
     },
     {
@@ -25,7 +26,7 @@
         "Reuters Business: HTTP 301: https://www.reutersagency.com/feed/?best-topics=business-finance",
         "经济学人财经: HTTP 403: https://www.economist.com/finance-and-economics/rss",
         "Financial Times: HTTP 301: https://www.ft.com/?format=rss",
-        "Bloomberg: HTTP 404: https://www.bloomberg.com/feed/podcast/etf.xml",
+        "Bloomberg: HTTP 403: https://www.bloomberg.com/feed/podcast/etf.xml",
         "日经亚洲: HTTP 404: https://asia.nikkei.com/rss/markets/feed",
         "财新网: HTTP 403: https://rsshub.app/caixin/finance",
         "Business Standard: HTTP 403: https://www.business-standard.com/rss/economy-101.rss"
@@ -47,7 +48,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 119,
+      "totalAvailable": 120,
       "errors": [
         "少数派: HTTP 403: https://rsshub.app/sspai/index",
         "Tech in Asia: HTTP 301: https://www.techinasia.com/feed/",
