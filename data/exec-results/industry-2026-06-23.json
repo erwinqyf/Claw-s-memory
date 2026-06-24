@@ -1,0 +1,49 @@
+{
+  "date": "2026-06-23",
+  "trends": [
+    {
+      "title": "Rylo 融资 8500 万美元，为听障群体构建 AI 语言平台",
+      "summary": "Rylo（原名 Nagish）获得 General Catalyst、Canaan 等领投的 8500 万美元融资，估值约 5 亿美元。其 AI 平台提供实时语音转文字和手语翻译，已获 FCC 批准接入联邦电话字幕服务。公司预计 2026 年营收达 1 亿美元，目标 2028 年突破 10 亿美元。支持 50 种语言。",
+      "source": "Slator / BusinessWire",
+      "link": "https://slator.com/startup-raises-85m-ai-language-solutions-deaf-population",
+      "category": "funding"
+    },
+    {
+      "title": "OpenAI 发布 ChatGPT Translate，翻译市场格局生变",
+      "summary": "OpenAI 于 2026 年 1 月低调上线 ChatGPT Translate 独立翻译工具，支持 25-40+ 种语言，界面类似 Google Translate，增加 AI 改写和风格调整功能。此举标志 AI 翻译从聊天功能演进为独立产品，对传统翻译服务和本地化行业形成直接冲击。",
+      "source": "SiliconANGLE / Thurrott",
+      "link": "https://siliconangle.com/2026/01/15/openai-quietly-launches-chatgpt-translate-support-25-languages",
+      "category": "AI"
+    },
+    {
+      "title": "Slator 2026 市场报告：语言解决方案与 AI 市场达 308 亿美元",
+      "summary": "Slator 最新报告显示语言解决方案与 AI 市场总规模 308 亿美元，其中传统语言服务市场收缩，但语言 AI 高速增长。同时 Slator 发布 2026 语言行业指数，对 300+ 语言服务集成商和技术平台按收入排名。",
+      "source": "Slator",
+      "link": "https://slator.com/analyst-desk",
+      "category": "market"
+    },
+    {
+      "title": "AI 翻译市场预计 2026 年达 36.8 亿美元，CAGR 25.2%",
+      "summary": "Research and Markets 报告显示 AI 语言翻译市场将从 2025 年的 29.4 亿美元增长至 2026 年的 36.8 亿美元，年复合增长率 25.2%。电子商务扩张、全球数字通信增长是主要驱动力。机器翻译市场预计 2026 年达 9.77 亿美元。",
+      "source": "Research and Markets",
+      "link": "https://www.researchandmarkets.com/reports/6035370/ai-in-language-translation-market-report",
+      "category": "market"
+    },
+    {
+      "title": "翻译市场正在转变而非崩塌：AI 辅助的专家价值凸显",
+      "summary": "行业观察指出翻译市场正经历范式转变而非衰退。AI 驱动工作流程催生新的高价值需求，MTPE（机器翻译后期编辑）出现优质定价机会。AI 幻觉和语境理解仍是核心痛点，企业客户开始意识到纯 AI 不够好，开始回归专业人工翻译+AI 辅助模式。",
+      "source": "CotranslatorAI / Slator",
+      "link": "https://cotranslatorai.com/the-translation-market-is-shifting-not-collapsing-18-june-2026-ai-mastery-for-translators-insights",
+      "category": "AI"
+    },
+    {
+      "title": "OVHCloud 与 Gladia 达成合作，布局主权 AI 语音翻译",
+      "summary": "法国云服务商 OVHCloud 与 AI 语音公司 Gladia 达成交易，构建欧洲主权 AI 语音翻译方案。与此同时 Google 更新 Gemma 4 模型家族，推出 12B 参数模型支持端侧语音识别与翻译。微软也发布了翻译、语音和设备端模型更新。",
+      "source": "Slator",
+      "link": "https://slator.com/analyst-desk",
+      "category": "technology"
+    }
+  ],
+  "totalItems": 6,
+  "topTrend": "AI 翻译从"辅助工具"进化为独立产品生态（OpenAI ChatGPT Translate）+ 大规模资本涌入无障碍通信赛道（Rylo $85M），同时传统语言服务市场在收缩但优质 AI 辅助需求在升级"
+}

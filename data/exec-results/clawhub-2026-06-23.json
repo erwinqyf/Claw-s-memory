@@ -1,0 +1,46 @@
+{
+  "date": "2026-06-23",
+  "source": "ClawHub 追踪（定时任务）",
+  "ecosystem_overview": {
+    "total_skills_on_clawhub": "~2,857+ (Feb 2026 audit baseline)",
+    "marketplace_landscape": "ClawHub remains the primary OpenClaw skill registry. 8 major agent skill marketplaces exist by Q2 2026 (Anthropic Claude Skills, Vercel skills.sh with 600K OSS skills, OpenAI Codex plugins, Cline plugins, MCP ecosystem). ClawHub differentiates with open-source, self-hosted focus."
+  },
+  "new_items_and_trends": [
+    {
+      "name": "Veryfi (Documents AI)",
+      "type": "Skill",
+      "url": "https://clawhub.ai/dbirulia/documents-ai",
+      "description": "上传收据/发票/银行流水到 agent 聊天中，自动结构化提取数据。基于 Veryfi AI 引擎。",
+      "install_verdict": "推荐 — 适合需要报销/财务自动化处理场景。需要 Veryfi API Key。",
+      "value": "medium"
+    },
+    {
+      "name": "ClawHub Package Catalog (Plugin System)",
+      "type": "Platform Feature",
+      "description": "ClawHub 新增原生包目录，支持 code plugins + bundle plugins。通过 clawhub package 子命令管理。Skill 可在 frontmatter 声明 nix-clawdbot plugin 依赖。",
+      "install_verdict": "关注 — 生态重要演进，但目前我们不需要 plugin 支持。",
+      "value": "info"
+    },
+    {
+      "name": "Felo Search",
+      "type": "Skill",
+      "description": "145K+ installs，ClawHub 第二高安装量。AI 合成搜索答案 + 来源引用。",
+      "install_verdict": "我们已有 tavily/web_search 等搜索工具，暂不需要。",
+      "value": "skip"
+    }
+  ],
+  "security_alert": {
+    "source": "Koi Security (Feb 2026)",
+    "title": "ClawHavoc — 341 个恶意技能",
+    "details": "在 2,857 个技能中发现 341 个恶意技能（11.9%）。335 个伪装依赖安装 AMOS macOS 窃密器；部分技能藏匿反弹 shell 后门或窃取 ~/.clawdbot/.env 凭证。",
+    "impact": "⚠️ 高风险。任何新技能安装前必须执行 skill-vetter 检查流程。",
+    "recommendation": "严格遵守 AGENTS.md 的 Skill Installation Checklist：先 clawhub inspect，再检查可疑模式，最后询问丰。"
+  },
+  "already_installed_skills_worth_noting": [
+    "GitHub Skill — 我们已有 github skill，覆盖 issue/PR/code 操作",
+    "AgentMail — 我们已有类似能力（cron 通知 + 消息通道）",
+    "Linear Integration — 如果未来用 Linear 管理任务可考虑",
+    "Obsidian/Notion — 暂不需要"
+  ],
+  "recommendation": "当前技能集已覆盖核心需求。重点关注安全态势，新技能安装严格走 vetting 流程。Veryfi 是唯一有实际价值的新选项（报销自动化），但需要丰的确认。"
+}

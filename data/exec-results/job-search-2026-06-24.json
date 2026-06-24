@@ -1,0 +1,261 @@
+{
+  "date": "2026-06-24",
+  "notes": "Job monitoring: Content/Localization/Translation. Compared with baseline from 2026-06-22 (14 jobs).",
+  "keywordsSearched": [
+    "content manager job 2026 hiring",
+    "localization specialist job 2026 hiring",
+    "translation manager job 2026",
+    "technical writer job 2026 hiring",
+    "UX writer job 2026",
+    "AI content manager job 2026",
+    "content strategist job 2026 hiring",
+    "localization program manager job 2026",
+    "developer relations job 2026 hiring",
+    "knowledge management job 2026"
+  ],
+  "previousBaseline": "job-search-2026-06-22.json (14 jobs)",
+  "marketInsights": {
+    "technicalWriterJobs_WorkingInContent_Jun23": "170 Technical Writer Jobs – 36 New – 23 June 2026",
+    "uxWriterJobs_WorkingInContent_Jun23": "32 UX Writer Jobs – 9 New – 23 June 2026",
+    "contentStrategistJobs_WorkingInContent_Jun23": "185 Content Strategist Jobs – 37 New – 23 June 2026",
+    "localizationPM_Glassdoor_Jun24": "26 Remote Localization PM jobs on Glassdoor ($117K-$175K)",
+    "localizationPM_ZipRecruiter": "Eriksen Translations PM - Remote - Brooklyn, NY",
+    "devRel_Tether_Web3": "Tether hiring DevRel P2P $115k-$138k (Amsterdam/Madrid/London)",
+    "localization_LinkedIn": "594 Localization Specialist jobs, 1000+ Localization Tester jobs in US"
+  },
+  "newJobs": [
+    {
+      "title": "Senior Technical Content Designer",
+      "company": "The Trade Desk",
+      "location": "San Jose, CA",
+      "type": "Full-time",
+      "salary": "$151k-189k/yr",
+      "link": "https://workingincontent.com/technical-writer-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": ["technical writer", "adtech", "San Jose", "senior"]
+    },
+    {
+      "title": "Technical Writer",
+      "company": "Transport for NSW",
+      "location": "Sydney, Australia",
+      "type": "Full-time",
+      "salary": "$119k-127k/yr",
+      "link": "https://workingincontent.com/technical-writer-jobs",
+      "postedDate": "June 16, 2026",
+      "source": "workingincontent.com",
+      "tags": ["technical writer", "government", "Sydney", "Australia"]
+    },
+    {
+      "title": "Technical Writer",
+      "company": "NuAxis Innovations",
+      "location": "Arlington, VA",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/technical-writer-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": ["technical writer", "Arlington", "Virginia"]
+    },
+    {
+      "title": "Senior Technical Writer",
+      "company": "Okta",
+      "location": "Bengaluru, India",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/technical-writer-jobs",
+      "postedDate": "June 16, 2026",
+      "source": "workingincontent.com",
+      "tags": ["technical writer", "Okta", "Bengaluru", "senior", "identity"]
+    },
+    {
+      "title": "Technical Writer",
+      "company": "Veeco",
+      "location": "Somerset, NJ",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/technical-writer-jobs",
+      "postedDate": "June 16, 2026",
+      "source": "workingincontent.com",
+      "tags": ["technical writer", "semiconductor", "New Jersey"]
+    },
+    {
+      "title": "UX Writer",
+      "company": "Cella (via Randstad)",
+      "location": "San Bruno, CA",
+      "type": "Contract",
+      "salary": "$80-90/h",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 20, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX writer", "contract", "San Bruno", "Bay Area"]
+    },
+    {
+      "title": "User Experience Writer",
+      "company": "Adecco",
+      "location": "London, UK",
+      "type": "Contract",
+      "salary": "£48/h",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 19, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX writer", "London", "UK", "contract"]
+    },
+    {
+      "title": "UX Content Writer",
+      "company": "Kforce Inc",
+      "location": "Remote",
+      "type": "Contract",
+      "salary": "面议",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 17, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX writer", "remote", "contract", "staffing"]
+    },
+    {
+      "title": "UX Writer",
+      "company": "Jobgether",
+      "location": "Remote (Europe)",
+      "type": "Full-time",
+      "salary": "€35k-45k/yr",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 17, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX writer", "remote", "Europe", "junior-mid"]
+    },
+    {
+      "title": "UX Content Designer",
+      "company": "Hays",
+      "location": "Sydney, Australia",
+      "type": "Contract",
+      "salary": "$800/d",
+      "link": "https://workingincontent.com/ux-writer-jobs",
+      "postedDate": "June 13, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX writer", "Sydney", "Australia", "contract"]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "HP",
+      "location": "Vancouver, WA",
+      "type": "Full-time",
+      "salary": "$105k-161k/yr",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 17, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "HP", "Vancouver", "tech"]
+    },
+    {
+      "title": "Senior Strategist - Digital Shelf Content",
+      "company": "SGS & Co",
+      "location": "New York City, NY",
+      "type": "Full-time",
+      "salary": "$80k-90k/yr",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 16, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "NYC", "ecommerce"]
+    },
+    {
+      "title": "Communications and Content Strategist",
+      "company": "Werner Enterprises",
+      "location": "Omaha, NE",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 16, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "logistics", "Omaha"]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "MK Search",
+      "location": "Houston, TX",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 16, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "Houston", "Texas"]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "High Five Media",
+      "location": "Oklahoma City, OK",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 16, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "Oklahoma City", "media"]
+    },
+    {
+      "title": "Content Specialist",
+      "company": "MCH Group",
+      "location": "Basel, Switzerland",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 16, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "Basel", "Switzerland", "events"]
+    },
+    {
+      "title": "Senior Content Strategist",
+      "company": "Parallel Design Studio",
+      "location": "Bengaluru, India",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 17, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "Bengaluru", "design studio"]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "Skepper Creative",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 17, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "remote", "creative agency"]
+    },
+    {
+      "title": "Translaton Project Manager (Localization)",
+      "company": "via Glassdoor",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$117k-175k/yr",
+      "link": "https://www.glassdoor.com/Job/remote-localization-project-manager-jobs-SRCH_IL.0,6_IS11047_KO7,35.htm",
+      "postedDate": "June 2026",
+      "source": "glassdoor.com",
+      "tags": ["localization", "PM", "remote", "high salary"]
+    },
+    {
+      "title": "Project Manager - Localization & Translation",
+      "company": "Eriksen Translations Inc.",
+      "location": "Brooklyn, NY (Remote)",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://www.ziprecruiter.com/Jobs/Localization-Project-Manager/--in-New-York",
+      "postedDate": "June 2026",
+      "source": "ziprecruiter.com",
+      "tags": ["localization", "translation", "Brooklyn", "PM"]
+    },
+    {
+      "title": "Developer Relations P2P (Remote Worldwide)",
+      "company": "Tether Operations Limited",
+      "location": "Madrid / Amsterdam / London (Remote)",
+      "type": "Full-time",
+      "salary": "$115k-138k/yr",
+      "link": "https://web3.career/developer-relations-jobs",
+      "postedDate": "June 2026",
+      "source": "web3.career",
+      "tags": ["devrel", "blockchain", "remote", "Tether"]
+    }
+  ],
+  "totalNew": 21,
+  "note": "Compared to 2026-06-22 baseline (14 positions). This round adds 21 new positions. Notable: The Trade Desk Sr Technical Content Designer ($151k-189k), HP Content Strategist ($105k-161k), Tether DevRel ($115k-138k), Glassdoor remote Translation PM ($117k-$175k). Market: 170 Technical Writer jobs (+36 new), 32 UX Writer jobs (+9 new), 185 Content Strategist jobs (+37 new) as of June 23."
+}

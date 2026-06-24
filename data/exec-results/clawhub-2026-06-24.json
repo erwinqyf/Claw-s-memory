@@ -1,0 +1,74 @@
+{
+  "date": "2026-06-24",
+  "source": "ClawHub 技能追踪",
+  "ecosystem_summary": {
+    "total_skills": "13,700+",
+    "malicious_found": "824 (ClawHavoc campaign) + 341 (Koi Security find) ≈ ~20% flagged",
+    "after_purge": "~3,286 curated remain per Medium guide; ClawHub purged 2,419 suspicious packages",
+    "weekly_npm_downloads": "1.27M",
+    "security": "Now partnered with VirusTotal for automated scanning"
+  },
+  "top_skills_by_downloads": [
+    {"rank": 1, "name": "capability-evolver", "desc": "AI self-evolution engine"},
+    {"rank": 2, "name": "wacli", "desc": "CLI tool for agents"},
+    {"rank": 3, "name": "byterover", "desc": "Multi-purpose task handler"},
+    {"rank": 4, "name": "self-improving-agent", "desc": "Self-improving framework (highest star rating)"},
+    {"rank": 5, "name": "atxp", "desc": "Advanced utility tool"},
+    {"rank": 6, "name": "gog", "desc": "Development tool"},
+    {"rank": 7, "name": "agent-browser", "desc": "Browser automation"},
+    {"rank": 8, "name": "summarize", "desc": "Text summarization"},
+    {"rank": 9, "name": "github", "desc": "GitHub integration"},
+    {"rank": 10, "name": "weather", "desc": "Weather info"},
+    {"rank": 11, "name": "humanize-ai-text", "desc": "AI text humanization"},
+    {"rank": 12, "name": "tavily-web-search", "desc": "Advanced web search"},
+    {"rank": 13, "name": "find-skills", "desc": "Skill discovery tool"},
+    {"rank": 14, "name": "proactive-agent", "desc": "Proactive task execution"},
+    {"rank": 15, "name": "obsidian", "desc": "Obsidian notes integration"}
+  ],
+  "notable_new_or_trending": [
+    "AI Persona OS — new drop on ClawHub (Facebook post, June 2026)",
+    "self-improving-agent — top-rated, already installed",
+    "agent-browser — browser automation skill, already installed",
+    "proactive-agent — autonomous task execution, already installed",
+    "find-skills — skill discovery for agents"
+  ],
+  "security_alerts": {
+    "ClawHavoc_campaign": "824 malicious skills, one package had 14,285 downloads before takedown",
+    "Koi_Security_find": "341 malicious skills — 335 fake prerequisites installing Atomic Stealer (macOS), reverse shell backdoors in functional code, credential exfiltration via webhook",
+    "academic_paper": "arXiv 2604.13064 — >30% crawled skills flagged suspicious/malicious; English skills infrastructure-oriented, Chinese skills application-oriented",
+    "advice": "Always vet skills before install (check author, recent updates, read SKILL.md for suspicious network calls)"
+  },
+  "already_installed_skills": [
+    "proactive-agent",
+    "agent-browser",
+    "find-skills",
+    "github",
+    "weather",
+    "tavily (tavily-web-search)",
+    "self-improving (self-improving-agent)",
+    "obsidian"
+  ],
+  "installation_recommendations": [
+    {
+      "skill": "capability-evolver",
+      "priority": "low",
+      "reason": "Self-evolution engine — interesting but overlap with self-improving-agent already installed"
+    },
+    {
+      "skill": "summarize",
+      "priority": "medium",
+      "reason": "Text summarization — already have doc-summarize-pro as local skill, but this could be lighter weight"
+    },
+    {
+      "skill": "humanize-ai-text",
+      "priority": "medium",
+      "reason": "Could be useful for blog/social content where output needs to sound less AI-generated"
+    },
+    {
+      "skill": "auto-updater-skill",
+      "priority": "low",
+      "reason": "Automatic skill update manager — might be useful but need to review security first"
+    }
+  ],
+  "verdict": "Ecosystem growing fast (13,700+ skills) but security is a real concern (~20% malicious). Our current installed skills cover the essential categories. No urgent new installations needed. Consider humanize-ai-text or summarize if specific use case arises. Always vet with skill-vetter before installing new community skills."
+}
