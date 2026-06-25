@@ -1,5 +1,5 @@
 {
-  "lastRun": "2026-06-25T04:00:17.945Z",
+  "lastRun": "2026-06-25T04:10:49.399Z",
   "lastRunDate": "2026-06-25",
   "categories": [
     {
@@ -47,7 +47,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 119,
+      "totalAvailable": 120,
       "errors": [
         "少数派: HTTP 403: https://rsshub.app/sspai/index",
         "Tech in Asia: HTTP 301: https://www.techinasia.com/feed/",
