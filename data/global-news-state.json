@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-06-24T04:11:16.709Z",
-  "lastRunDate": "2026-06-24",
+  "lastRun": "2026-06-25T04:00:17.945Z",
+  "lastRunDate": "2026-06-25",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 191,
+      "totalAvailable": 238,
       "errors": [
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
@@ -14,8 +14,7 @@
         "AP News: HTTP 403: https://rsshub.app/apnews/topics/ap-top-news",
         "联合早报: HTTP 404: https://www.zaobao.com.sg/rss/news/china.xml",
         "南华早报: HTTP 301: https://www.scmp.com/rss/91/feed",
-        "韩民族日报: HTTP 403: https://english.hani.co.kr/rss/",
-        "中东观察: TIMEOUT: Request timeout after 30000ms: https://www.middleeastmonitor.com/feed/"
+        "韩民族日报: HTTP 403: https://english.hani.co.kr/rss/"
       ]
     },
     {
@@ -48,7 +47,7 @@
     {
       "category": "technology",
       "itemsCount": 5,
-      "totalAvailable": 120,
+      "totalAvailable": 119,
       "errors": [
         "少数派: HTTP 403: https://rsshub.app/sspai/index",
         "Tech in Asia: HTTP 301: https://www.techinasia.com/feed/",
