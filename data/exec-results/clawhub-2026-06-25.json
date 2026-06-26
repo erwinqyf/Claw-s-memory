@@ -1,0 +1,80 @@
+{
+  "date": "2026-06-25",
+  "source": "ClawHub 技能追踪",
+  "ecosystem_summary": {
+    "total_skills": "13,700+",
+    "security_threat_pct": "~10-20% flagged suspicious/malicious across multiple studies",
+    "last_notable_event": "Unit 42 (Palo Alto Networks) published analysis confirming persistent malicious skills on ClawHub post-VirusTotal integration (Feb-May 2026)"
+  },
+  "newly_noted_skills_or_sources": [
+    {
+      "name": "Skill Vetter (clawhub)",
+      "source": "betterclaw.io",
+      "installs": "~256K",
+      "note": "Ranked #1 overall — scans skills for red flags. We already do this manually with our local skill-vetter skill.",
+      "action": "no install needed"
+    },
+    {
+      "name": "Ontology Memory",
+      "source": "betterclaw.io",
+      "installs": "~188K",
+      "note": "Persistent long-term memory across sessions. Interesting but we already use file-based MEMORY.md approach.",
+      "action": "no install needed"
+    },
+    {
+      "name": "Felo Search",
+      "source": "betterclaw.io",
+      "installs": "~145K",
+      "note": "AI-optimized web search with citations — we already have Tavily for this.",
+      "action": "no install needed"
+    },
+    {
+      "name": "Veryfi (OCR)",
+      "source": "veryfi.com",
+      "installs": "new, growing",
+      "note": "OCR/document processing skill — could be useful for receipt/invoice processing if needed.",
+      "action": "low priority, no install atm"
+    },
+    {
+      "name": "mcporter",
+      "source": "transcriptapi.com",
+      "installs": "trending developer pick",
+      "note": "Teaches agents to interact with MCP (Model Context Protocol) servers — bridge skill.",
+      "action": "potentially useful if we adopt MCP tools, monitor"
+    },
+    {
+      "name": "ClawScan + NVIDIA analysis",
+      "source": "Unit 42 / Palo Alto",
+      "installs": "platform-level tool",
+      "note": "ClawHub now runs NVIDIA analysis tool on all skills and has ClawScan code analysis. Not a user-installable skill."
+    }
+  ],
+  "security_alerts": {
+    "Unit_42_update": "Palo Alto Networks found 5 unblocked malicious skills post-VirusTotal integration (Feb-May 2026) — 3 threat categories leveraging AI supply chain",
+    "ongoing_risk": "Despite VirusTotal + ClawScan, malicious skills still slip through. Always vet before install."
+  },
+  "already_installed_skills_in_use": [
+    "skill-vetter (local copy)",
+    "proactive-agent",
+    "agent-browser",
+    "find-skills",
+    "github",
+    "weather",
+    "tavily",
+    "self-improving-agent",
+    "obsidian"
+  ],
+  "installation_recommendations": [
+    {
+      "skill": "Veryfi (OCR)",
+      "priority": "low",
+      "reason": "Document/OCR processing — install if need arises for receipt/invoice/PDF data extraction"
+    },
+    {
+      "skill": "mcporter (MCP bridge)",
+      "priority": "monitor",
+      "reason": "MCP protocol bridge — emerging trend, worth watching but not urgent"
+    }
+  ],
+  "verdict": "Ecosystem at 13,700+ skills, growing fast. No new must-install skills surfaced today. Latest security finding from Unit 42 confirms persistent supply chain risks despite platform countermeasures. Current skill set remains solid for our needs. Recommend checking back weekly."
+}

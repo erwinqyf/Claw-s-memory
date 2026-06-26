@@ -1,0 +1,95 @@
+{
+  "date": "2026-06-26",
+  "source": "ClawHub 技能追踪",
+  "ecosystem_overview": {
+    "total_skills": "13,700+",
+    "malicious_found_jan2026": 341,
+    "key_security_alert": "Trail of Bits (2026-06-03) bypassed ClawHub scanner with .pyc poisoning / prompt injection / docx indirection — manual vetting still essential"
+  },
+  "top_installed_skills": [
+    {
+      "name": "Skill Vetter",
+      "installs": "~256K",
+      "description": "扫描技能的红旗标记",
+      "value": "✅ 已有，建议保持最新",
+      "recommendation": "already_installed"
+    },
+    {
+      "name": "GitHub",
+      "installs": "~189K",
+      "description": "管理仓库、issues、PRs、webhooks",
+      "value": "✅ 已有",
+      "recommendation": "already_installed"
+    },
+    {
+      "name": "Ontology Memory",
+      "installs": "~188K",
+      "description": "跨会话持久化长期记忆",
+      "value": "高 — 补充 MEMORY.md 的语义记忆能力",
+      "recommendation": "consider"
+    },
+    {
+      "name": "Google Workspace (gog)",
+      "installs": "~185K",
+      "description": "Gmail, Calendar, Docs, Sheets",
+      "value": "中 — 如果需要 Google 集成",
+      "recommendation": "if_needed"
+    },
+    {
+      "name": "Felo Search",
+      "installs": "~145K",
+      "description": "AI优化搜索 + 引用溯源",
+      "value": "中 — 已有多搜索工具，价值不大",
+      "recommendation": "skip"
+    },
+    {
+      "name": "Telegram Notify",
+      "installs": "High",
+      "description": "手机端与agent交互",
+      "value": "高 — 如果有 Telegram 需求",
+      "recommendation": "consider"
+    },
+    {
+      "name": "Web Browser",
+      "installs": "High",
+      "description": "无头浏览器自动化",
+      "value": "⚠️ 已安装 agent-browser skill",
+      "recommendation": "already_installed"
+    },
+    {
+      "name": "SSH Manager",
+      "installs": "High",
+      "description": "用自然语言管理远程服务器",
+      "value": "中 — 当前远程管理需求不高",
+      "recommendation": "skip"
+    }
+  ],
+  "notable_trends_and_news": [
+    "ClawHub 技能总量突破 13,700+，月增长约 2,000",
+    "安全形势严峻：Trail of Bits 6月发报告称 ClawHub 官方扫描器可以轻易绕过",
+    "推荐策略：先装3个核心skill（Memory + Search + Vetter），跑一周再扩展",
+    "社区推荐 100/3 规则：选择 100+ 下载量、上架 3+ 个月的 skill"
+  ],
+  "recommended_actions": [
+    {
+      "action": "评估 Ontology Memory skill",
+      "reason": "语义级长期记忆能显著提升跨会话连贯性",
+      "risk": "低"
+    },
+    {
+      "action": "保持 Skill Vetter 更新",
+      "reason": "Trail of Bits 指出扫描器有漏洞，但 Vetter 仍是最佳第一道防线",
+      "risk": "低"
+    },
+    {
+      "action": "检查已有 skills 是否有新版本",
+      "reason": "安全补丁和功能改进持续发布",
+      "risk": "低"
+    }
+  ],
+  "metadata": {
+    "generated_at": "2026-06-26T08:08:00+08:00",
+    "query_sources": ["betterclaw.io", "aiskill.market", "trailofbits blog", "medium guide"],
+    "agent": "ClawHub追踪 cron任务"
+  }
+}

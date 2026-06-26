@@ -1,0 +1,230 @@
+{
+  "date": "2026-06-26",
+  "notes": "Job monitoring: Content/Localization/Translation. Compared with baseline from 2026-06-24 (21 jobs).",
+  "keywordsSearched": [
+    "content manager job 2026 hiring",
+    "localization specialist job 2026 hiring",
+    "translation manager job 2026",
+    "technical writer job 2026 hiring",
+    "UX writer job 2026",
+    "AI content manager job 2026",
+    "content strategist job 2026 hiring",
+    "localization program manager job 2026",
+    "developer relations job 2026 hiring",
+    "knowledge management job 2026"
+  ],
+  "previousBaseline": "job-search-2026-06-24.json (21 jobs)",
+  "marketInsights": {
+    "contentJobs_WorkingInContent_Jun25": "552 Content Jobs – 91 New – 25 June 2026",
+    "technicalWriterJobs_WorkingInContent_Jun26": "170+ Technical Writer Jobs active",
+    "uxWriterJobs_WorkingInContent_Jun26": "32+ UX Writer Jobs active",
+    "contentStrategistJobs_WorkingInContent_Jun25": "196 Content Strategist Jobs – 39 New – 25 June 2026",
+    "localizationPM_Glassdoor_Jun26": "20+ Remote Localization PM jobs on Glassdoor",
+    "localizationPM_ZipRecruiter": "1000+ Localization jobs on ZipRecruiter",
+    "devRel_Tether_Web3": "Tether hiring DevRel P2P $115k-$138k (Amsterdam/Madrid/London)",
+    "uber_LocalizationPM_AI": "Uber Sr Localization Program Manager, Multilingual AI - Sunnyvale - $167k-185.5k/yr",
+    "localization_LinkedIn": "594 Localization Specialist jobs, 1000+ Localization Tester in US"
+  },
+  "newJobs": [
+    {
+      "title": "Sr. Content Designer",
+      "company": "Rivian",
+      "location": "Irvine, CA",
+      "type": "Full-time",
+      "salary": "$121k-175k/yr",
+      "link": "https://workingincontent.com/jobs/rivian-sr-content-designer-8dc121",
+      "postedDate": "June 25, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content designer", "Rivian", "Irvine", "EV", "senior"]
+    },
+    {
+      "title": "Trailhead Content Strategist, Product Enablement",
+      "company": "Salesforce",
+      "location": "Mexico City, MX",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://careers.salesforce.com/en/jobs/jr346778/trailhead-content-strategist-product-enablement",
+      "postedDate": "June 25, 2026",
+      "source": "salesforce.com",
+      "tags": ["content strategist", "Salesforce", "Trailhead", "Mexico City"]
+    },
+    {
+      "title": "Senior Content Strategist & Writer",
+      "company": "Stoke",
+      "location": "Remote",
+      "type": "Contract",
+      "salary": "$80/h",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 25, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "remote", "contract"]
+    },
+    {
+      "title": "Website Copywriter / Content Strategist",
+      "company": "N4 Studio®",
+      "location": "Remote",
+      "type": "Part-Time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 25, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "remote", "part-time"]
+    },
+    {
+      "title": "UX Content Strategist",
+      "company": "Charter Global",
+      "location": "New York City, NY",
+      "type": "Contract",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 25, 2026",
+      "source": "workingincontent.com",
+      "tags": ["UX", "content strategist", "NYC", "contract"]
+    },
+    {
+      "title": "Senior Content Strategist",
+      "company": "Level Agency",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 25, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "remote", "agency"]
+    },
+    {
+      "title": "Content Strategist & Senior Copywriter",
+      "company": "Julia Balfour, LLC",
+      "location": "Remote",
+      "type": "Contract",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 25, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "remote", "contract", "copywriting"]
+    },
+    {
+      "title": "Senior Content Strategist",
+      "company": "Compass Group USA",
+      "location": "Charlotte, NC",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 25, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "Charlotte", "food service"]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "Bellweather Agency",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "$75k-85k/yr",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 18, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "remote", "agency"]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "Codekeeper",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 25, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "remote", "tech"]
+    },
+    {
+      "title": "Content Strategist",
+      "company": "Hire Feed",
+      "location": "Remote",
+      "type": "Contract",
+      "salary": "$11-25/h",
+      "link": "https://workingincontent.com/content-strategist-jobs",
+      "postedDate": "June 25, 2026",
+      "source": "workingincontent.com",
+      "tags": ["content strategist", "remote", "contract"]
+    },
+    {
+      "title": "Technical Content Writer",
+      "company": "Alphabin",
+      "location": "Surat, IN",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://workingincontent.com/technical-writer-jobs",
+      "postedDate": "June 26, 2026",
+      "source": "workingincontent.com",
+      "tags": ["technical writer", "Surat", "India"]
+    },
+    {
+      "title": "Senior Localization Program Manager, Multilingual AI",
+      "company": "Uber",
+      "location": "Sunnyvale, CA",
+      "type": "Full-time",
+      "salary": "$167k-185.5k/yr",
+      "link": "https://www.uber.com/global/en/careers/list/158723",
+      "postedDate": "June 2026",
+      "source": "uber.com",
+      "tags": ["localization", "AI", "Uber", "Sunnyvale", "senior", "program manager"]
+    },
+    {
+      "title": "Developer Relations Lead",
+      "company": "Truffle Security",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://startup.jobs/developer-relations-lead-truffle-security-8372370",
+      "postedDate": "June 2026",
+      "source": "startup.jobs",
+      "tags": ["devrel", "security", "remote", "lead"]
+    },
+    {
+      "title": "Principal Developer Ecosystem Advocate (AI Agentic Development)",
+      "company": "Progress",
+      "location": "Remote (US)",
+      "type": "Full-time",
+      "salary": "$184k-287.5k/yr",
+      "link": "https://migratemate.co/developer-relations-manager-jobs",
+      "postedDate": "June 2026",
+      "source": "migratemate.co",
+      "tags": ["devrel", "AI", "remote", "senior", "high salary"]
+    },
+    {
+      "title": "Member of Technical Staff, Developer Relations",
+      "company": "Inferact",
+      "location": "Remote",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://startup.jobs/member-of-technical-staff-developer-relations-inferact-8280045",
+      "postedDate": "June 2026",
+      "source": "startup.jobs",
+      "tags": ["devrel", "remote", "AI"]
+    },
+    {
+      "title": "Knowledge Management Specialist",
+      "company": "Duke University (DUMAC)",
+      "location": "Durham, NC",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://careers.duke.edu/job/Durham-Knowledge-Management-Specialist-NC-27710/1387456800",
+      "postedDate": "June 2026",
+      "source": "duke.edu",
+      "tags": ["knowledge management", "Duke", "Durham", "document management"]
+    },
+    {
+      "title": "Knowledge Management Senior Specialist (GenAI Focus)",
+      "company": "Foley (Law Firm)",
+      "location": "Chicago, IL",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://careers-foley.icims.com/jobs/3507/knowledge-management-senior-specialist/job",
+      "postedDate": "June 2026",
+      "source": "foley.com",
+      "tags": ["knowledge management", "Chicago", "GenAI", "legal", "senior"]
+    }
+  ],
+  "totalNew": 18,
+  "note": "Compared to 2026-06-24 baseline (21 positions). This round adds 18 newly identified positions. Notable: Rivian Sr Content Designer ($121k-175k), Salesforce Trailhead Content Strategist (Mexico City), Uber Sr Localization PM Multilingual AI ($167k-185k/yr), Progress DevRel ($184k-287.5k/yr). Market: workingincontent.com shows 552 Content Jobs (+91 new), 196 Content Strategist Jobs (+39 new) as of June 25."
+}

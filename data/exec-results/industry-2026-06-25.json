@@ -1,0 +1,56 @@
+{
+  "date": "2026-06-25",
+  "trends": [
+    {
+      "title": "66% 企业领袖认为 AI 翻译质量已超越人类口译员",
+      "summary": "Wordly 与 Dimensional Research 联合发布的《2026 AI翻译与字幕现状报告》显示：205位英美企业领袖中，66%认为AI翻译质量已超越人类口译员，仅25%仍偏好人类。88%的企业在过去一年增加了口译或字幕使用量。AI聊天机器人已成为买家调研翻译工具的主要渠道。语言支持从"锦上添花"变为会议标配。",
+      "source": "Wordly",
+      "link": "https://www.wordly.ai/research/state-of-ai-translation-2026",
+      "category": "AI"
+    },
+    {
+      "title": "DigitalTolk 收购 Hieronymus，布局高安全等级法律口译",
+      "summary": "MultiLingual 周报报道：DigitalTolk 收购 Hieronymus Ltd，提供面向法律工作流的安全多语种服务。AMN Healthcare 收购 Jaide Health，将实时AI口译与人类医疗专业结合。表明医疗与法律领域的人机协同口译整合加速。",
+      "source": "MultiLingual Media",
+      "link": "https://www.youtube.com/watch?v=Vhpp9pHcVHc",
+      "category": "M&A"
+    },
+    {
+      "title": "Phrase 重大更新：企业AI可实时调用品牌风格指南",
+      "summary": "Phrase 部署重大平台更新，使企业AI模型能够实时访问品牌风格指南（brand style guides），确保AI生成翻译在品牌一致性上符合要求。这标志着从"通用机器翻译"向"品牌感知型AI翻译"的升级。",
+      "source": "MultiLingual Media / Phrase",
+      "link": "https://www.youtube.com/watch?v=Vhpp9pHcVHc",
+      "category": "technology"
+    },
+    {
+      "title": "Pairaphrase 获16州K-12学校AI翻译大单",
+      "summary": "Pairaphrase AI翻译平台获得一项覆盖16个州的大规模协议，允许K-12学校在不暴露敏感数据的情况下使用受监管的AI翻译。标志着教育领域对受控AI翻译的大规模采纳。",
+      "source": "MultiLingual Media / Pairaphrase",
+      "link": "https://www.youtube.com/watch?v=gGCd1GJIII4",
+      "category": "market"
+    },
+    {
+      "title": "「按字计价」模式走向终结，行业转向基于结果的风险定价",
+      "summary": "Lokalise 集结7位行业顶级专家预测：传统按字计费模式将在2026年消亡。高风险的品牌/法律/UI内容将按"风险层级"溢价收费（人类为结果负责），低风险内容走自动化低费率。本地化团队角色将进化为「AI运营（AI Ops）」部门。",
+      "source": "Lokalise Blog",
+      "link": "https://lokalise.com/blog/7-bold-predictions-for-the-future-of-localization-in-2026",
+      "category": "market"
+    },
+    {
+      "title": "Crowdin 发布 Re-Translation 功能：管理AI模型持续迭代中的人工编辑",
+      "summary": "Crowdin 推出全新 Re-Translation 功能，在不覆盖人工编辑的基础上管理AI模型的持续迭代更新——解决「AI模型更新后之前的人工修改丢失」这一行业痛点。",
+      "source": "MultiLingual Media / Crowdin",
+      "link": "https://www.youtube.com/watch?v=Vhpp9pHcVHc",
+      "category": "technology"
+    },
+    {
+      "title": "EAMT 2026 大会在荷兰蒂尔堡举办（6月15-18日）",
+      "summary": "第26届欧洲机器翻译协会年会 (EAMT 2026) 于6月15-18日在荷兰蒂尔堡举行。TAUS 大规模多语种AI大会已于6月3-5日在罗马召开。SlatorCon London 2026 提出「整体本地化（holistic localization）」概念，强调本地化需变得更战略性。",
+      "source": "GALA / TAUS / Slator",
+      "link": "https://www.gala-global.org/news",
+      "category": "conference"
+    }
+  ],
+  "totalItems": 7,
+  "topTrend": "AI翻译质量已获得企业市场主流认可（66%认为优于人类），行业从「要不要用AI」进入「如何管控AI」阶段：品牌感知型AI翻译、按风险定价、AI运营岗崛起、教育/法律/医疗领域垂直整合加速"
+}
