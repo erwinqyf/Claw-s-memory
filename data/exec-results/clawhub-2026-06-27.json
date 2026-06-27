@@ -1,0 +1,69 @@
+{
+  "date": "2026-06-27",
+  "source": "ClawHub 技能追踪 cron",
+  "ecosystem_overview": {
+    "total_skills": "13,000+ registered (post-purge ~3,286 remain)",
+    "security_concerns": "持续：Unit 42 2026年2-5月发现5个恶意技能绕过ClawScan/VirusTotal筛查。Snyk审计标记13.4%有安全问题。341个技能被确认窃取数据。",
+    "trend": "NVIDIA 已与 OpenClaw 合作提供技能安全分析，平台安全在改善但仍需警惕"
+  },
+  "top_downloaded_skills": [
+    {"name": "web-browsing", "installs": "180,000+", "category": "基础", "note": "最基础技能，页面导航与内容提取"},
+    {"name": "telegram", "installs": "145,000+", "category": "通信", "note": "Telegram Bot 集成"},
+    {"name": "capability-evolver", "installs": "高", "category": "AI", "note": "AI自进化引擎"},
+    {"name": "wacli", "installs": "高", "category": "CLI", "note": "通用CLI工具"},
+    {"name": "self-improving-agent", "installs": "高", "category": "AI", "note": "自改进Agent框架"},
+    {"name": "agent-browser", "installs": "高", "category": "浏览器", "note": "浏览器自动化"},
+    {"name": "github", "installs": "高", "category": "开发", "note": "GitHub集成"},
+    {"name": "summarize", "installs": "高", "category": "文本", "note": "智能摘要"},
+    {"name": "tavily-web-search", "installs": "高", "category": "搜索", "note": "Tavily搜索"},
+    {"name": "proactive-agent", "installs": "高", "category": "AI", "note": "主动任务执行框架"}
+  ],
+  "new_notable_skills_2026": [
+    {
+      "name": "felo-search",
+      "publisher": "Felo AI",
+      "category": "搜索",
+      "highlight": "AI合成答案+来源引用，支持中英日韩，多语言优势明显",
+      "value_assessment": "中高 — 我们的搜索需求目前由built-in web_search覆盖，但felo的AI合成答案能减少搜索轮次"
+    },
+    {
+      "name": "felo-slides",
+      "publisher": "Felo AI",
+      "category": "演示",
+      "highlight": "AI自动生成PPT幻灯片",
+      "value_assessment": "中 — 已有ppt-generator skill，除非需要在线协作"
+    },
+    {
+      "name": "veryfi",
+      "publisher": "Veryfi",
+      "category": "OCR/票据",
+      "highlight": "OCR扫描、发票/收据数据提取",
+      "value_assessment": "低 — 当前无相关需求"
+    }
+  ],
+  "installed_skills_health": {
+    "already_installed": [
+      "agent-browser", "find-skills", "github", "proactive-agent",
+      "self-improving", "tavily", "weather", "ppt-generator",
+      "doc-summarize-pro", "deep-research-pro", "diagram-maker",
+      "feishu-doc-manager", "weekly-report-generator"
+    ],
+    "status": "我们的技能栈覆盖了大部分高价值类别，无需急迫新增"
+  },
+  "recommendations": {
+    "consider_installing": [
+      {
+        "skill": "felo-search",
+        "reason": "多语言AI搜索+引用，补全web_search单一来源的不足",
+        "risk": "需 FELO_API_KEY，但当前免费开放"
+      }
+    ],
+    "skip": [
+      "capability-evolver — 描述模糊，安全性不透明",
+      "humanize-ai-text — 与我们风格定位无关",
+      "free-ride — 名称可疑，可能有安全风险",
+      "auto-updater-skill — 自动化更新可能引入未审计的变更"
+    ],
+    "general_advice": "安全优先：安装前检查VirusTotal、作者信誉、权限范围。当前技能栈已成熟，不建议盲目新增。"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "date": "2026-06-27",
+  "generatedAt": "2026-06-27T11:04:00+08:00",
+  "trends": [
+    {
+      "title": "DigitalTolk 收购 Hieronymus Ltd，打造欧洲全栈语言服务集团",
+      "summary": "瑞典增长最快的语言服务公司 DigitalTolk 宣布收购瑞士顶级法律翻译公司 Hieronymus Ltd，这是该公司一年内的第二次战略收购（此前于 2025 年 7 月收购了 24translate）。Hieronymus 以"持证律师审核翻译"模式在高端法律金融翻译领域独树一帜，交易后将继续保持独立品牌运营。新集团将覆盖从 AI 辅助翻译到最高标准认证法律翻译的全谱系服务能力，组合包括 DigitalTolk 的 AI 口笔译技术（覆盖 210+ 语言）、24translate 的金融保险翻译网络（7000+ 译员），以及 Hieronymus 的瑞士顶级法律翻译团队。",
+      "source": "Slator",
+      "link": "https://slator.com/digitaltolk-building-europes-full-spectrum-language-solutions-integrator",
+      "category": "M&A"
+    },
+    {
+      "title": "AMN Healthcare 收购 Jaide Health，AI 医疗口笔译再下一城",
+      "summary": "美国最大医疗人力集团 AMN Healthcare 的语言服务部门收购了 AI 医疗口笔译解决方案公司 Jaide Health。该交易旨在不替换人类医学口译员的前提下，用 AI 技术覆盖患者就诊前（预约、登记）和就诊后（出院指导、随访）的语言服务缺口，为英语能力有限（LEP）患者提供全旅程语言支持。AMN 语言服务已覆盖 2300 个医疗系统的 1300 万患者。这标志着医疗口译领域"AI 辅助 + 人类专业"的混合模式加速落地。",
+      "source": "GlobeNewswire / MultiLingual",
+      "link": "https://www.globenewswire.com/news-release/2026/06/09/3308895/0/en/amn-healthcare-acquires-jaide-health-to-expand-language-access-across-the-patient-journey-through-ai-technology.html",
+      "category": "M&A"
+    },
+    {
+      "title": "Sarvam AI 获 2.34 亿美元融资，印度 AI 主权语境下的语言大模型崛起",
+      "summary": "印度 AI 初创公司 Sarvam AI 完成 2.34 亿美元融资（总额将达 3 亿美元），估值 15 亿美元，跻身独角兽。HCLTech 领投 1.5 亿美元。Sarvam 专注于为印度本土语言和场景构建全栈 AI（模型+推理+应用），其多语言语音 Agent 已为印度农业部从 1700 万农民处收集数据，金融服务 Agent 服务于 35 万人的销售团队。本轮融资恰逢 Anthropic 因美国政府安全令暂停 Fable 5/Mythos 5 模型的外国使用权限，凸显了印度语种 AI 主权的重要性。",
+      "source": "TechCrunch",
+      "link": "https://techcrunch.com/2026/06/15/sarvam-becomes-indias-newest-ai-unicorn-with-234-million-funding-round-led-by-hcltech/",
+      "category": "funding"
+    },
+    {
+      "title": "Phrase 发布重大平台更新：为 AI Agent 提供实时品牌风格指南",
+      "summary": "Phrase 于 6 月 10 日发布平台增强更新，核心亮点：Style Guides（风格指南）正式商用 GA、Quality Profiles（质量画像）上线、新增 API 和 Model Context Protocol (MCP) 能力。关键创新在于通过 API 让 AI Agent 和企业系统在生成内容时实时访问品牌语境（术语、翻译记忆、质量标准），解决"AI 生成内容脱离品牌规范"的行业痛点。新推出的 Zero-Touch Localization 工作流可将翻译流程完全自动化嵌入开发环境。这代表着语言服务平台从"人工辅助工具"向"AI Agent 基础设施"的范式转变。",
+      "source": "GALA Global / MultiLingual",
+      "link": "https://www.gala-global.org/news/phrase-expands-language-intelligence-for-humans-and-ai-agents",
+      "category": "technology"
+    },
+    {
+      "title": "Rylo (原 Nagish) 获 8500 万美元融资，AI 手语翻译平台崛起",
+      "summary": "以色列初创公司 Rylo（前身为Nagish）完成 8500 万美元融资，估值约 5 亿美元。公司从最初的实时通话字幕服务升级为 AI 手语翻译平台 Rylo Sign，支持数十种手语与口语的互译。平台已覆盖 50 种语言，2026 年预计收入达 1 亿美元，目标 2028 年 10 亿美元。这笔融资标志着 AI 语言技术在高频刚需场景——听障人群通信——上的大规模商业化突破。",
+      "source": "BusinessWire / Calcalist",
+      "link": "https://www.businesswire.com/news/home/20260604498117/en/Rylo-Launches-Next-Chapter-With-%2485-Million-in-New-Funding-to-Expand-AI-Communication-Tools-for-the-Deaf-and-Hard-of-Hearing-Community",
+      "category": "funding"
+    },
+    {
+      "title": "Crowdin 推出 Re-Translation 功能：AI 模型持续进化下的翻译治理新范式",
+      "summary": "Crowdin 在 5-6 月推出 Advisors（项目配置自动审核）和 Re-Translation（一键重新翻译）两大功能。Re-Translation 解决了 AI 翻译时代的关键问题：当 AI 模型升级或流程优化后，如何在不丢失已有人工编辑的基础上刷新已发布的翻译内容。同时 Advisors 可自动检测项目设置中的缺失（截图、术语表、风格指南）并发出预警。这些功能代表了本地化平台正在从「执行工具」向「质量管理基础设施」演进。",
+      "source": "Crowdin Blog",
+      "link": "https://crowdin.com/blog/whats-new-at-crowdin-may-2026",
+      "category": "technology"
+    },
+    {
+      "title": "Terra Localizations 任命首位首席创新官，聚焦 AI 与内容运营",
+      "summary": "全球语言服务商 Terra Localizations 于 6 月 8 日晋升 Belén Agulló García 为首任 Chief Innovation Officer，她此前领导了公司的 AI、自动化、工作流优化及可扩展多语言内容运营体系建设。这一人事任命反映了语言服务行业正在将 AI 创新从项目层提升到战略层的趋势。",
+      "source": "MultiLingual Media",
+      "link": "https://x.com/multilingualmag/highlights",
+      "category": "market"
+    }
+  ],
+  "totalItems": 7,
+  "topTrend": "2026 年 6 月语言服务行业呈现三大趋势交织：M&A 交易加速（DigitalTolk 构建欧洲全栈集团、AMN Healthcare AI 医疗口译收购），AI 从辅助工具转变为行业基础设施（Phrase 为 AI Agent 提供品牌治理 API、Crowdin 推出 AI 模型刷新翻译治理），以及 Indian Language AI + 手语 AI 等垂直场景获得巨额融资（Sarvam AI 2.34 亿美元、Rylo 8500 万美元），显示资本正涌入非英语语种和特殊人群语言翻译的 AI 解决方案。"
+}
