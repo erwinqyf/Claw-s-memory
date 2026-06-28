@@ -1,0 +1,92 @@
+{
+  "date": "2026-06-28",
+  "source": "ClawHub 技能追踪 (cron)",
+  "results": [
+    {
+      "category": "overview",
+      "summary": "ClawHub 当前拥有 13,700+ 技能 (此前论文统计爬取 26,502 个)。社区仍在快速增长。安全风险依然是热点话题。",
+      "references": [
+        "https://arxiv.org/html/2604.13064v1",
+        "https://www.firecrawl.dev/blog/openclaw-skills"
+      ]
+    },
+    {
+      "category": "new_skills_notable",
+      "items": [
+        {
+          "name": "nano-banana-pro",
+          "type": "skill",
+          "publisher": "openclaw",
+          "description": "通过 Gemini 3 Pro 生成/编辑图片",
+          "date": "2026-06-20",
+          "downloads": 340200,
+          "install_value": "中 - 有图片生成需求时可装，依赖 Gemini API key",
+          "clawhub_url": "https://clawhub.ai"
+        },
+        {
+          "name": "coding-agent",
+          "type": "skill",
+          "publisher": "openclaw",
+          "description": "委托编码任务给 Codex / Claude Code / Pi agent (后台进程)",
+          "date": "2026-06-20",
+          "downloads": 340200,
+          "install_value": "高 - 如果经常做编码任务，这是 OpenClaw 官方出品，值得装",
+          "clawhub_url": "https://clawhub.ai"
+        },
+        {
+          "name": "openai-whisper",
+          "type": "skill",
+          "publisher": "openclaw",
+          "description": "本地语音转文字 (Whisper CLI, 无需 API key)",
+          "date": "2026-06-20",
+          "downloads": 340200,
+          "install_value": "中 - 有语音转录需求时可装，但依赖本地 whisper CLI",
+          "clawhub_url": "https://clawhub.ai"
+        }
+      ],
+      "note": "以上数据来自 LobeHub collection (openclaw built-ins)，下载量较大，publisher 为 openclaw 官方"
+    },
+    {
+      "category": "security_landscape",
+      "summary": "Trail of Bits 6月报告：ClawHub 恶意技能检测可被绕过 (不到1小时构思实现4个恶意技能)。Snyk 报告：280+ 技能存在凭证泄露问题(API key 明文传入 LLM context)。Unit 42 报告：1/3 以上技能标记为可疑/恶意。Arxiv 论文 (26,502 技能分析)：>30% 存在安全信号。ClawHub 已集成 VirusTotal 和 ClawScan，但绕过的可能性仍然存在。",
+      "recommendation": "安装前必须检查 VirusTotal 扫描结果，核实发布者信誉，遵循 '100/3 规则' (100+ 下载 + 3+ 月存活)。",
+      "references": [
+        "https://blog.trailofbits.com/2026/06/03/the-sorry-state-of-skill-distribution",
+        "https://snyk.io/blog/openclaw-skills-credential-leaks-research",
+        "https://unit42.paloaltonetworks.com/openclaw-ai-supply-chain-risk",
+        "https://arxiv.org/html/2604.13064v1"
+      ]
+    },
+    {
+      "category": "clawhub_new_features",
+      "items": [
+        "统一技能+插件目录: clawhub package explore/inspect",
+        "技能重命名不破坏旧链接",
+        "合并重复技能",
+        "向量搜索取代关键词搜索",
+        "本地冻结(pin)已安装技能防止覆盖",
+        "原生代码插件发布支持"
+      ]
+    },
+    {
+      "category": "recommended_for_install",
+      "items": [
+        {
+          "name": "coding-agent",
+          "priority": "high",
+          "reason": "官方出品，编码委托，当前已装类似技能可对比升级"
+        },
+        {
+          "name": "nano-banana-pro",
+          "priority": "low",
+          "reason": "图片生成功能 - 当前已有 meme-maker，非刚需"
+        }
+      ]
+    },
+    {
+      "category": "already_installed_matches",
+      "summary": "当前已安装技能覆盖了大部分核心需求 (deep-research-pro, ppt-generator, canvas, skill-creator, github, weather, weekly-report, healthcheck, doc-summarize-pro, meme-maker, spike, 等等)。本次未发现必须立即安装的新技能。"
+    }
+  ],
+  "overall_assessment": "ClawHub 生态仍在高速扩张，安全风险持续成为关注焦点。coding-agent (openclaw 官方) 是本次追踪中唯一高价值候选。其余已装技能覆盖充足。建议保持每月追踪频率。"
+}
