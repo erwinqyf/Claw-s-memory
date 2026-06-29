@@ -1,11 +1,11 @@
 {
-  "lastRun": "2026-06-28T04:10:46.254Z",
-  "lastRunDate": "2026-06-28",
+  "lastRun": "2026-06-29T04:00:41.584Z",
+  "lastRunDate": "2026-06-29",
   "categories": [
     {
       "category": "political",
       "itemsCount": 5,
-      "totalAvailable": 232,
+      "totalAvailable": 200,
       "errors": [
         "BBC World: HTTP 302: http://feeds.bbci.co.uk/news/world/rss.xml",
         "Reuters World: HTTP 301: https://www.reutersagency.com/feed/",
@@ -49,6 +49,7 @@
       "itemsCount": 5,
       "totalAvailable": 120,
       "errors": [
+        "Hacker News: TIMEOUT: Request timeout after 30000ms: https://hnrss.org/frontpage",
         "少数派: HTTP 403: https://rsshub.app/sspai/index",
         "Tech in Asia: HTTP 301: https://www.techinasia.com/feed/",
         "Rest of World: HTTP 301: https://restofworld.org/feed/"
