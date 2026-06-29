@@ -1,0 +1,153 @@
+{
+  "date": "2026-06-29",
+  "notes": "Job monitoring: Content/Localization/Translation. Compared with baseline from 2026-06-26 (18 jobs, none in China).",
+  "keywordsSearched": [
+    "content manager China remote job 2026",
+    "localization specialist China remote job 2026",
+    "translation manager China remote job 2026",
+    "technical writer China remote job 2026",
+    "UX writer China remote job 2026",
+    "AI content manager China remote job 2026",
+    "content strategist China remote job 2026",
+    "localization program manager China remote job 2026",
+    "developer relations China remote job 2026",
+    "knowledge management China remote job 2026",
+    "UX writer content designer Shanghai Beijing job 2026",
+    "content localization manager Shanghai hiredchina 2026",
+    "Binance OKX crypto localization Chinese remote job 2026",
+    "\"localization\" \"China\" OR \"Shanghai\" OR \"Beijing\" remote job June 2026",
+    "localization specialist translator content strategist Shanghai Beijing remote hiring June 2026",
+    "technical writer Chinese English bilingual remote job 2026",
+    "Welocalize English Chinese translator localization remote 2026"
+  ],
+  "previousBaseline": "job-search-2026-06-26.json (18 jobs, none China-based)",
+  "marketInsights": {
+    "contentStrategistJobs_WorkingInContent_Jun28": "174 Content Strategist Jobs – 18 New – 28 June 2026",
+    "technicalWriterJobs_WorkingInContent_Jun27": "155 Technical Writer Jobs – 14 New – 27 June 2026",
+    "localizationJobs_Glassdoor_China_Jun29": "299 localization Jobs in China on Glassdoor",
+    "localizationJobs_Glassdoor_Shanghai_Jun29": "117 localization Jobs in Shanghai on Glassdoor",
+    "localizationPM_Glassdoor_China_Jun29": "15 Localization Program Manager jobs in China on Glassdoor",
+    "contentJobs_Glassdoor_Shanghai_Jun29": "704 content Jobs in Shanghai on Glassdoor",
+    "contentStrategist_Glassdoor_China_Jun29": "12 Content Strategist jobs in China on Glassdoor",
+    "technicalWriter_Glassdoor_China_Jun29": "13 Technical Writer jobs in China on Glassdoor",
+    "remoteJobs_Glassdoor_China_Jun29": "365 Remote jobs in China on Glassdoor",
+    "remoteChinaJobs_ZipRecruiter_Jun29": "449 Remote China jobs on ZipRecruiter",
+    "remoteChineseLocalization_ZipRecruiter_Jun29": "15 Remote Chinese Localization jobs ($40-$57/hr) on ZipRecruiter",
+    "remoteLocalization_DailyRemote_Jun29": "13 Remote Localization Manager jobs on DailyRemote",
+    "chineseWritingRemote_Glassdoor_Jun29": "221 Chinese Writing jobs in Remote on Glassdoor"
+  },
+  "newJobs": [
+    {
+      "title": "Localization Project Manager (Contract)",
+      "company": "Andovar",
+      "location": "Shanghai",
+      "type": "Contract",
+      "salary": "25K-40K RMB/月",
+      "link": "https://www.facebook.com/groups/jobsinshanghai/posts/746090452225581",
+      "postedDate": "June 2026",
+      "source": "Facebook/Jobs in Shanghai",
+      "tags": ["localization", "project manager", "Shanghai", "contract", "Andovar"]
+    },
+    {
+      "title": "Multilingual Localization Project Manager",
+      "company": "上海秀群信息技术 (Cherish)",
+      "location": "Beijing (On-site)",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://hk.linkedin.com/jobs/view/multilingual-localization-project-manager-beijing-on-site-only",
+      "postedDate": "June 2026",
+      "source": "LinkedIn",
+      "tags": ["localization", "project manager", "Beijing", "multilingual", "on-site"]
+    },
+    {
+      "title": "Research and Knowledge Management Consultant on International Development Finance",
+      "company": "UNICEF",
+      "location": "Beijing / Remote",
+      "type": "Consultant",
+      "salary": "面议",
+      "link": "https://unjobs.org/vacancies/1782435559544",
+      "postedDate": "Closes Jul 07 2026",
+      "source": "UNjobs.org",
+      "tags": ["knowledge management", "UNICEF", "Beijing", "remote", "research", "development finance"]
+    },
+    {
+      "title": "UX Writer",
+      "company": "Aftership",
+      "location": "China",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://www.hiredchina.com/jobs/46ba1636-6b76-43be-8408-f8a33941b9c8",
+      "postedDate": "June 2026",
+      "source": "HiredChina",
+      "tags": ["UX writer", "Aftership", "China", "product"]
+    },
+    {
+      "title": "Developer Relations Engineer (DevRel) - APAC",
+      "company": "XION",
+      "location": "China (Remote)",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://www.remoterocketship.com/company/thexion/jobs/developer-relations-engineer-devrel-apac-china-remote",
+      "postedDate": "June 2026",
+      "source": "Remote Rocketship",
+      "tags": ["devrel", "developer relations", "blockchain", "APAC", "China remote"]
+    },
+    {
+      "title": "Content Arbitrage Specialist (Google Traffic / Media Buyer)",
+      "company": "Plumm Ads",
+      "location": "Remote",
+      "type": "Full-Time / Freelance",
+      "salary": "面议",
+      "link": "https://www.career-jet.cn/content-manager-jobs",
+      "postedDate": "June 2026",
+      "source": "Careerjet.cn",
+      "tags": ["content", "remote", "Google traffic", "media buyer"]
+    },
+    {
+      "title": "Chinese Translator",
+      "company": "Welo Global (Welocalize)",
+      "location": "Remote",
+      "type": "Freelance/Contract",
+      "salary": "面议",
+      "link": "https://jobs.lever.co/weloglobal/947b2763-251c-41f9-b984-70fd52280fe2",
+      "postedDate": "June 2026",
+      "source": "Lever/Welo Global",
+      "tags": ["translator", "Chinese", "Welocalize", "remote", "localization"]
+    },
+    {
+      "title": "English into Traditional Chinese freelance translator",
+      "company": "Welocalize",
+      "location": "Remote",
+      "type": "Freelance",
+      "salary": "面议",
+      "link": "https://dailyremote.com/remote-job/english-into-taiwan-traditional-chinese-clinical-documents-linguist-4986614",
+      "postedDate": "June 2026",
+      "source": "DailyRemote / Welocalize",
+      "tags": ["translator", "Chinese", "Welocalize", "remote", "life sciences"]
+    },
+    {
+      "title": "Traditional Chinese Senior Linguist",
+      "company": "Welocalize",
+      "location": "Remote",
+      "type": "Freelance/Contract",
+      "salary": "面议",
+      "link": "https://himalayas.app/companies/welocalize/jobs/traditional-chinese-senior-linguist",
+      "postedDate": "June 2026",
+      "source": "Himalayas / Welocalize",
+      "tags": ["linguist", "Chinese", "Welocalize", "remote", "senior"]
+    },
+    {
+      "title": "Field Marketing Manager China (Content Localization)",
+      "company": "Company on Glassdoor",
+      "location": "China",
+      "type": "Full-time",
+      "salary": "面议",
+      "link": "https://www.glassdoor.com/Job/china-localization-jobs-SRCH_IL.0,5_IN48_KO6,18.htm",
+      "postedDate": "June 2026",
+      "source": "Glassdoor",
+      "tags": ["content localization", "marketing", "China", "field marketing"]
+    }
+  ],
+  "totalNew": 10,
+  "note": "Compared to 2026-06-26 baseline (18 positions, none China-based). This round adds 10 newly identified positions with China relevance. Notable: Andovar Localization PM in Shanghai (25K-40K RMB), UNICEF Knowledge Management Consultant in Beijing (remote-friendly), XION DevRel APAC (China remote), Aftership UX Writer, and multiple Welocalize Chinese translator/linguist freelance roles. Market: Glassdoor shows 299 localization jobs in China (+117 in Shanghai), 13 technical writer jobs in China; workingincontent.com shows 174 Content Strategist Jobs (+18 new) as of June 28."
+}

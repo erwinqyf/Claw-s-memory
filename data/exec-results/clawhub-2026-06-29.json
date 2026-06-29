@@ -1,0 +1,50 @@
+{
+  "date": "2026-06-29",
+  "source": "ClawHub trend tracking",
+  "ecosystem": {
+    "total_skills": "~13,700+ (Firecrawl) / ~26,500+ (crawled by arXiv paper)",
+    "security": "Unit 42 flagged persistent malicious skills Feb-May 2026; ClawHub integrated VirusTotal + ClawScan + NVIDIA analysis collaboration",
+    "notable_trends": "SKILL.md open format being adopted by Claude Code, Codex CLI, ChatGPT (LobeHub)"
+  },
+  "newly_notable_skills_2026": [
+    {
+      "name": "fast-io",
+      "author": "dbalve",
+      "category": "File/Storage",
+      "description": "Persistent storage and context management for agents",
+      "install": "clawhub install dbalve/fast-io",
+      "recommendation": "skip — already covered by workspace skills stack"
+    },
+    {
+      "name": "telegram-notify",
+      "author": "community",
+      "category": "Notifications",
+      "description": "Send formatted messages to Telegram channels",
+      "recommendation": "skip — not using Telegram as primary channel"
+    },
+    {
+      "name": "Veryfi (OCR/Document AI)",
+      "author": "veryfi",
+      "category": "Document Processing",
+      "description": "OCR, receipt/invoice extraction, document AI",
+      "recommendation": "skip — no current business need"
+    },
+    {
+      "name": "Firecrawl (Web scraping)",
+      "author": "firecrawl",
+      "category": "Web",
+      "description": "Web scraping and content extraction for agents",
+      "recommendation": "skip — web_fetch + web_search already cover this"
+    }
+  ],
+  "security_alerts": [
+    "Unit 42 found 5 unblocked malicious skills Feb-May 2026 (infostealer categories)",
+    ">30% of crawled skills flagged suspicious/malicious per arXiv study",
+    "Always check VirusTotal scan + author reputation before installing new skills"
+  ],
+  "recommendations": [
+    "Current installed skill stack (24 skills) is solid; no urgent additions needed",
+    "Monitor skills.sh and ClawHub trending weekly for useful additions",
+    "If document OCR becomes needed, Veryfi skill is a candidate"
+  ]
+}
