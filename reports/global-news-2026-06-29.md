@@ -1,6 +1,6 @@
 # 全球新闻汇总 2026-06-29
 
-**生成时间:** 2026/6/29 12:00:41 (Asia/Shanghai)
+**生成时间:** 2026/6/29 12:10:44 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
@@ -12,27 +12,27 @@
    - 时间：06/29 11:03
    - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/29/putin-says-ukraine-proposed-halt-to-deep-strikes?traffic_source=rss)
 
-2. 🔥 **US says Iran talks to continue, with 'both sides' pausing strikes**
+2. 🔥🔥 **All districts in Kherson Region suffer power outage**
+   - 来源：塔斯社 | 热度：73/100
+   - 时间：06/29 11:57
+   - 摘要：Energy workers and emergency services are working on sites, Governor Vladimir Saldo says
+   - [阅读全文]()
+
+3. 🔥 **US says Iran talks to continue, with 'both sides' pausing strikes**
    - 来源：France 24 | 热度：69/100
    - 时间：06/29 10:21
    - [阅读全文](https://www.france24.com/en/middle-east/20260629-middle-east-live-lebanon-rejects-us%E2%80%93israel-framework-hezbollah-asserts-right-to-self-defence)
 
-3. 🔥 **Pakistan says retaliatory airstrikes in Afghanistan killed 25 militants**
+4. 🔥 **Pakistan says retaliatory airstrikes in Afghanistan killed 25 militants**
    - 来源：France 24 | 热度：69/100
    - 时间：06/29 10:14
    - 摘要：Pakistan has said it carried out airstrikes and ground operations in eastern Afghanistan, killing 25 militants, in re...
    - [阅读全文](https://www.france24.com/en/middle-east/20260629-pakistan-says-retaliatory-airstrikes-in-afghanistan-killed-25-militants)
 
-4. 🔥 **Armed conflict threatens Ethiopia’s ancient monasteries**
-   - 来源：France 24 | 热度：69/100
-   - 时间：06/29 06:00
-   - 摘要：Lake Tana in Ethiopia’s Amhara region was once a tourist hotspot, known for its picturesque shorelines and monasterie...
-   - [阅读全文](https://www.france24.com/en/armed-conflict-threatens-ethiopia-s-ancient-monasteries)
-
-5. 🔥 **Australian man charged with murder after Thai girl’s body found in suitcase**
+5. 🔥 **Oil prices rise as US, Iranian strikes threaten Strait of Hormuz reopening**
    - 来源：半岛电视台 | 热度：68/100
-   - 时间：06/29 11:12
-   - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/29/australian-man-charged-with-murder-after-thai-girls-body-found-in-suitcase?traffic_source=rss)
+   - 时间：06/29 11:55
+   - [阅读全文](https://www.aljazeera.com/economy/2026/6/29/oil-prices-rise-as-us-iranian-strikes-threaten-strait-of-hormuz-reopening?traffic_source=rss)
 
 ---
 
@@ -58,17 +58,17 @@
    - 时间：06/29 09:35
    - [阅读全文](https://www.cnbc.com/2026/06/29/samsung-sk-hynix-reported-1point3-reported-trillion-spending-plans.html)
 
-5. 🔥 **Everything tied to the data center is suddenly suspect. Can Big Tech fix it?**
-   - 来源：CNBC | 热度：66/100
-   - 时间：06/29 06:09
-   - [阅读全文](https://www.cnbc.com/2026/06/28/cramer-the-data-center-is-suddenly-suspect-can-big-tech-fix-it.html)
+5. 🔥 **America can't get enough of protein. The dairy industry can't keep up**
+   - 来源：CNBC | 热度：61/100
+   - 时间：06/29 05:35
+   - [阅读全文](https://www.cnbc.com/2026/06/28/america-cant-get-enough-protein-the-dairy-industry-cant-keep-up.html)
 
 ---
 
 ## 🎭 文化
 
-1. 🔥🔥 **'House of the Dragon,' Season 3, Episode 2: Honey, I'm home!**
-   - 来源：NPR Arts | 热度：74/100
+1. 🔥 **'House of the Dragon,' Season 3, Episode 2: Honey, I'm home!**
+   - 来源：NPR Arts | 热度：69/100
    - 时间：06/29 10:01
    - 摘要：In which Rhaenyra goes from grief-stricken in bed to sword-swinging in the Red Keep.
    - [阅读全文](https://www.npr.org/2026/06/28/nx-s1-5866450/house-of-the-dragon-recap-season-3-episode-2)
@@ -106,26 +106,28 @@
    - 时间：06/29 10:42
    - [阅读全文]()
 
-2. 🔥🔥 **苹果正考虑最早于2028年在其旗舰智能手机SoC中采用1.4nm工艺技术**
-   - 来源：36 氪 | 热度：78/100
-   - 时间：06/29 10:35
-   - [阅读全文]()
-
-3. 🔥🔥 **国家AI产投基金、红杉中国等押注，自变量C轮融资后估值超200亿**
-   - 来源：36 氪 | 热度：78/100
-   - 时间：06/29 10:30
-   - [阅读全文]()
-
-4. 🔥🔥 **36氪首发 | URTOPIA联创做了款智能指环，众筹已破千万元**
+2. 🔥🔥 **36氪首发 | URTOPIA联创做了款智能指环，众筹已破千万元**
    - 来源：36 氪 | 热度：73/100
    - 时间：06/29 11:43
    - 摘要：作者 | 张子怡 编辑 | 袁斯来 近日，AI可穿戴品牌AIVELA宣布完成数百万美元首轮融资. 本轮融资由线性资本领投，锋领资本跟投，智能电助力自行车品牌URTOPIA等产业方共同加注.
    - [阅读全文]()
 
-5. 🔥🔥 **36氪首发 | Ebike公司获Brizan Ventures、高秉强参与超数亿融资，要进军外骨骼市场**
+3. 🔥🔥 **36氪首发 | Ebike公司获Brizan Ventures、高秉强参与超数亿融资，要进军外骨骼市场**
    - 来源：36 氪 | 热度：73/100
    - 时间：06/29 11:38
    - 摘要：作者 | 张子怡 编辑 | 袁斯来 硬氪获悉，全球智能电助力自行车品牌「URTOPIA」近日已完成B轮融资，融资总额超2亿元人民币.
+   - [阅读全文]()
+
+4. 🔥🔥 **秋声 | 海光芯正IPO背后，卖铲生意为何越做越亏？**
+   - 来源：36 氪 | 热度：73/100
+   - 时间：06/29 11:13
+   - 摘要：本文约2500字，建议阅读5分钟 作者 | 彭孝秋 编者按：AI大爆发之际，越来越多公司走向资本市场. 每一份招股书翻动的声音里，都藏着一家公司想说与未曾明说的全部. 鉴于此，硬氪特推出「秋声」专栏.
+   - [阅读全文]()
+
+5. 🔥🔥 **36氪首发 | 「CAYE咖爷科技」完成近4亿元B轮融资，系商用全自动咖啡机赛道单笔最大规模融资**
+   - 来源：36 氪 | 热度：73/100
+   - 时间：06/29 10:18
+   - 摘要：作者 | 钟艺璇 36氪获悉，商用全自动咖啡机品牌「CAYE咖爷科技」已完成近4亿元B轮融资，本轮融资由老股东美团龙珠领投，柏睿资本、高瓴创投、苏创投等机构联合跟投. 这也是目前商用全自动咖啡机赛道规模最大的单笔融资.
    - [阅读全文]()
 
 ---
