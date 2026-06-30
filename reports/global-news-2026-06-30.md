@@ -1,37 +1,36 @@
 # 全球新闻汇总 2026-06-30
 
-**生成时间:** 2026/6/30 12:30:16 (Asia/Shanghai)
+**生成时间:** 2026/6/30 12:40:42 (Asia/Shanghai)
 **新闻时段:** 过去 24 小时
 
 ---
 
 ## 🌍 政治
 
-1. 🔥🔥 **US education faces ‘a crisis for low-wealth students’**
+1. 🔥🔥 **Nerves and tears as Germany exits World Cup on penalties**
+   - 来源：半岛电视台 | 热度：73/100
+   - 时间：06/30 12:16
+   - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/30/nerves-and-tears-as-germany-exits-world-cup-on-penalties?traffic_source=rss)
+
+2. 🔥🔥 **US education faces ‘a crisis for low-wealth students’**
    - 来源：半岛电视台 | 热度：73/100
    - 时间：06/30 11:51
    - [阅读全文](https://www.aljazeera.com/video/quotable/2026/6/30/us-education-faces-a-crisis-for-low-wealth?traffic_source=rss)
 
-2. 🔥🔥 **Police hunt for suspect after three wounded in Monaco blast**
+3. 🔥🔥 **Police hunt for suspect after three wounded in Monaco blast**
    - 来源：半岛电视台 | 热度：73/100
    - 时间：06/30 10:56
    - [阅读全文](https://www.aljazeera.com/news/2026/6/30/police-hunt-for-suspect-after-three-wounded-in-monaco?traffic_source=rss)
 
-3. 🔥🔥 **Mourners light candles after deadly German shelter shooting**
+4. 🔥🔥 **Mourners light candles after deadly German shelter shooting**
    - 来源：半岛电视台 | 热度：73/100
    - 时间：06/30 10:45
    - [阅读全文](https://www.aljazeera.com/video/newsfeed/2026/6/30/mourners-light-candles-after-deadly-german-shelter-shooting?traffic_source=rss)
 
-4. 🔥🔥 **Minibus overturns in Russia’s Altai region, five injured**
+5. 🔥🔥 **Minibus overturns in Russia’s Altai region, five injured**
    - 来源：塔斯社 | 热度：73/100
    - 时间：06/30 11:10
    - 摘要：Police are establishing the cause and circumstances of the accident
-   - [阅读全文]()
-
-5. 🔥🔥 **Iraq ready to host US-Iran talks — envoy**
-   - 来源：塔斯社 | 热度：73/100
-   - 时间：06/30 10:50
-   - 摘要：Iraqi Ambassador to Russia Dr.
    - [阅读全文]()
 
 ---
@@ -43,15 +42,15 @@
    - 时间：06/30 12:00
    - [阅读全文](https://www.cnbc.com/2026/06/30/japan-yen-falls-lowest-level-since-1986-dollar-intervention-risk.html)
 
-2. 🔥🔥 **China factory activity grows faster than expected in June on tech export demand**
-   - 来源：CNBC | 热度：71/100
-   - 时间：06/30 10:35
-   - [阅读全文](https://www.cnbc.com/2026/06/30/china-factory-activity-june-tech-export-demand-pmi-nbs.html)
-
-3. 🔥🔥 **Waymo and Uber end robotaxi pilot in Phoenix**
+2. 🔥🔥 **Waymo and Uber end robotaxi pilot in Phoenix**
    - 来源：CNBC | 热度：71/100
    - 时间：06/30 07:24
    - [阅读全文](https://www.cnbc.com/2026/06/29/waymo-uber-robotaxi-pilot-phoenix.html)
+
+3. 🔥 **China factory activity grows faster than expected in June on tech export demand**
+   - 来源：CNBC | 热度：66/100
+   - 时间：06/30 10:35
+   - [阅读全文](https://www.cnbc.com/2026/06/30/china-factory-activity-june-tech-export-demand-pmi-nbs.html)
 
 4. 🔥 **CNBC's The China Connection newsletter: U.S.-China tech rivalry heats up—in other countries**
    - 来源：CNBC | 热度：66/100
