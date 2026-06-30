@@ -1,0 +1,86 @@
+{
+  "date": "2026-06-30",
+  "source": "ClawHub trending + web search (tavily)",
+  "ecosystem": {
+    "total_skills": "~5,700+ (BetterClaw Mar 2026 estimate) / ~26,502 (arXiv paper crawl dataset)",
+    "clawhub_landing": "30 skills, 12 plugins displayed — highlights: Self-Improving Agent (3.9k★), Skill Vetter (1.2k★), Proactive Agent (814★), Agent Browser (434★), Ontology (648★), Gog/Google Workspace (933★)",
+    "security_landscape": "ClawHub now shows publisher handles, signed manifests, moderated releases, lineage tracking, SkillScan integration (391★) for security gating",
+    "format_adoption": "SKILL.md open format adopted by Claude Code, Codex CLI, ChatGPT (LobeHub)"
+  },
+  "newly_notable_skills_2026": [
+    {
+      "name": "SkillScan",
+      "author": "tokauthai",
+      "downloads": "391★ / 78K+",
+      "category": "Security",
+      "description": "Security gate for skills — every new skill MUST pass SkillScan before use",
+      "install": "clawhub install tokauthai/skillscan",
+      "recommendation": "monitor — interesting concept for automated skill vetting, but we already do manual vetting per AGENTS.md policy"
+    },
+    {
+      "name": "Ontology",
+      "author": "oswalpalash",
+      "downloads": "648★ / 191K+",
+      "category": "Memory/KG",
+      "description": "Typed knowledge graph for structured agent memory and composable skills",
+      "install": "clawhub install oswalpalash/ontology",
+      "recommendation": "skip — MEMORY.md + memory/*.md pattern already serves our needs; knowledge graph is overkill for current scale"
+    },
+    {
+      "name": "AdMapix",
+      "author": "fly0pants",
+      "downloads": "288★ / 131K+",
+      "category": "Ad Intelligence",
+      "description": "Raw data layer for ad creatives, apps, rankings, downloads/revenue",
+      "install": "clawhub install fly0pants/admapix",
+      "recommendation": "skip — no ad intelligence use case"
+    },
+    {
+      "name": "Nano Banana Pro",
+      "author": "steipete",
+      "downloads": "410★ / 104K+",
+      "category": "Image Generation",
+      "description": "Generate/edit images with Gemini 3 Pro Image",
+      "install": "clawhub install steipete/nano-banana-pro",
+      "recommendation": "skip — meme-maker skill already covers basic image needs"
+    },
+    {
+      "name": "Obsidian",
+      "author": "steipete",
+      "downloads": "436★ / 104K+",
+      "category": "Notes",
+      "description": "Work with Obsidian vaults via obsidian-cli",
+      "install": "clawhub install steipete/obsidian",
+      "recommendation": "skip — we use Markdown + workspace files, not Obsidian"
+    },
+    {
+      "name": "Multi Search Engine",
+      "author": "gpyangyoujun",
+      "downloads": "740★ / 155K+",
+      "category": "Search",
+      "description": "16 engine integration (7 CN + 9 Global) with auto-fallback",
+      "install": "clawhub install gpyangyoujun/multi-search-engine",
+      "recommendation": "skip — tavily + web_search already cover search needs"
+    }
+  ],
+  "security_highlights": [
+    "Unit 42 Palo Alto Networks published 'Trust No Skill' series on agent supply chain verification",
+    "ClawHavoc (Koi Security): 341 malicious skills found, ~12% of catalog",
+    "Trend Micro confirmed AMOS stealer distribution via fake OpenClaw skills",
+    "arXiv study: >30% of crawled skills flagged suspicious/malicious",
+    "ClawHub now shows publisher handles + org trust on skill pages"
+  ],
+  "trending_observations": [
+    "Security skills (SkillScan, Skill Vetter) gaining traction — ecosystem maturing",
+    "steipete dominates top downloads with multiple utility skills (Github, Gog/Google, Weather, Nano Pdf, Nano Banana, Obsidian)",
+    "Google Workspace (Gog) skill keeps rising — 933★",
+    "Self-Improving Agent remains #1 with 3.9K★",
+    "No breakthrough new skill this week that warrants installation"
+  ],
+  "recommendations": [
+    "Current installed skill stack remains sufficient",
+    "No urgent additions this week",
+    "If ad/marketing work becomes relevant, AdMapix is worth revisiting",
+    "Monitor SkillScan development as potential replacement for manual vetting if it gains community trust"
+  ]
+}
