@@ -1,0 +1,85 @@
+{
+  "date": "2026-07-01",
+  "source": "ClawHub trending + web search via tavily (multiple guides: pcbuildadvisor, fast.io, o-mega, agensi)",
+  "ecosystem": {
+    "total_skills": "~13,729 (Agensi May 2026) / ~5,400+ curated on Awesome OpenClaw Skills (VoltAgent)",
+    "clawhub_landing": "Self-Improving Agent (3.9k★) still #1; Skill Vetter (1.2k★); Proactive Agent (814★); Gog/Google Workspace (933★ — still rising)",
+    "security_landscape": "Snyk reported 280+ leaky skills exposing API keys/credentials in plaintext; ClawHavoc found 341 malicious skills (~12% of catalog); ClawHub now shows publisher handles + org trust indicators",
+    "format_adoption": "SKILL.md format adopted by Claude Code, Codex CLI, Cursor, ChatGPT (LobeHub) — industry standard"
+  },
+  "newly_notable_skills_2026": [
+    {
+      "name": "SkillScan",
+      "author": "tokauthai",
+      "downloads": "391★",
+      "category": "Security",
+      "description": "Security gate — every skill MUST pass SkillScan before use. Gains traction as ecosystem matures.",
+      "install": "clawhub install tokauthai/skillscan",
+      "recommendation": "monitor — already have skill-vetter installed which provides equivalent manual vetting"
+    },
+    {
+      "name": "Multi Search Engine",
+      "author": "gpyangyoujun",
+      "downloads": "740★",
+      "category": "Search",
+      "description": "16 search engines (7 CN + 9 Global) with auto-fallback. Good for cross-region search",
+      "install": "clawhub install gpyangyoujun/multi-search-engine",
+      "recommendation": "skip — tavily + web_search + deep-research-pro already cover search needs comprehensively"
+    },
+    {
+      "name": "Fastio (dbalve/fast-io)",
+      "author": "dbalve",
+      "downloads": "N/A (featured in top-10 guides)",
+      "category": "File Management / RAG",
+      "description": "Persistent storage + RAG for agents. 19 MCP tools: file upload/download, URL import, RAG chat, share management, task/worklog/annotation workflows",
+      "install": "clawhub install dbalve/fast-io",
+      "recommendation": "skip — workspace files + memory system already handle persistent storage; RAG needs not urgent"
+    },
+    {
+      "name": "AgentMail",
+      "author": "adboio",
+      "downloads": "N/A (featured in multiple guides)",
+      "category": "Communication",
+      "description": "API-first email for AI agents: programmatic inbox creation, send/receive, webhook notifications, semantic search. No IMAP/SMTP hassle",
+      "install": "clawhub install adboio/agentmail",
+      "recommendation": "skip — no programmatic email use case currently"
+    },
+    {
+      "name": "Ontology",
+      "author": "oswalpalash",
+      "downloads": "648★",
+      "category": "Memory/KG",
+      "description": "Typed knowledge graph for structured agent memory and composable skills",
+      "install": "clawhub install oswalpalash/ontology",
+      "recommendation": "skip — MEMORY.md + memory/*.md pattern sufficient"
+    },
+    {
+      "name": "Code (ivangdavila/code)",
+      "author": "ivangdavila",
+      "downloads": "N/A (featured in fast.io top-10)",
+      "category": "Development",
+      "description": "Structured coding workflow: planning → implementation → verification → testing. Enforces deliberate process, no auto-execution",
+      "install": "clawhub install ivangdavila/code",
+      "recommendation": "skip — native tools and existing skill stack already handle coding tasks effectively"
+    }
+  ],
+  "security_highlights": [
+    "Snyk: 280+ leaky skills exposed — skills instruct agents to pass API keys/passwords/credit cards through LLM context window in plaintext",
+    "ClawHavoc (Koi Security): 341 malicious skills found, ~12% of catalog",
+    "Trend Micro confirmed AMOS stealer distributed via fake OpenClaw skills",
+    "OpenClaw now supports signed manifests and moderated releases to counter supply chain risks"
+  ],
+  "trending_observations": [
+    "Security skills (SkillScan, Skill Vetter) gaining traction — ecosystem response to widespread credential leaks",
+    "Gog/Google Workspace (933★) continues rising — most versatile productivity integration",
+    "Self-Improving Agent still #1 at 3.9K★ — dominant leader",
+    "steipete consistently dominates with multiple top utility skills",
+    "No breakthrough new skill warrants installation this week"
+  ],
+  "recommendations": [
+    "Current installed skill stack remains sufficient — no urgent additions this week",
+    "Continue monitoring SkillScan as potential complement to skill-vetter if it gains community trust and active maintenance",
+    "If email automation becomes relevant later, AgentMail is the clear first choice",
+    "Maintain manual vetting per AGENTS.md policy — ClawHub's security issues are not improving fast enough to trust auto-install"
+  ]
+}
